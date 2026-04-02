@@ -54,6 +54,7 @@ export class WelcomeClaimComponent implements OnInit, OnDestroy, AfterContentIni
 
     // Step state: 1 = search, 2 = confirm
     step: number = 1;
+    isEnterMode: boolean = false;
 
     // Step 2 (confirm) state — absorbed from welcome-available
     loadingReferral: boolean = false;
@@ -77,6 +78,14 @@ export class WelcomeClaimComponent implements OnInit, OnDestroy, AfterContentIni
     }
 
     async ngOnInit(): Promise<void> {
+        this._activatedRoute.queryParams.pipe(takeUntil(this.unsubscriber$)).subscribe((params) => {
+            if (params["mode"] === "enter") {
+                this.isEnterMode = true;
+            } else {
+                this.isEnterMode = false;
+            }
+        });
+
         await this._loadDomains();
     }
 
@@ -254,9 +263,61 @@ export class WelcomeClaimComponent implements OnInit, OnDestroy, AfterContentIni
         this._tagsService
             .searchTag({ tagName, domain: domain, captchaToken: captchaToken })
             .then(async (response) => {
-                if (!response?.data.available) {
-                    await this._existingTagName(response?.data);
+                const isTaken = !response?.data.available;
 
+                if (this.isEnterMode) {
+                    if (isTaken) {
+                        // Enter Mode & Found -> set tag data and go straight to registered/login flow
+                        await this._existingTagName(response?.data);
+                        this.loading = false;
+                        await this.goToRegistered();
+                        return;
+                    } else {
+                        // Enter Mode & Available -> Not Found! The user thought they had it, so let them create it.
+                        this.isEnterMode = false; // Transition to normal claim flow organically
+                        this.loading = false;
+                        
+                        // Proceed exactly as Claim mode would when available
+                        await this._tagsService.setNewTagName(tagName);
+                        await this._tagsService.setDomain(domain);
+                        await this._tagsService.setTagResponse(response.data);
+
+                        const availableTagData = {
+                            name: tagName,
+                            available: true,
+                            publicData: {
+                                avalancheAddress: "",
+                                blockDAGAddress: "",
+                                btcAddress: "",
+                                domain: domain,
+                                ethAddress: "",
+                                expiresAt: "",
+                                hasPassword: "false",
+                                origin: "",
+                                registeredAt: "",
+                                solanaAddress: "",
+                                suiAddress: "",
+                                tagName: tagName,
+                                type: "",
+                            },
+                        };
+
+                        await this._tagsService.setTagNameObject(availableTagData);
+                        
+                        this.availabilityChecked = true;
+                        this.isAvailable = true;
+                        this.checkedTagName = tagName;
+                        
+                        setTimeout(() => {
+                            this.step = 2;
+                        }, 800);
+                        return;
+                    }
+                }
+
+                // Standard Claim logic
+                if (isTaken) {
+                    await this._existingTagName(response?.data);
                     return;
                 }
 
@@ -317,6 +378,12 @@ export class WelcomeClaimComponent implements OnInit, OnDestroy, AfterContentIni
         await this._tagsService.setFlow("create");
 
         this._router.navigate(["/security"]);
+    }
+
+    async goToRegistered(): Promise<void> {
+        await this._tagsService.setFlow("unlock");
+
+        this._router.navigate(["/welcome", "registered"]);
     }
 
     async goToImport(): Promise<void> {

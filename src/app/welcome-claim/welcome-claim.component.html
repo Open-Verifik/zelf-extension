@@ -19,8 +19,8 @@
         <!-- ═══════════════ STEP 1: Search ═══════════════ -->
         <div class="welcome-claim__step" [ngClass]="{ 'welcome-claim__step--active': step === 1, 'welcome-claim__step--exit': step === 2 }">
             <div class="welcome-claim__heading">
-                <h2 class="zelf-card__title welcome-claim__title">{{ t("welcome.choose_tag_name_title") }}</h2>
-                <p class="zelf-card__subtitle welcome-claim__subtitle">{{ t("welcome.choose_tag_name_subtitle") }}</p>
+                <h2 class="zelf-card__title welcome-claim__title">{{ isEnterMode ? (t("welcome.enter_with_zelf_id") || "Enter your Zelf ID") : t("welcome.choose_tag_name_title") }}</h2>
+                <p class="zelf-card__subtitle welcome-claim__subtitle">{{ isEnterMode ? (t("welcome.enter_tag_name_subtitle") || "Enter your existing Zelf ID to login") : t("welcome.choose_tag_name_subtitle") }}</p>
             </div>
 
             <!-- Floating Name Cards -->
@@ -162,43 +162,60 @@
             [ngClass]="{ 'welcome-claim__step--active': step === 2, 'welcome-claim__step--enter': step === 2 }"
         >
             <div class="welcome-claim__identity">
-                <div class="zelf-chip zelf-chip--success">{{ t("common.available") }}</div>
+                <div class="zelf-chip" [ngClass]="isEnterMode ? 'zelf-chip--info' : 'zelf-chip--success'">
+                    {{ isEnterMode ? (t("welcome.found") || "Found") : t("common.available") }}
+                </div>
                 <h2 class="zelf-card__title">{{ checkedTagName | zelfName }}.{{ form.get("domain")?.value || "zelf" | lowercase }}</h2>
-                <p class="zelf-card__subtitle welcome-claim__subtitle">{{ t("welcome.you_will_register_this_domain") }}</p>
+                <p class="zelf-card__subtitle welcome-claim__subtitle">
+                    {{ isEnterMode ? (t("welcome.login_to_this_domain") || "Login to access your wallet") : t("welcome.you_will_register_this_domain") }}
+                </p>
             </div>
 
             <div class="welcome-claim__divider"></div>
 
             <form [formGroup]="form" class="welcome-claim__confirm-form">
                 <div class="welcome-claim__buttons">
-                    <label class="zelf-checkbox">
-                        <input formControlName="termsAndConditions" id="termsAndConditions" name="termsAndConditions" type="checkbox" />
-                        <svg viewBox="0 0 21 21">
-                            <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
-                        </svg>
-                        <span [innerHTML]="t('common.agree_to_terms_and_conditions')"></span>
-                    </label>
+                    <ng-container *ngIf="!isEnterMode">
+                        <label class="zelf-checkbox">
+                            <input formControlName="termsAndConditions" id="termsAndConditions" name="termsAndConditions" type="checkbox" />
+                            <svg viewBox="0 0 21 21">
+                                <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
+                            </svg>
+                            <span [innerHTML]="t('common.agree_to_terms_and_conditions')"></span>
+                        </label>
 
-                    <button
-                        (click)="goToSecurity()"
-                        [disabled]="!form.get('termsAndConditions')?.value || loading || loadingReferral"
-                        class="zelf-button zelf-button--primary zelf-button--wide"
-                        mat-flat-button
-                    >
-                        {{ t("common.create_a_new_wallet") }}
-                    </button>
+                        <button
+                            (click)="goToSecurity()"
+                            [disabled]="!form.get('termsAndConditions')?.value || loading || loadingReferral"
+                            class="zelf-button zelf-button--primary zelf-button--wide"
+                            mat-flat-button
+                        >
+                            {{ t("common.create_a_new_wallet") }}
+                        </button>
 
-                    <button
-                        (click)="goToImport()"
-                        [disabled]="!form.get('termsAndConditions')?.value || loading || loadingReferral"
-                        class="zelf-button zelf-button--outlined zelf-button--wide"
-                        mat-flat-button
-                    >
-                        {{ t("common.import_a_wallet") }}
-                    </button>
+                        <button
+                            (click)="goToImport()"
+                            [disabled]="!form.get('termsAndConditions')?.value || loading || loadingReferral"
+                            class="zelf-button zelf-button--outlined zelf-button--wide"
+                            mat-flat-button
+                        >
+                            {{ t("common.import_a_wallet") }}
+                        </button>
+                    </ng-container>
+
+                    <ng-container *ngIf="isEnterMode">
+                        <button
+                            (click)="goToRegistered()"
+                            [disabled]="loading"
+                            class="zelf-button zelf-button--primary zelf-button--wide"
+                            mat-flat-button
+                        >
+                            {{ t("welcome.enter_with_zelf_id") }}
+                        </button>
+                    </ng-container>
                 </div>
 
-                <div class="welcome-claim__referral">
+                <div class="welcome-claim__referral" *ngIf="!isEnterMode">
                     <welcome-available-content
                         (clearInvalidReferralEvent)="clearInvalidReferral()"
                         (sanitizeZelfNameEvent)="sanitizeReferralName()"

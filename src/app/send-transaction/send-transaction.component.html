@@ -45,7 +45,6 @@
                 >
                     <input
                         (paste)="pastedAddress($event)"
-                        [disabled]="withdrawStep || searching"
                         [placeholder]="t('send.domain_or_address')"
                         [readonly]="withdrawStep"
                         autocomplete="off"

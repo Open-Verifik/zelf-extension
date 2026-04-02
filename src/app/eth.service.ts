@@ -9,6 +9,7 @@ import { environment } from "environments/environment";
 
 import { TransactionFeeEstimate, TransactionParams, TransactionResult } from "./core/models/transaction-fee.model";
 import { HttpWrapperService } from "./http-wrapper.service";
+import { RpcProviderService } from "./services/rpc-provider.service";
 import { EthTransaction } from "@shared/types/wallet.types";
 
 export interface ChainConfig {
@@ -30,7 +31,8 @@ export class EthereumService {
     private _account: BehaviorSubject<string> = new BehaviorSubject("");
     private _baseUrl: string = environment.apiUrl;
     private _tokens: Array<any> = [];
-    private _web3: Web3;
+    private readonly _web3Utils = new Web3().utils;
+    private readonly _web3Promise: Promise<Web3>;
 
     private _chainConfigs = {
         mainnet: {
@@ -57,8 +59,15 @@ export class EthereumService {
         },
     };
 
-    constructor(private _httpWrapper: HttpWrapperService) {
-        this._web3 = new Web3(new Web3.providers.HttpProvider(this._chainConfigs.mainnet.rpcUrls[0]));
+    constructor(
+        private _httpWrapper: HttpWrapperService,
+        private _rpcProvider: RpcProviderService
+    ) {
+        this._web3Promise = this._rpcProvider.getWeb3("ethereum", { allowDirectFallback: false });
+    }
+
+    private async web3(): Promise<Web3> {
+        return this._web3Promise;
     }
 
     private _defaultEthResponse(): any {
@@ -79,7 +88,7 @@ export class EthereumService {
     }
 
     private _fromWei(amount: string, decimals: number = 18): string {
-        if (decimals === 18) return this._web3.utils.fromWei(amount, "ether");
+        if (decimals === 18) return this._web3Utils.fromWei(amount, "ether");
 
         return ethers.formatUnits(amount, decimals);
     }
@@ -100,6 +109,7 @@ export class EthereumService {
         total?: number;
     }> {
         try {
+            const w3 = await this.web3();
             if (!to || !this.checkIfValidAddress(to)) throw new Error("Invalid address");
 
             let estimatedGas;
@@ -118,14 +128,14 @@ export class EthereumService {
                     },
                 ];
 
-                const contract = new this._web3.eth.Contract(minABI, tokenAddress);
+                const contract = new w3.eth.Contract(minABI, tokenAddress);
                 const data = contract.methods.transfer(to, value).encodeABI();
 
                 const fromAddress =
                     senderAddress && this.checkIfValidAddress(senderAddress) ? senderAddress : "0x0000000000000000000000000000000000000000";
 
                 try {
-                    estimatedGas = await this._web3.eth.estimateGas({
+                    estimatedGas = await w3.eth.estimateGas({
                         from: fromAddress,
                         to: tokenAddress,
                         data,
@@ -143,7 +153,7 @@ export class EthereumService {
                     senderAddress && this.checkIfValidAddress(senderAddress) ? senderAddress : "0x0000000000000000000000000000000000000000";
 
                 try {
-                    estimatedGas = await this._web3.eth.estimateGas({
+                    estimatedGas = await w3.eth.estimateGas({
                         from: fromAddress,
                         to,
                         value,
@@ -159,14 +169,14 @@ export class EthereumService {
             let gasPrice: string;
             try {
                 const gasTracker = await this.getGasPrices();
-                gasPrice = this._web3.utils.toWei(gasTracker.data.average.gwei, "gwei");
+                gasPrice = this._web3Utils.toWei(gasTracker.data.average.gwei, "gwei");
             } catch {
-                const gp = await this._web3.eth.getGasPrice();
+                const gp = await w3.eth.getGasPrice();
                 gasPrice = gp.toString();
             }
 
             const totalCost = (BigInt(gasPrice) * BigInt(estimatedGas)).toString();
-            const nativeFee = Number(this._web3.utils.fromWei(totalCost, "ether"));
+            const nativeFee = Number(this._web3Utils.fromWei(totalCost, "ether"));
             const price = await this.getETHPrice();
 
             return {
@@ -189,12 +199,13 @@ export class EthereumService {
         let signedTx: any;
 
         try {
-            const account = this._web3.eth.accounts.privateKeyToAccount(privateKey);
+            const w3 = await this.web3();
+            const account = w3.eth.accounts.privateKeyToAccount(privateKey);
 
-            this._web3.eth.transactionConfirmationBlocks = 1;
-            this._web3.eth.transactionPollingInterval = 2000;
-            this._web3.eth.transactionReceiptPollingInterval = 2000;
-            this._web3.eth.transactionPollingTimeout = 30000;
+            w3.eth.transactionConfirmationBlocks = 1;
+            w3.eth.transactionPollingInterval = 2000;
+            w3.eth.transactionReceiptPollingInterval = 2000;
+            w3.eth.transactionPollingTimeout = 30000;
 
             // ERC20 Token Contract ABI (minimal required for transfer)
             const minABI = [
@@ -233,7 +244,7 @@ export class EthereumService {
                 },
             ];
 
-            const contract = new this._web3.eth.Contract(minABI, tokenAddress);
+            const contract = new w3.eth.Contract(minABI, tokenAddress);
 
             const decimals = Number(await contract.methods.decimals().call());
             const amountInWei = this._toWei(amount, decimals);
@@ -241,11 +252,11 @@ export class EthereumService {
             const transferData = contract.methods.transfer(toAddress, amountInWei).encodeABI();
 
             const [nonce, gasPrice] = await Promise.all([
-                this._web3.eth.getTransactionCount(account.address, "latest"),
-                this._web3.eth.getGasPrice(),
+                w3.eth.getTransactionCount(account.address, "latest"),
+                w3.eth.getGasPrice(),
             ]);
 
-            const gasEstimate = await this._web3.eth.estimateGas({
+            const gasEstimate = await w3.eth.estimateGas({
                 from: account.address,
                 to: tokenAddress,
                 data: transferData,
@@ -260,9 +271,9 @@ export class EthereumService {
                 gas: gasEstimate,
             };
 
-            signedTx = await this._web3.eth.accounts.signTransaction(tx, privateKey);
+            signedTx = await w3.eth.accounts.signTransaction(tx, privateKey);
 
-            const receipt = await this._web3.eth.sendSignedTransaction(signedTx.rawTransaction);
+            const receipt = await w3.eth.sendSignedTransaction(signedTx.rawTransaction);
 
             return receipt;
         } catch (error) {
@@ -276,10 +287,11 @@ export class EthereumService {
 
     async _sendNativeTransaction(amount: string, privateKey: string, toAddress: string): Promise<any> {
         try {
-            const account = this._web3.eth.accounts.privateKeyToAccount(privateKey);
-            const amountInWei = this._web3.utils.toWei(amount, "ether");
+            const w3 = await this.web3();
+            const account = w3.eth.accounts.privateKeyToAccount(privateKey);
+            const amountInWei = this._web3Utils.toWei(amount, "ether");
 
-            const nonce = await this._web3.eth.getTransactionCount(account.address, "latest");
+            const nonce = await w3.eth.getTransactionCount(account.address, "latest");
 
             const transactionCost = await this._getTransactionCost(toAddress, amountInWei, "0x");
 
@@ -293,17 +305,17 @@ export class EthereumService {
                 value: amountInWei,
             };
 
-            const signedTx = await this._web3.eth.accounts.signTransaction(tx, privateKey);
+            const signedTx = await w3.eth.accounts.signTransaction(tx, privateKey);
 
             try {
-                return await this._web3.eth.sendSignedTransaction(signedTx.rawTransaction);
+                return await w3.eth.sendSignedTransaction(signedTx.rawTransaction);
             } catch (txError) {
                 console.error("Detailed transaction error for Ethereum:", {
                     error: txError,
                     tx: {
                         ...tx,
-                        value: this._web3.utils.fromWei(tx.value, "ether"),
-                        gasPrice: this._web3.utils.fromWei(tx.gasPrice, "gwei") + " gwei",
+                        value: this._web3Utils.fromWei(tx.value, "ether"),
+                        gasPrice: this._web3Utils.fromWei(tx.gasPrice, "gwei") + " gwei",
                     },
                 });
 
@@ -317,7 +329,7 @@ export class EthereumService {
     }
 
     private _toWei(amount: string, decimals: number = 18): string {
-        if (decimals === 18) return this._web3.utils.toWei(amount, "ether");
+        if (decimals === 18) return this._web3Utils.toWei(amount, "ether");
 
         return ethers.parseUnits(amount, decimals).toString();
     }
@@ -327,9 +339,10 @@ export class EthereumService {
     }
 
     async getBalance(): Promise<string> {
-        const balance = await this._web3.eth.getBalance(this._account.value);
+        const w3 = await this.web3();
+        const balance = await w3.eth.getBalance(this._account.value);
 
-        return this._web3.utils.fromWei(balance, "ether");
+        return this._web3Utils.fromWei(balance, "ether");
     }
 
     async getGasPrices(): Promise<any> {

@@ -5,6 +5,7 @@ import { Injectable } from "@angular/core";
 
 import { environment } from "environments/environment";
 import { TransactionFeeEstimate, TransactionParams, TransactionResult } from "../core/models/transaction-fee.model";
+import { RpcProviderService } from "app/services/rpc-provider.service";
 import { HttpWrapperService } from "../http-wrapper.service";
 
 @Injectable({
@@ -39,7 +40,10 @@ export class AvaxService {
         // },
     };
 
-    constructor(private _httpWrapper: HttpWrapperService) {}
+    constructor(
+        private _httpWrapper: HttpWrapperService,
+        private _rpcProvider: RpcProviderService
+    ) {}
 
     private _defaultResponse(): any {
         return {
@@ -69,7 +73,7 @@ export class AvaxService {
     }
 
     private async _getTransactionCost(toAddress: string, value: string, data: string): Promise<any> {
-        const web3 = new Web3(new Web3.providers.HttpProvider(environment.avalancheRpc.mainnet));
+        const web3 = await this._rpcProvider.getWeb3("avalanche", { allowDirectFallback: false });
 
         const estimatedGas = await web3.eth.estimateGas({
             from: "0x0000000000000000000000000000000000000000",
@@ -91,7 +95,7 @@ export class AvaxService {
         let signedTx: any;
 
         try {
-            const web3 = new Web3(new Web3.providers.HttpProvider(environment.avalancheRpc.mainnet));
+            const web3 = await this._rpcProvider.getWeb3("avalanche", { allowDirectFallback: false });
             const account = web3.eth.accounts.privateKeyToAccount(privateKey);
 
             web3.eth.transactionConfirmationBlocks = 1;
@@ -158,7 +162,7 @@ export class AvaxService {
 
     private async _sendNativeTransaction(amount: string, privateKey: string, toAddress: string): Promise<any> {
         try {
-            const web3 = new Web3(new Web3.providers.HttpProvider(environment.avalancheRpc.mainnet));
+            const web3 = await this._rpcProvider.getWeb3("avalanche", { allowDirectFallback: false });
             const account = web3.eth.accounts.privateKeyToAccount(privateKey);
             const amountInWei = web3.utils.toWei(amount, "ether");
 
@@ -221,7 +225,7 @@ export class AvaxService {
                 throw new Error("Invalid address");
             }
 
-            const web3 = new Web3(new Web3.providers.HttpProvider(environment.avalancheRpc.mainnet));
+            const web3 = await this._rpcProvider.getWeb3("avalanche", { allowDirectFallback: false });
             const value = this._toWei(amount.toString(), tokenDecimals || 18);
 
             let estimatedGas;

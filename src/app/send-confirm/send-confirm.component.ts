@@ -25,7 +25,6 @@ import { WalletService } from "app/wallet.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 import { TagModel } from "app/tags.service";
 import { TagsService } from "app/tags.service";
-import { SolanaService } from "app/solana.service";
 import { StellarFeeBreakdown } from "app/services/stellar-send.types";
 import { StellarSendSummaryComponent } from "app/stellar-send-summary/stellar-send-summary.component";
 
@@ -108,8 +107,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         private _transactionService: TransactionService,
         private _translocoService: TranslocoService,
         private _vaultService: VaultService,
-        private _walletService: WalletService,
-        private _solanaService: SolanaService
+        private _walletService: WalletService
     ) {
         this.loading = true;
         this.remainingAttempts = this._vaultService.remainingAttempts;
@@ -768,7 +766,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
             date: sendDateTime,
             from: this.transactionData.sender.address,
             network: this.transactionData.network,
-            status: "pending",
+            status: receipt.status,
             to: this.transactionData.receiver.address,
             tokenType: this.transactionData.tokenType,
         };

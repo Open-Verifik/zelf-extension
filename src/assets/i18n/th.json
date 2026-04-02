@@ -566,7 +566,14 @@
         "or_use_other_methods": "หรือใช้วิธีอื่น",
         "feature_multichain": "มัลติเชน",
         "feature_zk": "HumanAuthn",
-        "feature_selfcustody": "ดูแลตนเอง"
+        "feature_selfcustody": "ดูแลตนเอง",
+        "enter_with_zelf_id": "เข้าสู่ระบบด้วย Zelf ID ของคุณ",
+        "create_a_zelf_id": "สร้าง Zelf ID",
+        "dont_remember_your_zelf_id": "จำ Zelf ID ไม่ได้?",
+        "enter_tag_name_subtitle": "ใส่ Zelf ID ที่มีอยู่เพื่อเข้าสู่ระบบ",
+        "enter_with_recovery_phrase": "เข้าสู่ระบบด้วยวลีกู้คืน",
+        "found": "พบแล้ว",
+        "login_to_this_domain": "พบ Zelf ID นี้ — ดำเนินการต่อด้วยวลีกู้คืนของคุณ"
     },
     "settings": {
         "networks_label": "เครือข่าย",
@@ -599,17 +606,6 @@
             "no_connections": "ไม่พบการเชื่อมต่อที่ใช้งานอยู่",
             "network_label": "เครือข่าย",
             "unknown": "ไม่ทราบ"
-        },
-        "walletconnect_label": "เชื่อมต่อผ่านลิงก์",
-        "walletconnect": {
-            "title": "การเชื่อมต่อ Dapps",
-            "description": "จัดการ dapps ที่เชื่อมต่อกับกระเป๋าเงิน",
-            "placeholder": "wc:...",
-            "connect_button": "เชื่อมต่อ",
-            "connecting": "กำลังเชื่อมต่อ...",
-            "success": "สำเร็จ",
-            "error_invalid": "กรุณาใส่ URI WalletConnect ที่ถูกต้อง (ขึ้นต้นด้วย wc:)",
-            "error_failed": "เชื่อมต่อไม่สำเร็จ กรุณาลองอีกครั้ง"
         },
         "security": {
             "biometric_verification_title": "ช่วงเวลาการยืนยันตัวตนด้วยชีวภาพ",
@@ -666,7 +662,14 @@
         "create_pin_title": "สร้าง PIN",
         "create_pin_subtitle": "กรุณากรอกรหัสผ่าน 6 หลักสำหรับ Zelf ID QR ของคุณ",
         "confirm_pin_title": "ยืนยัน PIN",
-        "confirm_pin_subtitle": "กรุณากรอกรหัสผ่าน 6 หลักสำหรับ Zelf ID QR ของคุณอีกครั้ง"
+        "confirm_pin_subtitle": "กรุณากรอกรหัสผ่าน 6 หลักสำหรับ Zelf ID QR ของคุณอีกครั้ง",
+        "creating_wallet": "กำลังสร้างกระเป๋า...",
+        "importing_wallet": "กำลังนำเข้ากระเป๋า...",
+        "recovering_wallet": "กำลังกู้กระเป๋า...",
+        "retrieving_vault": "กำลังดึงตู้นิรภัย...",
+        "decrypting_vault": "กำลังถอดรหัสตู้นิรภัย...",
+        "vault_unlocked": "ปลดล็อกตู้นิรภัยแล้ว!",
+        "wallet_created": "พร้อมใช้งานกระเป๋าแล้ว!"
     },
     "receive": {
         "information": "ที่อยู่นี้สามารถใช้รับโทเคนที่เข้ากันได้เท่านั้น",
@@ -960,12 +963,12 @@
         "zelfName_is_taken": "Zelf ID นี้ถูกใช้งานแล้ว",
         "solana_insufficient_sol_for_fees": "Insufficient SOL. You do not have enough SOL to cover the transaction fees or account creation.",
         "solana_insufficient_sol_for_rent": "Insufficient SOL. You do not have enough SOL to pay for the destination account creation.",
-
         "stellar_amount_below_reserve": "The amount is below the minimum required to open this Stellar account.",
         "stellar_classic_fund_xlm_first": "Send native XLM first to fund the recipient's Stellar account before sending this asset.",
         "stellar_classic_trustline_required": "The recipient must add a trustline for this asset before they can receive it.",
         "stellar_soroban_not_supported": "Soroban (contract) assets are not supported in this wallet yet.",
-        "stellar_invalid_asset_format": "Invalid Stellar asset. Use CODE:ISSUER (for example USDC:G…).",        "swap_same_chain": "In Swaps mode, both tokens must be on the same network. Switch to Cross-chain or change your selection."
+        "stellar_invalid_asset_format": "Invalid Stellar asset. Use CODE:ISSUER (for example USDC:G…).",
+        "swap_same_chain": "In Swaps mode, both tokens must be on the same network. Switch to Cross-chain or change your selection."
     },
     "swap": {
         "automatic": "อัตโนมัติ",
@@ -1043,7 +1046,9 @@
         "send_transaction_button": "ส่ง",
         "settings_button": "ตั้งค่า",
         "support_button": "ช่วยเหลือ",
-        "swap": "แลกเปลี่ยน"
+        "swap": "แลกเปลี่ยน",
+        "token_sol_native": "เนทีฟ",
+        "token_sol_wrapped": "ห่อ"
     },
     "id_scanning": {
         "camera_not_found": "ไม่พบกล้อง",
@@ -1751,7 +1756,9 @@
             "instruction_action": "ส่งโทเค็น ZNS",
             "instruction_desc": "ทำรายการส่งโทเค็น ZNS ครั้งแรกเพื่อปลดล็อกรางวัลนี้",
             "error_no_wallet": "ไม่พบกระเป๋าเงิน",
-            "error_invalid_config": "การตั้งค่ากระเป๋าเงินไม่ถูกต้อง"
+            "error_invalid_config": "การตั้งค่ากระเป๋าเงินไม่ถูกต้อง",
+            "accept": "ยอมรับ",
+            "not_eligible_title": "ทำภารกิจให้เสร็จ"
         },
         "tasks": {
             "invite_first_friend": {
@@ -1830,8 +1837,7 @@
             "subtitle": "งานเสร็จสมบูรณ์!",
             "desc": "รางวัลแนะนำจาก <strong>{{ name }}</strong>",
             "earned_label": "คุณได้รับแล้ว",
-            "previously_earned_label": "ธุรกรรมแรก",
-            "go_back_to_rewards": "ย้อนกลับ"
+            "accept": "ยอมรับ"
         },
         "error": {
             "title": "รับรางวัลไม่สำเร็จ",
@@ -1880,6 +1886,9 @@
         "to_address": "ถึง",
         "value": "มูลค่า",
         "data": "ข้อมูล",
-        "biometric_required": "ต้องยืนยันตัวตนด้วยไบโอเมตริกเพื่อลงนาม"
+        "biometric_required": "ต้องยืนยันตัวตนด้วยไบโอเมตริกเพื่อลงนาม",
+        "estimated_gas_fee": "ค่าแก๊สโดยประมาณ",
+        "estimating": "กำลังประมาณการ...",
+        "unable_to_estimate": "ประมาณการไม่ได้"
     }
 }

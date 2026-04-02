@@ -566,7 +566,14 @@
         "or_use_other_methods": "或使用其他方式",
         "feature_multichain": "多链",
         "feature_zk": "HumanAuthn",
-        "feature_selfcustody": "自托管"
+        "feature_selfcustody": "自托管",
+        "enter_with_zelf_id": "使用您的 Zelf ID 登录",
+        "create_a_zelf_id": "创建 Zelf ID",
+        "dont_remember_your_zelf_id": "不记得您的 Zelf ID？",
+        "enter_tag_name_subtitle": "输入现有 Zelf ID 以登录",
+        "enter_with_recovery_phrase": "使用恢复短语登录",
+        "found": "已找到",
+        "login_to_this_domain": "已找到此 Zelf ID — 请使用恢复短语继续"
     },
     "settings": {
         "networks_label": "网络",
@@ -599,17 +606,6 @@
             "no_connections": "未找到活动连接。",
             "network_label": "网络",
             "unknown": "未知"
-        },
-        "walletconnect_label": "通过链接连接",
-        "walletconnect": {
-            "title": "Dapps 连接",
-            "description": "管理连接到您钱包的去中心化应用程序。",
-            "placeholder": "wc:...",
-            "connect_button": "连接",
-            "connecting": "连接中...",
-            "success": "成功",
-            "error_invalid": "请输入有效的 WalletConnect URI（以 wc: 开头）",
-            "error_failed": "连接失败。请重试。"
         },
         "security": {
             "biometric_verification_title": "生物识别验证间隔",
@@ -666,7 +662,14 @@
         "create_pin_title": "创建PIN码",
         "create_pin_subtitle": "请输入您的Zelf ID QR的6位数字密码。",
         "confirm_pin_title": "确认PIN码",
-        "confirm_pin_subtitle": "请重新输入您的Zelf ID QR的6位数字密码。"
+        "confirm_pin_subtitle": "请重新输入您的Zelf ID QR的6位数字密码。",
+        "creating_wallet": "正在创建钱包...",
+        "importing_wallet": "正在导入钱包...",
+        "recovering_wallet": "正在恢复钱包...",
+        "retrieving_vault": "正在检索保管库...",
+        "decrypting_vault": "正在解密保管库...",
+        "vault_unlocked": "保管库已解锁！",
+        "wallet_created": "钱包已就绪！"
     },
     "receive": {
         "information": "此地址只能用于接收兼容的代币。",
@@ -960,12 +963,12 @@
         "zelfName_is_taken": "此Zelf ID已被使用",
         "solana_insufficient_sol_for_fees": "Insufficient SOL. You do not have enough SOL to cover the transaction fees or account creation.",
         "solana_insufficient_sol_for_rent": "Insufficient SOL. You do not have enough SOL to pay for the destination account creation.",
-
         "stellar_amount_below_reserve": "The amount is below the minimum required to open this Stellar account.",
         "stellar_classic_fund_xlm_first": "Send native XLM first to fund the recipient's Stellar account before sending this asset.",
         "stellar_classic_trustline_required": "The recipient must add a trustline for this asset before they can receive it.",
         "stellar_soroban_not_supported": "Soroban (contract) assets are not supported in this wallet yet.",
-        "stellar_invalid_asset_format": "Invalid Stellar asset. Use CODE:ISSUER (for example USDC:G…).",        "swap_same_chain": "In Swaps mode, both tokens must be on the same network. Switch to Cross-chain or change your selection."
+        "stellar_invalid_asset_format": "Invalid Stellar asset. Use CODE:ISSUER (for example USDC:G…).",
+        "swap_same_chain": "In Swaps mode, both tokens must be on the same network. Switch to Cross-chain or change your selection."
     },
     "swap": {
         "automatic": "自动",
@@ -1043,7 +1046,9 @@
         "send_transaction_button": "发送",
         "settings_button": "设置",
         "support_button": "支持",
-        "swap": "交换"
+        "swap": "交换",
+        "token_sol_native": "原生",
+        "token_sol_wrapped": "封装"
     },
     "id_scanning": {
         "camera_not_found": "未找到相机",
@@ -1751,7 +1756,9 @@
             "instruction_action": "发送 ZNS 代币",
             "instruction_desc": "完成您的首次 ZNS 代币交易以解锁此奖励",
             "error_no_wallet": "未找到钱包",
-            "error_invalid_config": "钱包配置无效"
+            "error_invalid_config": "钱包配置无效",
+            "accept": "接受",
+            "not_eligible_title": "完成任务"
         },
         "tasks": {
             "invite_first_friend": {
@@ -1830,8 +1837,7 @@
             "subtitle": "任务完成！",
             "desc": "来自 <strong>{{ name }}</strong> 的推荐奖励",
             "earned_label": "你已获得",
-            "previously_earned_label": "首次交易",
-            "go_back_to_rewards": "返回"
+            "accept": "接受"
         },
         "error": {
             "title": "领取失败",
@@ -1880,6 +1886,9 @@
         "to_address": "收款地址",
         "value": "金额",
         "data": "数据",
-        "biometric_required": "需要生物识别验证才能签名"
+        "biometric_required": "需要生物识别验证才能签名",
+        "estimated_gas_fee": "预估 Gas 费用",
+        "estimating": "正在估算...",
+        "unable_to_estimate": "无法估算"
     }
 }

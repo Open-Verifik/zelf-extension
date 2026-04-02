@@ -4,6 +4,8 @@ import { ethers } from "ethers";
 import { firstValueFrom, Observable, of } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 
+import { RpcProviderService } from "app/services/rpc-provider.service";
+import { allowDirectFallbackForChainId } from "@shared/utils/evm-chain-key.util";
 import { SolanaService } from "app/solana.service";
 import { TokenData } from "@shared/types/wallet.types";
 import { environment } from "environments/environment";
@@ -38,6 +40,7 @@ export class LifiService {
 
     constructor(
         private _http: HttpClient,
+        private _rpcProvider: RpcProviderService,
         private _solanaService: SolanaService
     ) {}
 
@@ -406,7 +409,7 @@ export class LifiService {
     ): Promise<any> {
         try {
             const chainId = action.fromChainId;
-            const provider = new ethers.JsonRpcProvider(this.getNetworkRPC(chainId));
+            const provider = await this._getLifiEvmProvider(chainId);
             const signer = new ethers.Wallet(wallet.privateKey, provider);
 
             const NATIVE_TOKEN_ADDRESS = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE";
@@ -417,12 +420,9 @@ export class LifiService {
                 action.fromToken.address.toLowerCase() === ZERO_ADDRESS.toLowerCase();
 
             const feeData = await provider.getFeeData();
-            const nonce = await provider.getTransactionCount(signer.address, "latest");
-
-            const tx = {
+            const tx: ethers.TransactionRequest = {
                 to: transactionRequest.to,
                 data: transactionRequest.data,
-                nonce: nonce,
                 value: isFromNative ? (transactionRequest.value ?? "0") : "0",
                 maxFeePerGas: feeData.maxFeePerGas,
                 maxPriorityFeePerGas: feeData.maxPriorityFeePerGas,
@@ -480,12 +480,7 @@ export class LifiService {
         );
     }
 
-    private async waitForLiFiTransferStatus(opts: {
-        txHash: string;
-        tool: string;
-        fromChainId: number;
-        toChainId: number;
-    }): Promise<void> {
+    private async waitForLiFiTransferStatus(opts: { txHash: string; tool: string; fromChainId: number; toChainId: number }): Promise<void> {
         const maxAttempts = 48;
         const delayMs = 5000;
 
@@ -557,7 +552,7 @@ export class LifiService {
         network: string
     ): Promise<void> {
         try {
-            const provider = new ethers.JsonRpcProvider(this.getNetworkRPC(network));
+            const provider = await this._getLifiEvmProvider(network);
             const signer = new ethers.Wallet(privateKey, provider);
             const contract = new ethers.Contract(tokenAddress, this.ERC20_ABI, signer);
 
@@ -580,7 +575,7 @@ export class LifiService {
         }
     }
 
-    private getNetworkRPC(chainIdOrSlug: string | number): string {
+    private async _getLifiEvmProvider(chainIdOrSlug: string | number): Promise<ethers.JsonRpcProvider> {
         const raw = String(chainIdOrSlug).trim();
         const slugToId: Record<string, string> = {
             ethereum: "1",
@@ -593,23 +588,22 @@ export class LifiService {
 
         if (!id) throw new Error(`Unsupported network: ${chainIdOrSlug}`);
 
-        const networkMappings: { [key: string]: string } = {
-            "1": environment.ethereumRpc.mainnet,
-            "56": environment.binanceRpc.mainnet,
-            "137": environment.polygonRpc.mainnet,
-            "43114": environment.avalancheRpc.mainnet,
-        };
-
-        const rpc = networkMappings[id];
-
-        if (!rpc) throw new Error(`Unsupported network: ${chainIdOrSlug}`);
-
-        return rpc;
+        const n = Number(id);
+        return this._rpcProvider.getEthersProviderForChainId(n, {
+            allowDirectFallback: allowDirectFallbackForChainId(n),
+        });
     }
 
     async sendTransaction(params: any): Promise<any> {
         try {
-            const provider = new ethers.JsonRpcProvider(params.network);
+            const net = params.network;
+            const chainIdNum = Number(net);
+            const provider =
+                typeof net === "string" && (net.startsWith("http://") || net.startsWith("https://"))
+                    ? new ethers.JsonRpcProvider(net)
+                    : await this._rpcProvider.getEthersProviderForChainId(chainIdNum, {
+                          allowDirectFallback: allowDirectFallbackForChainId(chainIdNum),
+                      });
             const signer = new ethers.Wallet(params.privateKey, provider);
 
             const gasEstimate = await provider.estimateGas({
@@ -840,8 +834,7 @@ export class LifiService {
                 },
             ];
 
-            const rpcUrl = this.getNetworkRPC(sourceNetwork);
-            const provider = new ethers.JsonRpcProvider(rpcUrl);
+            const provider = await this._getLifiEvmProvider(sourceNetwork);
             const privateKey = wallet.privateKey.startsWith("0x")
                 ? wallet.privateKey
                 : ethers.Wallet.fromPhrase(wallet.mnemonic.trim().toLowerCase()).privateKey;

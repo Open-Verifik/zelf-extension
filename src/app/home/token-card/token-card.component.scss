@@ -161,6 +161,7 @@
     &__network-info {
         display: flex;
         flex-direction: row;
+        flex-wrap: wrap;
         gap: calc(8px * var(--zns-space-scale, 1));
         justify-content: center;
         align-items: flex-start;
@@ -192,6 +193,16 @@
         vertical-align: middle;
         background-color: variables.$themeBorder;
         color: variables.$themeTextMuted;
+
+        &--kind {
+            font-weight: 600;
+            color: variables.$themeTextSecondary;
+        }
+
+        &--wrapped {
+            border: 1px solid variables.$themeCardBorder;
+            background-color: transparent;
+        }
     }
 
     &__name {

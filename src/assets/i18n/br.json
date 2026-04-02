@@ -566,7 +566,14 @@
         "or_use_other_methods": "Ou use outros métodos",
         "feature_multichain": "Multichain",
         "feature_zk": "HumanAuthn",
-        "feature_selfcustody": "Autocustódia"
+        "feature_selfcustody": "Autocustódia",
+        "enter_with_zelf_id": "Entrar com seu Zelf ID",
+        "create_a_zelf_id": "Criar um Zelf ID",
+        "dont_remember_your_zelf_id": "Não lembra do seu Zelf ID?",
+        "enter_tag_name_subtitle": "Digite seu Zelf ID existente para entrar",
+        "enter_with_recovery_phrase": "Entrar com a frase de recuperação",
+        "found": "Encontrado",
+        "login_to_this_domain": "Este Zelf ID foi encontrado — continue com sua frase de recuperação"
     },
     "settings": {
         "networks_label": "Redes",
@@ -599,17 +606,6 @@
             "no_connections": "Nenhuma conexão ativa encontrada.",
             "network_label": "Rede",
             "unknown": "Desconhecido"
-        },
-        "walletconnect_label": "Conectar por link",
-        "walletconnect": {
-            "title": "Conexões Dapps",
-            "description": "Gerencie os aplicativos descentralizados conectados à sua carteira.",
-            "placeholder": "wc:...",
-            "connect_button": "Conectar",
-            "connecting": "Conectando...",
-            "success": "Sucesso",
-            "error_invalid": "Digite um URI WalletConnect válido (começa com wc:)",
-            "error_failed": "Falha ao conectar. Por favor, tente novamente."
         },
         "security": {
             "biometric_verification_title": "Intervalo de verificação biométrica",
@@ -666,7 +662,14 @@
         "create_pin_title": "CRIAR UM PIN",
         "create_pin_subtitle": "Por favor, insira uma senha de 6 dígitos para o seu Zelf ID QR.",
         "confirm_pin_title": "CONFIRMAR PIN",
-        "confirm_pin_subtitle": "Por favor, insira novamente a senha de 6 dígitos para o seu Zelf ID QR."
+        "confirm_pin_subtitle": "Por favor, insira novamente a senha de 6 dígitos para o seu Zelf ID QR.",
+        "creating_wallet": "Criando carteira...",
+        "importing_wallet": "Importando carteira...",
+        "recovering_wallet": "Recuperando carteira...",
+        "retrieving_vault": "Recuperando cofre...",
+        "decrypting_vault": "Descriptografando cofre...",
+        "vault_unlocked": "Cofre desbloqueado!",
+        "wallet_created": "Carteira pronta!"
     },
     "receive": {
         "information": "Este endereço só pode ser usado para receber tokens compatíveis.",
@@ -960,12 +963,12 @@
         "zelfName_is_taken": "Este ID Zelf já está em uso",
         "solana_insufficient_sol_for_fees": "SOL insuficiente. Você não tem SOL suficiente para cobrir as taxas de transação ou criação de conta.",
         "solana_insufficient_sol_for_rent": "SOL insuficiente. Você não tem SOL suficiente para pagar a criação da conta de destino.",
-
         "stellar_amount_below_reserve": "The amount is below the minimum required to open this Stellar account.",
         "stellar_classic_fund_xlm_first": "Send native XLM first to fund the recipient's Stellar account before sending this asset.",
         "stellar_classic_trustline_required": "The recipient must add a trustline for this asset before they can receive it.",
         "stellar_soroban_not_supported": "Soroban (contract) assets are not supported in this wallet yet.",
-        "stellar_invalid_asset_format": "Invalid Stellar asset. Use CODE:ISSUER (for example USDC:G…).",        "swap_same_chain": "In Swaps mode, both tokens must be on the same network. Switch to Cross-chain or change your selection."
+        "stellar_invalid_asset_format": "Invalid Stellar asset. Use CODE:ISSUER (for example USDC:G…).",
+        "swap_same_chain": "In Swaps mode, both tokens must be on the same network. Switch to Cross-chain or change your selection."
     },
     "swap": {
         "automatic": "Automático",
@@ -1043,7 +1046,9 @@
         "send_transaction_button": "Enviar",
         "settings_button": "Configurações",
         "support_button": "Suporte",
-        "swap": "Trocar"
+        "swap": "Trocar",
+        "token_sol_native": "Nativo",
+        "token_sol_wrapped": "Embrulhado"
     },
     "id_scanning": {
         "camera_not_found": "Câmera não encontrada",
@@ -1751,7 +1756,9 @@
             "instruction_action": "Enviar tokens ZNS",
             "instruction_desc": "Faça sua primeira transação de tokens ZNS para desbloquear esta recompensa",
             "error_no_wallet": "Nenhuma carteira encontrada",
-            "error_invalid_config": "Configuração de carteira inválida"
+            "error_invalid_config": "Configuração de carteira inválida",
+            "accept": "Aceitar",
+            "not_eligible_title": "Complete a tarefa"
         },
         "tasks": {
             "invite_first_friend": {
@@ -1830,8 +1837,7 @@
             "subtitle": "Tarefa concluída!",
             "desc": "Recompensa de indicação de <strong>{{ name }}</strong>",
             "earned_label": "Você ganhou",
-            "previously_earned_label": "First transaction",
-            "go_back_to_rewards": "Go Back"
+            "accept": "Aceitar"
         },
         "error": {
             "title": "Falha ao Resgatar",
@@ -1880,6 +1886,9 @@
         "to_address": "Para",
         "value": "Valor",
         "data": "Dados",
-        "biometric_required": "Verificação biométrica necessária para assinar"
+        "biometric_required": "Verificação biométrica necessária para assinar",
+        "estimated_gas_fee": "Taxa de gás estimada",
+        "estimating": "Estimando...",
+        "unable_to_estimate": "Não foi possível estimar"
     }
 }

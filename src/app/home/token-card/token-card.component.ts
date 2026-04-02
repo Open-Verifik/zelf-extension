@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { CurrencyPipe, DecimalPipe, NgClass, NgIf } from "@angular/common";
 import { FlexLayoutModule } from "@angular/flex-layout";
+import { TranslocoModule } from "@jsverse/transloco";
 import { WalletService } from "app/wallet.service";
 
 @Component({
@@ -22,6 +23,15 @@ import { WalletService } from "app/wallet.service";
                 <div class="token-card__network-info">
                     <p class="token-card__network">{{ data.symbol }}</p>
                     <p class="token-card__network-chip">{{ data.network }}</p>
+                    <p
+                        *ngIf="data.network === 'Solana' && data.symbol === 'SOL' && data.tokenType === 'SOL'"
+                        class="token-card__network-chip token-card__network-chip--kind"
+                    >
+                        {{ "home.token_sol_native" | transloco }}
+                    </p>
+                    <p *ngIf="data.isWrappedSol" class="token-card__network-chip token-card__network-chip--kind token-card__network-chip--wrapped">
+                        {{ "home.token_sol_wrapped" | transloco }}
+                    </p>
                 </div>
 
                 <p class="token-card__name">{{ data.price | currency: "USD" : "symbol" : "1.2-5" }}</p>
@@ -56,7 +66,7 @@ import { WalletService } from "app/wallet.service";
         </div>
     `,
     styleUrls: ["./token-card.component.scss"],
-    imports: [CurrencyPipe, NgClass, NgIf, DecimalPipe, FlexLayoutModule],
+    imports: [CurrencyPipe, NgClass, NgIf, DecimalPipe, FlexLayoutModule, TranslocoModule],
 })
 export class TokenCardComponent implements OnInit {
     @Input() data: any;

@@ -1,4 +1,5 @@
 import { Logger } from "@extension-scripts/logger/logger.class";
+import { environment } from "@extension-scripts/environments/environment";
 import { BrowserApiUtil } from "./browser-api-util";
 import {
     DappMessage,
@@ -12,6 +13,7 @@ import {
     hexToChainId,
 } from "@shared/types/dapp.types";
 import { getPreferredChainIdForOrigin } from "@shared/services/dapp-mapping.service";
+import { getChainKeyFromChainId } from "@shared/utils/evm-chain-key.util";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -32,6 +34,48 @@ const TAB_MESSAGE_INITIAL_DELAY_MS = 100;
 
 /** Maximum delay between individual retry attempts (caps the exponential growth). */
 const TAB_MESSAGE_MAX_DELAY_MS = 5000;
+
+/** dApp RPC methods that are too expensive, stateful, or subscription-based for the lightweight proxy. */
+const BLOCKED_DAPP_RPC_METHODS = new Set([
+    "eth_subscribe",
+    "eth_unsubscribe",
+    "eth_newfilter",
+    "eth_newblockfilter",
+    "eth_newpendingtransactionfilter",
+    "eth_getfilterchanges",
+    "eth_getfilterlogs",
+    "eth_getlogs",
+]);
+
+/** Prefixes for RPC namespaces that should never be exposed to arbitrary dApps. */
+const BLOCKED_DAPP_RPC_PREFIXES = ["admin_", "debug_", "engine_", "miner_", "ots_", "personal_", "trace_", "txpool_"];
+
+/** Read JWT from the same chrome.storage.local keys used by AuthService (extension UI). */
+function readAccessTokenFromStorage(): Promise<string | null> {
+    return new Promise((resolve) => {
+        try {
+            chrome.storage.local.get(["accessToken", "accessTokenExpiresAt"], (items) => {
+                if (chrome.runtime.lastError) {
+                    resolve(null);
+                    return;
+                }
+                const token = items?.accessToken as string | undefined;
+                const exp = items?.accessTokenExpiresAt as number | undefined;
+                if (!token || exp == null) {
+                    resolve(null);
+                    return;
+                }
+                if (exp <= Date.now() / 1000 + 5) {
+                    resolve(null);
+                    return;
+                }
+                resolve(token);
+            });
+        } catch {
+            resolve(null);
+        }
+    });
+}
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -64,12 +108,35 @@ interface CoalescedConnect {
  */
 async function handleRpcProxy(
     payload: { method?: string; params?: any[]; chainId?: string },
+    origin: string,
     sendResponse: (response: any) => void
 ): Promise<void> {
     const { method, params = [], chainId: chainIdHex } = payload || {};
+    const normalizedMethod = typeof method === "string" ? method.trim() : "";
     const chainId = chainIdHex ? hexToChainId(chainIdHex) : 1;
     const chainConfig = getChainConfig(chainId);
     const rpcUrl = chainConfig?.rpcUrl;
+
+    if (!normalizedMethod) {
+        sendResponse({
+            success: false,
+            error: { code: -32600, message: "Zelf Wallet: Missing RPC method." },
+        });
+        return;
+    }
+
+    const loweredMethod = normalizedMethod.toLowerCase();
+    const isBlockedMethod =
+        BLOCKED_DAPP_RPC_METHODS.has(loweredMethod) || BLOCKED_DAPP_RPC_PREFIXES.some((prefix) => loweredMethod.startsWith(prefix));
+
+    if (isBlockedMethod) {
+        Logger.warn(`[DAPP_RPC_PROXY] Blocked ${normalizedMethod} for ${origin || "unknown-origin"} on chain ${chainId}`);
+        sendResponse({
+            success: false,
+            error: { code: -32601, message: `Zelf Wallet: RPC method ${normalizedMethod} is not available through the dApp proxy.` },
+        });
+        return;
+    }
 
     if (!rpcUrl) {
         sendResponse({
@@ -79,11 +146,43 @@ async function handleRpcProxy(
         return;
     }
 
+    const jsonBody = JSON.stringify({
+        jsonrpc: "2.0",
+        id: 1,
+        method: normalizedMethod,
+        params: Array.isArray(params) ? params : [],
+    });
+
     try {
+        const chainKey = getChainKeyFromChainId(chainId);
+        const token = await readAccessTokenFromStorage();
+        if (chainKey && token) {
+            const base = environment.apiBaseUrl.replace(/\/$/, "");
+            const proxyUrl = `${base}/api/protected/rpc/${chainKey}`;
+            try {
+                const res = await fetch(proxyUrl, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: jsonBody,
+                });
+                const json = await res.json();
+                if (res.ok && json && json.result !== undefined && !json.error) {
+                    sendResponse({ success: true, data: json.result });
+                    return;
+                }
+                Logger.warn(`[DAPP_RPC_PROXY] Protected proxy returned ${res.status}, falling back to direct RPC`);
+            } catch (proxyErr: any) {
+                Logger.warn("[DAPP_RPC_PROXY] Protected proxy failed, falling back to direct RPC:", proxyErr?.message || proxyErr);
+            }
+        }
+
         const res = await fetch(rpcUrl, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ jsonrpc: "2.0", id: 1, method, params: Array.isArray(params) ? params : [] }),
+            body: jsonBody,
         });
         const json = await res.json();
 
@@ -142,12 +241,47 @@ export class DappHandler {
     /** Promise guard so _restorePendingRequests only runs once per service-worker lifecycle. */
     private restorePendingRequestsPromise: Promise<void> | null = null;
 
+    /** Map of chrome window IDs to request IDs to detect closed popups. */
+    private approvalWindows: Map<number, string> = new Map();
+
     // ── Constructor ────────────────────────────────────────────────────────────
 
     private constructor(private browserApi: BrowserApiUtil) {
         // Kick off storage restoration immediately so in-flight requests survive
         // service-worker restarts without needing a separate call.
         void this.restorePendingRequests();
+
+        // Listen for popup window closure so we can immediately reject the request
+        if (typeof chrome !== "undefined" && chrome.windows && chrome.windows.onRemoved) {
+            chrome.windows.onRemoved.addListener((windowId) => {
+                void this._handleWindowClosed(windowId);
+            });
+        }
+    }
+
+    /**
+     * Handles cases where the user closes the popup window without taking any action.
+     * Fires a rejection back to the dApp and clears the pending coalesced requests.
+     */
+    private async _handleWindowClosed(windowId: number): Promise<void> {
+        const requestId = this.approvalWindows.get(windowId);
+        if (!requestId) return;
+
+        this.approvalWindows.delete(windowId);
+
+        const pending = await this._getPendingRequest(requestId);
+        if (!pending) return;
+
+        Logger.info(`[DappHandler] User closed approval popup manually for request ${requestId}`);
+
+        this._removePendingRequest(requestId);
+
+        const errorPayload = { error: { code: 4001, message: "User rejected the request" } };
+        void this._notifyTab(pending.tabId, "DAPP_PROVIDER_RESPONSE", { requestId, ...errorPayload });
+
+        if (pending.type === "DAPP_CONNECT" || pending.type === "DAPP_REQUEST_ACCOUNTS") {
+            void this._resolveCoalescedConnects(pending.origin, errorPayload);
+        }
     }
 
     // ─── Public API ───────────────────────────────────────────────────────────
@@ -270,7 +404,7 @@ export class DappHandler {
 
                 // ── RPC proxy ─────────────────────────────────────────────────
                 case "DAPP_RPC_PROXY":
-                    await handleRpcProxy(payload, sendResponse);
+                    await handleRpcProxy(payload, senderOrigin, sendResponse);
                     break;
 
                 default:
@@ -669,11 +803,12 @@ export class DappHandler {
             ? { result: accounts }
             : { error: { code: 4001, message: "User rejected the request" } };
 
-        await this._notifyTab(pending.tabId, "DAPP_PROVIDER_RESPONSE", { requestId, ...responsePayload });
         this._removePendingRequest(requestId);
 
+        void this._notifyTab(pending.tabId, "DAPP_PROVIDER_RESPONSE", { requestId, ...responsePayload });
+
         // Fan out the same outcome to any coalesced requests for this origin.
-        await this._resolveCoalescedConnects(pending.origin, responsePayload);
+        void this._resolveCoalescedConnects(pending.origin, responsePayload);
     }
 
     /**
@@ -696,8 +831,8 @@ export class DappHandler {
             ? { requestId, result }
             : { requestId, error: error || { code: 4001, message: "User rejected the request" } };
 
-        await this._notifyTab(pending.tabId, "DAPP_PROVIDER_RESPONSE", responsePayload);
         this._removePendingRequest(requestId);
+        void this._notifyTab(pending.tabId, "DAPP_PROVIDER_RESPONSE", responsePayload);
     }
 
     /**
@@ -807,6 +942,13 @@ export class DappHandler {
             this.timeoutHandles.delete(requestId);
         }
 
+        // Also clean up approval window mappings
+        for (const [winId, reqId] of Array.from(this.approvalWindows.entries())) {
+            if (reqId === requestId) {
+                this.approvalWindows.delete(winId);
+            }
+        }
+
         this.browserApi.removeStorageItems(this._getPendingStorageKey(requestId)).catch(() => {});
     }
 
@@ -833,12 +975,12 @@ export class DappHandler {
         const pending = this.pendingRequests.get(requestId) || (await this._getStoredPendingRequest(requestId));
         const errorPayload = { error: { code: -32000, message: "Request timed out" } };
 
-        if (pending) {
-            await this._notifyTab(pending.tabId, "DAPP_PROVIDER_RESPONSE", { requestId, ...errorPayload });
-            await this._resolveCoalescedConnects(pending.origin, errorPayload);
-        }
-
         this._removePendingRequest(requestId);
+
+        if (pending) {
+            void this._notifyTab(pending.tabId, "DAPP_PROVIDER_RESPONSE", { requestId, ...errorPayload });
+            void this._resolveCoalescedConnects(pending.origin, errorPayload);
+        }
     }
 
     /**
@@ -1043,7 +1185,7 @@ export class DappHandler {
         if (!coalesced || coalesced.length === 0) return;
 
         for (const entry of coalesced) {
-            await this._notifyTab(entry.tabId, "DAPP_PROVIDER_RESPONSE", {
+            void this._notifyTab(entry.tabId, "DAPP_PROVIDER_RESPONSE", {
                 requestId: entry.requestId,
                 ...responsePayload,
             });
@@ -1147,6 +1289,7 @@ export class DappHandler {
 
             // Ensure the popup is in the foreground (handles rare cases where it opens behind).
             if (createdWindow?.id) {
+                this.approvalWindows.set(createdWindow.id, requestId);
                 await chrome.windows.update(createdWindow.id, { focused: true });
             }
         } catch (error) {

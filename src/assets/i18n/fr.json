@@ -566,7 +566,14 @@
         "or_use_other_methods": "Ou utilisez d'autres méthodes",
         "feature_multichain": "Multichaîne",
         "feature_zk": "HumanAuthn",
-        "feature_selfcustody": "Auto-dépositaire"
+        "feature_selfcustody": "Auto-dépositaire",
+        "enter_with_zelf_id": "Entrer avec votre Zelf ID",
+        "create_a_zelf_id": "Créer un Zelf ID",
+        "dont_remember_your_zelf_id": "Vous ne vous souvenez pas de votre Zelf ID ?",
+        "enter_tag_name_subtitle": "Saisissez votre Zelf ID existant pour vous connecter",
+        "enter_with_recovery_phrase": "Entrer avec la phrase de récupération",
+        "found": "Trouvé",
+        "login_to_this_domain": "Ce Zelf ID a été trouvé — continuez avec votre phrase de récupération"
     },
     "settings": {
         "networks_label": "Réseaux",
@@ -599,17 +606,6 @@
             "no_connections": "Aucune connexion active trouvée.",
             "network_label": "Réseau",
             "unknown": "Inconnu"
-        },
-        "walletconnect_label": "Connexion par lien",
-        "walletconnect": {
-            "title": "Connexions Dapps",
-            "description": "Gérez les applications décentralisées connectées à votre portefeuille.",
-            "placeholder": "wc:...",
-            "connect_button": "Connecter",
-            "connecting": "Connexion...",
-            "success": "Succès",
-            "error_invalid": "Entrez un URI WalletConnect valide (commence par wc:)",
-            "error_failed": "Échec de la connexion. Veuillez réessayer."
         },
         "security": {
             "biometric_verification_title": "Intervalle de vérification biométrique",
@@ -666,7 +662,14 @@
         "create_pin_title": "CRÉER UN PIN",
         "create_pin_subtitle": "Veuillez entrer un mot de passe à 6 chiffres pour votre Zelf ID QR.",
         "confirm_pin_title": "CONFIRMER LE PIN",
-        "confirm_pin_subtitle": "Veuillez ré-entrer le mot de passe à 6 chiffres pour votre Zelf ID QR."
+        "confirm_pin_subtitle": "Veuillez ré-entrer le mot de passe à 6 chiffres pour votre Zelf ID QR.",
+        "creating_wallet": "Création du portefeuille...",
+        "importing_wallet": "Importation du portefeuille...",
+        "recovering_wallet": "Récupération du portefeuille...",
+        "retrieving_vault": "Récupération du coffre...",
+        "decrypting_vault": "Déchiffrement du coffre...",
+        "vault_unlocked": "Coffre déverrouillé !",
+        "wallet_created": "Portefeuille prêt !"
     },
     "receive": {
         "information": "Cette adresse ne peut être utilisée que pour recevoir des jetons compatibles.",
@@ -960,12 +963,12 @@
         "zelfName_is_taken": "Ce ID Zelf est déjà pris",
         "solana_insufficient_sol_for_fees": "SOL insuffisant. Vous n'avez pas assez de SOL pour couvrir les frais ou la création du compte.",
         "solana_insufficient_sol_for_rent": "SOL insuffisant. Vous n'avez pas assez de SOL pour payer la création du compte de destination.",
-
         "stellar_amount_below_reserve": "The amount is below the minimum required to open this Stellar account.",
         "stellar_classic_fund_xlm_first": "Send native XLM first to fund the recipient's Stellar account before sending this asset.",
         "stellar_classic_trustline_required": "The recipient must add a trustline for this asset before they can receive it.",
         "stellar_soroban_not_supported": "Soroban (contract) assets are not supported in this wallet yet.",
-        "stellar_invalid_asset_format": "Invalid Stellar asset. Use CODE:ISSUER (for example USDC:G…).",        "swap_same_chain": "In Swaps mode, both tokens must be on the same network. Switch to Cross-chain or change your selection."
+        "stellar_invalid_asset_format": "Invalid Stellar asset. Use CODE:ISSUER (for example USDC:G…).",
+        "swap_same_chain": "In Swaps mode, both tokens must be on the same network. Switch to Cross-chain or change your selection."
     },
     "swap": {
         "automatic": "Automatique",
@@ -1043,7 +1046,9 @@
         "send_transaction_button": "Envoyer",
         "settings_button": "Paramètres",
         "support_button": "Support",
-        "swap": "Échanger"
+        "swap": "Échanger",
+        "token_sol_native": "Natif",
+        "token_sol_wrapped": "Wrapped"
     },
     "id_scanning": {
         "camera_not_found": "Caméra non trouvée",
@@ -1751,7 +1756,9 @@
             "instruction_action": "Envoyer des jetons ZNS",
             "instruction_desc": "Effectuez votre première transaction de jetons ZNS pour débloquer cette récompense",
             "error_no_wallet": "Aucun portefeuille trouvé",
-            "error_invalid_config": "Configuration du portefeuille invalide"
+            "error_invalid_config": "Configuration du portefeuille invalide",
+            "accept": "Accepter",
+            "not_eligible_title": "Terminez la tâche"
         },
         "tasks": {
             "invite_first_friend": {
@@ -1830,8 +1837,7 @@
             "subtitle": "Tâche terminée !",
             "desc": "Récompense de parrainage de <strong>{{ name }}</strong>",
             "earned_label": "Vous avez gagné",
-            "previously_earned_label": "Première transaction",
-            "go_back_to_rewards": "Retour"
+            "accept": "Accepter"
         },
         "error": {
             "title": "Échec de la réclamation",
@@ -1880,6 +1886,9 @@
         "to_address": "À",
         "value": "Valeur",
         "data": "Données",
-        "biometric_required": "Vérification biométrique requise pour signer"
+        "biometric_required": "Vérification biométrique requise pour signer",
+        "estimated_gas_fee": "Frais de gas estimés",
+        "estimating": "Estimation...",
+        "unable_to_estimate": "Impossible d'estimer"
     }
 }

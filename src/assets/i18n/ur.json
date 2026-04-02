@@ -566,7 +566,14 @@
         "or_use_other_methods": "یا دوسرے طریقے استعمال کریں",
         "feature_multichain": "ملٹی چین",
         "feature_zk": "HumanAuthn",
-        "feature_selfcustody": "خود تحویلی"
+        "feature_selfcustody": "خود تحویلی",
+        "enter_with_zelf_id": "اپنا Zelf ID استعمال کرتے ہوئے داخل ہوں",
+        "create_a_zelf_id": "Zelf ID بنائیں",
+        "dont_remember_your_zelf_id": "اپنا Zelf ID یاد نہیں?",
+        "enter_tag_name_subtitle": "سائن ان کے لیے اپنا موجودہ Zelf ID درج کریں",
+        "enter_with_recovery_phrase": "بحالی فقرے سے داخل ہوں",
+        "found": "مل گیا",
+        "login_to_this_domain": "یہ Zelf ID ملا — اپنی بحالی فقرے کے ساتھ جاری رکھیں"
     },
     "settings": {
         "networks_label": "نیٹ ورکس",
@@ -599,17 +606,6 @@
             "no_connections": "کوئی فعال کنکشن نہیں ملا۔",
             "network_label": "نیٹ ورک",
             "unknown": "نامعلوم"
-        },
-        "walletconnect_label": "لنک کے ذریعے منسلک کریں",
-        "walletconnect": {
-            "title": "Dapps کنکشنز",
-            "description": "والٹ سے منسلک dapps کا انتظام کریں۔",
-            "placeholder": "کارڈ کی قسم منتخب کریں",
-            "connect_button": "منسلک کریں",
-            "connecting": "منسلک ہو رہا ہے...",
-            "success": "کامیاب",
-            "error_invalid": "براہ کرم درست WalletConnect URI درج کریں (wc: سے شروع ہوتا ہے)",
-            "error_failed": "منسلک ہونے میں ناکامی۔ براہ کرم دوبارہ کوشش کریں۔"
         },
         "security": {
             "biometric_verification_title": "بایومیٹرک توثیق کا وقفہ",
@@ -666,7 +662,14 @@
         "create_pin_title": "PIN بنائیں",
         "create_pin_subtitle": "براہ کرم اپنے Zelf ID QR کے لیے 6 ہندسوں کا پاس ورڈ درج کریں۔",
         "confirm_pin_title": "PIN کی تصدیق کریں",
-        "confirm_pin_subtitle": "براہ کرم اپنے Zelf ID QR کے لیے 6 ہندسوں کا پاس ورڈ دوبارہ درج کریں۔"
+        "confirm_pin_subtitle": "براہ کرم اپنے Zelf ID QR کے لیے 6 ہندسوں کا پاس ورڈ دوبارہ درج کریں۔",
+        "creating_wallet": "والیٹ بنایا جا رہا ہے...",
+        "importing_wallet": "والیٹ درآمد ہو رہا ہے...",
+        "recovering_wallet": "والیٹ بازیافت ہو رہا ہے...",
+        "retrieving_vault": "والٹ حاصل کیا جا رہا ہے...",
+        "decrypting_vault": "والٹ ڈکرپٹ ہو رہا ہے...",
+        "vault_unlocked": "والٹ ان لاک ہو گیا!",
+        "wallet_created": "والیٹ تیار!"
     },
     "receive": {
         "information": "یہ پتہ صرف مطابقت پذیر ٹوکنز وصول کرنے کے لیے استعمال کیا جا سکتا ہے۔",
@@ -960,12 +963,12 @@
         "zelfName_is_taken": "یہ Zelf ID پہلے سے لیا گیا ہے",
         "solana_insufficient_sol_for_fees": "Insufficient SOL. You do not have enough SOL to cover the transaction fees or account creation.",
         "solana_insufficient_sol_for_rent": "Insufficient SOL. You do not have enough SOL to pay for the destination account creation.",
-
         "stellar_amount_below_reserve": "The amount is below the minimum required to open this Stellar account.",
         "stellar_classic_fund_xlm_first": "Send native XLM first to fund the recipient's Stellar account before sending this asset.",
         "stellar_classic_trustline_required": "The recipient must add a trustline for this asset before they can receive it.",
         "stellar_soroban_not_supported": "Soroban (contract) assets are not supported in this wallet yet.",
-        "stellar_invalid_asset_format": "Invalid Stellar asset. Use CODE:ISSUER (for example USDC:G…).",        "swap_same_chain": "In Swaps mode, both tokens must be on the same network. Switch to Cross-chain or change your selection."
+        "stellar_invalid_asset_format": "Invalid Stellar asset. Use CODE:ISSUER (for example USDC:G…).",
+        "swap_same_chain": "In Swaps mode, both tokens must be on the same network. Switch to Cross-chain or change your selection."
     },
     "swap": {
         "automatic": "خودکار",
@@ -1043,7 +1046,9 @@
         "send_transaction_button": "بھیجیں",
         "settings_button": "ترتیبات",
         "support_button": "مدد",
-        "swap": "تبادلہ"
+        "swap": "تبادلہ",
+        "token_sol_native": "نیٹیو",
+        "token_sol_wrapped": "رَپڈ"
     },
     "id_scanning": {
         "camera_not_found": "کیمرا نہیں ملا",
@@ -1751,7 +1756,9 @@
             "instruction_action": "ZNS ٹوکن بھیجیں",
             "instruction_desc": "اس انعام کو غیر مقفل کرنے کے لیے اپنی پہلی ZNS ٹوکن ٹرانزیکشن کریں",
             "error_no_wallet": "والیٹ نہیں ملا",
-            "error_invalid_config": "غلط والیٹ کنفیگریشن"
+            "error_invalid_config": "غلط والیٹ کنفیگریشن",
+            "accept": "قبول کریں",
+            "not_eligible_title": "کام مکمل کریں"
         },
         "tasks": {
             "invite_first_friend": {
@@ -1830,8 +1837,7 @@
             "subtitle": "ٹاسک مکمل!",
             "desc": "<strong>{{ name }}</strong> سے ریفرل انعام",
             "earned_label": "آپ نے حاصل کیا ہے",
-            "previously_earned_label": "پہلا لین دین",
-            "go_back_to_rewards": "واپس جائیں"
+            "accept": "قبول کریں"
         },
         "error": {
             "title": "کلیم ناکام",
@@ -1880,6 +1886,9 @@
         "to_address": "وصول کنندہ",
         "value": "رقم",
         "data": "ڈیٹا",
-        "biometric_required": "دستخط کے لیے بائیو میٹرک تصدیق ضروری ہے"
+        "biometric_required": "دستخط کے لیے بائیو میٹرک تصدیق ضروری ہے",
+        "estimated_gas_fee": "تخمینی گیس فیس",
+        "estimating": "تخمین لگایا جا رہا ہے...",
+        "unable_to_estimate": "تخمین ممکن نہیں"
     }
 }

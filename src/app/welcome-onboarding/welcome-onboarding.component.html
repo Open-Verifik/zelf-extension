@@ -40,44 +40,131 @@
     <!-- Feature badges -->
     <div class="welcome-onboarding__features">
         <div class="welcome-onboarding__feature-badge">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                <polyline points="22 4 12 14.01 9 11.01"/>
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                <polyline points="22 4 12 14.01 9 11.01" />
             </svg>
             <span>{{ t("welcome.feature_multichain") }}</span>
         </div>
         <div class="welcome-onboarding__feature-badge">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                <polyline points="22 4 12 14.01 9 11.01"/>
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                <polyline points="22 4 12 14.01 9 11.01" />
             </svg>
             <span>{{ t("welcome.feature_zk") }}</span>
         </div>
         <div class="welcome-onboarding__feature-badge">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                <polyline points="22 4 12 14.01 9 11.01"/>
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                <polyline points="22 4 12 14.01 9 11.01" />
             </svg>
             <span>{{ t("welcome.feature_selfcustody") }}</span>
         </div>
     </div>
 
-    <!-- CTA Buttons -->
-    <div class="welcome-onboarding__actions">
-        <button
-            (click)="goToCreateAccount()"
-            class="zelf-button zelf-button--primary zelf-button--wide"
-            mat-flat-button
-        >
+    <!-- CTA Buttons (Current Variant) -->
+    <div class="welcome-onboarding__actions" *ngIf="designVariant === 'current'">
+        <button (click)="goToCreateAccount()" class="zelf-button zelf-button--primary zelf-button--wide" mat-flat-button>
             {{ t("welcome.create_new_account") }}
         </button>
 
-        <button
-            (click)="goToImportAccount()"
-            class="zelf-button zelf-button--hyperlink"
-            mat-flat-button
-        >
+        <button (click)="goToImportAccount()" class="zelf-button zelf-button--outline zelf-button--wide" mat-stroked-button>
+            {{ t("welcome.import_wallet_title") }}
+        </button>
+
+        <button (click)="goToImportAccount()" class="zelf-button zelf-button--hyperlink" mat-flat-button>
             {{ t("welcome.dont_remember_zelfname") }}
+        </button>
+    </div>
+
+    <!-- CTA Buttons (Modern Variant) -->
+    <div class="welcome-onboarding__methods" *ngIf="designVariant === 'modern'">
+        <button class="welcome-method-card" type="button" (click)="goToEnterAccount()">
+            <div class="welcome-method-card__icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M3 13H15L11.5 16.5L12.91 17.91L19.83 11L12.91 4.09L11.5 5.5L15 9H3V13Z"
+                        fill="currentColor"
+                    />
+                </svg>
+            </div>
+            <div class="welcome-method-card__content">
+                <span class="welcome-method-card__title">{{ t("welcome.enter_with_zelf_id") || "Enter with your Zelf ID" }}</span>
+            </div>
+            <div class="welcome-method-card__action">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </div>
+        </button>
+
+        <button class="welcome-method-card" type="button" (click)="goToCreateAccount()">
+            <div class="welcome-method-card__icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M12 4C12.5523 4 13 4.44772 13 5V11H19C19.5523 11 20 11.4477 20 12C20 12.5523 19.5523 13 19 13H13V19C13 19.5523 12.5523 20 12 20C11.4477 20 11 19.5523 11 19V13H5C4.44772 13 4 12.5523 4 12C4 11.4477 4.44772 11 5 11H11V5C11 4.44772 11.4477 4 12 4Z"
+                        fill="currentColor"
+                    />
+                </svg>
+            </div>
+            <div class="welcome-method-card__content">
+                <span class="welcome-method-card__title">{{ t("welcome.create_a_zelf_id") || "Create a Zelf ID" }}</span>
+            </div>
+            <div class="welcome-method-card__domains">
+                <img class="domain-badge" src="assets/icons/zelf_logo.svg" alt=".zelf" title=".zelf"
+                    onerror="this.style.display='none'" />
+                <img class="domain-badge" src="assets/icons/avax_logo.svg" alt=".avax" title=".avax"
+                    onerror="this.style.display='none'" />
+                <img class="domain-badge" src="assets/icons/bdag_logo.png" alt=".bdag" title=".bdag"
+                    onerror="this.style.display='none'" />
+                <img class="domain-badge" src="assets/icons/sui_logo.svg" alt=".sui" title=".sui"
+                    onerror="this.style.display='none'" />
+                <img class="domain-badge" src="assets/icons/walrus_logo.png" alt=".wal" title=".wal"
+                    onerror="this.style.display='none'" />
+            </div>
+            <div class="welcome-method-card__action">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </div>
+        </button>
+
+        <button (click)="goToImportAccount()" class="zelf-button zelf-button--hyperlink welcome-onboarding__recover-link" mat-flat-button>
+            {{ t("welcome.dont_remember_your_zelf_id") || "Don't remember your Zelf ID?" }}
         </button>
     </div>
 </div>

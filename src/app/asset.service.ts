@@ -9,6 +9,9 @@ import { HttpWrapperService } from "./http-wrapper.service";
 import { AssetChart, AssetDetails, AssetInterval, AssetIntervalOptions, AssetRange } from "./models/asset.model";
 import { TokenData } from "@shared/types/wallet.types";
 
+/** Solana wrapped SOL (SPL) mint — must not share native `SOL` tokenType with lamports balance */
+const WSOL_MINT = "So11111111111111111111111111111111111111112";
+
 export interface NetworkPermissions {
     AVAX?: boolean;
     BDAG?: boolean;
@@ -106,7 +109,18 @@ export class AssetService {
         };
     }
 
+    private _isWrappedSolToken(token: any): boolean {
+        const mint = `${token.tokenAddress || token.mint || ""}`.trim();
+        if (mint === WSOL_MINT) return true;
+        const name = `${token.name || ""}`.toUpperCase();
+        return name === "WRAPPED SOL" || name.includes("WRAPPED SOL");
+    }
+
     private _determineTokenType(token: any, network: string): string {
+        if (network === "Solana" && this._isWrappedSolToken(token)) {
+            return "SPL";
+        }
+
         // If token already has a tokenType, use it
         if (token.tokenType && token.tokenType !== "ERC-20") return token.tokenType;
 
@@ -310,6 +324,7 @@ export class AssetService {
                 network,
                 price: parseFloat(token.price || "0"),
                 tokenType: determinedTokenType,
+                isWrappedSol: network === "Solana" && this._isWrappedSolToken(token),
             };
 
             const tokenKey = `${formattedToken.symbol}-${formattedToken.network}-${formattedToken.tokenType}`;

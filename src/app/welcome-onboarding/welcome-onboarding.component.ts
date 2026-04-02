@@ -15,12 +15,7 @@ import { environment } from "environments/environment";
 
 @Component({
     animations: [swipeLeft],
-    imports: [
-        CommonModule,
-        MatButtonModule,
-        RouterLink,
-        TranslocoModule,
-    ],
+    imports: [CommonModule, MatButtonModule, RouterLink, TranslocoModule],
     selector: "welcome-onboarding",
     styleUrls: ["./welcome-onboarding.component.scss"],
     templateUrl: "./welcome-onboarding.component.html",
@@ -36,6 +31,7 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
     activeThemeClass: string = "";
     carouselIndex: number = 0;
     carouselProgress: number = 0;
+    designVariant: "current" | "modern" = "modern";
     showHomeButton: boolean = false;
 
     constructor(
@@ -136,6 +132,10 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
         setTimeout(() => {
             this.carouselProgress = 33;
         });
+    }
+
+    goToEnterAccount(): void {
+        this._router.navigate(["/welcome", "claim"], { queryParams: { mode: "enter" } });
     }
 
     goToCreateAccount(): void {

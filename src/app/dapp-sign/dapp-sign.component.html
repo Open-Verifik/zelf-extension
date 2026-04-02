@@ -61,6 +61,17 @@
                     <span class="dapp-sign__detail-value">{{ txValueFormatted }} {{ txChainSymbol }}</span>
                 </div>
 
+                <div class="dapp-sign__detail-row">
+                    <span class="dapp-sign__detail-label">{{ t("dapp.estimated_gas_fee") }}</span>
+                    <span *ngIf="gasEstimateLoading" class="dapp-sign__detail-value">{{ t("dapp.estimating") }}</span>
+                    <span *ngIf="!gasEstimateLoading && !gasEstimateError" class="dapp-sign__detail-value">
+                        {{ estimatedGasFeeFormatted }} {{ txChainSymbol }}
+                    </span>
+                    <span *ngIf="!gasEstimateLoading && gasEstimateError" class="dapp-sign__detail-value">
+                        {{ t("dapp.unable_to_estimate") }}
+                    </span>
+                </div>
+
                 <ng-container *ngIf="decoded?.type === 'swap'">
                     <div class="dapp-sign__detail-row" *ngIf="decoded?.srcToken">
                         <span class="dapp-sign__detail-label">From Token</span>

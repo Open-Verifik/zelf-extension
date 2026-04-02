@@ -378,6 +378,7 @@ export class SendTransactionComponent implements OnDestroy {
         }
 
         this.searching = true;
+        this._syncToAddressControlDisabledState();
         this.isZelfNameNotFound = false;
 
         const isEVM =
@@ -439,6 +440,7 @@ export class SendTransactionComponent implements OnDestroy {
             }
         } finally {
             this.searching = false;
+            this._syncToAddressControlDisabledState();
 
             if (this.foundAddress) await this._setToCurrentTransactionData();
 
@@ -469,6 +471,8 @@ export class SendTransactionComponent implements OnDestroy {
 
         if (!toAddressCtrl) return;
 
+        this._syncToAddressControlDisabledState();
+
         toAddressCtrl.valueChanges.pipe(takeUntil(this.unsubscriber$), debounceTime(1000)).subscribe((value: string) => {
             if (!value || !value.trim() || this.form.get("toAddress")?.invalid) {
                 this.foundAddress = undefined;
@@ -487,11 +491,26 @@ export class SendTransactionComponent implements OnDestroy {
             this._setRawAddressToFoundAddress(this.transactionData.receiver.address, this.addressKey);
 
             this.withdrawStep = true;
+            this._syncToAddressControlDisabledState();
 
             return;
         }
 
         toAddressCtrl.updateValueAndValidity();
+        this._syncToAddressControlDisabledState();
+    }
+
+    private _syncToAddressControlDisabledState(): void {
+        const ctrl = this.form?.get("toAddress");
+        if (!ctrl) return;
+
+        const shouldDisable = this.withdrawStep || this.searching;
+
+        if (shouldDisable) {
+            if (ctrl.enabled) ctrl.disable({ emitEvent: false });
+        } else if (ctrl.disabled) {
+            ctrl.enable({ emitEvent: false });
+        }
     }
 
     private async _initTransactionData(): Promise<void> {
@@ -527,6 +546,7 @@ export class SendTransactionComponent implements OnDestroy {
 
     private _setRawAddressToFoundAddress(text: string, addressKey: string): void {
         this.searching = false;
+        this._syncToAddressControlDisabledState();
         this.isZelfNameNotFound = false;
 
         this.foundAddress = new TagModel({
@@ -590,6 +610,7 @@ export class SendTransactionComponent implements OnDestroy {
             await this._setToCurrentTransactionData();
 
             this.withdrawStep = true;
+            this._syncToAddressControlDisabledState();
 
             return;
         }
@@ -627,6 +648,7 @@ export class SendTransactionComponent implements OnDestroy {
         await this._setToCurrentTransactionData();
 
         this.withdrawStep = true;
+        this._syncToAddressControlDisabledState();
     }
 
     async continueToConfirmation(): Promise<void> {
@@ -710,6 +732,7 @@ export class SendTransactionComponent implements OnDestroy {
             this._transactionService.setCurrentTransactionData(this.transactionData);
 
             this.withdrawStep = false;
+            this._syncToAddressControlDisabledState();
 
             return;
         }

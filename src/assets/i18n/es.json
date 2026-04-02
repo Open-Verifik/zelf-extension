@@ -566,7 +566,14 @@
         "or_use_other_methods": "O usa otros métodos",
         "feature_multichain": "Multicadena",
         "feature_zk": "HumanAuthn",
-        "feature_selfcustody": "Autocustodia"
+        "feature_selfcustody": "Autocustodia",
+        "enter_with_zelf_id": "Entrar con tu Zelf ID",
+        "create_a_zelf_id": "Crear un Zelf ID",
+        "dont_remember_your_zelf_id": "¿No recuerdas tu Zelf ID?",
+        "enter_tag_name_subtitle": "Introduce tu Zelf ID existente para iniciar sesión",
+        "enter_with_recovery_phrase": "Entrar con la frase de recuperación",
+        "found": "Encontrado",
+        "login_to_this_domain": "Se encontró este Zelf ID — continúa con tu frase de recuperación"
     },
     "settings": {
         "networks_label": "Redes",
@@ -599,17 +606,6 @@
             "no_connections": "No se encontraron conexiones activas.",
             "network_label": "Red",
             "unknown": "Desconocido"
-        },
-        "walletconnect_label": "Conectar por enlace",
-        "walletconnect": {
-            "title": "Conexiones Dapps",
-            "description": "Gestiona las aplicaciones descentralizadas conectadas a tu billetera.",
-            "placeholder": "wc:...",
-            "connect_button": "Conectar",
-            "connecting": "Conectando...",
-            "success": "Éxito",
-            "error_invalid": "Introduce un URI WalletConnect válido (empieza con wc:)",
-            "error_failed": "Error al conectar. Por favor, inténtalo de nuevo."
         },
         "security": {
             "biometric_verification_title": "Intervalo de verificación biométrica",
@@ -967,12 +963,12 @@
         "zelfName_is_taken": "Este ID de Zelf ya está en uso",
         "solana_insufficient_sol_for_fees": "SOL insuficiente. No tienes suficiente SOL para cubrir las comisiones o la creación de la cuenta.",
         "solana_insufficient_sol_for_rent": "SOL insuficiente. No tienes suficiente SOL para pagar la creación de la cuenta de destino.",
-
         "stellar_amount_below_reserve": "The amount is below the minimum required to open this Stellar account.",
         "stellar_classic_fund_xlm_first": "Send native XLM first to fund the recipient's Stellar account before sending this asset.",
         "stellar_classic_trustline_required": "The recipient must add a trustline for this asset before they can receive it.",
         "stellar_soroban_not_supported": "Soroban (contract) assets are not supported in this wallet yet.",
-        "stellar_invalid_asset_format": "Invalid Stellar asset. Use CODE:ISSUER (for example USDC:G…).",        "swap_same_chain": "In Swaps mode, both tokens must be on the same network. Switch to Cross-chain or change your selection."
+        "stellar_invalid_asset_format": "Invalid Stellar asset. Use CODE:ISSUER (for example USDC:G…).",
+        "swap_same_chain": "In Swaps mode, both tokens must be on the same network. Switch to Cross-chain or change your selection."
     },
     "swap": {
         "automatic": "Automático",
@@ -1050,7 +1046,9 @@
         "send_transaction_button": "Enviar",
         "settings_button": "Configuración",
         "support_button": "Soporte",
-        "swap": "Cambiar"
+        "swap": "Cambiar",
+        "token_sol_native": "Nativo",
+        "token_sol_wrapped": "Envuelto"
     },
     "id_scanning": {
         "camera_not_found": "Cámara no encontrada",
@@ -1888,6 +1886,9 @@
         "to_address": "Para",
         "value": "Valor",
         "data": "Datos",
-        "biometric_required": "Se requiere verificación biométrica para firmar"
+        "biometric_required": "Se requiere verificación biométrica para firmar",
+        "estimated_gas_fee": "Tarifa de gas estimada",
+        "estimating": "Estimando...",
+        "unable_to_estimate": "No se puede estimar"
     }
 }

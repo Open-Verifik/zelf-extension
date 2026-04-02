@@ -566,7 +566,14 @@
         "or_use_other_methods": "أو استخدم طرقًا أخرى",
         "feature_multichain": "متعدد السلاسل",
         "feature_zk": "HumanAuthn",
-        "feature_selfcustody": "حفظ ذاتي"
+        "feature_selfcustody": "حفظ ذاتي",
+        "enter_with_zelf_id": "أدخل باستخدام معرف Zelf الخاص بك",
+        "create_a_zelf_id": "إنشاء معرف Zelf",
+        "dont_remember_your_zelf_id": "لا تتذكر معرف Zelf الخاص بك؟",
+        "enter_tag_name_subtitle": "أدخل معرف Zelf الحالي لتسجيل الدخول",
+        "enter_with_recovery_phrase": "الدخول بعبارة الاسترداد",
+        "found": "تم العثور عليه",
+        "login_to_this_domain": "تم العثور على معرف Zelf هذا — تابع بعبارة الاسترداد الخاصة بك"
     },
     "settings": {
         "networks_label": "الشبكات",
@@ -599,17 +606,6 @@
             "no_connections": "لم يتم العثور على اتصالات نشطة.",
             "network_label": "شبكة",
             "unknown": "غير معروف"
-        },
-        "walletconnect_label": "الاتصال عبر الرابط",
-        "walletconnect": {
-            "title": "اتصالات Dapps",
-            "description": "إدارة التطبيقات اللامركزية المتصلة بمحفظتك.",
-            "placeholder": "wc:...",
-            "connect_button": "اتصال",
-            "connecting": "جاري الاتصال...",
-            "success": "نجاح",
-            "error_invalid": "يرجى إدخال URI WalletConnect صالح (يبدأ بـ wc:)",
-            "error_failed": "فشل الاتصال. يرجى المحاولة مرة أخرى."
         },
         "security": {
             "biometric_verification_title": "فاصل التحقق البيومتري",
@@ -666,7 +662,14 @@
         "create_pin_title": "إنشاء رمز PIN",
         "create_pin_subtitle": "يرجى إدخال كلمة مرور مكونة من 6 أرقام لـ Zelf ID QR الخاص بك.",
         "confirm_pin_title": "تأكيد رمز PIN",
-        "confirm_pin_subtitle": "يرجى إعادة إدخال كلمة المرور المكونة من 6 أرقام لـ Zelf ID QR الخاص بك."
+        "confirm_pin_subtitle": "يرجى إعادة إدخال كلمة المرور المكونة من 6 أرقام لـ Zelf ID QR الخاص بك.",
+        "creating_wallet": "جاري إنشاء المحفظة...",
+        "importing_wallet": "جاري استيراد المحفظة...",
+        "recovering_wallet": "جاري استرداد المحفظة...",
+        "retrieving_vault": "جاري استرجاع الخزنة...",
+        "decrypting_vault": "جاري فك تشفير الخزنة...",
+        "vault_unlocked": "تم فتح الخزنة!",
+        "wallet_created": "المحفظة جاهزة!"
     },
     "receive": {
         "information": "يمكن استخدام هذا العنوان فقط لاستلام الرموز المتوافقة.",
@@ -960,12 +963,12 @@
         "zelfName_is_taken": "Zelf ID هذا مستخدم بالفعل",
         "solana_insufficient_sol_for_fees": "Insufficient SOL. You do not have enough SOL to cover the transaction fees or account creation.",
         "solana_insufficient_sol_for_rent": "Insufficient SOL. You do not have enough SOL to pay for the destination account creation.",
-
         "stellar_amount_below_reserve": "The amount is below the minimum required to open this Stellar account.",
         "stellar_classic_fund_xlm_first": "Send native XLM first to fund the recipient's Stellar account before sending this asset.",
         "stellar_classic_trustline_required": "The recipient must add a trustline for this asset before they can receive it.",
         "stellar_soroban_not_supported": "Soroban (contract) assets are not supported in this wallet yet.",
-        "stellar_invalid_asset_format": "Invalid Stellar asset. Use CODE:ISSUER (for example USDC:G…).",        "swap_same_chain": "In Swaps mode, both tokens must be on the same network. Switch to Cross-chain or change your selection."
+        "stellar_invalid_asset_format": "Invalid Stellar asset. Use CODE:ISSUER (for example USDC:G…).",
+        "swap_same_chain": "In Swaps mode, both tokens must be on the same network. Switch to Cross-chain or change your selection."
     },
     "swap": {
         "automatic": "تلقائي",
@@ -1043,7 +1046,9 @@
         "send_transaction_button": "إرسال",
         "settings_button": "الإعدادات",
         "support_button": "الدعم",
-        "swap": "تبديل"
+        "swap": "تبديل",
+        "token_sol_native": "أصلي",
+        "token_sol_wrapped": "مغلف"
     },
     "id_scanning": {
         "camera_not_found": "لم يتم العثور على الكاميرا",
@@ -1752,7 +1757,8 @@
             "instruction_action": "أرسل رموز ZNS",
             "instruction_desc": "أكمل أول عملية تحويل لرموز ZNS لفتح هذه المكافأة",
             "error_no_wallet": "لم يتم العثور على محفظة",
-            "error_invalid_config": "تكوين المحفظة غير صالح"
+            "error_invalid_config": "تكوين المحفظة غير صالح",
+            "not_eligible_title": "أكمل المهمة"
         },
         "tasks": {
             "invite_first_friend": {
@@ -1831,8 +1837,7 @@
             "subtitle": "تم إكمال المهمة!",
             "desc": "مكافأة إحالة من <strong>{{ name }}</strong>",
             "earned_label": "لقد ربحت",
-            "previously_earned_label": "First transaction",
-            "go_back_to_rewards": "Go Back"
+            "accept": "قبول"
         },
         "error": {
             "title": "فشل الاستبدال",
@@ -1881,6 +1886,9 @@
         "to_address": "إلى",
         "value": "القيمة",
         "data": "البيانات",
-        "biometric_required": "مطلوب التحقق البيومتري للتوقيع"
+        "biometric_required": "مطلوب التحقق البيومتري للتوقيع",
+        "estimated_gas_fee": "رسوم الغاز المقدرة",
+        "estimating": "جاري التقدير...",
+        "unable_to_estimate": "تعذر التقدير"
     }
 }

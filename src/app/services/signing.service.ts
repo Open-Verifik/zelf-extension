@@ -3,8 +3,10 @@ import { Injectable } from "@angular/core";
 
 import { TransactionParams, TransactionResult } from "../core/models/transaction-fee.model";
 import { BlockchainTransactionsService } from "./blockchain-transactions.service";
+import { DappGasEstimationService } from "./dapp-gas-estimation.service";
+import { RpcProviderService } from "./rpc-provider.service";
+import { allowDirectFallbackForChainKey, getChainKeyFromChainId } from "@shared/utils/evm-chain-key.util";
 import { VaultService } from "../vault.service";
-import { environment } from "environments/environment";
 import { WalletService } from "../wallet.service";
 import { TagModel } from "../tags.service";
 
@@ -61,6 +63,8 @@ const NETWORK_TO_CHAIN_ID: Record<string, number> = {
 export class SigningService {
     constructor(
         private _blockchainTransactionsService: BlockchainTransactionsService,
+        private _dappGasEstimation: DappGasEstimationService,
+        private _rpcProvider: RpcProviderService,
         private _vaultService: VaultService,
         private _walletService: WalletService
     ) {}
@@ -161,19 +165,20 @@ export class SigningService {
     async signRawTransaction(mnemonic: string, txParams: DappTransactionParams): Promise<string> {
         const cleanMnemonic = mnemonic.trim().toLowerCase();
         const wallet = ethers.Wallet.fromPhrase(cleanMnemonic);
+        const preparedTxParams = await this._dappGasEstimation.prepareTransactionForBroadcast(txParams, wallet.address);
 
         const tx: ethers.TransactionRequest = {
-            to: txParams.to,
-            value: txParams.value ? BigInt(txParams.value) : 0n,
-            data: txParams.data || "0x",
-            chainId: txParams.chainId,
+            to: preparedTxParams.to,
+            value: preparedTxParams.value ? BigInt(preparedTxParams.value) : 0n,
+            data: preparedTxParams.data || "0x",
+            chainId: preparedTxParams.chainId,
         };
 
-        if (txParams.gasLimit) tx.gasLimit = BigInt(txParams.gasLimit);
-        if (txParams.gasPrice) tx.gasPrice = BigInt(txParams.gasPrice);
-        if (txParams.maxFeePerGas) tx.maxFeePerGas = BigInt(txParams.maxFeePerGas);
-        if (txParams.maxPriorityFeePerGas) tx.maxPriorityFeePerGas = BigInt(txParams.maxPriorityFeePerGas);
-        if (txParams.nonce !== undefined) tx.nonce = txParams.nonce;
+        if (preparedTxParams.gasLimit) tx.gasLimit = BigInt(preparedTxParams.gasLimit);
+        if (preparedTxParams.gasPrice) tx.gasPrice = BigInt(preparedTxParams.gasPrice);
+        if (preparedTxParams.maxFeePerGas) tx.maxFeePerGas = BigInt(preparedTxParams.maxFeePerGas);
+        if (preparedTxParams.maxPriorityFeePerGas) tx.maxPriorityFeePerGas = BigInt(preparedTxParams.maxPriorityFeePerGas);
+        if (preparedTxParams.nonce !== undefined) tx.nonce = preparedTxParams.nonce;
 
         return wallet.signTransaction(tx);
     }
@@ -255,33 +260,29 @@ export class SigningService {
     async sendEvmTransactionNative(mnemonic: string, txParams: DappTransactionParams): Promise<TransactionResult> {
         const cleanMnemonic = mnemonic.trim().toLowerCase();
         const network = txParams.network.toLowerCase();
-        let rpcUrl = "";
-        
-        switch (network) {
-            case "ethereum": rpcUrl = environment.ethereumRpc.mainnet; break;
-            case "bsc":
-            case "binance": rpcUrl = environment.binanceRpc.mainnet; break;
-            case "polygon": rpcUrl = environment.polygonRpc.mainnet; break;
-            case "avalanche": rpcUrl = environment.avalancheRpc.mainnet; break;
-            case "blockdag": rpcUrl = "https://rpc.bdagscan.com"; break;
-            default: rpcUrl = environment.ethereumRpc.mainnet;
-        }
-
-        const provider = new ethers.JsonRpcProvider(rpcUrl);
-        const wallet = ethers.Wallet.fromPhrase(cleanMnemonic).connect(provider);
+        const baseWallet = ethers.Wallet.fromPhrase(cleanMnemonic);
+        const preparedTxParams = await this._dappGasEstimation.prepareTransactionForBroadcast(txParams, baseWallet.address);
+        const chainId = preparedTxParams.chainId;
+        const key = typeof chainId === "number" ? getChainKeyFromChainId(chainId) : null;
+        const provider = key
+            ? await this._rpcProvider.getEthersProvider(key, {
+                  allowDirectFallback: allowDirectFallbackForChainKey(key),
+              })
+            : new ethers.JsonRpcProvider(this._dappGasEstimation.resolveRpcUrl(preparedTxParams.chainId, network));
+        const wallet = baseWallet.connect(provider);
 
         const tx: ethers.TransactionRequest = {
-            to: txParams.to,
-            value: txParams.value ? BigInt(txParams.value) : 0n,
-            data: txParams.data || "0x",
-            chainId: txParams.chainId,
+            to: preparedTxParams.to,
+            value: preparedTxParams.value ? BigInt(preparedTxParams.value) : 0n,
+            data: preparedTxParams.data || "0x",
+            chainId: preparedTxParams.chainId,
         };
 
-        if (txParams.gasLimit) tx.gasLimit = BigInt(txParams.gasLimit);
-        if (txParams.gasPrice) tx.gasPrice = BigInt(txParams.gasPrice);
-        if (txParams.maxFeePerGas) tx.maxFeePerGas = BigInt(txParams.maxFeePerGas);
-        if (txParams.maxPriorityFeePerGas) tx.maxPriorityFeePerGas = BigInt(txParams.maxPriorityFeePerGas);
-        if (txParams.nonce !== undefined) tx.nonce = txParams.nonce;
+        if (preparedTxParams.gasLimit) tx.gasLimit = BigInt(preparedTxParams.gasLimit);
+        if (preparedTxParams.gasPrice) tx.gasPrice = BigInt(preparedTxParams.gasPrice);
+        if (preparedTxParams.maxFeePerGas) tx.maxFeePerGas = BigInt(preparedTxParams.maxFeePerGas);
+        if (preparedTxParams.maxPriorityFeePerGas) tx.maxPriorityFeePerGas = BigInt(preparedTxParams.maxPriorityFeePerGas);
+        if (preparedTxParams.nonce !== undefined) tx.nonce = preparedTxParams.nonce;
 
         try {
             const txResponse = await wallet.sendTransaction(tx);

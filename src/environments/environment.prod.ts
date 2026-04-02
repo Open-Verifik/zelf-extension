@@ -30,9 +30,6 @@ export const environment = {
     binanceRpc: {
         mainnet: "https://dark-rough-wildflower.bsc.quiknode.pro/82a34b9b4cb74f29bc8fcc2ea965657c631d6c3a/",
     },
-    solanaRpc: {
-        mainnet: "https://flashy-ultra-choice.solana-mainnet.quiknode.pro/dfa09ac3f7fe0fca5ac6cd762ec0d3a0db52712c/",
-    },
     stellarRpc: {
         mainnet: "https://compatible-skilled-dew.stellar-mainnet.quiknode.pro/817e4f1a5f57dfe63d5fab4ed729c8afcbd87363",
     },

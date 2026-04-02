@@ -566,7 +566,14 @@
         "or_use_other_methods": "または他の方法を使う",
         "feature_multichain": "マルチチェーン",
         "feature_zk": "HumanAuthn",
-        "feature_selfcustody": "自己保管"
+        "feature_selfcustody": "自己保管",
+        "enter_with_zelf_id": "Zelf IDでログイン",
+        "create_a_zelf_id": "Zelf IDを作成",
+        "dont_remember_your_zelf_id": "Zelf IDをお忘れですか？",
+        "enter_tag_name_subtitle": "サインインするには既存のZelf IDを入力",
+        "enter_with_recovery_phrase": "リカバリーフレーズでログイン",
+        "found": "見つかりました",
+        "login_to_this_domain": "このZelf IDが見つかりました — リカバリーフレーズで続行"
     },
     "settings": {
         "networks_label": "ネットワーク",
@@ -599,17 +606,6 @@
             "no_connections": "アクティブな接続が見つかりません。",
             "network_label": "ネットワーク",
             "unknown": "不明"
-        },
-        "walletconnect_label": "リンクで接続",
-        "walletconnect": {
-            "title": "Dapps接続",
-            "description": "ウォレットに接続された分散型アプリケーションを管理します。",
-            "placeholder": "カードタイプを選択",
-            "connect_button": "接続",
-            "connecting": "接続中...",
-            "success": "成功",
-            "error_invalid": "有効な WalletConnect URI を入力してください（wc: で始まります）",
-            "error_failed": "接続に失敗しました。もう一度お試しください。"
         },
         "security": {
             "biometric_verification_title": "生体認証間隔",
@@ -666,7 +662,14 @@
         "create_pin_title": "PINを作成",
         "create_pin_subtitle": "Zelf ID QRの6桁のパスワードを入力してください。",
         "confirm_pin_title": "PINを確認",
-        "confirm_pin_subtitle": "Zelf ID QRの6桁のパスワードを再入力してください。"
+        "confirm_pin_subtitle": "Zelf ID QRの6桁のパスワードを再入力してください。",
+        "creating_wallet": "ウォレットを作成中...",
+        "importing_wallet": "ウォレットをインポート中...",
+        "recovering_wallet": "ウォレットを復元中...",
+        "retrieving_vault": "ボールトを取得中...",
+        "decrypting_vault": "ボールトを復号中...",
+        "vault_unlocked": "ボールトのロック解除！",
+        "wallet_created": "ウォレットの準備完了！"
     },
     "receive": {
         "information": "このアドレスは互換性のあるトークンを受け取るためにのみ使用できます。",
@@ -960,12 +963,12 @@
         "zelfName_is_taken": "このZelf IDは既に使用されています",
         "solana_insufficient_sol_for_fees": "Insufficient SOL. You do not have enough SOL to cover the transaction fees or account creation.",
         "solana_insufficient_sol_for_rent": "Insufficient SOL. You do not have enough SOL to pay for the destination account creation.",
-
         "stellar_amount_below_reserve": "The amount is below the minimum required to open this Stellar account.",
         "stellar_classic_fund_xlm_first": "Send native XLM first to fund the recipient's Stellar account before sending this asset.",
         "stellar_classic_trustline_required": "The recipient must add a trustline for this asset before they can receive it.",
         "stellar_soroban_not_supported": "Soroban (contract) assets are not supported in this wallet yet.",
-        "stellar_invalid_asset_format": "Invalid Stellar asset. Use CODE:ISSUER (for example USDC:G…).",        "swap_same_chain": "In Swaps mode, both tokens must be on the same network. Switch to Cross-chain or change your selection."
+        "stellar_invalid_asset_format": "Invalid Stellar asset. Use CODE:ISSUER (for example USDC:G…).",
+        "swap_same_chain": "In Swaps mode, both tokens must be on the same network. Switch to Cross-chain or change your selection."
     },
     "swap": {
         "automatic": "自動",
@@ -1043,7 +1046,9 @@
         "send_transaction_button": "送信",
         "settings_button": "設定",
         "support_button": "サポート",
-        "swap": "スワップ"
+        "swap": "スワップ",
+        "token_sol_native": "ネイティブ",
+        "token_sol_wrapped": "ラップ済み"
     },
     "id_scanning": {
         "camera_not_found": "カメラが見つかりません",
@@ -1751,7 +1756,9 @@
             "instruction_action": "ZNSトークンを送信",
             "instruction_desc": "初回ZNSトークン取引を完了して、この報酬を解除しましょう",
             "error_no_wallet": "ウォレットが見つかりません",
-            "error_invalid_config": "ウォレットの設定が無効です"
+            "error_invalid_config": "ウォレットの設定が無効です",
+            "accept": "承認",
+            "not_eligible_title": "タスクを完了"
         },
         "tasks": {
             "invite_first_friend": {
@@ -1830,8 +1837,7 @@
             "subtitle": "タスク完了！",
             "desc": "<strong>{{ name }}</strong> さんからの招待報酬",
             "earned_label": "獲得額",
-            "previously_earned_label": "初回取引",
-            "go_back_to_rewards": "戻る"
+            "accept": "承認"
         },
         "error": {
             "title": "受け取りに失敗しました",
@@ -1880,6 +1886,9 @@
         "to_address": "宛先",
         "value": "金額",
         "data": "データ",
-        "biometric_required": "署名には生体認証が必要です"
+        "biometric_required": "署名には生体認証が必要です",
+        "estimated_gas_fee": "推定ガス代",
+        "estimating": "見積もり中...",
+        "unable_to_estimate": "見積もりできません"
     }
 }

@@ -566,7 +566,14 @@
         "or_use_other_methods": "O gumamit ng ibang paraan",
         "feature_multichain": "Multichain",
         "feature_zk": "HumanAuthn",
-        "feature_selfcustody": "Self-custody"
+        "feature_selfcustody": "Self-custody",
+        "enter_with_zelf_id": "Mag-sign in gamit ang Zelf ID mo",
+        "create_a_zelf_id": "Gumawa ng Zelf ID",
+        "dont_remember_your_zelf_id": "Hindi maalala ang Zelf ID mo?",
+        "enter_tag_name_subtitle": "Ilagay ang kasalukuyang Zelf ID mo para mag-sign in",
+        "enter_with_recovery_phrase": "Mag-sign in gamit ang Recovery Phrase",
+        "found": "Nakita",
+        "login_to_this_domain": "Nakita ang Zelf ID na ito — magpatuloy gamit ang recovery phrase mo"
     },
     "settings": {
         "networks_label": "Mga Network",
@@ -599,17 +606,6 @@
             "no_connections": "Walang nahanap na aktibong koneksyon.",
             "network_label": "Network",
             "unknown": "Hindi alam"
-        },
-        "walletconnect_label": "Kumonekta sa pamamagitan ng link",
-        "walletconnect": {
-            "title": "Dapps Connections",
-            "description": "Pamahalaan ang mga decentralized app na nakakonekta sa iyong wallet.",
-            "placeholder": "Pumili ng uri ng card",
-            "connect_button": "Ikonekta",
-            "connecting": "Kumokonekta...",
-            "success": "Tagumpay",
-            "error_invalid": "Maglagay ng wastong WalletConnect URI (nagsisimula sa wc:)",
-            "error_failed": "Nabigo ang koneksyon. Pakisubukang muli."
         },
         "security": {
             "biometric_verification_title": "Biometric verification interval",
@@ -666,7 +662,14 @@
         "create_pin_title": "GUMAWA NG PIN",
         "create_pin_subtitle": "Mangyaring maglagay ng 6 na digit na password para sa iyong Zelf ID QR.",
         "confirm_pin_title": "KONFIRMAHIN ANG PIN",
-        "confirm_pin_subtitle": "Mangyaring muling ilagay ang 6 na digit na password para sa iyong Zelf ID QR."
+        "confirm_pin_subtitle": "Mangyaring muling ilagay ang 6 na digit na password para sa iyong Zelf ID QR.",
+        "creating_wallet": "Ginagawa ang wallet...",
+        "importing_wallet": "Ini-import ang wallet...",
+        "recovering_wallet": "Binabawi ang wallet...",
+        "retrieving_vault": "Kinukuha ang vault...",
+        "decrypting_vault": "Dine-decrypt ang vault...",
+        "vault_unlocked": "Na-unlock ang vault!",
+        "wallet_created": "Handa na ang wallet!"
     },
     "receive": {
         "information": "Ang address na ito ay maaari lamang gamitin para tumanggap ng mga compatible na tokens.",
@@ -960,12 +963,12 @@
         "zelfName_is_taken": "Ginagamit na ang Zelf ID na ito",
         "solana_insufficient_sol_for_fees": "Insufficient SOL. You do not have enough SOL to cover the transaction fees or account creation.",
         "solana_insufficient_sol_for_rent": "Insufficient SOL. You do not have enough SOL to pay for the destination account creation.",
-
         "stellar_amount_below_reserve": "The amount is below the minimum required to open this Stellar account.",
         "stellar_classic_fund_xlm_first": "Send native XLM first to fund the recipient's Stellar account before sending this asset.",
         "stellar_classic_trustline_required": "The recipient must add a trustline for this asset before they can receive it.",
         "stellar_soroban_not_supported": "Soroban (contract) assets are not supported in this wallet yet.",
-        "stellar_invalid_asset_format": "Invalid Stellar asset. Use CODE:ISSUER (for example USDC:G…).",        "swap_same_chain": "In Swaps mode, both tokens must be on the same network. Switch to Cross-chain or change your selection."
+        "stellar_invalid_asset_format": "Invalid Stellar asset. Use CODE:ISSUER (for example USDC:G…).",
+        "swap_same_chain": "In Swaps mode, both tokens must be on the same network. Switch to Cross-chain or change your selection."
     },
     "swap": {
         "automatic": "Awtomatiko",
@@ -1043,7 +1046,9 @@
         "send_transaction_button": "Magpadala",
         "settings_button": "Mga Setting",
         "support_button": "Suporta",
-        "swap": "Magpalit"
+        "swap": "Magpalit",
+        "token_sol_native": "Native",
+        "token_sol_wrapped": "Naka-wrap"
     },
     "id_scanning": {
         "camera_not_found": "Hindi nahanap ang camera",
@@ -1752,7 +1757,8 @@
             "instruction_action": "Magpadala ng ZNS token",
             "instruction_desc": "Gawin ang iyong unang ZNS token transaction para ma-unlock ang reward na ito",
             "error_no_wallet": "Walang nahanap na wallet",
-            "error_invalid_config": "Hindi wastong pagsasaayos ng wallet"
+            "error_invalid_config": "Hindi wastong pagsasaayos ng wallet",
+            "not_eligible_title": "Kumpletuhin ang gawain"
         },
         "tasks": {
             "invite_first_friend": {
@@ -1831,8 +1837,7 @@
             "subtitle": "Tapos na ang gawain!",
             "desc": "Referral reward mula kay <strong>{{ name }}</strong>",
             "earned_label": "Nakuha mo",
-            "previously_earned_label": "First transaction",
-            "go_back_to_rewards": "Go Back"
+            "accept": "Tanggapin"
         },
         "error": {
             "title": "Nabigo ang Pag-claim",
@@ -1881,6 +1886,9 @@
         "to_address": "Para sa",
         "value": "Halaga",
         "data": "Data",
-        "biometric_required": "Kailangan ng biometric verification para mag-sign"
+        "biometric_required": "Kailangan ng biometric verification para mag-sign",
+        "estimated_gas_fee": "Tinantyang gas fee",
+        "estimating": "Tinatantya...",
+        "unable_to_estimate": "Hindi ma-estimate"
     }
 }

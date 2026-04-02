@@ -566,7 +566,14 @@
         "or_use_other_methods": "또는 다른 방법 사용",
         "feature_multichain": "멀티체인",
         "feature_zk": "HumanAuthn",
-        "feature_selfcustody": "셀프 커스터디"
+        "feature_selfcustody": "셀프 커스터디",
+        "enter_with_zelf_id": "Zelf ID로 로그인",
+        "create_a_zelf_id": "Zelf ID 만들기",
+        "dont_remember_your_zelf_id": "Zelf ID가 기억나지 않나요?",
+        "enter_tag_name_subtitle": "로그인하려면 기존 Zelf ID를 입력하세요",
+        "enter_with_recovery_phrase": "복구 문구로 로그인",
+        "found": "찾음",
+        "login_to_this_domain": "이 Zelf ID를 찾았습니다 — 복구 문구로 계속하세요"
     },
     "settings": {
         "networks_label": "네트워크",
@@ -599,17 +606,6 @@
             "no_connections": "활성 연결을 찾을 수 없습니다.",
             "network_label": "네트워크",
             "unknown": "알 수 없음"
-        },
-        "walletconnect_label": "링크로 연결",
-        "walletconnect": {
-            "title": "Dapps 연결",
-            "description": "지갑에 연결된 분산형 앱을 관리합니다.",
-            "placeholder": "카드 유형 선택",
-            "connect_button": "연결",
-            "connecting": "연결 중...",
-            "success": "성공",
-            "error_invalid": "유효한 WalletConnect URI를 입력하세요 (wc:로 시작)",
-            "error_failed": "연결에 실패했습니다. 다시 시도해 주세요."
         },
         "security": {
             "biometric_verification_title": "생체 인증 간격",
@@ -666,7 +662,14 @@
         "create_pin_title": "PIN 만들기",
         "create_pin_subtitle": "Zelf ID QR를 위한 6자리 비밀번호를 입력하세요.",
         "confirm_pin_title": "PIN 확인",
-        "confirm_pin_subtitle": "Zelf ID QR를 위한 6자리 비밀번호를 다시 입력하세요."
+        "confirm_pin_subtitle": "Zelf ID QR를 위한 6자리 비밀번호를 다시 입력하세요.",
+        "creating_wallet": "지갑 생성 중...",
+        "importing_wallet": "지갑 가져오는 중...",
+        "recovering_wallet": "지갑 복구 중...",
+        "retrieving_vault": "금고 가져오는 중...",
+        "decrypting_vault": "금고 해독 중...",
+        "vault_unlocked": "금고 잠금 해제!",
+        "wallet_created": "지갑 준비 완료!"
     },
     "receive": {
         "information": "이 주소는 호환되는 토큰을 받는 데만 사용할 수 있습니다.",
@@ -960,12 +963,12 @@
         "zelfName_is_taken": "이 Zelf ID은 이미 사용 중입니다",
         "solana_insufficient_sol_for_fees": "Insufficient SOL. You do not have enough SOL to cover the transaction fees or account creation.",
         "solana_insufficient_sol_for_rent": "Insufficient SOL. You do not have enough SOL to pay for the destination account creation.",
-
         "stellar_amount_below_reserve": "The amount is below the minimum required to open this Stellar account.",
         "stellar_classic_fund_xlm_first": "Send native XLM first to fund the recipient's Stellar account before sending this asset.",
         "stellar_classic_trustline_required": "The recipient must add a trustline for this asset before they can receive it.",
         "stellar_soroban_not_supported": "Soroban (contract) assets are not supported in this wallet yet.",
-        "stellar_invalid_asset_format": "Invalid Stellar asset. Use CODE:ISSUER (for example USDC:G…).",        "swap_same_chain": "In Swaps mode, both tokens must be on the same network. Switch to Cross-chain or change your selection."
+        "stellar_invalid_asset_format": "Invalid Stellar asset. Use CODE:ISSUER (for example USDC:G…).",
+        "swap_same_chain": "In Swaps mode, both tokens must be on the same network. Switch to Cross-chain or change your selection."
     },
     "swap": {
         "automatic": "자동",
@@ -1043,7 +1046,9 @@
         "send_transaction_button": "보내기",
         "settings_button": "설정",
         "support_button": "지원",
-        "swap": "스왑"
+        "swap": "스왑",
+        "token_sol_native": "네이티브",
+        "token_sol_wrapped": "랩됨"
     },
     "id_scanning": {
         "camera_not_found": "카메라를 찾을 수 없습니다",
@@ -1751,7 +1756,9 @@
             "instruction_action": "ZNS 토큰 전송",
             "instruction_desc": "첫 ZNS 토큰 거래를 완료하고 보상을 받으세요",
             "error_no_wallet": "지갑을 찾을 수 없습니다",
-            "error_invalid_config": "잘못된 지갑 구성"
+            "error_invalid_config": "잘못된 지갑 구성",
+            "accept": "수락",
+            "not_eligible_title": "작업 완료"
         },
         "tasks": {
             "invite_first_friend": {
@@ -1830,8 +1837,7 @@
             "subtitle": "작업 완료!",
             "desc": "<strong>{{ name }}</strong> 님으로부터의 추천 보상",
             "earned_label": "획득한 보상",
-            "previously_earned_label": "첫 거래",
-            "go_back_to_rewards": "돌아가기"
+            "accept": "수락"
         },
         "error": {
             "title": "수령 실패",
@@ -1880,6 +1886,9 @@
         "to_address": "수신 주소",
         "value": "금액",
         "data": "데이터",
-        "biometric_required": "서명하려면 생체 인증이 필요합니다"
+        "biometric_required": "서명하려면 생체 인증이 필요합니다",
+        "estimated_gas_fee": "예상 가스 수수료",
+        "estimating": "추정 중...",
+        "unable_to_estimate": "추정할 수 없음"
     }
 }

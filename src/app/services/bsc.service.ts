@@ -5,6 +5,7 @@ import { isAddress } from "web3-validator";
 import { Injectable } from "@angular/core";
 
 import { HttpWrapperService } from "app/http-wrapper.service";
+import { RpcProviderService } from "app/services/rpc-provider.service";
 import { environment } from "environments/environment";
 import { TransactionFeeEstimate, TransactionParams, TransactionResult } from "../core/models/transaction-fee.model";
 
@@ -13,7 +14,8 @@ import { TransactionFeeEstimate, TransactionParams, TransactionResult } from "..
 })
 export class BscService {
     private _baseUrl: string = environment.apiUrl;
-    private _web3: Web3;
+    private readonly _web3Utils = new Web3().utils;
+    private readonly _web3Promise: Promise<Web3>;
 
     private readonly _chainConfigs = {
         mainnet: {
@@ -41,8 +43,15 @@ export class BscService {
         // },
     };
 
-    constructor(private _httpWrapper: HttpWrapperService) {
-        this._web3 = new Web3(new Web3.providers.HttpProvider(this._chainConfigs.mainnet.rpcUrls[0]));
+    constructor(
+        private _httpWrapper: HttpWrapperService,
+        private _rpcProvider: RpcProviderService
+    ) {
+        this._web3Promise = this._rpcProvider.getWeb3("bsc", { allowDirectFallback: false });
+    }
+
+    private async web3(): Promise<Web3> {
+        return this._web3Promise;
     }
 
     private _defaultResponse(): any {
@@ -63,7 +72,7 @@ export class BscService {
     }
 
     private _fromWei(amount: string, decimals: number = 18): string {
-        return this._web3.utils.fromWei(amount, decimals === 18 ? "ether" : "wei");
+        return this._web3Utils.fromWei(amount, decimals === 18 ? "ether" : "wei");
     }
 
     private async _getTransactionCost(
@@ -82,6 +91,7 @@ export class BscService {
         total?: number;
     }> {
         try {
+            const w3 = await this.web3();
             let estimatedGas;
 
             if (tokenAddress) {
@@ -98,14 +108,14 @@ export class BscService {
                     },
                 ];
 
-                const contract = new this._web3.eth.Contract(minABI, tokenAddress);
+                const contract = new w3.eth.Contract(minABI, tokenAddress);
                 const encodedData = contract.methods.transfer(to, value).encodeABI();
 
                 // Use sender address if provided, otherwise fall back to zero address
                 const fromAddress =
                     senderAddress && this.checkIfValidAddress(senderAddress) ? senderAddress : "0x0000000000000000000000000000000000000000";
 
-                estimatedGas = await this._web3.eth.estimateGas({
+                estimatedGas = await w3.eth.estimateGas({
                     from: fromAddress,
                     to: tokenAddress,
                     data: encodedData,
@@ -116,7 +126,7 @@ export class BscService {
                 const fromAddress =
                     senderAddress && this.checkIfValidAddress(senderAddress) ? senderAddress : "0x0000000000000000000000000000000000000000";
 
-                estimatedGas = await this._web3.eth.estimateGas({
+                estimatedGas = await w3.eth.estimateGas({
                     from: fromAddress,
                     to,
                     value,
@@ -125,13 +135,13 @@ export class BscService {
             }
 
             // Get current gas price (BSC is usually faster/cheaper than Ethereum)
-            const gasPrice = await this._web3.eth.getGasPrice();
+            const gasPrice = await w3.eth.getGasPrice();
 
             // Add 5% buffer for gas price (BSC is typically more stable)
             const adjustedGasPrice = ((BigInt(gasPrice) * BigInt(105)) / BigInt(100)).toString();
 
             const totalCost = (BigInt(adjustedGasPrice) * BigInt(estimatedGas)).toString();
-            const nativeFee = Number(this._web3.utils.fromWei(totalCost, "ether"));
+            const nativeFee = Number(this._web3Utils.fromWei(totalCost, "ether"));
             const price = await this.getBNBPrice();
 
             return {
@@ -151,7 +161,7 @@ export class BscService {
     }
 
     private _toWei(amount: string, decimals: number = 18): string {
-        return this._web3.utils.toWei(amount, decimals === 18 ? "ether" : "wei");
+        return this._web3Utils.toWei(amount, decimals === 18 ? "ether" : "wei");
     }
 
     async calculateTransactionFees(
@@ -253,7 +263,7 @@ export class BscService {
         try {
             if (!params.privateKey) throw new Error("Private key is required for BSC transactions");
 
-            const provider = new ethers.JsonRpcProvider(this._chainConfigs.mainnet.rpcUrls[0]);
+            const provider = await this._rpcProvider.getEthersProvider("bsc", { allowDirectFallback: false });
             const wallet = new ethers.Wallet(params.privateKey, provider);
 
             let txResponse;

@@ -8,7 +8,8 @@ import { ActivatedRoute, Router, RouterModule } from "@angular/router";
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 
 import { ChromeService } from "app/chrome.service";
-import { SigningService, DappTransactionParams } from "app/services/signing.service";
+import { DappGasEstimationService } from "app/services/dapp-gas-estimation.service";
+import { SigningService } from "app/services/signing.service";
 import { TxDecoderService } from "app/services/tx-decoder.service";
 import { VaultService } from "app/vault.service";
 import { WalletService } from "app/wallet.service";
@@ -54,6 +55,9 @@ export class DappSignComponent implements OnInit {
     txNetwork = "ethereum";
     txNetworkName = "Ethereum";
     txChainSymbol = "ETH";
+    gasEstimateLoading = false;
+    gasEstimateError = false;
+    estimatedGasFeeFormatted = "";
 
     messageToSign = "";
     isMessageSign = false;
@@ -65,6 +69,7 @@ export class DappSignComponent implements OnInit {
         private _activatedRoute: ActivatedRoute,
         private _changeDetectorRef: ChangeDetectorRef,
         private _chromeService: ChromeService,
+        private _dappGasEstimation: DappGasEstimationService,
         private _formBuilder: FormBuilder,
         private _router: Router,
         private _signingService: SigningService,
@@ -133,6 +138,7 @@ export class DappSignComponent implements OnInit {
                     this._parseMessage();
                 } else {
                     this._parseTransaction();
+                    void this._estimateGasFee();
                 }
             }
 
@@ -353,6 +359,50 @@ export class DappSignComponent implements OnInit {
         }
 
         this.decoded = this._txDecoder.decode(this.txTo, this.txData, this.txValue);
+    }
+
+    private async _estimateGasFee(): Promise<void> {
+        if (!this._pendingParams) {
+            return;
+        }
+
+        const params = Array.isArray(this._pendingParams) ? this._pendingParams[0] : this._pendingParams;
+        const senderAddress = this.wallet?.publicData?.ethAddress;
+        if (!senderAddress) {
+            this.gasEstimateError = true;
+            return;
+        }
+
+        this.gasEstimateLoading = true;
+        this.gasEstimateError = false;
+        this.estimatedGasFeeFormatted = "";
+        this._changeDetectorRef.detectChanges();
+
+        try {
+            const estimate = await this._dappGasEstimation.estimateTransactionFee(
+                {
+                    to: params.to,
+                    value: params.value,
+                    data: params.data,
+                    gasLimit: params.gas || params.gasLimit,
+                    gasPrice: params.gasPrice,
+                    maxFeePerGas: params.maxFeePerGas,
+                    maxPriorityFeePerGas: params.maxPriorityFeePerGas,
+                    nonce: params.nonce ? parseInt(params.nonce, 16) : undefined,
+                    chainId: this.txChainId,
+                    network: this.txNetwork,
+                },
+                senderAddress,
+            );
+
+            this.estimatedGasFeeFormatted = estimate.formattedFee;
+        } catch (error) {
+            console.error("Failed to estimate dapp transaction fee:", error);
+            this.gasEstimateError = true;
+        } finally {
+            this.gasEstimateLoading = false;
+            this._changeDetectorRef.detectChanges();
+        }
     }
 
     private _parseMessage(): void {

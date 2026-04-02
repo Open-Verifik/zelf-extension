@@ -4,6 +4,7 @@ import { isAddress } from "web3-validator";
 import { Injectable } from "@angular/core";
 
 import { HttpWrapperService } from "app/http-wrapper.service";
+import { RpcProviderService } from "app/services/rpc-provider.service";
 import { environment } from "environments/environment";
 import { TransactionFeeEstimate, TransactionParams, TransactionResult } from "../core/models/transaction-fee.model";
 
@@ -27,7 +28,10 @@ export class BlockDAGService {
         },
     };
 
-    constructor(private _httpWrapper: HttpWrapperService) {}
+    constructor(
+        private _httpWrapper: HttpWrapperService,
+        private _rpcProvider: RpcProviderService
+    ) {}
 
     async getCurrentPrice(): Promise<number> {
         try {
@@ -68,7 +72,7 @@ export class BlockDAGService {
                 throw new Error("Invalid receiver address");
             }
 
-            const provider = new ethers.JsonRpcProvider(this._chainConfigs.mainnet.rpcUrls[0]);
+            const provider = await this._rpcProvider.getEthersProvider("blockdag");
 
             let estimatedGas: bigint;
 
@@ -185,7 +189,7 @@ export class BlockDAGService {
                 throw new Error("Invalid receiver address");
             }
 
-            const provider = new ethers.JsonRpcProvider(this._chainConfigs.mainnet.rpcUrls[0]);
+            const provider = await this._rpcProvider.getEthersProvider("blockdag");
             const wallet = new ethers.Wallet(params.privateKey, provider);
 
             let txResponse;

@@ -566,7 +566,14 @@
         "or_use_other_methods": "Or use other methods",
         "feature_multichain": "Multichain",
         "feature_zk": "HumanAuthn",
-        "feature_selfcustody": "Self-Custody"
+        "feature_selfcustody": "Self-Custody",
+        "enter_with_zelf_id": "Enter with your Zelf ID",
+        "create_a_zelf_id": "Create a Zelf ID",
+        "dont_remember_your_zelf_id": "Don't remember your Zelf ID?",
+        "enter_tag_name_subtitle": "Enter your existing Zelf ID to sign in",
+        "enter_with_recovery_phrase": "Enter with Recovery Phrase",
+        "found": "Found",
+        "login_to_this_domain": "This Zelf ID was found — continue with your recovery phrase"
     },
     "settings": {
         "networks_label": "Networks",
@@ -1001,6 +1008,8 @@
     },
     "home": {
         "manage_networks": "Manage networks",
+        "token_sol_native": "Native",
+        "token_sol_wrapped": "Wrapped",
         "assets": "Tokens",
         "keys": "Keys",
         "NFTs": "Collectibles",
@@ -1872,6 +1881,9 @@
         "confirm_transaction": "Confirm Transaction",
         "to_address": "To",
         "value": "Value",
+        "estimated_gas_fee": "Estimated Gas Fee",
+        "estimating": "Estimating...",
+        "unable_to_estimate": "Unable to estimate",
         "data": "Data",
         "biometric_required": "Biometric verification required to sign"
     }

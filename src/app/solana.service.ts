@@ -11,7 +11,6 @@ import {
     LAMPORTS_PER_SOL,
     MessageV0,
     PublicKey,
-    sendAndConfirmTransaction,
     SystemProgram,
     Transaction,
     VersionedTransaction,
@@ -25,6 +24,7 @@ import { Injectable } from "@angular/core";
 import { firstValueFrom } from "rxjs";
 
 import { environment } from "environments/environment";
+import { RpcProviderService } from "app/services/rpc-provider.service";
 import { TransactionFeeEstimate, TransactionParams, TransactionResult } from "./core/models/transaction-fee.model";
 import { HttpWrapperService } from "./http-wrapper.service";
 
@@ -35,71 +35,52 @@ if (typeof window !== "undefined") window.Buffer = window.Buffer || Buffer;
 })
 export class SolanaService {
     private readonly _baseUrl: string = environment.apiUrl;
-
-    private readonly _chainConfigs = {
-        mainnet: {
-            blockExplorerUrls: ["https://solscan.io"],
-            chainId: 101,
-            chainName: "Solana Mainnet",
-            rpcUrls: [environment.solanaRpc.mainnet],
-            nativeCurrency: {
-                decimals: 9,
-                name: "SOL",
-                symbol: "SOL",
-            },
-        },
-        // Testnet configuration can be added when needed
-        // testnet: {
-        //     blockExplorerUrls: ["https://explorer.solana.com/?cluster=testnet"],
-        //     chainId: 102,
-        //     chainName: "Solana Testnet",
-        //     rpcUrls: ["https://api.testnet.solana.com"],
-        //     nativeCurrency: {
-        //         decimals: 9,
-        //         name: "SOL",
-        //         symbol: "SOL",
-        //     },
-        // },
-    };
+    /** All RPC calls: `POST /api/protected/rpc/solana` + JWT when session is available. */
+    private readonly _connectionReady: Promise<Connection>;
 
     tokens: Array<any> = [];
 
     constructor(
         private http: HttpClient,
-        private _httpWrapper: HttpWrapperService
-    ) {}
+        private _httpWrapper: HttpWrapperService,
+        private _rpcProvider: RpcProviderService
+    ) {
+        this._connectionReady = this._rpcProvider.getSolanaConnection();
+    }
 
     /** ZNS SPL token mint on Solana mainnet */
     static readonly ZNS_MINT_ADDRESS = "GfF6PSkH8bKLkws5RMFdzgASwcVbgCfhhKfp8zeoFBkx";
 
-    public get connection(): Connection {
-        return new Connection(this._chainConfigs.mainnet.rpcUrls[0], { commitment: "confirmed" });
+    /** Solana RPC (Zelf protected proxy + JWT, or direct fallback). */
+    getConnection(): Promise<Connection> {
+        return this._connectionReady;
     }
 
     /**
-     * Get ZNS token balance for a wallet via Solana RPC (QuickNode).
+     * Get ZNS token balance for a wallet via Solana RPC.
      * ownerAddress = the holder's Solana wallet (the one that holds the tokens), not the minter.
      * Uses getTokenAccountsByOwner to find any token account holding ZNS for this wallet.
      * Tries legacy SPL Token (mint filter) then Token-2022 (list all, filter by mint).
      */
     async getZnsBalanceViaRpc(ownerAddress: string): Promise<number> {
         try {
+            const connection = await this._connectionReady;
             const mint = new PublicKey(SolanaService.ZNS_MINT_ADDRESS);
             const owner = new PublicKey(ownerAddress);
             const mintStr = SolanaService.ZNS_MINT_ADDRESS;
 
             const tryBalance = async (accountPubkey: PublicKey): Promise<number> => {
-                const balance = await this.connection.getTokenAccountBalance(accountPubkey);
+                const balance = await connection.getTokenAccountBalance(accountPubkey);
                 const amount = balance?.value?.uiAmount ?? 0;
                 return typeof amount === "number" ? amount : parseFloat(String(amount)) || 0;
             };
 
-            const responseLegacy = await this.connection.getTokenAccountsByOwner(owner, { mint });
+            const responseLegacy = await connection.getTokenAccountsByOwner(owner, { mint });
             if (responseLegacy.value.length > 0) {
                 return tryBalance(responseLegacy.value[0].pubkey);
             }
 
-            const parsed2022 = await this.connection.getParsedTokenAccountsByOwner(owner, {
+            const parsed2022 = await connection.getParsedTokenAccountsByOwner(owner, {
                 programId: TOKEN_2022_PROGRAM_ID,
             });
             for (const item of parsed2022.value) {
@@ -117,10 +98,6 @@ export class SolanaService {
             console.warn("Solana RPC ZNS balance error:", error);
             return 0;
         }
-    }
-
-    private _createConnection(): Connection {
-        return this.connection;
     }
 
     private _defaultResponse(): any {
@@ -158,6 +135,28 @@ export class SolanaService {
         }
     }
 
+    /**
+     * Polls getSignatureStatuses (HTTP only) until confirmed/finalized or timeout.
+     * Avoids WebSocket signatureSubscribe which fails when the RPC endpoint is HTTP-only.
+     */
+    private async _waitForConfirmation(connection: Connection, signature: string, timeoutMs = 60_000): Promise<void> {
+        const start = Date.now();
+
+        while (Date.now() - start < timeoutMs) {
+            const { value } = await connection.getSignatureStatuses([signature], { searchTransactionHistory: false });
+            const status = value?.[0];
+
+            if (status) {
+                if (status.err) throw new Error(`Transaction failed on-chain: ${JSON.stringify(status.err)}`);
+                if (status.confirmationStatus === "confirmed" || status.confirmationStatus === "finalized") return;
+            }
+
+            await new Promise<void>((r) => setTimeout(r, 2000));
+        }
+
+        throw new Error("Transaction confirmation timed out after 60 seconds");
+    }
+
     private async _sendSOL(connection: Connection, fromKeypair: Keypair, toAddress: string, amount: number): Promise<string> {
         try {
             const walletBalance = await connection.getBalance(fromKeypair.publicKey);
@@ -188,7 +187,14 @@ export class SolanaService {
                 })
             );
 
-            const signature = await sendAndConfirmTransaction(connection, transaction, [fromKeypair]);
+            const { blockhash } = await connection.getLatestBlockhash("confirmed");
+            transaction.recentBlockhash = blockhash;
+            transaction.feePayer = fromKeypair.publicKey;
+            transaction.sign(fromKeypair);
+
+            const signature = await connection.sendRawTransaction(transaction.serialize(), { skipPreflight: false, maxRetries: 3 });
+
+            await this._waitForConfirmation(connection, signature);
 
             return signature;
         } catch (error: any) {
@@ -200,7 +206,7 @@ export class SolanaService {
 
     private async _sendSPLTokens(params: { fromPubKey: Keypair; toAddress: string; mintAddress: string; amount: number }): Promise<string> {
         try {
-            const connection = this._createConnection();
+            const connection = await this._connectionReady;
 
             const fromKeypair = params.fromPubKey;
             const mint = new PublicKey(params.mintAddress);
@@ -255,7 +261,14 @@ export class SolanaService {
 
             if (walletBalance < totalNeededSOL) throw new Error("errors.solana_insufficient_sol_for_fees");
 
-            const signature = await sendAndConfirmTransaction(connection, transaction, [fromKeypair]);
+            const { blockhash } = await connection.getLatestBlockhash("confirmed");
+            transaction.recentBlockhash = blockhash;
+            transaction.feePayer = fromKeypair.publicKey;
+            transaction.sign(fromKeypair);
+
+            const signature = await connection.sendRawTransaction(transaction.serialize(), { skipPreflight: false, maxRetries: 3 });
+
+            await this._waitForConfirmation(connection, signature);
 
             return signature;
         } catch (error: any) {
@@ -278,7 +291,7 @@ export class SolanaService {
 
     private async _sendTokens(mnemonic: string, toAddress: string, tokenAddress: string, amount: number): Promise<string> {
         try {
-            const connection = this._createConnection();
+            const connection = await this._connectionReady;
 
             const fromKeypair = await this._getKeypairFromMnemonic(mnemonic);
 
@@ -442,7 +455,7 @@ export class SolanaService {
      */
     async sendSerializedTransaction(mnemonic: string, serializedTransaction: string): Promise<string> {
         try {
-            const connection = this._createConnection();
+            const connection = await this._connectionReady;
 
             const fromKeypair = await this._getKeypairFromMnemonic(mnemonic);
             const transactionBuffer = Buffer.from(serializedTransaction, "base64");
@@ -520,7 +533,7 @@ export class SolanaService {
 
         return {
             hash,
-            status: "pending",
+            status: "confirmed",
         };
     }
 }

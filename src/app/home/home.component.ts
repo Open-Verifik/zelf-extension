@@ -14,6 +14,7 @@ import { AuthService } from "app/services/auth.service";
 import { SettingsService } from "app/services/settings.service";
 import { TagModel, TagsService } from "app/tags.service";
 import { WalletService } from "app/wallet.service";
+import { homeLoadPerfLog, homeLoadPerfMark, homeLoadPerfMeasure, homeLoadPerfStart } from "@shared/utils/home-load-perf";
 import { ZelfFooterComponent } from "app/zelf-footer/zelf-footer.component";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 import { ZelfNameService } from "app/zelf-name-service.service";
@@ -82,7 +83,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     async ngOnInit(): Promise<any> {
+        homeLoadPerfStart();
+        homeLoadPerfMark("initNetwork:start");
         this.selectedNetwork = await this._blockchainNetworkService._initNetwork();
+        homeLoadPerfMark("initNetwork:end");
 
         this._chromeService.onWalletChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe(this._initializeWallet);
 
@@ -111,6 +115,14 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.unsubscriberForBalances$.complete();
     }
 
+    /** Prefer `this.wallet`: `shareables.wallet` can be overwritten by child header sync before `this.wallet` is reassigned. */
+    private _tagNameForPerfLog(): string {
+        const w = this.wallet ?? this.shareables?.wallet;
+        if (!w) return "";
+
+        return (w.fullTagName || w.publicData?.tagName || w.name || "") as string;
+    }
+
     private _getEnabledNetworkIds(): string[] | undefined {
         return this._settingsService.getEnabledNetworkIds();
     }
@@ -126,6 +138,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     private async _getBalances(): Promise<void> {
+        homeLoadPerfMark("getBalances:start");
         this.balancesLoading = true;
         this.tokens = [];
 
@@ -137,10 +150,20 @@ export class HomeComponent implements OnInit, OnDestroy {
 
             this._changeDetectorRef.detectChanges();
 
+            homeLoadPerfMark("balancesIdle:end");
+            homeLoadPerfLog("balances_loading_false", {
+                source: "session",
+                fullTagName: this._tagNameForPerfLog(),
+                balancesLoading: false,
+            });
+            homeLoadPerfMeasure("walletSet_to_balancesIdle", "walletSet:end", "balancesIdle:end");
+            homeLoadPerfMark("getBalances:end");
+
             return;
         }
 
         await this._fetchBalancesFromNetwork(enabledNetworks);
+        homeLoadPerfMark("getBalances:end");
     }
 
     /**
@@ -178,6 +201,14 @@ export class HomeComponent implements OnInit, OnDestroy {
         } finally {
             this.balancesLoading = false;
             this._changeDetectorRef.detectChanges();
+
+            homeLoadPerfMark("balancesIdle:end");
+            homeLoadPerfLog("balances_loading_false", {
+                source: "network",
+                fullTagName: this._tagNameForPerfLog(),
+                balancesLoading: false,
+            });
+            homeLoadPerfMeasure("walletSet_to_balancesIdle", "walletSet:end", "balancesIdle:end");
         }
     }
 
@@ -207,6 +238,12 @@ export class HomeComponent implements OnInit, OnDestroy {
         await this._getBalances();
         await this._refreshWallets();
 
+        homeLoadPerfLog("initialize_wallet_pipeline_done", {
+            fullTagName: this._tagNameForPerfLog(),
+            balancesLoading: this.balancesLoading,
+        });
+        homeLoadPerfMeasure("initNetwork_to_refreshWallets", "initNetwork:end", "refreshWallets:end");
+
         this._chromeService.onWalletChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe(this._listenForWalletUpdates);
     };
 
@@ -231,7 +268,9 @@ export class HomeComponent implements OnInit, OnDestroy {
      * This updates the wallet in local storage and could trigger an endless update cycle with out subscription to onWalletChanged$.
      */
     private _refreshWallets = async (forceRefresh = false): Promise<void> => {
+        homeLoadPerfMark("refreshWallets:start");
         await this._tagsService.refreshAllTagsPublicData([this.wallet] as TagModel[], forceRefresh);
+        homeLoadPerfMark("refreshWallets:end");
     };
 
     private async _setWallet(): Promise<any> {
@@ -247,6 +286,12 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.wallet = this.shareables.wallet;
 
         this._changeDetectorRef.detectChanges();
+
+        homeLoadPerfMark("walletSet:end");
+        homeLoadPerfLog("wallet_ready", {
+            fullTagName: wallet.fullTagName ?? "",
+            balancesLoading: this.balancesLoading,
+        });
     }
 
     async refreshTokens(): Promise<any> {

@@ -167,12 +167,19 @@ export class HomeHeaderComponent implements OnDestroy, AfterViewInit {
 
     ngAfterViewInit(): void {
         this._chromeService.onWalletChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe((wallet: Partial<TagModel>) => {
-            if (!wallet) return;
+            if (!this._isMeaningfulWalletPayload(wallet)) return;
 
             setTimeout(() => {
                 this.shareables.wallet = wallet;
             }, 0);
         });
+    }
+
+    /** BehaviorSubject starts as `{}`; skip so we do not overwrite parent `shareables.wallet` and hide the tag pill. */
+    private _isMeaningfulWalletPayload(wallet: Partial<TagModel> | null | undefined): boolean {
+        if (wallet == null || typeof wallet !== "object") return false;
+
+        return !!(wallet.fullTagName || wallet.publicData?.tagName || wallet.tagName || wallet.name || (wallet as { _id?: string })._id);
     }
 
     ngOnDestroy(): void {

@@ -1044,7 +1044,8 @@
         "send_transaction_button": "Send",
         "settings_button": "Settings",
         "support_button": "Support",
-        "swap": "Swap"
+        "swap": "Swap",
+        "total_balance": "Total Balance"
     },
     "id_scanning": {
         "camera_not_found": "Camera not found",

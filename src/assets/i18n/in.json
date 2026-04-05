@@ -1048,7 +1048,8 @@
         "support_button": "सहायता",
         "swap": "स्वैप करें",
         "token_sol_native": "मूल",
-        "token_sol_wrapped": "रैप्ड"
+        "token_sol_wrapped": "रैप्ड",
+        "total_balance": "कुल शेष"
     },
     "id_scanning": {
         "camera_not_found": "कैमरा नहीं मिला",

@@ -1048,7 +1048,8 @@
         "support_button": "지원",
         "swap": "스왑",
         "token_sol_native": "네이티브",
-        "token_sol_wrapped": "랩됨"
+        "token_sol_wrapped": "랩됨",
+        "total_balance": "총 잔액"
     },
     "id_scanning": {
         "camera_not_found": "카메라를 찾을 수 없습니다",

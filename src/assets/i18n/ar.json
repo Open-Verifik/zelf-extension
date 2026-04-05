@@ -1048,7 +1048,8 @@
         "support_button": "الدعم",
         "swap": "تبديل",
         "token_sol_native": "أصلي",
-        "token_sol_wrapped": "مغلف"
+        "token_sol_wrapped": "مغلف",
+        "total_balance": "الرصيد الإجمالي"
     },
     "id_scanning": {
         "camera_not_found": "لم يتم العثور على الكاميرا",

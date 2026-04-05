@@ -16,7 +16,6 @@ import { TagModel, TagsService } from "app/tags.service";
 import { WalletService } from "app/wallet.service";
 import { homeLoadPerfLog, homeLoadPerfMark, homeLoadPerfMeasure, homeLoadPerfStart } from "@shared/utils/home-load-perf";
 import { ZelfFooterComponent } from "app/zelf-footer/zelf-footer.component";
-import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 import { ZelfNameService } from "app/zelf-name-service.service";
 import { HomeBannersComponent } from "./home-banners/home-banners.component";
 import { HomeCollectiblesComponent } from "./home-collectibles/home-collectibles.component";
@@ -38,7 +37,6 @@ import { TokenCardComponent } from "./token-card/token-card.component";
         TokenCardComponent,
         TranslocoModule,
         ZelfFooterComponent,
-        ZelfLoaderComponent,
     ],
     selector: "home",
     styleUrls: ["./home.component.scss", "../main.scss"],

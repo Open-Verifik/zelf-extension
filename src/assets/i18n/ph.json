@@ -1048,7 +1048,8 @@
         "support_button": "Suporta",
         "swap": "Magpalit",
         "token_sol_native": "Native",
-        "token_sol_wrapped": "Naka-wrap"
+        "token_sol_wrapped": "Naka-wrap",
+        "total_balance": "Kabuuang Balanse"
     },
     "id_scanning": {
         "camera_not_found": "Hindi nahanap ang camera",

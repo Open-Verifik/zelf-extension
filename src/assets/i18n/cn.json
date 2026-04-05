@@ -1048,7 +1048,8 @@
         "support_button": "支持",
         "swap": "交换",
         "token_sol_native": "原生",
-        "token_sol_wrapped": "封装"
+        "token_sol_wrapped": "封装",
+        "total_balance": "总余额"
     },
     "id_scanning": {
         "camera_not_found": "未找到相机",

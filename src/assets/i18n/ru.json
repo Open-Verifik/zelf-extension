@@ -1048,7 +1048,8 @@
         "support_button": "Поддержка",
         "swap": "Обмен",
         "token_sol_native": "Нативный",
-        "token_sol_wrapped": "Обёрнутый"
+        "token_sol_wrapped": "Обёрнутый",
+        "total_balance": "Общий баланс"
     },
     "id_scanning": {
         "camera_not_found": "Камера не найдена",

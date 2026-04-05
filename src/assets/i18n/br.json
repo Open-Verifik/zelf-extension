@@ -1048,7 +1048,8 @@
         "support_button": "Suporte",
         "swap": "Trocar",
         "token_sol_native": "Nativo",
-        "token_sol_wrapped": "Embrulhado"
+        "token_sol_wrapped": "Embrulhado",
+        "total_balance": "Saldo Total"
     },
     "id_scanning": {
         "camera_not_found": "Câmera não encontrada",

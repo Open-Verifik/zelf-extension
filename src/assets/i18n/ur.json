@@ -1048,7 +1048,8 @@
         "support_button": "مدد",
         "swap": "تبادلہ",
         "token_sol_native": "نیٹیو",
-        "token_sol_wrapped": "رَپڈ"
+        "token_sol_wrapped": "رَپڈ",
+        "total_balance": "کل بیلنس"
     },
     "id_scanning": {
         "camera_not_found": "کیمرا نہیں ملا",

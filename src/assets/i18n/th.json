@@ -1048,7 +1048,8 @@
         "support_button": "ช่วยเหลือ",
         "swap": "แลกเปลี่ยน",
         "token_sol_native": "เนทีฟ",
-        "token_sol_wrapped": "ห่อ"
+        "token_sol_wrapped": "ห่อ",
+        "total_balance": "ยอดคงเหลือทั้งหมด"
     },
     "id_scanning": {
         "camera_not_found": "ไม่พบกล้อง",

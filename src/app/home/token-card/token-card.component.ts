@@ -34,7 +34,8 @@ import { WalletService } from "app/wallet.service";
                     </p>
                 </div>
 
-                <p class="token-card__name">{{ data.price | currency: "USD" : "symbol" : "1.2-5" }}</p>
+                <p class="token-card__name" *ngIf="!hideBalances">{{ data.price | currency: "USD" : "symbol" : "1.2-5" }}</p>
+                <p class="token-card__name token-card__name--masked" *ngIf="hideBalances">••••</p>
             </div>
 
             <div class="amount-container" fxLayout="column" fxLayoutAlign="end end">
@@ -46,13 +47,15 @@ import { WalletService } from "app/wallet.service";
                             'stats__percentage--negative': false,
                         }"
                     >
-                        <span class="stats__text stats__text--colored">{{ (data.amount ?? data.balance) | number: "1.0-6" }}</span>
+                        <span class="stats__text stats__text--colored" *ngIf="!hideBalances">{{ (data.amount ?? data.balance) | number: "1.0-6" }}</span>
+                        <span class="stats__text stats__text--colored" *ngIf="hideBalances">••••</span>
                     </div>
                 </h4>
 
-                <div class="token-card__balance">
+                <div class="token-card__balance" *ngIf="!hideBalances">
                     {{ data.fiatBalance | currency: "USD" : "symbol" : "1.2-5" }}
                 </div>
+                <div class="token-card__balance" *ngIf="hideBalances">••••</div>
             </div>
 
             <div class="pin-icon-container" *ngIf="isHovered || data.isPinned" (click)="onPinClick($event)" [class.pinned]="data.isPinned">
@@ -70,6 +73,7 @@ import { WalletService } from "app/wallet.service";
 })
 export class TokenCardComponent implements OnInit {
     @Input() data: any;
+    @Input() hideBalances: boolean = false;
     @Input() view: string;
     @Input() shareables: any;
     @Output() pinToggled = new EventEmitter<any>();

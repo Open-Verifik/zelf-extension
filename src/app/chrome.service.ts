@@ -15,6 +15,7 @@ export class ChromeService {
     private _isSidePanel$ = new BehaviorSubject<boolean>(false);
     private _accessToken$ = new BehaviorSubject<string>("");
     private _lastVerified$ = new BehaviorSubject<number>(0);
+    private _hideWalletBalances$ = new BehaviorSubject<boolean>(false);
     private _myArnsDontShowAgain$ = new BehaviorSubject<boolean>(false);
     private _settings$ = new BehaviorSubject<Settings>({} as Settings);
     private _tabId?: number;
@@ -42,9 +43,14 @@ export class ChromeService {
         this._initCachePromise = browser.storage.local.get(null).then((data) => {
             this._localCache = data || {};
             this._cacheInitialized = true;
+            this._hideWalletBalances$.next(this._coerceHideWalletBalances(this._localCache.hideWalletBalances));
         });
 
         return this._initCachePromise;
+    }
+
+    private _coerceHideWalletBalances(value: unknown): boolean {
+        return value === true || value === "true";
     }
 
     private _initBrowserListeners(): void {
@@ -111,6 +117,10 @@ export class ChromeService {
                     : ([] as TagModel[]);
             }
 
+            if (changes.hideWalletBalances) {
+                this._hideWalletBalances$.next(this._coerceHideWalletBalances(changes.hideWalletBalances.newValue));
+            }
+
             if (changes.myArnsDontShowAgain) {
                 this._myArnsDontShowAgain$.next(changes.myArnsDontShowAgain.newValue as boolean);
             }
@@ -159,6 +169,10 @@ export class ChromeService {
                               )
                           )
                         : ([] as TagModel[]);
+                }
+
+                if (event.detail.key === "hideWalletBalances") {
+                    this._hideWalletBalances$.next(event.detail.newValue === "true");
                 }
 
                 if (event.detail.key === "myArnsDontShowAgain") {
@@ -217,6 +231,10 @@ export class ChromeService {
         return this._lastVerified$.asObservable();
     }
 
+    get onHideWalletBalancesChanged$(): Observable<boolean> {
+        return this._hideWalletBalances$.asObservable();
+    }
+
     get onMyArnsDontShowAgainChanged$(): Observable<boolean> {
         return this._myArnsDontShowAgain$.asObservable();
     }
@@ -235,6 +253,12 @@ export class ChromeService {
 
     get activeTabConnected$(): Observable<boolean> {
         return this._activeTabConnected$.asObservable();
+    }
+
+    async setHideWalletBalances(hidden: boolean): Promise<void> {
+        await this.setItem("hideWalletBalances", hidden);
+
+        this._hideWalletBalances$.next(hidden);
     }
 
     async closeTab(): Promise<void> {

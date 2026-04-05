@@ -1045,7 +1045,9 @@
         "settings_button": "Settings",
         "support_button": "Support",
         "swap": "Swap",
-        "total_balance": "Total Balance"
+        "total_balance": "Total Balance",
+        "hide_balances": "Hide balances",
+        "show_balances": "Show balances"
     },
     "id_scanning": {
         "camera_not_found": "Camera not found",

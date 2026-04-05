@@ -1049,7 +1049,9 @@
         "swap": "تبادلہ",
         "token_sol_native": "نیٹیو",
         "token_sol_wrapped": "رَپڈ",
-        "total_balance": "کل بیلنس"
+        "total_balance": "کل بیلنس",
+        "hide_balances": "بیلنس چھپائیں",
+        "show_balances": "بیلنس دکھائیں"
     },
     "id_scanning": {
         "camera_not_found": "کیمرا نہیں ملا",

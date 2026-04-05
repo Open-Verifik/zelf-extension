@@ -1049,7 +1049,9 @@
         "swap": "Échanger",
         "token_sol_native": "Natif",
         "token_sol_wrapped": "Wrapped",
-        "total_balance": "Solde Total"
+        "total_balance": "Solde Total",
+        "hide_balances": "Masquer les soldes",
+        "show_balances": "Afficher les soldes"
     },
     "id_scanning": {
         "camera_not_found": "Caméra non trouvée",

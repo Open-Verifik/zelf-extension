@@ -1049,7 +1049,9 @@
         "swap": "交换",
         "token_sol_native": "原生",
         "token_sol_wrapped": "封装",
-        "total_balance": "总余额"
+        "total_balance": "总余额",
+        "hide_balances": "隐藏余额",
+        "show_balances": "显示余额"
     },
     "id_scanning": {
         "camera_not_found": "未找到相机",

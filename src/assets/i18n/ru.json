@@ -1049,7 +1049,9 @@
         "swap": "Обмен",
         "token_sol_native": "Нативный",
         "token_sol_wrapped": "Обёрнутый",
-        "total_balance": "Общий баланс"
+        "total_balance": "Общий баланс",
+        "hide_balances": "Скрыть балансы",
+        "show_balances": "Показать балансы"
     },
     "id_scanning": {
         "camera_not_found": "Камера не найдена",

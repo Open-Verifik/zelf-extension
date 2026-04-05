@@ -1049,7 +1049,9 @@
         "swap": "スワップ",
         "token_sol_native": "ネイティブ",
         "token_sol_wrapped": "ラップ済み",
-        "total_balance": "合計残高"
+        "total_balance": "合計残高",
+        "hide_balances": "残高を非表示",
+        "show_balances": "残高を表示"
     },
     "id_scanning": {
         "camera_not_found": "カメラが見つかりません",

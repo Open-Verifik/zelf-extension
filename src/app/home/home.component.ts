@@ -49,6 +49,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     balances: any;
     balancesLoading: boolean = false;
     collectiblesReloadKey = 0;
+    hideBalances: boolean = false;
     selectedNetwork!: string;
     shareables: any;
     tokens!: Array<any>;
@@ -82,6 +83,16 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     async ngOnInit(): Promise<any> {
         homeLoadPerfStart();
+
+        const storedHide = await this._chromeService.getItem("hideWalletBalances");
+
+        this.hideBalances = storedHide === true || storedHide === "true";
+
+        this._chromeService.onHideWalletBalancesChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe((hidden) => {
+            this.hideBalances = hidden;
+            this._changeDetectorRef.detectChanges();
+        });
+
         homeLoadPerfMark("initNetwork:start");
         this.selectedNetwork = await this._blockchainNetworkService._initNetwork();
         homeLoadPerfMark("initNetwork:end");
@@ -290,6 +301,10 @@ export class HomeComponent implements OnInit, OnDestroy {
             fullTagName: wallet.fullTagName ?? "",
             balancesLoading: this.balancesLoading,
         });
+    }
+
+    async toggleHideBalances(): Promise<void> {
+        await this._chromeService.setHideWalletBalances(!this.hideBalances);
     }
 
     async refreshTokens(): Promise<any> {

@@ -1049,7 +1049,9 @@
         "swap": "تبديل",
         "token_sol_native": "أصلي",
         "token_sol_wrapped": "مغلف",
-        "total_balance": "الرصيد الإجمالي"
+        "total_balance": "الرصيد الإجمالي",
+        "hide_balances": "إخفاء الأرصدة",
+        "show_balances": "إظهار الأرصدة"
     },
     "id_scanning": {
         "camera_not_found": "لم يتم العثور على الكاميرا",

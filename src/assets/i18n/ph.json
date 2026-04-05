@@ -1049,7 +1049,9 @@
         "swap": "Magpalit",
         "token_sol_native": "Native",
         "token_sol_wrapped": "Naka-wrap",
-        "total_balance": "Kabuuang Balanse"
+        "total_balance": "Kabuuang Balanse",
+        "hide_balances": "Itago ang mga balanse",
+        "show_balances": "Ipakita ang mga balanse"
     },
     "id_scanning": {
         "camera_not_found": "Hindi nahanap ang camera",

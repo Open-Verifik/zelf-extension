@@ -1049,7 +1049,9 @@
         "swap": "स्वैप करें",
         "token_sol_native": "मूल",
         "token_sol_wrapped": "रैप्ड",
-        "total_balance": "कुल शेष"
+        "total_balance": "कुल शेष",
+        "hide_balances": "शेष छिपाएं",
+        "show_balances": "शेष दिखाएं"
     },
     "id_scanning": {
         "camera_not_found": "कैमरा नहीं मिला",

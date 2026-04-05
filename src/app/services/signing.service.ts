@@ -284,7 +284,27 @@ export class SigningService {
         if (preparedTxParams.maxPriorityFeePerGas) tx.maxPriorityFeePerGas = BigInt(preparedTxParams.maxPriorityFeePerGas);
         if (preparedTxParams.nonce !== undefined) tx.nonce = preparedTxParams.nonce;
 
+        if (preparedTxParams.chainId === 1404) {
+            tx.type = 0;
+            delete tx.maxFeePerGas;
+            delete tx.maxPriorityFeePerGas;
+            if (!tx.gasPrice) {
+                tx.gasPrice = BigInt(500e9);
+            }
+        }
+
         try {
+            try {
+                const balanceWei = await provider.getBalance(baseWallet.address);
+                console.log("[EVM send] balance before send", {
+                    chainId: preparedTxParams.chainId,
+                    address: baseWallet.address,
+                    balanceWei: balanceWei.toString(),
+                    balanceEther: ethers.formatEther(balanceWei),
+                });
+            } catch (balanceErr) {
+                console.warn("[EVM send] getBalance before send failed:", balanceErr);
+            }
             const txResponse = await wallet.sendTransaction(tx);
             return {
                 hash: txResponse.hash,

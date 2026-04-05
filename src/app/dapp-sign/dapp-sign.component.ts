@@ -353,6 +353,10 @@ export class DappSignComponent implements OnInit {
         try {
             if (this.txValue && this.txValue !== "0" && this.txValue !== "0x0") {
                 this.txValueFormatted = ethers.formatEther(this.txValue);
+                const dot = this.txValueFormatted.indexOf(".");
+                if (dot !== -1 && this.txValueFormatted.length - dot - 1 > 8) {
+                    this.txValueFormatted = this.txValueFormatted.slice(0, dot + 9);
+                }
             }
         } catch {
             this.txValueFormatted = this.txValue;

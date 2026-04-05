@@ -122,8 +122,13 @@ export class DappGasEstimationService {
                 maxPriorityFeePerGas: undefined,
             };
         } catch (error) {
-            console.warn("BlockDAG gas price fetch failed, using original params:", error);
-            return params;
+            console.warn("BlockDAG gas price fetch failed, using fallback gas price:", error);
+            return {
+                ...params,
+                gasPrice: BLOCKDAG_MIN_GAS_PRICE_WEI.toString(),
+                maxFeePerGas: undefined,
+                maxPriorityFeePerGas: undefined,
+            };
         }
     }
 
@@ -154,7 +159,12 @@ export class DappGasEstimationService {
             return cached;
         }
 
-        const provider = new ethers.JsonRpcProvider(rpcUrl);
+        const needsNoBatch = rpcUrl.includes("bdagscan.com");
+        const provider = new ethers.JsonRpcProvider(
+            rpcUrl,
+            undefined,
+            needsNoBatch ? { batchMaxCount: 1 } : undefined,
+        );
         this._providerByRpcUrl.set(rpcUrl, provider);
         return provider;
     }

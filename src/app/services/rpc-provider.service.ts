@@ -130,7 +130,11 @@ export class RpcProviderService {
             if (!environment.production) {
                 console.warn(`[RpcProviderService] Direct RPC fallback for ${chainKey} (no JWT)`, err);
             }
-            return new JsonRpcProvider(this.getFallbackDirectRpcUrl(chainKey));
+            return new JsonRpcProvider(
+                this.getFallbackDirectRpcUrl(chainKey),
+                undefined,
+                chainKey === "blockdag" ? { batchMaxCount: 1 } : undefined,
+            );
         }
 
         const fr = new FetchRequest(url);
@@ -141,7 +145,11 @@ export class RpcProviderService {
             return req;
         };
 
-        return new JsonRpcProvider(fr);
+        return new JsonRpcProvider(
+            fr,
+            undefined,
+            chainKey === "blockdag" ? { batchMaxCount: 1 } : undefined,
+        );
     }
 
     async getEthersProviderForChainId(chainId: number, opts: RpcProviderOptions = {}): Promise<JsonRpcProvider> {

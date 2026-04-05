@@ -212,6 +212,8 @@ export class BlockDAGService {
                     to: params.to,
                     value: ethers.parseEther(params.value),
                     chainId: this._chainConfigs.mainnet.chainId,
+                    type: 0,
+                    gasPrice: BigInt(500e9),
                 };
 
                 txResponse = await wallet.sendTransaction(transaction);

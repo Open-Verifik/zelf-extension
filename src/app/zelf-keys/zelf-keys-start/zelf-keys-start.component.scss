@@ -13,19 +13,28 @@
     &__feature-card {
         min-width: 250px;
         padding: calc(24px * var(--zns-space-scale, 1));
-        box-shadow: 0px 8px 24px variables.$themeShadow;
-        border-radius: 32px;
-        outline-offset: -1.5px;
+        border: 1px solid transparent;
+        background:
+            linear-gradient(variables.$themeCard, variables.$themeCard) padding-box,
+            linear-gradient(135deg, variables.$themeBorderHover, variables.$themeCardBorder) border-box;
+        box-shadow: 0 2px 8px variables.$themeShadow;
+        border-radius: calc(24px * var(--zns-space-scale, 1));
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         display: inline-flex;
-        background-color: variables.$themeCard;
-        transition: box-shadow 0.3s variables.$smoothBezier;
+        transition:
+            transform 0.2s variables.$smoothBezier,
+            box-shadow 0.2s variables.$smoothBezier;
 
         &:hover {
-            box-shadow: 0px 12px 36px variables.$themeShadow;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+        }
+
+        &:active {
+            transform: scale(0.97);
         }
     }
 
@@ -54,7 +63,6 @@
         word-wrap: break-word;
         text-align: center;
         margin: 0;
-        transition: color 0.3s variables.$smoothBezier;
     }
 
     &__card-description {
@@ -71,7 +79,6 @@
         letter-spacing: 0.1px;
         word-wrap: break-word;
         margin: 0;
-        transition: color 0.3s variables.$smoothBezier;
     }
 
     &__cta-section {
@@ -86,11 +93,11 @@
         padding-right: calc(24px * var(--zns-space-scale, 1));
         background: variables.$themeButton;
         overflow: hidden;
-        border-radius: 16px;
+        border-radius: calc(16px * var(--zns-space-scale, 1));
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        gap: 8px;
+        gap: calc(8px * var(--zns-space-scale, 1));
         display: inline-flex;
         width: 100%;
     }

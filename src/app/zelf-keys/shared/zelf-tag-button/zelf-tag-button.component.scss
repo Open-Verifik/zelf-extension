@@ -5,11 +5,12 @@
     cursor: pointer;
     align-self: stretch;
     padding: 12px 16px 12px 24px;
-    background: variables.$themeCard;
+    border: 1px solid transparent;
+    background:
+        linear-gradient(variables.$themeCardBorder, variables.$themeCardBorder) padding-box,
+        linear-gradient(135deg, variables.$themeBorderHover, variables.$themeCardBorder) border-box;
     box-shadow: 0px 8px 24px variables.$themeShadow;
-    border-radius: 32px;
-    outline: 1px variables.$themeCardBorder solid;
-    outline-offset: -1px;
+    border-radius: 16px;
     justify-content: flex-start;
     align-items: center;
     gap: 16px;
@@ -20,7 +21,7 @@
         box-shadow 0.2s variables.$smoothBezier;
 
     &:hover {
-        background-color: variables.$secondaryColor;
+        background: variables.$secondaryColor;
         color: variables.$themeCard;
         box-shadow: 0px 8px 24px variables.$themeShadow;
 
@@ -80,6 +81,18 @@
         svg {
             fill: variables.$themeText;
             transition: fill 0.2s variables.$smoothBezier;
+        }
+    }
+}
+
+:host-context(html.zns-theme-light) {
+    .zelf-tag-button {
+        background:
+            linear-gradient(#f7f8fb, #f7f8fb) padding-box,
+            linear-gradient(135deg, #c3c6cf, #eeedf1) border-box;
+
+        &:hover {
+            background: variables.$secondaryColor;
         }
     }
 }

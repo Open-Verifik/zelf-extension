@@ -28,7 +28,7 @@
         transform: translateX(-50%);
         width: calc(600px * var(--zns-space-scale, 1));
         height: calc(600px * var(--zns-space-scale, 1));
-        background: radial-gradient(circle, rgba(255, 87, 33, 0.08) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(255, 87, 33, 0.04) 0%, transparent 70%);
         pointer-events: none;
         z-index: 0;
     }
@@ -46,7 +46,7 @@
             left: 50%;
             top: calc(100px * var(--zns-space-scale, 1));
             transform: translateX(-50%);
-            opacity: 0.12;
+            opacity: 0.06;
             background: linear-gradient(180deg, #ff5721 0%, rgba(255, 87, 33, 0) 100%);
             filter: blur(calc(40px * var(--zns-space-scale, 1)));
         }
@@ -57,7 +57,7 @@
             left: 50%;
             top: calc(50px * var(--zns-space-scale, 1));
             transform: translateX(-50%);
-            opacity: 0.08;
+            opacity: 0.04;
             background: linear-gradient(180deg, rgba(255, 87, 33, 0) 0%, #ff5721 100%);
             filter: blur(calc(60px * var(--zns-space-scale, 1)));
         }
@@ -163,13 +163,13 @@
         align-items: center;
         padding: calc(28px * var(--zns-space-scale, 1)) calc(28px * var(--zns-space-scale, 1)) calc(56px * var(--zns-space-scale, 1));
         width: 100%;
-        background: linear-gradient(145deg, #ff6b35 0%, #ff8a50 35%, #ffb347 100%);
+        background: linear-gradient(145deg, #ff8a56 0%, #ffa06a 35%, #ffc870 100%);
         border-radius: calc(28px * var(--zns-space-scale, 1));
         overflow: hidden;
         flex-shrink: 0;
         box-shadow:
-            0 20px 40px rgba(255, 87, 33, 0.25),
-            0 8px 16px rgba(255, 87, 33, 0.15),
+            0 8px 24px rgba(255, 87, 33, 0.12),
+            0 4px 10px rgba(255, 87, 33, 0.08),
             inset 0 1px 0 rgba(255, 255, 255, 0.2);
 
         // Animated shimmer effect
@@ -216,7 +216,7 @@
         margin-bottom: calc(20px * var(--zns-space-scale, 1));
         animation: float 4s ease-in-out infinite;
         box-shadow:
-            0 8px 32px rgba(0, 0, 0, 0.1),
+            0 4px 16px rgba(0, 0, 0, 0.06),
             inset 0 1px 0 rgba(255, 255, 255, 0.3);
 
         svg {
@@ -267,11 +267,13 @@
     }
 
     &__balance-card-inner {
-        background: variables.$themeCard;
+        border: 1px solid transparent;
+        background:
+            linear-gradient(variables.$themeCardBorder, variables.$themeCardBorder) padding-box,
+            linear-gradient(135deg, variables.$themeBorderHover, variables.$themeCardBorder) border-box;
         border-radius: calc(24px * var(--zns-space-scale, 1));
         padding: calc(20px * var(--zns-space-scale, 1)) calc(24px * var(--zns-space-scale, 1));
-        box-shadow: 0 12px 40px variables.$themeShadow;
-        border: 1px solid variables.$themeBorder;
+        box-shadow: 0 4px 16px variables.$themeShadow;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -281,9 +283,7 @@
 
         &:hover {
             transform: translateY(-2px);
-            box-shadow:
-                0 16px 48px rgba(0, 0, 0, 0.1),
-                0 6px 16px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
         }
     }
 
@@ -327,7 +327,7 @@
         align-items: center;
         gap: calc(6px * var(--zns-space-scale, 1));
         padding: calc(10px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
-        background: linear-gradient(145deg, #ff6b35 0%, #ff8a50 100%);
+        background: linear-gradient(145deg, #ff8a56 0%, #ffa06a 100%);
         border-radius: calc(14px * var(--zns-space-scale, 1));
         font-family: variables.$themeBodyFamily;
         font-size: calc(13px * var(--zns-font-scale, 1));
@@ -335,7 +335,7 @@
         color: white;
         white-space: nowrap;
         transition: all 0.3s ease;
-        box-shadow: 0 4px 12px rgba(255, 87, 33, 0.25);
+        box-shadow: 0 2px 8px rgba(255, 87, 33, 0.15);
 
         &:hover {
             box-shadow: 0 6px 16px rgba(255, 87, 33, 0.35);
@@ -378,12 +378,12 @@
     &__action-card {
         flex: 1;
         padding: calc(20px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
-        background: linear-gradient(145deg, #ff6b35 0%, #ff8a50 100%);
+        background: linear-gradient(145deg, #ff8a56 0%, #ffa06a 100%);
         box-shadow:
-            0 12px 32px rgba(255, 87, 33, 0.25),
-            0 4px 12px rgba(255, 87, 33, 0.15);
+            0 6px 20px rgba(255, 87, 33, 0.18),
+            0 2px 8px rgba(255, 87, 33, 0.1);
         border-radius: calc(24px * var(--zns-space-scale, 1));
-        border: none;
+        border: 1px solid rgba(255, 255, 255, 0.2);
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -409,8 +409,8 @@
         &:hover {
             transform: translateY(calc(-4px * var(--zns-space-scale, 1))) scale(1.02);
             box-shadow:
-                0 20px 48px rgba(255, 87, 33, 0.35),
-                0 8px 20px rgba(255, 87, 33, 0.2);
+                0 10px 28px rgba(255, 87, 33, 0.22),
+                0 4px 12px rgba(255, 87, 33, 0.12);
 
             &::before {
                 left: 100%;
@@ -422,7 +422,7 @@
         }
 
         &--highlight {
-            background: linear-gradient(145deg, #ff8a50 0%, #ffb347 100%);
+            background: linear-gradient(145deg, #ffa06a 0%, #ffc870 100%);
         }
     }
 
@@ -437,7 +437,7 @@
         justify-content: center;
         animation: float 4s ease-in-out infinite;
         box-shadow:
-            0 4px 16px rgba(0, 0, 0, 0.08),
+            0 2px 8px rgba(0, 0, 0, 0.05),
             inset 0 1px 0 rgba(255, 255, 255, 0.3);
 
         svg {
@@ -593,9 +593,11 @@
     }
 
     &__task {
-        background: variables.$themeCard;
-        border: 1px solid variables.$themeBorder;
-        box-shadow: 0 4px 16px variables.$themeShadow;
+        border: 1px solid transparent;
+        background:
+            linear-gradient(variables.$themeCardBorder, variables.$themeCardBorder) padding-box,
+            linear-gradient(135deg, variables.$themeBorderHover, variables.$themeCardBorder) border-box;
+        box-shadow: 0 2px 8px variables.$themeShadow;
         border-radius: calc(20px * var(--zns-space-scale, 1));
         padding: calc(16px * var(--zns-space-scale, 1)) calc(20px * var(--zns-space-scale, 1));
         display: flex;
@@ -608,10 +610,10 @@
 
         &:hover {
             transform: translateX(calc(6px * var(--zns-space-scale, 1)));
-            border-color: rgba(255, 87, 33, 0.3);
-            box-shadow:
-                0 8px 24px rgba(0, 0, 0, 0.06),
-                0 4px 12px rgba(255, 87, 33, 0.1);
+            background:
+                linear-gradient(variables.$themeCardBorder, variables.$themeCardBorder) padding-box,
+                linear-gradient(135deg, rgba(255, 87, 33, 0.4), variables.$themeCardBorder) border-box;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
         }
 
         &--completed {
@@ -627,8 +629,10 @@
 
             &:hover {
                 transform: none;
-                border-color: variables.$themeBorder;
-                box-shadow: 0 4px 16px variables.$themeShadow;
+                background:
+                    linear-gradient(variables.$themeCardBorder, variables.$themeCardBorder) padding-box,
+                    linear-gradient(135deg, variables.$themeBorderHover, variables.$themeCardBorder) border-box;
+                box-shadow: 0 2px 8px variables.$themeShadow;
             }
 
             .rewards__task-icon {
@@ -661,13 +665,13 @@
         width: calc(44px * var(--zns-space-scale, 1));
         height: calc(44px * var(--zns-space-scale, 1));
         border-radius: calc(14px * var(--zns-space-scale, 1));
-        background: linear-gradient(145deg, #ff6b35 0%, #ff8a50 100%);
+        background: linear-gradient(145deg, #ff8a56 0%, #ffa06a 100%);
         color: white;
         display: flex;
         align-items: center;
         justify-content: center;
         flex-shrink: 0;
-        box-shadow: 0 4px 12px rgba(255, 87, 33, 0.25);
+        box-shadow: 0 2px 6px rgba(255, 87, 33, 0.12);
 
         svg {
             width: calc(20px * var(--zns-space-scale, 1));
@@ -822,5 +826,26 @@
         &__task-reward {
             font-size: calc(12px * var(--zns-font-scale, 1));
         }
+    }
+}
+
+:host-context(html.zns-theme-light) {
+    .rewards__balance-card-inner,
+    .rewards__task {
+        background:
+            linear-gradient(#f7f8fb, #f7f8fb) padding-box,
+            linear-gradient(135deg, #c3c6cf, #eeedf1) border-box;
+    }
+
+    .rewards__task:hover {
+        background:
+            linear-gradient(#f7f8fb, #f7f8fb) padding-box,
+            linear-gradient(135deg, rgba(255, 87, 33, 0.4), #eeedf1) border-box;
+    }
+
+    .rewards__task--coming-soon:hover {
+        background:
+            linear-gradient(#f7f8fb, #f7f8fb) padding-box,
+            linear-gradient(135deg, #c3c6cf, #eeedf1) border-box;
     }
 }

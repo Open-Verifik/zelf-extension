@@ -49,7 +49,10 @@
 
     &__balance-card {
         width: 100%;
-        background: variables.$themeCardBorder;
+        border: 1px solid transparent;
+        background:
+            linear-gradient(variables.$themeCardBorder, variables.$themeCardBorder) padding-box,
+            linear-gradient(135deg, variables.$themeBorderHover, variables.$themeCardBorder) border-box;
         border-radius: calc(20px * var(--zns-space-scale, 1));
         padding: calc(16px * var(--zns-space-scale, 1));
 
@@ -138,7 +141,9 @@
 
 :host-context(html.zns-theme-light) {
     .home__balance-card {
-        background: #e2e8f04a;
+        background:
+            linear-gradient(#f7f8fb, #f7f8fb) padding-box,
+            linear-gradient(135deg, #c3c6cf, #eeedf1) border-box;
     }
 }
 

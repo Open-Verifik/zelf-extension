@@ -48,17 +48,29 @@
         }
 
         &--expiration {
-            background-color: variables.$warningLight;
-            border: 1px solid variables.$warning;
+            border: 1px solid transparent;
+            background:
+                linear-gradient(variables.$themeCardBorder, variables.$themeCardBorder) padding-box,
+                linear-gradient(135deg, variables.$themeBorderHover, variables.$themeCardBorder) border-box;
             justify-content: flex-start;
             align-items: stretch;
+
+            &:hover {
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            }
         }
 
         &--zns {
-            background-color: variables.$themeCard;
-            border: 1px solid variables.$themeCardBorder;
+            border: 1px solid transparent;
+            background:
+                linear-gradient(variables.$themeCardBorder, variables.$themeCardBorder) padding-box,
+                linear-gradient(135deg, variables.$themeBorderHover, variables.$themeCardBorder) border-box;
             justify-content: flex-start;
             align-items: stretch;
+
+            &:hover {
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            }
         }
     }
 
@@ -264,7 +276,7 @@
         max-height: calc(125px * var(--zns-space-scale, 1));
         object-fit: contain;
         border-radius: calc(8px * var(--zns-space-scale, 1));
-        border: 1px solid variables.$themeBorder;
+        border: 1px solid rgba(222, 104, 0, 0.18);
 
         @media (max-width: variables.$minSmall) {
             max-width: calc(94px * var(--zns-space-scale, 1));
@@ -307,6 +319,15 @@
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
             animation: shimmer 1.5s infinite;
         }
+    }
+}
+
+:host-context(html.zns-theme-light) {
+    .home-banners__tile--expiration,
+    .home-banners__tile--zns {
+        background:
+            linear-gradient(#f7f8fb, #f7f8fb) padding-box,
+            linear-gradient(135deg, #c3c6cf, #eeedf1) border-box;
     }
 }
 

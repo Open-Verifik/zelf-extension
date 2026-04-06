@@ -1012,9 +1012,9 @@
     },
     "home": {
         "manage_networks": "네트워크 관리",
-        "assets": "토큰",
+        "assets": "자산",
         "keys": "키",
-        "NFTs": "수집품",
+        "NFTs": "NFTs",
         "collectibles_loading": "수집품 불러오는 중…",
         "collectibles_empty": "이 지갑에 아직 NFT가 없습니다.",
         "collectibles_error": "수집품을 불러올 수 없습니다. 연결을 확인하고 다시 시도하세요.",
@@ -1856,13 +1856,26 @@
     "home_banners": {
         "expiration": {
             "title": "Zelf ID를 잃지 마세요",
+            "name": "Zelf ID",
+            "status": "만료 임박",
             "expired": "만료됨",
             "one_day": "ZNS 구매까지 1일 남았습니다",
-            "days_left": "ZNS 구매까지 {{ days }}일 남았습니다"
+            "days_left": "ZNS 구매까지 {{ days }}일 남았습니다",
+            "days_label": "일 남음",
+            "day_label": "일 남음",
+            "expired_label": "만료됨"
         },
         "rewards": {
             "title": "보상 받기",
             "subtitle": "퀘스트로 매일 $ZNS 받기"
+        },
+        "zns_balance": {
+            "title": "ZNS 잔액",
+            "symbol": "ZNS",
+            "label": "잔액"
+        },
+        "identity": {
+            "subtitle": "Zelf 도메인 관리"
         }
     },
     "dapp": {

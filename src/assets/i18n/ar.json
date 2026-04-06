@@ -1012,9 +1012,9 @@
     },
     "home": {
         "manage_networks": "إدارة الشبكات",
-        "assets": "الرموز",
+        "assets": "الأصول",
         "keys": "المفاتيح",
-        "NFTs": "المقتنيات",
+        "NFTs": "NFTs",
         "collectibles_loading": "جاري تحميل المقتنيات…",
         "collectibles_empty": "لا توجد NFT في هذه المحفظة بعد.",
         "collectibles_error": "تعذر تحميل المقتنيات. تحقق من الاتصال وحاول مرة أخرى.",
@@ -1856,13 +1856,26 @@
     "home_banners": {
         "expiration": {
             "title": "لا تفقد Zelf ID الخاص بك",
+            "name": "Zelf ID",
+            "status": "ينتهي قريباً",
             "expired": "منتهي الصلاحية",
             "one_day": "بقي يوم واحد لشراء ZNS الخاص بك",
-            "days_left": "بقي {{ days }} أيام لشراء ZNS الخاص بك"
+            "days_left": "بقي {{ days }} أيام لشراء ZNS الخاص بك",
+            "days_label": "أيام متبقية",
+            "day_label": "يوم متبقي",
+            "expired_label": "منتهي"
         },
         "rewards": {
             "title": "استبدال المكافآت",
             "subtitle": "احصل على $ZNS يومياً مع مهامنا"
+        },
+        "zns_balance": {
+            "title": "رصيد ZNS",
+            "symbol": "ZNS",
+            "label": "رصيد"
+        },
+        "identity": {
+            "subtitle": "إدارة نطاق Zelf الخاص بك"
         }
     },
     "dapp": {

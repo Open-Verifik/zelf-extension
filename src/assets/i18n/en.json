@@ -1010,9 +1010,9 @@
         "manage_networks": "Manage networks",
         "token_sol_native": "Native",
         "token_sol_wrapped": "Wrapped",
-        "assets": "Tokens",
+        "assets": "Assets",
         "keys": "Keys",
-        "NFTs": "Collectibles",
+        "NFTs": "NFTs",
         "collectibles_loading": "Loading collectibles…",
         "collectibles_empty": "No NFTs in this wallet yet.",
         "collectibles_error": "Could not load collectibles. Check your connection and try again.",
@@ -1852,13 +1852,26 @@
     "home_banners": {
         "expiration": {
             "title": "Don't lose your Zelf ID",
+            "name": "Zelf ID",
+            "status": "Expiring",
             "expired": "Your domain has expired",
             "one_day": "1 day left to purchase your ZNS",
-            "days_left": "{{ days }} days left to purchase your ZNS"
+            "days_left": "{{ days }} days left to purchase your ZNS",
+            "days_label": "days left",
+            "day_label": "day left",
+            "expired_label": "Expired"
         },
         "rewards": {
             "title": "Claim rewards",
             "subtitle": "Get $ZNS daily with our quests"
+        },
+        "zns_balance": {
+            "title": "ZNS Balance",
+            "symbol": "ZNS",
+            "label": "Balance"
+        },
+        "identity": {
+            "subtitle": "Manage your Zelf domain"
         }
     },
     "dapp": {

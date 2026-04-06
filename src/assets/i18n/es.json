@@ -1012,9 +1012,9 @@
     },
     "home": {
         "manage_networks": "Gestionar redes",
-        "assets": "Tokens",
+        "assets": "Activos",
         "keys": "Llaves",
-        "NFTs": "Coleccionables",
+        "NFTs": "NFTs",
         "collectibles_loading": "Cargando coleccionables…",
         "collectibles_empty": "Aún no hay NFTs en esta cartera.",
         "collectibles_error": "No se pudieron cargar los coleccionables. Comprueba la conexión e inténtalo de nuevo.",
@@ -1856,13 +1856,26 @@
     "home_banners": {
         "expiration": {
             "title": "No pierdas tu ID de Zelf",
+            "name": "Zelf ID",
+            "status": "Expirando",
             "expired": "Tu dominio ha expirado",
             "one_day": "Falta 1 día para comprar tu ZNS",
-            "days_left": "Faltan {{ days }} días para comprar tu ZNS"
+            "days_left": "Faltan {{ days }} días para comprar tu ZNS",
+            "days_label": "días restantes",
+            "day_label": "día restante",
+            "expired_label": "Expirado"
         },
         "rewards": {
             "title": "Reclamar recompensas",
             "subtitle": "Obtén $ZNS diarios con nuestras misiones"
+        },
+        "zns_balance": {
+            "title": "Saldo ZNS",
+            "symbol": "ZNS",
+            "label": "Saldo"
+        },
+        "identity": {
+            "subtitle": "Gestiona tu dominio Zelf"
         }
     },
     "dapp": {

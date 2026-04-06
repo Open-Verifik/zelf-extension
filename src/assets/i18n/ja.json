@@ -1012,9 +1012,9 @@
     },
     "home": {
         "manage_networks": "ネットワークの管理",
-        "assets": "トークン",
+        "assets": "アセット",
         "keys": "キー",
-        "NFTs": "コレクション",
+        "NFTs": "NFTs",
         "collectibles_loading": "コレクションを読み込み中…",
         "collectibles_empty": "このウォレットに NFT はまだありません。",
         "collectibles_error": "コレクションを読み込めませんでした。接続を確認して再試行してください。",
@@ -1856,13 +1856,26 @@
     "home_banners": {
         "expiration": {
             "title": "Zelf IDを失わないでください",
+            "name": "Zelf ID",
+            "status": "期限間近",
             "expired": "期限切れ",
             "one_day": "ZNSの購入まであと1日です",
-            "days_left": "ZNSの購入まであと {{ days }} 日です"
+            "days_left": "ZNSの購入まであと {{ days }} 日です",
+            "days_label": "日残り",
+            "day_label": "日残り",
+            "expired_label": "期限切れ"
         },
         "rewards": {
             "title": "報酬を受け取る",
             "subtitle": "クエストで毎日$ZNSを獲得"
+        },
+        "zns_balance": {
+            "title": "ZNS 残高",
+            "symbol": "ZNS",
+            "label": "残高"
+        },
+        "identity": {
+            "subtitle": "Zelfドメインを管理"
         }
     },
     "dapp": {

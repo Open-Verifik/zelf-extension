@@ -1012,9 +1012,9 @@
     },
     "home": {
         "manage_networks": "จัดการเครือข่าย",
-        "assets": "โทเค็น",
+        "assets": "สินทรัพย์",
         "keys": "คีย์",
-        "NFTs": "คอลเลกชัน",
+        "NFTs": "NFTs",
         "collectibles_loading": "กำลังโหลดคอลเลกชัน…",
         "collectibles_empty": "ยังไม่มี NFT ในกระเป๋านี้",
         "collectibles_error": "โหลดคอลเลกชันไม่สำเร็จ ตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง",
@@ -1856,13 +1856,26 @@
     "home_banners": {
         "expiration": {
             "title": "อย่าปล่อยให้ Zelf ID ของคุณหายไป",
+            "name": "Zelf ID",
+            "status": "ใกล้หมดอายุ",
             "expired": "หมดอายุ",
             "one_day": "เหลือเวลาอีก 1 วันในการซื้อ ZNS ของคุณ",
-            "days_left": "เหลือเวลาอีก {{ days }} วันในการซื้อ ZNS ของคุณ"
+            "days_left": "เหลือเวลาอีก {{ days }} วันในการซื้อ ZNS ของคุณ",
+            "days_label": "วันเหลือ",
+            "day_label": "วันเหลือ",
+            "expired_label": "หมดอายุ"
         },
         "rewards": {
             "title": "รับรางวัล",
             "subtitle": "รับ $ZNS รายวันจากภารกิจของเรา"
+        },
+        "zns_balance": {
+            "title": "ยอด ZNS",
+            "symbol": "ZNS",
+            "label": "ยอด"
+        },
+        "identity": {
+            "subtitle": "จัดการโดเมน Zelf ของคุณ"
         }
     },
     "dapp": {

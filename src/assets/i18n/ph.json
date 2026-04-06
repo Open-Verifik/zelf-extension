@@ -1012,9 +1012,9 @@
     },
     "home": {
         "manage_networks": "Pamahalaan ang mga network",
-        "assets": "Mga Token",
+        "assets": "Mga Asset",
         "keys": "Mga Key",
-        "NFTs": "Mga Collectible",
+        "NFTs": "NFTs",
         "collectibles_loading": "Nilo-load ang mga collectible…",
         "collectibles_empty": "Walang NFT sa wallet na ito pa.",
         "collectibles_error": "Hindi ma-load ang mga collectible. Suriin ang koneksyon at subukan muli.",
@@ -1856,13 +1856,26 @@
     "home_banners": {
         "expiration": {
             "title": "Huwag mawala ang iyong Zelf ID",
+            "name": "Zelf ID",
+            "status": "Mag-e-expire",
             "expired": "Nag-expire na ang iyong domain",
             "one_day": "1 araw na lang para mabili ang iyong ZNS",
-            "days_left": "{{ days }} araw na lang para mabili ang iyong ZNS"
+            "days_left": "{{ days }} araw na lang para mabili ang iyong ZNS",
+            "days_label": "araw na lang",
+            "day_label": "araw na lang",
+            "expired_label": "Nag-expire na"
         },
         "rewards": {
             "title": "Kunin ang mga reward",
             "subtitle": "Makakuha ng $ZNS araw-araw sa aming mga quest"
+        },
+        "zns_balance": {
+            "title": "ZNS Balance",
+            "symbol": "ZNS",
+            "label": "Balance"
+        },
+        "identity": {
+            "subtitle": "Pamahalaan ang iyong Zelf domain"
         }
     },
     "dapp": {

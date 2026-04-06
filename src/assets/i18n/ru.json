@@ -1012,9 +1012,9 @@
     },
     "home": {
         "manage_networks": "Управление сетями",
-        "assets": "Токены",
+        "assets": "Активы",
         "keys": "Ключи",
-        "NFTs": "Коллекционные предметы",
+        "NFTs": "NFTs",
         "collectibles_loading": "Загрузка коллекции…",
         "collectibles_empty": "В этом кошельке пока нет NFT.",
         "collectibles_error": "Не удалось загрузить коллекцию. Проверьте соединение и повторите попытку.",
@@ -1856,13 +1856,26 @@
     "home_banners": {
         "expiration": {
             "title": "Не теряйте свой Zelf ID",
+            "name": "Zelf ID",
+            "status": "Истекает",
             "expired": "Истек",
             "one_day": "Остался 1 день для покупки ZNS",
-            "days_left": "Осталось {{ days }} дн. для покупки ZNS"
+            "days_left": "Осталось {{ days }} дн. для покупки ZNS",
+            "days_label": "дн. осталось",
+            "day_label": "день остался",
+            "expired_label": "Истек"
         },
         "rewards": {
             "title": "Получить награды",
             "subtitle": "Получайте $ZNS ежедневно с нашими заданиями"
+        },
+        "zns_balance": {
+            "title": "Баланс ZNS",
+            "symbol": "ZNS",
+            "label": "Баланс"
+        },
+        "identity": {
+            "subtitle": "Управляйте своим доменом Zelf"
         }
     },
     "dapp": {

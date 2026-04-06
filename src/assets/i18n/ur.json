@@ -1012,9 +1012,9 @@
     },
     "home": {
         "manage_networks": "نیٹ ورکس کا نظم کریں",
-        "assets": "ٹوکنز",
+        "assets": "اثاثے",
         "keys": "چابیاں",
-        "NFTs": "کلکٹیبلز",
+        "NFTs": "NFTs",
         "collectibles_loading": "کلکٹیبلز لوڈ ہو رہے ہیں…",
         "collectibles_empty": "اس والٹ میں ابھی کوئی NFT نہیں۔",
         "collectibles_error": "کلکٹیبلز لوڈ نہیں ہو سکے۔ کنکشن چیک کریں اور دوبارہ کوشش کریں۔",
@@ -1856,13 +1856,26 @@
     "home_banners": {
         "expiration": {
             "title": "اپنا Zelf ID کھونے نہ دیں",
+            "name": "Zelf ID",
+            "status": "ختم ہونے والا",
             "expired": "ختم ہو گیا",
             "one_day": "آپ کے ZNS کی خریداری کے لیے 1 دن باقی ہے",
-            "days_left": "آپ کے ZNS کی خریداری کے لیے {{ days }} دن باقی ہیں"
+            "days_left": "آپ کے ZNS کی خریداری کے لیے {{ days }} دن باقی ہیں",
+            "days_label": "دن باقی",
+            "day_label": "دن باقی",
+            "expired_label": "ختم ہو گیا"
         },
         "rewards": {
             "title": "انعامات حاصل کریں",
             "subtitle": "ہماری کوئسٹس کے ساتھ روزانہ $ZNS حاصل کریں"
+        },
+        "zns_balance": {
+            "title": "ZNS بیلنس",
+            "symbol": "ZNS",
+            "label": "بیلنس"
+        },
+        "identity": {
+            "subtitle": "اپنا Zelf ڈومین منظم کریں"
         }
     },
     "dapp": {

@@ -99,7 +99,13 @@
                 </div>
             </div>
 
-            <home-banners class="home__banners" [wallet]="wallet"></home-banners>
+            <home-banners
+                class="home__banners"
+                [wallet]="wallet"
+                [tokens]="tokens"
+                [balancesLoading]="balancesLoading"
+                [hideBalances]="hideBalances"
+            ></home-banners>
 
             <div class="home__tabs">
                 <div class="animated-tabs">

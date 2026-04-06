@@ -2,282 +2,316 @@
 
 .home-banners {
     width: 100%;
-    padding: 0;
     margin-top: calc(16px * var(--zns-space-scale, 1));
-
     margin-bottom: calc(8px * var(--zns-space-scale, 1));
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: calc(8px * var(--zns-space-scale, 1));
-    user-select: none;
-    touch-action: pan-y;
 
     @media (max-width: variables.$minSmall) {
-        margin-top: calc(8px * var(--zns-space-scale, 1));
+        margin-top: calc(10px * var(--zns-space-scale, 1));
     }
 
-    &__carousel {
-        width: 100%;
-        position: relative;
-        overflow: hidden;
-        border-radius: calc(24px * var(--zns-space-scale, 1));
-    }
+    &__row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: calc(12px * var(--zns-space-scale, 1));
 
-    &__slide-wrapper {
-        width: 100%;
-        will-change: transform, opacity;
-        transition: none;
-
-        &--dragging {
-            cursor: grabbing;
-        }
-
-        &--animating {
-            transition:
-                transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        &--slide-left {
-            animation: slideOutLeft 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-        }
-
-        &--slide-right {
-            animation: slideOutRight 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        @media (max-width: variables.$minSmall) {
+            gap: calc(8px * var(--zns-space-scale, 1));
         }
     }
 
-    &__slide {
+    &__tile {
+        aspect-ratio: 1 / 1;
         display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        height: calc(77px * var(--zns-space-scale, 1));
-        padding: calc(16px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1)) calc(8px * var(--zns-space-scale, 1));
-        border-radius: calc(24px * var(--zns-space-scale, 1));
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        padding: calc(14px * var(--zns-space-scale, 1));
+        border-radius: calc(20px * var(--zns-space-scale, 1));
         cursor: pointer;
-        gap: calc(4px * var(--zns-space-scale, 1));
-        animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        text-decoration: none;
+        transition:
+            transform 0.2s variables.$smoothBezier,
+            box-shadow 0.2s variables.$smoothBezier;
+        overflow: hidden;
+
+        @media (max-width: variables.$minSmall) {
+            padding: calc(10px * var(--zns-space-scale, 1));
+            border-radius: calc(16px * var(--zns-space-scale, 1));
+        }
 
         &:hover {
-            transform: translateY(-1px);
-            transition: transform 0.2s variables.$smoothBezier;
+            transform: translateY(-2px);
         }
 
         &:active {
-            transform: scale(0.98);
-            transition: transform 0.1s ease;
+            transform: scale(0.97);
         }
 
         &--expiration {
             background-color: variables.$warningLight;
             border: 1px solid variables.$warning;
-
-            &:hover {
-                background-color: variables.$warningLight;
-            }
+            justify-content: flex-start;
+            align-items: stretch;
         }
 
-        &--rewards {
+        &--zns {
             background-color: variables.$themeCard;
             border: 1px solid variables.$themeCardBorder;
-
-            &:hover {
-                background-color: variables.$themeBackgroundSecondary;
-            }
+            justify-content: flex-start;
+            align-items: stretch;
         }
     }
 
-    &__icon-container {
-        width: calc(80px * var(--zns-space-scale, 1));
-        height: calc(64px * var(--zns-space-scale, 1));
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-        overflow: hidden;
-    }
-
-    &__bell-icon,
-    &__treasure-icon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    &__content {
-        flex: 1;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: calc(8px * var(--zns-space-scale, 1));
-        min-width: 0;
-    }
-
-    &__text {
-        flex: 1;
-        min-width: 0;
+    &__tile-zns-inner {
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: flex-start;
+        flex: 1;
+        width: 100%;
+        min-height: 0;
     }
 
-    &__title {
+    &__tile-zns-top {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: calc(10px * var(--zns-space-scale, 1));
+        width: 100%;
+        min-width: 0;
+    }
+
+    &__tile-zns-logo {
+        flex-shrink: 0;
+        width: calc(36px * var(--zns-space-scale, 1));
+        height: calc(36px * var(--zns-space-scale, 1));
+        border-radius: 50%;
+        object-fit: cover;
+        background: variables.$themeBorder;
+    }
+
+    &__tile-zns-copy {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        min-width: 0;
+    }
+
+    &__tile-zns-name {
+        font-family: variables.$themeBodyFamily;
+        font-size: calc(20px * var(--zns-font-scale, 1));
+        font-weight: 800;
+        line-height: calc(24px * var(--zns-font-scale, 1));
+        color: variables.$themeText;
+        margin: 0;
+
+        @media (max-width: variables.$minSmall) {
+            font-size: calc(17px * var(--zns-font-scale, 1));
+            line-height: calc(20px * var(--zns-font-scale, 1));
+        }
+    }
+
+    &__tile-zns-label {
+        font-family: variables.$themeBodyFamily;
+        font-size: calc(12px * var(--zns-font-scale, 1));
+        font-weight: 500;
+        line-height: calc(16px * var(--zns-font-scale, 1));
+        color: variables.$themeText;
+        margin: 0;
+
+        @media (max-width: variables.$minSmall) {
+            font-size: calc(11px * var(--zns-font-scale, 1));
+            line-height: calc(14px * var(--zns-font-scale, 1));
+        }
+    }
+
+    &__tile-zns-amount {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        min-height: 0;
+    }
+
+    &__tile-zns-value {
+        font-family: variables.$themeBodyFamily;
+        font-size: calc(32px * var(--zns-font-scale, 1));
+        font-weight: 700;
+        line-height: calc(38px * var(--zns-font-scale, 1));
+        color: variables.$themeText;
+        margin: 0;
+        letter-spacing: -0.3px;
+
+        @media (max-width: variables.$minSmall) {
+            font-size: calc(26px * var(--zns-font-scale, 1));
+            line-height: calc(32px * var(--zns-font-scale, 1));
+        }
+
+        &--tabular {
+            font-variant-numeric: tabular-nums;
+            letter-spacing: 0.02em;
+        }
+    }
+
+    &__tile-exp-inner {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        width: 100%;
+        min-height: 0;
+    }
+
+    &__tile-exp-top {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: calc(10px * var(--zns-space-scale, 1));
+        width: 100%;
+        min-width: 0;
+    }
+
+    &__tile-exp-icon {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: calc(36px * var(--zns-space-scale, 1));
+        height: calc(36px * var(--zns-space-scale, 1));
+
+        svg {
+            display: block;
+        }
+    }
+
+    &__tile-exp-copy {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        min-width: 0;
+    }
+
+    &__tile-exp-name {
+        font-family: variables.$themeBodyFamily;
+        font-size: calc(20px * var(--zns-font-scale, 1));
+        font-weight: 800;
+        line-height: calc(24px * var(--zns-font-scale, 1));
+        color: variables.$warning;
+        margin: 0;
+
+        @media (max-width: variables.$minSmall) {
+            font-size: calc(17px * var(--zns-font-scale, 1));
+            line-height: calc(20px * var(--zns-font-scale, 1));
+        }
+    }
+
+    &__tile-exp-label {
+        font-family: variables.$themeBodyFamily;
+        font-size: calc(12px * var(--zns-font-scale, 1));
+        font-weight: 500;
+        line-height: calc(16px * var(--zns-font-scale, 1));
+        color: variables.$themeTextSecondary;
+        margin: 0;
+
+        @media (max-width: variables.$minSmall) {
+            font-size: calc(11px * var(--zns-font-scale, 1));
+            line-height: calc(14px * var(--zns-font-scale, 1));
+        }
+    }
+
+    &__tile-exp-center {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        min-height: 0;
+    }
+
+    // Slightly larger than &__tile-zns-value: short 1–2 digit counts read smaller than a long decimal at the same px.
+    &__tile-exp-days {
+        font-family: variables.$themeBodyFamily;
+        font-size: calc(36px * var(--zns-font-scale, 1));
+        font-weight: 800;
+        line-height: calc(42px * var(--zns-font-scale, 1));
+        color: variables.$warning;
+        margin: 0;
+        letter-spacing: -0.35px;
+        font-variant-numeric: tabular-nums;
+
+        @media (max-width: variables.$minSmall) {
+            font-size: calc(30px * var(--zns-font-scale, 1));
+            line-height: calc(36px * var(--zns-font-scale, 1));
+        }
+    }
+
+    &__tile-exp-days-label {
+        font-family: variables.$themeBodyFamily;
+        font-size: calc(12px * var(--zns-font-scale, 1));
+        font-weight: 500;
+        line-height: calc(16px * var(--zns-font-scale, 1));
+        color: variables.$themeTextSecondary;
+        margin: calc(2px * var(--zns-space-scale, 1)) 0 0;
+
+        @media (max-width: variables.$minSmall) {
+            font-size: calc(11px * var(--zns-font-scale, 1));
+            line-height: calc(14px * var(--zns-font-scale, 1));
+        }
+    }
+
+    &__tile-exp-qr {
+        // 1.3× prior caps (96 → 125, 72 → 94) to use spare space in the square tile
+        max-width: calc(125px * var(--zns-space-scale, 1));
+        max-height: calc(125px * var(--zns-space-scale, 1));
+        object-fit: contain;
+        border-radius: calc(8px * var(--zns-space-scale, 1));
+        border: 1px solid variables.$themeBorder;
+
+        @media (max-width: variables.$minSmall) {
+            max-width: calc(94px * var(--zns-space-scale, 1));
+            max-height: calc(94px * var(--zns-space-scale, 1));
+        }
+    }
+
+    &__tile-exp-fallback {
         font-family: variables.$themeBodyFamily;
         font-size: calc(14px * var(--zns-font-scale, 1));
-        font-weight: 500;
-        line-height: calc(20px * var(--zns-font-scale, 1));
-        letter-spacing: 0.1px;
-        margin: 0;
-        text-align: left;
-
-        &--expiration {
-            color: variables.$warning;
-        }
-
-        &--rewards {
-            color: variables.$themeText;
-        }
-    }
-
-    &__subtitle {
-        font-family: variables.$themeBodyFamily;
-        font-size: calc(10px * var(--zns-font-scale, 1));
         font-weight: 600;
-        line-height: calc(16px * var(--zns-font-scale, 1));
-        letter-spacing: 0.5px;
+        line-height: calc(18px * var(--zns-font-scale, 1));
+        color: variables.$warning;
         margin: 0;
-        text-align: left;
+        text-align: center;
 
-        &--expiration {
-            color: variables.$themeText;
-        }
-
-        &--rewards {
-            color: variables.$themeTextSecondary;
+        @media (max-width: variables.$minSmall) {
+            font-size: calc(12px * var(--zns-font-scale, 1));
+            line-height: calc(16px * var(--zns-font-scale, 1));
         }
     }
 
-    &__arrow {
-        width: calc(28px * var(--zns-space-scale, 1));
-        height: calc(28px * var(--zns-space-scale, 1));
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: calc(24px * var(--zns-space-scale, 1));
-        flex-shrink: 0;
-        padding: calc(6px * var(--zns-space-scale, 1));
-        transition: transform 0.2s variables.$smoothBezier;
+    &__tile-skeleton {
+        display: inline-block;
+        width: calc(60px * var(--zns-space-scale, 1));
+        height: calc(22px * var(--zns-font-scale, 1));
+        background: variables.$themeBorder;
+        border-radius: calc(4px * var(--zns-space-scale, 1));
+        position: relative;
+        overflow: hidden;
 
-        &--expiration {
-            background-color: variables.$warningLight;
-            color: variables.$warning;
-        }
-
-        &--rewards {
-            background-color: variables.$themeBorder;
-            color: variables.$themeText;
-        }
-    }
-
-    &__slide:hover &__arrow {
-        transform: translateX(2px);
-    }
-
-    &__pagination {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: calc(4px * var(--zns-space-scale, 1));
-    }
-
-    &__dot {
-        width: calc(16px * var(--zns-space-scale, 1));
-        height: calc(4px * var(--zns-space-scale, 1));
-        border-radius: calc(8px * var(--zns-space-scale, 1));
-        border: none;
-        padding: 0;
-        cursor: pointer;
-        background-color: #e3e3e3;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-        &:hover {
-            background-color: #c3c6cf;
-        }
-
-        &--active {
-            background-color: #96939e;
-
-            &:hover {
-                background-color: #96939e;
-            }
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            transform: translateX(-100%);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shimmer 1.5s infinite;
         }
     }
 }
 
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateX(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-@keyframes slideOutLeft {
-    from {
-        opacity: 1;
-        transform: translateX(0);
-    }
-    to {
-        opacity: 0;
-        transform: translateX(-30px);
-    }
-}
-
-@keyframes slideOutRight {
-    from {
-        opacity: 1;
-        transform: translateX(0);
-    }
-    to {
-        opacity: 0;
-        transform: translateX(30px);
-    }
-}
-
-@media (max-width: variables.$minSmall) {
-    .home-banners {
-        &__slide {
-            height: auto;
-            min-height: calc(70px * var(--zns-space-scale, 1));
-            padding: calc(12px * var(--zns-space-scale, 1)) calc(12px * var(--zns-space-scale, 1)) calc(12px * var(--zns-space-scale, 1)) calc(4px * var(--zns-space-scale, 1));
-        }
-
-        &__icon-container {
-            width: calc(64px * var(--zns-space-scale, 1));
-            height: calc(52px * var(--zns-space-scale, 1));
-
-            svg {
-                transform: scale(0.85);
-            }
-        }
-
-        &__title {
-            font-size: calc(13px * var(--zns-font-scale, 1));
-        }
-
-        &__subtitle {
-            font-size: calc(9px * var(--zns-font-scale, 1));
-        }
-
-        &__arrow {
-            width: calc(24px * var(--zns-space-scale, 1));
-            height: calc(24px * var(--zns-space-scale, 1));
-            padding: calc(4px * var(--zns-space-scale, 1));
-        }
+@keyframes shimmer {
+    100% {
+        transform: translateX(100%);
     }
 }

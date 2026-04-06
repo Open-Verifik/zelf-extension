@@ -1012,9 +1012,9 @@
     },
     "home": {
         "manage_networks": "管理网络",
-        "assets": "代币",
+        "assets": "资产",
         "keys": "密钥",
-        "NFTs": "收藏品",
+        "NFTs": "NFTs",
         "collectibles_loading": "正在加载收藏品…",
         "collectibles_empty": "此钱包中还没有 NFT。",
         "collectibles_error": "无法加载收藏品。请检查网络后重试。",
@@ -1856,13 +1856,26 @@
     "home_banners": {
         "expiration": {
             "title": "不要丢失您的 Zelf ID",
+            "name": "Zelf ID",
+            "status": "即将到期",
             "expired": "已过期",
             "one_day": "距离购买您的 ZNS 还剩 1 天",
-            "days_left": "距离购买您的 ZNS 还剩 {{ days }} 天"
+            "days_left": "距离购买您的 ZNS 还剩 {{ days }} 天",
+            "days_label": "天剩余",
+            "day_label": "天剩余",
+            "expired_label": "已过期"
         },
         "rewards": {
             "title": "领取奖励",
             "subtitle": "通过我们的任务每日获得 $ZNS"
+        },
+        "zns_balance": {
+            "title": "ZNS 余额",
+            "symbol": "ZNS",
+            "label": "余额"
+        },
+        "identity": {
+            "subtitle": "管理您的 Zelf 域名"
         }
     },
     "dapp": {

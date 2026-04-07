@@ -9,7 +9,7 @@ export const ZelfKeysPaymentCardGuard: () => boolean = () => {
     const currentPaymentCard = _paymentCardDataService.getCurrentPaymentCard();
 
     if (!currentPaymentCard) {
-        _router.navigate(["/zelf-keys/payment-cards"]);
+        _router.navigate(["/zelf-keys/vault"]);
         return false;
     }
 

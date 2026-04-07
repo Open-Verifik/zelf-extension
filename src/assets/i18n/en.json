@@ -1149,12 +1149,10 @@
         "dashboard": {
             "start": "Start",
             "passwords": "Passwords",
-            "notes": "Notes",
-            "payment_cards": "Payment Cards",
+            "cards": "Cards",
             "subscription": "Subscription",
             "add_password": "Add Password",
-            "add_note": "Add Note",
-            "add_payment_card": "Add Payment Card"
+            "add_card": "Add Card"
         },
         "payment_cards": {
             "title": "Payment Cards",
@@ -1452,11 +1450,15 @@
                     "ipfs_hash": "IPFS Hash",
                     "copy_url": "Copy website URL",
                     "launch_website": "Launch website",
-                    "prefill_autofill": "Prefill autofill"
+                    "prefill_autofill": "Prefill autofill",
+                    "copy_ipfs_hash": "Tap to copy IPFS Hash"
                 },
                 "zelfproof": {
-                    "title": "Zelf ID QR",
-                    "download": "Download Zelf ID QR"
+                    "title": "Zelf Key QR",
+                    "download": "Download Zelf Key QR",
+                    "proof_label": "Zelf Key",
+                    "copy_hint": "Tap to copy full Zelf Key",
+                    "image_alt": "Zelf Key QR code"
                 },
                 "decrypted": {
                     "title": "Decrypted Content",
@@ -1496,12 +1498,33 @@
                     "placeholder": "Enter notes (optional)"
                 },
                 "master_password": {
+                    "section_title": "Sign with your Zelf ID",
                     "label": "Master Password *",
                     "hint": "We require the {{ walletName }} password to encrypt and store your credentials. Biometric verification is always required."
                 },
                 "buttons": {
                     "save": "Save Password",
                     "cancel": "Cancel"
+                },
+                "zns_cost": {
+                    "insufficient_balance": "Insufficient ZNS balance. You need at least 10 ZNS to save a password.",
+                    "strip": {
+                        "eyebrow": "Cost to save",
+                        "rate": "1 ZNS = $0.05 USD · fixed price",
+                        "details": "Details"
+                    },
+                    "modal": {
+                        "title": "Password Storage Cost",
+                        "body": "Saving a password costs $0.50 USD, paid in ZNS tokens.",
+                        "rate_label": "Token rate",
+                        "price_row": "1 ZNS = $0.05 USD (fixed)",
+                        "per_save_label": "Per save",
+                        "save_cost_row": "10 ZNS = $0.50 USD",
+                        "balance_label": "Your ZNS balance",
+                        "get_zns_title": "Need more ZNS?",
+                        "buy_presale": "Buy ZNS at Pre-Sale",
+                        "earn_rewards": "Earn free ZNS in Rewards"
+                    }
                 }
             }
         },
@@ -1542,7 +1565,7 @@
             },
             "secure_passwords": {
                 "title": "SECURE YOUR<br />PASSWORDS",
-                "description": "Add your passwords, payment cards, and notes."
+                "description": "Add your passwords and cards."
             },
             "autocomplete": {
                 "title": "AUTO-COMPLETE<br />YOUR INFO",
@@ -1595,7 +1618,12 @@
                     "status": "Status",
                     "copy_hint": "Click to copy"
                 },
-                "gateway_link": "View on IPFS Gateway"
+                "gateway_link": "View on IPFS Gateway",
+                "bytes_unit": "bytes",
+                "status": {
+                    "pinned_saved": "Pinned & Saved",
+                    "incomplete": "Incomplete"
+                }
             },
             "walrus": {
                 "title": "Walrus Storage",
@@ -1608,19 +1636,25 @@
                     "error": "Error"
                 },
                 "view_link": "View on Walrus",
-                "explorer_link": "View on Explorer"
+                "explorer_link": "View on Explorer",
+                "status": {
+                    "success": "Success",
+                    "skipped": "Skipped",
+                    "failed": "Failed"
+                }
             },
             "zelfproof": {
                 "title": "Zelf ID QR Generated",
                 "labels": {
-                    "string": "Zelf ID QR String",
+                    "string": "Zelf ID",
                     "qr_code": "QR Code"
                 },
-                "copy_hint": "Click to copy"
+                "copy_hint": "Tap to copy full Zelf ID"
             },
             "next_steps": {
                 "title": "Next Steps",
-                "success_message": "Your password is now securely stored. You can view it in your passwords list or add another password.",
+                "site_fallback": "this site",
+                "success_message": "You're all set. When you visit {{site}}, Zelf can fill this login for you. Open your vault anytime to view or edit it.",
                 "error_message": "Please review the error details above and try again. If the problem persists, contact support.",
                 "unknown_message": "The system couldn't determine the status. Please check the API response above for details."
             }

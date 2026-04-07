@@ -85,7 +85,7 @@ export class ZelfKeysPaymentCardDetailComponent extends CopyToClipboardBase impl
 
         if (!this.paymentCard) {
             setTimeout(() => {
-                this._router.navigate(["/zelf-keys/payment-cards"]);
+                this._router.navigate(["/zelf-keys/vault"]);
             }, 100);
             return;
         }
@@ -194,7 +194,7 @@ export class ZelfKeysPaymentCardDetailComponent extends CopyToClipboardBase impl
     }
 
     onBackToList(): void {
-        this._router.navigate(["/zelf-keys/payment-cards"]);
+        this._router.navigate(["/zelf-keys/vault"]);
     }
 
     onCopyCardName(): void {

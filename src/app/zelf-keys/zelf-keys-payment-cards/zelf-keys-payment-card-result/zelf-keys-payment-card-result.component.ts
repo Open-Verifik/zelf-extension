@@ -86,7 +86,7 @@ export class ZelfKeysPaymentCardResultComponent extends CopyToClipboardBase impl
     async onBackToCards(): Promise<void> {
         await this.dataPassingService.clearAll("payment-cards");
 
-        this.router.navigate(["/zelf-keys/payment-cards"]);
+        this.router.navigate(["/zelf-keys/vault"]);
     }
 
     async onAddAnother(): Promise<void> {

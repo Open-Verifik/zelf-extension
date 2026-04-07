@@ -8,6 +8,8 @@ export const environment = {
     paymentDomainUrl: "http://localhost:3009/tags/payment",
     production: false,
     testnetAddress: "",
+    znsUsdPrice: 0.05,
+    zelfKeysPasswordSaveZns: 10,
     networks: {
         ethereum: "sepolia",
         avalanche: "avalanche",

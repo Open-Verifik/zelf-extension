@@ -77,7 +77,7 @@ export class ZelfKeysPasswordResultComponent extends CopyToClipboardBase impleme
     async onBackToPasswords(): Promise<void> {
         await this.dataPassingService.clearAll("passwords");
 
-        this.router.navigate(["/zelf-keys/passwords"]);
+        this.router.navigate(["/zelf-keys/vault"]);
     }
 
     async onAddAnotherPassword(): Promise<void> {
@@ -157,36 +157,56 @@ export class ZelfKeysPasswordResultComponent extends CopyToClipboardBase impleme
     }
 
     getStatusIcon(): string {
-        switch (this.getResultStatus()) {
-            case "success":
-                return "check_circle";
-            case "error":
-                return "error";
-            default:
-                return "help";
-        }
+        // kept for compatibility; hero now uses inline SVG controlled by getResultStatus()
+        return "";
     }
 
     getStatusTitle(): string {
         switch (this.getResultStatus()) {
             case "success":
-                return this._translocoService.translate("zelf_keys.password_result.status.success_title");
+                return this.translocoService.translate("zelf_keys.password_result.status.success_title");
             case "error":
-                return this._translocoService.translate("zelf_keys.password_result.status.error_title");
+                return this.translocoService.translate("zelf_keys.password_result.status.error_title");
             default:
-                return this._translocoService.translate("zelf_keys.password_result.status.unknown_title");
+                return this.translocoService.translate("zelf_keys.password_result.status.unknown_title");
         }
     }
 
     getStatusMessage(): string {
         switch (this.getResultStatus()) {
             case "success":
-                return this._translocoService.translate("zelf_keys.password_result.status.success_message");
+                return this.translocoService.translate("zelf_keys.password_result.status.success_message");
             case "error":
-                return this._translocoService.translate("zelf_keys.password_result.status.error_message");
+                return this.translocoService.translate("zelf_keys.password_result.status.error_message");
             default:
-                return this._translocoService.translate("zelf_keys.password_result.status.unknown_message");
+                return this.translocoService.translate("zelf_keys.password_result.status.unknown_message");
         }
+    }
+
+    /**
+     * Hostname or friendly label for Next Steps copy ({{site}} interpolation).
+     */
+    getSiteDisplayName(): string {
+        const raw = this.getWebsite();
+        if (!raw || raw === "N/A") {
+            return this.translocoService.translate("password_result.sections.next_steps.site_fallback");
+        }
+        try {
+            const withProtocol = raw.includes("://") ? raw : `https://${raw}`;
+            return new URL(withProtocol).hostname || raw;
+        } catch {
+            return raw;
+        }
+    }
+
+    /**
+     * Short preview for Zelf proof row; full string still copied on tap.
+     */
+    getZelfProofPreview(maxLength: number): string {
+        const full = this.apiResult?.zelfProof;
+        if (!full) return "";
+        if (full.length <= maxLength) return full;
+        return `${full.slice(0, maxLength)}…`;
     }
 
     getWebsite(): string {

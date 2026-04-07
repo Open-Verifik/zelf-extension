@@ -1157,6 +1157,7 @@
             "payment_cards": "支付卡",
             "subscription": "订阅",
             "add_password": "添加密码",
+            "add_card": "添加支付卡",
             "add_note": "添加笔记",
             "add_payment_card": "添加支付卡"
         },
@@ -1456,11 +1457,15 @@
                     "ipfs_hash": "IPFS 哈希",
                     "copy_url": "复制网站 URL",
                     "launch_website": "启动网站",
-                    "prefill_autofill": "自动填充预填充"
+                    "prefill_autofill": "自动填充预填充",
+                    "copy_ipfs_hash": "点击复制 IPFS 哈希"
                 },
                 "zelfproof": {
-                    "title": "Zelf ID QR",
-                    "download": "下载 Zelf ID QR"
+                    "title": "Zelf Key QR",
+                    "download": "下载 Zelf Key QR",
+                    "proof_label": "Zelf Key",
+                    "copy_hint": "点击复制完整 Zelf Key",
+                    "image_alt": "Zelf Key QR 码"
                 },
                 "decrypted": {
                     "title": "解密内容",
@@ -1500,12 +1505,33 @@
                     "placeholder": "添加笔记（可选）"
                 },
                 "master_password": {
+                    "section_title": "使用 Zelf ID 签名",
                     "label": "主密码 *",
                     "hint": "我们需要 {{ walletName }} 密码来加密并存储您的凭据。生物识别验证始终是必需的。"
                 },
                 "buttons": {
                     "save": "保存密码",
                     "cancel": "取消"
+                },
+                "zns_cost": {
+                    "insufficient_balance": "Insufficient ZNS balance. You need at least 10 ZNS to save a password.",
+                    "strip": {
+                        "eyebrow": "Cost to save",
+                        "rate": "1 ZNS = $0.05 USD · fixed price",
+                        "details": "Details"
+                    },
+                    "modal": {
+                        "title": "Password Storage Cost",
+                        "body": "Saving a password costs $0.50 USD, paid in ZNS tokens.",
+                        "rate_label": "Token rate",
+                        "price_row": "1 ZNS = $0.05 USD (fixed)",
+                        "per_save_label": "Per save",
+                        "save_cost_row": "10 ZNS = $0.50 USD",
+                        "balance_label": "Your ZNS balance",
+                        "get_zns_title": "Need more ZNS?",
+                        "buy_presale": "Buy ZNS at Pre-Sale",
+                        "earn_rewards": "Earn free ZNS in Rewards"
+                    }
                 }
             }
         },
@@ -1546,7 +1572,7 @@
             },
             "secure_passwords": {
                 "title": "保护您的<br />密码",
-                "description": "添加您的密码、支付卡和笔记。"
+                "description": "添加您的密码和支付卡。"
             },
             "autocomplete": {
                 "title": "自动填写<br />您的信息",
@@ -1599,7 +1625,12 @@
                     "status": "状态",
                     "copy_hint": "点击复制"
                 },
-                "gateway_link": "在 IPFS 网关上查看"
+                "gateway_link": "在 IPFS 网关上查看",
+                "bytes_unit": "bytes",
+                "status": {
+                    "pinned_saved": "Pinned & Saved",
+                    "incomplete": "Incomplete"
+                }
             },
             "walrus": {
                 "title": "Walrus 存储",
@@ -1612,19 +1643,25 @@
                     "error": "错误"
                 },
                 "view_link": "在 Walrus 上查看",
-                "explorer_link": "在浏览器上查看"
+                "explorer_link": "在浏览器上查看",
+                "status": {
+                    "success": "Success",
+                    "skipped": "Skipped",
+                    "failed": "Failed"
+                }
             },
             "zelfproof": {
                 "title": "Zelf ID QR",
                 "labels": {
-                    "string": "Zelf ID QR 字符串",
+                    "string": "Zelf ID",
                     "qr_code": "二维码"
                 },
-                "copy_hint": "点击复制"
+                "copy_hint": "点击复制完整 Zelf ID"
             },
             "next_steps": {
                 "title": "下一步",
-                "success_message": "您的笔记现已安全存储。您可以在笔记列表中查看它，也可以添加另一条笔记。",
+                "site_fallback": "此网站",
+                "success_message": "一切就绪。访问 {{site}} 时，Zelf 可以为您填充此登录信息。随时打开保管库以查看或编辑。",
                 "error_message": "请检查上面的错误详情并重试。如果问题仍然存在，请联系支持人员。",
                 "unknown_message": "系统无法确定状态。请查看上面的 API 响应以获取详细信息。"
             }

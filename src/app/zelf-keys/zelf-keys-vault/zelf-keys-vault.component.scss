@@ -1,0 +1,260 @@
+@use "../../../styles/variables";
+
+.vault {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: calc(16px * var(--zns-space-scale, 1));
+
+    &__state {
+        text-align: center;
+        padding: calc(48px * var(--zns-space-scale, 1)) calc(24px * var(--zns-space-scale, 1));
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: calc(16px * var(--zns-space-scale, 1));
+
+        &--loading {
+            color: variables.$themeTextMuted;
+        }
+
+        &--error {
+            color: variables.$error;
+        }
+    }
+
+    &__spinner {
+        width: calc(36px * var(--zns-space-scale, 1));
+        height: calc(36px * var(--zns-space-scale, 1));
+        border: 3px solid variables.$themeBorder;
+        border-top: 3px solid variables.$primaryColor;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+
+    &__state-text {
+        font-family: variables.$themeBodyFamily;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        margin: 0;
+        color: variables.$themeTextSecondary;
+    }
+
+    &__state-icon {
+        opacity: 0.7;
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        gap: calc(14px * var(--zns-space-scale, 1));
+    }
+
+    &__actions {
+        display: flex;
+        align-items: center;
+        gap: calc(8px * var(--zns-space-scale, 1));
+    }
+
+    &__add-btn {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: calc(6px * var(--zns-space-scale, 1));
+        padding: calc(10px * var(--zns-space-scale, 1)) calc(14px * var(--zns-space-scale, 1));
+        border: none;
+        border-radius: calc(12px * var(--zns-space-scale, 1));
+        font-family: variables.$themeBodyFamily;
+        font-size: calc(13px * var(--zns-font-scale, 1));
+        font-weight: 600;
+        cursor: pointer;
+        transition:
+            transform 0.2s variables.$smoothBezier,
+            box-shadow 0.2s variables.$smoothBezier;
+        background: variables.$themeButton;
+        color: variables.$themeButtonText;
+
+        &:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        &:active {
+            transform: scale(0.97);
+        }
+
+        &--secondary {
+            background: variables.$themeButtonSecondary;
+            color: variables.$themeButtonSecondaryText;
+        }
+    }
+
+    &__icon-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: calc(40px * var(--zns-space-scale, 1));
+        height: calc(40px * var(--zns-space-scale, 1));
+        border: none;
+        border-radius: calc(12px * var(--zns-space-scale, 1));
+        background: variables.$themeButtonSecondary;
+        color: variables.$themeButtonSecondaryText;
+        cursor: pointer;
+        flex-shrink: 0;
+        transition: background 0.2s variables.$smoothBezier;
+
+        &:hover {
+            background: variables.$themeButtonSecondaryHover;
+        }
+    }
+
+    &__search {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+    &__search-icon {
+        position: absolute;
+        left: calc(14px * var(--zns-space-scale, 1));
+        color: variables.$themeTextMuted;
+        pointer-events: none;
+    }
+
+    &__search-input {
+        width: 100%;
+        padding: calc(10px * var(--zns-space-scale, 1)) calc(14px * var(--zns-space-scale, 1)) calc(10px * var(--zns-space-scale, 1)) calc(38px * var(--zns-space-scale, 1));
+        border: 1px solid transparent;
+        background:
+            linear-gradient(variables.$themeBackgroundSecondary, variables.$themeBackgroundSecondary) padding-box,
+            linear-gradient(135deg, variables.$themeBorderHover, variables.$themeCardBorder) border-box;
+        border-radius: calc(14px * var(--zns-space-scale, 1));
+        font-family: variables.$themeBodyFamily;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        color: variables.$themeText;
+        outline: none;
+        transition: box-shadow 0.2s variables.$smoothBezier;
+
+        &::placeholder {
+            color: variables.$themeTextMuted;
+        }
+
+        &:focus {
+            box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.06);
+        }
+    }
+
+    &__list {
+        border: 1px solid transparent;
+        background:
+            linear-gradient(variables.$themeCard, variables.$themeCard) padding-box,
+            linear-gradient(135deg, variables.$themeBorderHover, variables.$themeCardBorder) border-box;
+        border-radius: calc(20px * var(--zns-space-scale, 1));
+        overflow: hidden;
+    }
+
+    &__row {
+        display: flex;
+        align-items: center;
+        gap: calc(14px * var(--zns-space-scale, 1));
+        padding: calc(12px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
+        cursor: pointer;
+        transition: background 0.15s variables.$smoothBezier;
+        border-bottom: 1px solid variables.$themeCardBorder;
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        &:hover {
+            background: variables.$themeBackgroundSecondary;
+        }
+
+        &:active {
+            background: variables.$themeBorder;
+        }
+    }
+
+    &__row-icon {
+        width: calc(40px * var(--zns-space-scale, 1));
+        height: calc(40px * var(--zns-space-scale, 1));
+        border-radius: calc(12px * var(--zns-space-scale, 1));
+        background: variables.$themeBackgroundSecondary;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        color: variables.$themeTextSecondary;
+
+        &--card {
+            color: variables.$secondaryColor;
+            background: variables.$secondaryColorLight;
+        }
+    }
+
+    &__row-info {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: calc(2px * var(--zns-space-scale, 1));
+    }
+
+    &__row-title {
+        font-family: variables.$themeBodyFamily;
+        font-size: calc(15px * var(--zns-font-scale, 1));
+        font-weight: 600;
+        color: variables.$themeText;
+        line-height: 1.3;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &__row-subtitle {
+        font-family: variables.$themeBodyFamily;
+        font-size: calc(13px * var(--zns-font-scale, 1));
+        font-weight: 400;
+        color: variables.$themeTextMuted;
+        line-height: 1.3;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &__row-chevron {
+        flex-shrink: 0;
+        color: variables.$themeTextMuted;
+        transition: transform 0.15s variables.$smoothBezier;
+
+        .vault__row:hover & {
+            transform: translateX(calc(2px * var(--zns-space-scale, 1)));
+            color: variables.$themeText;
+        }
+    }
+
+    &__empty {
+        text-align: center;
+        padding: calc(48px * var(--zns-space-scale, 1)) calc(24px * var(--zns-space-scale, 1));
+        color: variables.$themeTextMuted;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: calc(12px * var(--zns-space-scale, 1));
+
+        p {
+            margin: 0;
+            font-family: variables.$themeBodyFamily;
+            font-size: calc(14px * var(--zns-font-scale, 1));
+        }
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

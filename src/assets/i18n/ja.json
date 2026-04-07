@@ -1157,6 +1157,7 @@
             "payment_cards": "支払いカード",
             "subscription": "サブスクリプション",
             "add_password": "パスワードを追加",
+            "add_card": "支払いカードを追加",
             "add_note": "ノートを追加",
             "add_payment_card": "支払いカードを追加"
         },
@@ -1456,11 +1457,15 @@
                     "ipfs_hash": "IPFSハッシュ",
                     "copy_url": "ウェブサイトURLをコピー",
                     "launch_website": "ウェブサイトを開く",
-                    "prefill_autofill": "自動入力を準備"
+                    "prefill_autofill": "自動入力を準備",
+                    "copy_ipfs_hash": "タップしてIPFSハッシュをコピー"
                 },
                 "zelfproof": {
-                    "title": "支払いカード情報",
-                    "download": "Zelf ID QRをダウンロード"
+                    "title": "Zelf Key QR",
+                    "download": "Zelf Key QRをダウンロード",
+                    "proof_label": "Zelf Key",
+                    "copy_hint": "タップしてZelf Key全体をコピー",
+                    "image_alt": "Zelf Key QRコード"
                 },
                 "decrypted": {
                     "title": "支払いカード情報",
@@ -1500,12 +1505,33 @@
                     "placeholder": "カードタイプを選択"
                 },
                 "master_password": {
+                    "section_title": "Zelf ID で署名",
                     "label": "銀行名 *",
                     "hint": "資格情報を暗号化して保存するには {{ walletName }} のパスワードが必要です。生体認証の確認は常に必要です。"
                 },
                 "buttons": {
                     "save": "パスワードを保存",
                     "cancel": "キャンセル"
+                },
+                "zns_cost": {
+                    "insufficient_balance": "Insufficient ZNS balance. You need at least 10 ZNS to save a password.",
+                    "strip": {
+                        "eyebrow": "Cost to save",
+                        "rate": "1 ZNS = $0.05 USD · fixed price",
+                        "details": "Details"
+                    },
+                    "modal": {
+                        "title": "Password Storage Cost",
+                        "body": "Saving a password costs $0.50 USD, paid in ZNS tokens.",
+                        "rate_label": "Token rate",
+                        "price_row": "1 ZNS = $0.05 USD (fixed)",
+                        "per_save_label": "Per save",
+                        "save_cost_row": "10 ZNS = $0.50 USD",
+                        "balance_label": "Your ZNS balance",
+                        "get_zns_title": "Need more ZNS?",
+                        "buy_presale": "Buy ZNS at Pre-Sale",
+                        "earn_rewards": "Earn free ZNS in Rewards"
+                    }
                 }
             }
         },
@@ -1546,7 +1572,7 @@
             },
             "secure_passwords": {
                 "title": "パスワードを<br />保護",
-                "description": "パスワード、支払いカード、ノートを追加できます。"
+                "description": "パスワードとカードを追加できます。"
             },
             "autocomplete": {
                 "title": "情報を<br />自動入力",
@@ -1599,7 +1625,12 @@
                     "status": "ステータス",
                     "copy_hint": "クリックしてコピー"
                 },
-                "gateway_link": "IPFSゲートウェイで表示"
+                "gateway_link": "IPFSゲートウェイで表示",
+                "bytes_unit": "bytes",
+                "status": {
+                    "pinned_saved": "Pinned & Saved",
+                    "incomplete": "Incomplete"
+                }
             },
             "walrus": {
                 "title": "支払いカード情報",
@@ -1612,19 +1643,25 @@
                     "error": "エラー"
                 },
                 "view_link": "Walrusで表示",
-                "explorer_link": "エクスプローラーで表示"
+                "explorer_link": "エクスプローラーで表示",
+                "status": {
+                    "success": "Success",
+                    "skipped": "Skipped",
+                    "failed": "Failed"
+                }
             },
             "zelfproof": {
                 "title": "支払いカード情報",
                 "labels": {
-                    "string": "Zelf ID QR文字列",
+                    "string": "Zelf ID",
                     "qr_code": "QRコード"
                 },
-                "copy_hint": "クリックしてコピー"
+                "copy_hint": "タップしてZelf ID全体をコピー"
             },
             "next_steps": {
                 "title": "支払いカード情報",
-                "success_message": "ノートは安全に保存されました。ノートリストで確認するか、別のノートを追加できます。",
+                "site_fallback": "このサイト",
+                "success_message": "準備が整いました。{{site}} にアクセスすると、Zelf がこのログイン情報を入力できます。いつでも保管庫を開いて表示や編集ができます。",
                 "error_message": "上記の詳細を確認して、もう一度お試しください。問題が解決しない場合は、サポートにお問い合わせください。",
                 "unknown_message": "ステータスを判別できませんでした。詳細は上記のAPIレスポンスを確認してください。"
             }

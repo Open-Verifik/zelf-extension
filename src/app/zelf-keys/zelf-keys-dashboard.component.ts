@@ -10,7 +10,6 @@ import { ChromeService } from "app/chrome.service";
 import { HomeHeaderComponent } from "app/home/home-header/home-header.component";
 import { TagModel } from "app/tags.service";
 import { HomeHeaderAccountsComponent } from "../home/home-header-accounts/home-header-accounts.component";
-import { BillingService } from "../services/billing.service";
 import { ScrollToSectionService } from "../services/scroll-to-section.service";
 import { WalletService } from "../wallet.service";
 import { ZelfFooterComponent } from "app/zelf-footer/zelf-footer.component";
@@ -25,12 +24,10 @@ import { ZelfKeysDataService } from "../services/zelf-keys-data.service";
 export class ZelfKeysDashboardComponent implements OnInit, OnDestroy {
     private unsubscriber$: Subject<void> = new Subject<void>();
 
-    activeTab: string = "start";
     loaded: boolean = false;
     wallet: Partial<TagModel> = {};
 
     constructor(
-        private _billingService: BillingService,
         private _chromeService: ChromeService,
         private _bottomSheet: MatBottomSheet,
         private _changeDetectionRef: ChangeDetectorRef,
@@ -46,9 +43,6 @@ export class ZelfKeysDashboardComponent implements OnInit, OnDestroy {
 
     async ngOnInit(): Promise<void> {
         await this._initWallet();
-        await this._loadCurrentPlan();
-
-        this._initNavigation();
     }
 
     async ngOnDestroy(): Promise<void> {
@@ -86,36 +80,8 @@ export class ZelfKeysDashboardComponent implements OnInit, OnDestroy {
         this._chromeService.onAccessTokenChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe(async (accessToken) => {
             if (!accessToken) return;
 
-            await this._loadCurrentPlan();
             await this._reloadZelfKeysData();
         });
-    }
-
-    private async _loadCurrentPlan(): Promise<void> {
-        try {
-            const response = await this._billingService.getActiveSubscription();
-
-            if (!response.success || !response.data) {
-                this._billingService.currentPlan = "free";
-
-                return;
-            }
-
-            const subscription = response.data;
-
-            if (subscription.paymentMethod === "crypto" && subscription.cryptoData) {
-                this._billingService.currentPlan = subscription.cryptoData.plan || "basic";
-            } else if (subscription.paymentMethod === "stripe" && subscription.stripeData) {
-                this._billingService.currentPlan = subscription.stripeData.plan || "free";
-            } else if (subscription.paymentMethod === "revenuecat" && subscription.revenueCatData) {
-                // RevenueCat subscriptions - get plan from revenueCatData
-                this._billingService.currentPlan = subscription.revenueCatData.plan || "pro";
-            } else {
-                this._billingService.currentPlan = "free";
-            }
-        } catch (error) {
-            this._billingService.currentPlan = "free";
-        }
     }
 
     private async _initWallet(): Promise<void> {
@@ -128,62 +94,6 @@ export class ZelfKeysDashboardComponent implements OnInit, OnDestroy {
     private async _reloadZelfKeysData(): Promise<void> {
         await this._zelfKeysDataService.clearCache();
         await this._zelfKeysDataService.refresh();
-    }
-
-    private _initNavigation(): void {
-        this._updateActiveTabFromRoute();
-
-        this._router.events.pipe(takeUntil(this.unsubscriber$)).subscribe((event) => {
-            if (!(event instanceof NavigationEnd)) return;
-
-            this._updateActiveTabFromRoute();
-        });
-    }
-
-    private _updateActiveTabFromRoute(): void {
-        const currentUrl = this._router.url;
-        const urlParts = currentUrl.split("/");
-        const dashboardIndex = urlParts.indexOf("zelf-keys");
-
-        if (dashboardIndex !== -1 && urlParts.length > dashboardIndex + 1) {
-            const childPath = urlParts[dashboardIndex + 1];
-
-            this.activeTab = this._getActiveTabFromPath(childPath);
-        } else {
-            this.activeTab = "start";
-        }
-
-        this._changeDetectionRef.detectChanges();
-    }
-
-    private _getActiveTabFromPath(path: string): string {
-        if (path.startsWith("passwords")) {
-            return "passwords";
-        }
-
-        if (path.startsWith("notes")) {
-            return "notes";
-        }
-
-        if (path.startsWith("payment-cards")) {
-            return "payment-cards";
-        }
-
-        return path;
-    }
-
-    async navigateToTab(tab: string): Promise<void> {
-        if (tab === "popout-decryptor") {
-            this._router.navigate(["/zelf-keys", tab]);
-
-            return;
-        }
-
-        if (tab === "start") {
-            this._router.navigate(["/zelf-keys"]);
-        } else {
-            this._router.navigate(["/zelf-keys", tab]);
-        }
     }
 
     navigateToWallet(): void {

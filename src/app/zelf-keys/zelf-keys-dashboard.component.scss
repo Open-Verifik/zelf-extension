@@ -20,12 +20,13 @@
     height: 100%;
     max-height: 100vh;
     min-height: 0;
+    padding-left: calc(8px * var(--zns-space-scale, 1));
 
     &__content {
         flex: 1;
         width: 100%;
         min-height: 0;
-        padding: calc(16px * var(--zns-space-scale, 1)) calc(12px * var(--zns-space-scale, 1)) 0;
+        padding: calc(16px * var(--zns-space-scale, 1)) calc(12px * var(--zns-space-scale, 1)) 0 calc(8px * var(--zns-space-scale, 1));
         overflow-y: auto;
         overflow-x: hidden;
 

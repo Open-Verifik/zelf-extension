@@ -32,16 +32,12 @@
             </button>
         </div>
 
-        <ng-container *ngIf="!isLoading && currentPlan === 'free'">
-            <subscription-banner
-                [route]="['/zelf-keys/billing']"
-                [description]="'billing.payment_cards.premium.description' | transloco"
-                [title]="'billing.payment_cards.premium.title' | transloco"
-            ></subscription-banner>
+        <ng-container *ngIf="!isLoading && false">
+            <!-- subscription-banner removed: Zelf Keys now use ZNS balance, no subscription required -->
         </ng-container>
 
         <!-- Payment Cards Grid -->
-        <div *ngIf="!isLoading && !error && currentPlan !== 'free'" class="zelf-keys-payment-cards__payment-cards-grid">
+        <div *ngIf="!isLoading && !error" class="zelf-keys-payment-cards__payment-cards-grid">
             <div class="zelf-keys-payment-cards__list-header" *ngIf="!isLoading && !error">
                 <button class="zelf-button zelf-button--primary zelf-button--wide" (click)="onAddNewCard()" mat-flat-button>
                     <span class="material-symbols-outlined">add</span>

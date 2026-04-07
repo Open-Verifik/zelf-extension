@@ -7,7 +7,7 @@ export const ZelfKeysPasswordGuard: CanActivateFn = (route: ActivatedRouteSnapsh
     const _passwordDataService = inject(PasswordDataService);
 
     if (!_passwordDataService.getCurrentPassword()) {
-        router.navigate(["/zelf-keys/passwords"], { replaceUrl: true });
+        router.navigate(["/zelf-keys/vault"], { replaceUrl: true });
 
         return false;
     }

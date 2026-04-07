@@ -209,7 +209,7 @@ export class ZelfKeysPasswordDetailComponent extends CopyToClipboardBase impleme
     onBackToList(): void {
         this._passwordDataService.clearCurrentPassword();
 
-        this._router.navigate(["/zelf-keys/passwords"]);
+        this._router.navigate(["/zelf-keys/vault"]);
     }
 
     onCopyPassword(): void {
@@ -278,10 +278,30 @@ export class ZelfKeysPasswordDetailComponent extends CopyToClipboardBase impleme
         return category ? `zelf_keys.categories.${category}` : null;
     }
 
-    copyWebsiteToClipboard(): void {
-        if (!this.zelfKeyPasswordRecord?.publicData?.website) return;
+    copyZelfProof(): void {
+        if (!this.zelfKeyPasswordRecord?.zelfProof) return;
 
-        this._copyToClipboard(this.zelfKeyPasswordRecord.publicData.website);
+        this._copyToClipboard(this.zelfKeyPasswordRecord.zelfProof);
+    }
+
+    copyIpfsHash(): void {
+        if (!this.zelfKeyPasswordRecord?.id) return;
+
+        this._copyToClipboard(this.zelfKeyPasswordRecord.id);
+    }
+
+    getZelfProofPreview(maxLength: number): string {
+        const full = this.zelfKeyPasswordRecord?.zelfProof;
+        if (!full) return "";
+        if (full.length <= maxLength) return full;
+        return `${full.slice(0, maxLength)}…`;
+    }
+
+    getIpfsHashPreview(maxLength: number): string {
+        const full = this.zelfKeyPasswordRecord?.id;
+        if (!full) return "";
+        if (full.length <= maxLength) return full;
+        return `${full.slice(0, maxLength)}…`;
     }
 
     async prefillWebsite(): Promise<void> {

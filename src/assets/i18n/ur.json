@@ -1157,6 +1157,7 @@
             "payment_cards": "ادائیگی کارڈز",
             "subscription": "سبسکرپشن",
             "add_password": "پاس ورڈ شامل کریں",
+            "add_card": "ادائیگی کارڈ شامل کریں",
             "add_note": "نوٹ شامل کریں",
             "add_payment_card": "ادائیگی کارڈ شامل کریں"
         },
@@ -1456,11 +1457,15 @@
                     "ipfs_hash": "IPFS ہیش",
                     "copy_url": "ویب سائٹ URL کاپی کریں",
                     "launch_website": "ویب سائٹ کھولیں",
-                    "prefill_autofill": "آٹو فل پُر کریں"
+                    "prefill_autofill": "آٹو فل پُر کریں",
+                    "copy_ipfs_hash": "IPFS ہیش کاپی کرنے کے لیے ٹیپ کریں"
                 },
                 "zelfproof": {
-                    "title": "ادائیگی کارڈ کی معلومات",
-                    "download": "Zelf ID QR ڈاؤن لوڈ کریں"
+                    "title": "Zelf Key QR",
+                    "download": "Zelf Key QR ڈاؤن لوڈ کریں",
+                    "proof_label": "Zelf Key",
+                    "copy_hint": "مکمل Zelf Key کاپی کرنے کے لیے ٹیپ کریں",
+                    "image_alt": "Zelf Key QR کوڈ"
                 },
                 "decrypted": {
                     "title": "ادائیگی کارڈ کی معلومات",
@@ -1500,12 +1505,33 @@
                     "placeholder": "کارڈ کی قسم منتخب کریں"
                 },
                 "master_password": {
+                    "section_title": "اپنے Zelf ID سے دستخط کریں",
                     "label": "بینک کا نام *",
                     "hint": "ہمیں آپ کے کریڈنشلز کو انکرپٹ اور اسٹور کرنے کے لیے {{ walletName }} پاس ورڈ درکار ہے۔ بائیو میٹرک توثیق ہمیشہ درکار ہوتی ہے۔"
                 },
                 "buttons": {
                     "save": "پاس ورڈ محفوظ کریں",
                     "cancel": "منسوخ کریں"
+                },
+                "zns_cost": {
+                    "insufficient_balance": "Insufficient ZNS balance. You need at least 10 ZNS to save a password.",
+                    "strip": {
+                        "eyebrow": "Cost to save",
+                        "rate": "1 ZNS = $0.05 USD · fixed price",
+                        "details": "Details"
+                    },
+                    "modal": {
+                        "title": "Password Storage Cost",
+                        "body": "Saving a password costs $0.50 USD, paid in ZNS tokens.",
+                        "rate_label": "Token rate",
+                        "price_row": "1 ZNS = $0.05 USD (fixed)",
+                        "per_save_label": "Per save",
+                        "save_cost_row": "10 ZNS = $0.50 USD",
+                        "balance_label": "Your ZNS balance",
+                        "get_zns_title": "Need more ZNS?",
+                        "buy_presale": "Buy ZNS at Pre-Sale",
+                        "earn_rewards": "Earn free ZNS in Rewards"
+                    }
                 }
             }
         },
@@ -1546,7 +1572,7 @@
             },
             "secure_passwords": {
                 "title": "اپنے پاس ورڈز کو<br />محفوظ کریں",
-                "description": "اپنے پاس ورڈز، ادائیگی کارڈز اور نوٹس شامل کریں۔"
+                "description": "اپنے پاس ورڈز اور کارڈز شامل کریں۔"
             },
             "autocomplete": {
                 "title": "اپنی معلومات کو<br />خود بخود مکمل کریں",
@@ -1599,7 +1625,12 @@
                     "status": "اسٹیٹس",
                     "copy_hint": "کاپی کرنے کے لیے کلک کریں"
                 },
-                "gateway_link": "IPFS گیٹ وے پر دیکھیں"
+                "gateway_link": "IPFS گیٹ وے پر دیکھیں",
+                "bytes_unit": "bytes",
+                "status": {
+                    "pinned_saved": "Pinned & Saved",
+                    "incomplete": "Incomplete"
+                }
             },
             "walrus": {
                 "title": "ادائیگی کارڈ کی معلومات",
@@ -1612,19 +1643,25 @@
                     "error": "غلطی"
                 },
                 "view_link": "Walrus پر دیکھیں",
-                "explorer_link": "ایکسپلورر پر دیکھیں"
+                "explorer_link": "ایکسپلورر پر دیکھیں",
+                "status": {
+                    "success": "Success",
+                    "skipped": "Skipped",
+                    "failed": "Failed"
+                }
             },
             "zelfproof": {
                 "title": "ادائیگی کارڈ کی معلومات",
                 "labels": {
-                    "string": "Zelf ID QR سٹرنگ",
+                    "string": "Zelf ID",
                     "qr_code": "کیو آر کوڈ"
                 },
-                "copy_hint": "کاپی کرنے کے لیے کلک کریں"
+                "copy_hint": "مکمل Zelf ID کاپی کرنے کے لیے ٹیپ کریں"
             },
             "next_steps": {
                 "title": "ادائیگی کارڈ کی معلومات",
-                "success_message": "آپ کا نوٹ اب محفوظ طریقے سے اسٹور ہو گیا ہے۔ آپ اسے اپنی نوٹوں کی فہرست میں دیکھ سکتے ہیں یا دوسرا نوٹ شامل کر سکتے ہیں۔",
+                "site_fallback": "یہ سائٹ",
+                "success_message": "سب تیار ہے۔ جب آپ {{site}} پر جاتے ہیں، Zelf یہ لاگ ان بھر سکتا ہے۔ کسی بھی وقت اپنا والٹ کھولیں تاکہ دیکھیں یا ترمیم کریں۔",
                 "error_message": "براہ کرم اوپر دی گئی غلطی کی تفصیلات دیکھیں اور دوبارہ کوشش کریں۔ اگر مسئلہ برقرار رہتا ہے تو سپورٹ سے رابطہ کریں۔",
                 "unknown_message": "سسٹم اسٹیٹس کا تعین نہیں کر سکا۔ براہ کرم تفصیلات کے لیے اوپر دیا گیا API جواب چیک کریں۔"
             }

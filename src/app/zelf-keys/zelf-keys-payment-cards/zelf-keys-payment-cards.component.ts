@@ -7,10 +7,8 @@ import { Subject, debounceTime, distinctUntilChanged, takeUntil } from "rxjs";
 
 import { ChromeService } from "app/chrome.service";
 import { PaymentCardItem } from "../../models/zelf-key-item.model";
-import { BillingService } from "../../services/billing.service";
 import { PaymentCardDataService } from "../../services/payment-card-data.service";
 import { ZelfKeysDataService } from "../../services/zelf-keys-data.service";
-import { SubscriptionBannerComponent } from "../shared/subscription-banner/subscription-banner.component";
 
 interface FolderGroup {
     name: string;
@@ -19,13 +17,12 @@ interface FolderGroup {
 }
 
 @Component({
-    imports: [CommonModule, TranslocoModule, ReactiveFormsModule, SubscriptionBannerComponent],
+    imports: [CommonModule, TranslocoModule, ReactiveFormsModule],
     selector: "zelf-keys-payment-cards",
     styleUrls: ["./zelf-keys-payment-cards.component.scss"],
     templateUrl: "./zelf-keys-payment-cards.component.html",
 })
 export class ZelfKeysPaymentCardsComponent implements OnInit, OnDestroy {
-    private _currentPlan: string = "";
     private destroy$ = new Subject<void>();
 
     error: string | null = null;
@@ -41,14 +38,12 @@ export class ZelfKeysPaymentCardsComponent implements OnInit, OnDestroy {
     private readonly VIEW_MODE_KEY = "zelfKeysViewMode";
 
     constructor(
-        private _billingService: BillingService,
         private _chromeService: ChromeService,
         private _paymentCardDataService: PaymentCardDataService,
         private _router: Router,
         private _translocoService: TranslocoService,
         private _zelfKeysDataService: ZelfKeysDataService
     ) {
-        this._subscribeToBillingService();
         this._loadViewMode();
     }
 
@@ -65,17 +60,7 @@ export class ZelfKeysPaymentCardsComponent implements OnInit, OnDestroy {
     }
 
     public get currentPlan(): string {
-        // TODO: TEMPORARY - Bypass subscription check for testing
-        // Remove this override when ready to enable billing
         return "premium";
-        // return this._currentPlan;
-    }
-
-    public set currentPlan(value: string) {
-        if (this._currentPlan === value) return;
-
-        this._currentPlan = value;
-        this._loadPaymentCards();
     }
 
     async ngOnInit(): Promise<void> {
@@ -210,14 +195,6 @@ export class ZelfKeysPaymentCardsComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this.destroy$.next();
         this.destroy$.complete();
-    }
-
-    private _subscribeToBillingService(): void {
-        this.currentPlan = this._billingService.currentPlan || "free";
-
-        this._billingService.currentPlan$.pipe(takeUntil(this.destroy$)).subscribe((plan) => {
-            this.currentPlan = plan;
-        });
     }
 
     private async _loadPaymentCards(): Promise<void> {

@@ -1,0 +1,103 @@
+<div class="vault" *transloco="let t">
+    <!-- Loading State -->
+    <div *ngIf="loading" class="vault__state vault__state--loading">
+        <div class="vault__spinner"></div>
+        <p class="vault__state-text">{{ t("billing.passwords.loading.title") }}</p>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="error && !loading" class="vault__state vault__state--error">
+        <svg class="vault__state-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="10" stroke="#ff6b6b" stroke-width="2" />
+            <path d="m15 9-6 6" stroke="#ff6b6b" stroke-width="2" stroke-linecap="round" />
+            <path d="m9 9 6 6" stroke="#ff6b6b" stroke-width="2" stroke-linecap="round" />
+        </svg>
+        <p class="vault__state-text">{{ error }}</p>
+        <button class="zelf-button zelf-button--primary" (click)="onRefresh()">
+            {{ t("billing.passwords.error.try_again") }}
+        </button>
+    </div>
+
+    <!-- Subscription Banner -->
+
+    <!-- Vault Content -->
+    <div *ngIf="!loading && !error" class="vault__content">
+        <!-- Actions row -->
+        <div class="vault__actions">
+            <button class="vault__add-btn" (click)="onAddPassword()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+                {{ t("billing.dashboard.add_password") }}
+            </button>
+            <button class="vault__add-btn vault__add-btn--secondary" (click)="onAddCard()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+                {{ t("billing.dashboard.add_card") }}
+            </button>
+            <button class="vault__icon-btn" (click)="onRefresh()">
+                <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20" fill="currentColor">
+                    <path d="M480-160q-134 0-227-93t-93-227q0-134 93-227t227-93q69 0 132 28.5T720-690v-110h80v280H520v-80h168q-32-56-87.5-88T480-720q-100 0-170 70t-70 170q0 100 70 170t170 70q77 0 139-44t87-116h84q-28 106-114 173t-196 67Z" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Search -->
+        <div class="vault__search" *ngIf="showFilter">
+            <svg class="vault__search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <input
+                [formControl]="searchControl"
+                [placeholder]="t('billing.passwords.search.placeholder')"
+                autocomplete="off"
+                class="vault__search-input"
+                type="text"
+            />
+        </div>
+
+        <!-- Items list -->
+        <div class="vault__list" *ngIf="filteredItems.length > 0">
+            <div
+                class="vault__row"
+                *ngFor="let item of filteredItems; trackBy: trackByItem"
+                (click)="onItemClick(item)"
+            >
+                <div class="vault__row-icon" [ngClass]="{ 'vault__row-icon--card': item.type === 'card' }">
+                    <svg *ngIf="item.type === 'password'" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="3" y="11" width="18" height="11" rx="2" stroke="currentColor" stroke-width="2" />
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        <circle cx="12" cy="16.5" r="1.5" fill="currentColor" />
+                    </svg>
+                    <svg *ngIf="item.type === 'card'" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2" />
+                        <path d="M2 10h20" stroke="currentColor" stroke-width="2" />
+                        <path d="M6 15h4" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                </div>
+                <div class="vault__row-info">
+                    <span class="vault__row-title">{{ item.title }}</span>
+                    <span class="vault__row-subtitle">{{ item.subtitle }}</span>
+                </div>
+                <svg class="vault__row-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </div>
+        </div>
+
+        <!-- Empty state -->
+        <div class="vault__empty" *ngIf="allItems.length === 0 && !loading">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="3" y="11" width="18" height="11" rx="2" stroke="currentColor" stroke-width="1.5" />
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+            </svg>
+            <p>{{ t("billing.passwords.add_password.description") }}</p>
+        </div>
+
+        <!-- No search results -->
+        <div class="vault__empty" *ngIf="allItems.length > 0 && filteredItems.length === 0">
+            <p>{{ t("billing.passwords.no_results.title") }}</p>
+        </div>
+    </div>
+</div>

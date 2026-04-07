@@ -1157,6 +1157,7 @@
             "payment_cards": "บัตรชำระเงิน",
             "subscription": "สมาชิก",
             "add_password": "เพิ่มรหัสผ่าน",
+            "add_card": "เพิ่มบัตรชำระเงิน",
             "add_note": "เพิ่มบันทึก",
             "add_payment_card": "เพิ่มบัตรชำระเงิน"
         },
@@ -1456,11 +1457,15 @@
                     "ipfs_hash": "แฮช IPFS",
                     "copy_url": "คัดลอก URL เว็บไซต์",
                     "launch_website": "เปิดเว็บไซต์",
-                    "prefill_autofill": "กรอกข้อมูลอัตโนมัติล่วงหน้า"
+                    "prefill_autofill": "กรอกข้อมูลอัตโนมัติล่วงหน้า",
+                    "copy_ipfs_hash": "แตะเพื่อคัดลอกแฮช IPFS"
                 },
                 "zelfproof": {
-                    "title": "Zelf ID QR",
-                    "download": "ดาวน์โหลด Zelf ID QR"
+                    "title": "Zelf Key QR",
+                    "download": "ดาวน์โหลด Zelf Key QR",
+                    "proof_label": "Zelf Key",
+                    "copy_hint": "แตะเพื่อคัดลอก Zelf Key ทั้งหมด",
+                    "image_alt": "รหัส QR ของ Zelf Key"
                 },
                 "decrypted": {
                     "title": "เนื้อหาที่ถอดรหัสแล้ว",
@@ -1500,12 +1505,33 @@
                     "placeholder": "ใส่บันทึก (ไม่บังคับ)"
                 },
                 "master_password": {
+                    "section_title": "ลงนามด้วย Zelf ID ของคุณ",
                     "label": "รหัสผ่านหลัก *",
                     "hint": "เราต้องการรหัสผ่าน {{ walletName }} เพื่อเข้ารหัสและจัดเก็บข้อมูลประจำตัวของคุณ การยืนยันด้วยข้อมูลไบโอเมตริกเป็นสิ่งที่จำเป็นเสมอ"
                 },
                 "buttons": {
                     "save": "บันทึกรหัสผ่าน",
                     "cancel": "ยกเลิก"
+                },
+                "zns_cost": {
+                    "insufficient_balance": "Insufficient ZNS balance. You need at least 10 ZNS to save a password.",
+                    "strip": {
+                        "eyebrow": "Cost to save",
+                        "rate": "1 ZNS = $0.05 USD · fixed price",
+                        "details": "Details"
+                    },
+                    "modal": {
+                        "title": "Password Storage Cost",
+                        "body": "Saving a password costs $0.50 USD, paid in ZNS tokens.",
+                        "rate_label": "Token rate",
+                        "price_row": "1 ZNS = $0.05 USD (fixed)",
+                        "per_save_label": "Per save",
+                        "save_cost_row": "10 ZNS = $0.50 USD",
+                        "balance_label": "Your ZNS balance",
+                        "get_zns_title": "Need more ZNS?",
+                        "buy_presale": "Buy ZNS at Pre-Sale",
+                        "earn_rewards": "Earn free ZNS in Rewards"
+                    }
                 }
             }
         },
@@ -1546,7 +1572,7 @@
             },
             "secure_passwords": {
                 "title": "รักษาความปลอดภัย<br />รหัสผ่านของคุณ",
-                "description": "เพิ่มรหัสผ่าน บัตรชำระเงิน และบันทึกของคุณ"
+                "description": "เพิ่มรหัสผ่านและบัตรของคุณ"
             },
             "autocomplete": {
                 "title": "เติมข้อมูล<br />อัตโนมัติ",
@@ -1599,7 +1625,12 @@
                     "status": "สถานะ",
                     "copy_hint": "คลิกเพื่อคัดลอก"
                 },
-                "gateway_link": "ดูบน IPFS Gateway"
+                "gateway_link": "ดูบน IPFS Gateway",
+                "bytes_unit": "bytes",
+                "status": {
+                    "pinned_saved": "Pinned & Saved",
+                    "incomplete": "Incomplete"
+                }
             },
             "walrus": {
                 "title": "ข้อมูลบัตรชำระเงิน",
@@ -1612,19 +1643,25 @@
                     "error": "ข้อผิดพลาด"
                 },
                 "view_link": "ดูบน Walrus",
-                "explorer_link": "ดูใน Explorer"
+                "explorer_link": "ดูใน Explorer",
+                "status": {
+                    "success": "Success",
+                    "skipped": "Skipped",
+                    "failed": "Failed"
+                }
             },
             "zelfproof": {
                 "title": "ข้อมูลบัตรชำระเงิน",
                 "labels": {
-                    "string": "สตริง Zelf ID QR",
+                    "string": "Zelf ID",
                     "qr_code": "คิวอาร์โค้ด"
                 },
-                "copy_hint": "คลิกเพื่อคัดลอก"
+                "copy_hint": "แตะเพื่อคัดลอก Zelf ID ทั้งหมด"
             },
             "next_steps": {
                 "title": "ข้อมูลบัตรชำระเงิน",
-                "success_message": "บันทึกของคุณถูกจัดเก็บอย่างปลอดภัยแล้ว คุณสามารถดูได้ในรายการบันทึกหรือเพิ่มบันทึกอื่น",
+                "site_fallback": "เว็บไซต์นี้",
+                "success_message": "พร้อมแล้ว เมื่อคุณเข้าเยี่ยมชม {{site}} Zelf สามารถกรอกการเข้าสู่ระบบนี้ให้คุณได้ เปิดตู้นิรภัยของคุณได้ตลอดเวลาเพื่อดูหรือแก้ไข",
                 "error_message": "กรุณาตรวจสอบรายละเอียดข้อผิดพลาดด้านบนและลองอีกครั้ง หากปัญหายังคงอยู่ กรุณาติดต่อฝ่ายสนับสนุน",
                 "unknown_message": "ระบบไม่สามารถระบุสถานะได้ กรุณาตรวจสอบการตอบกลับ API ด้านบนสำหรับรายละเอียด"
             }

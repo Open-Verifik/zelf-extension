@@ -1157,6 +1157,7 @@
             "payment_cards": "भुगतान कार्ड",
             "subscription": "सदस्यता",
             "add_password": "पासवर्ड जोड़ें",
+            "add_card": "भुगतान कार्ड जोड़ें",
             "add_note": "नोट जोड़ें",
             "add_payment_card": "भुगतान कार्ड जोड़ें"
         },
@@ -1456,11 +1457,15 @@
                     "ipfs_hash": "IPFS हैश",
                     "copy_url": "वेबसाइट URL कॉपी करें",
                     "launch_website": "वेबसाइट लॉन्च करें",
-                    "prefill_autofill": "ऑटोफिल प्रीफिल"
+                    "prefill_autofill": "ऑटोफिल प्रीफिल",
+                    "copy_ipfs_hash": "IPFS हैश कॉपी करने के लिए टैप करें"
                 },
                 "zelfproof": {
-                    "title": "भुगतान कार्ड की जानकारी",
-                    "download": "Zelf ID QR डाउनलोड करें"
+                    "title": "Zelf Key QR",
+                    "download": "Zelf Key QR डाउनलोड करें",
+                    "proof_label": "Zelf Key",
+                    "copy_hint": "पूरा Zelf Key कॉपी करने के लिए टैप करें",
+                    "image_alt": "Zelf Key QR कोड"
                 },
                 "decrypted": {
                     "title": "भुगतान कार्ड की जानकारी",
@@ -1500,12 +1505,33 @@
                     "placeholder": "कार्ड प्रकार चुनें"
                 },
                 "master_password": {
+                    "section_title": "अपने Zelf ID से हस्ताक्षर करें",
                     "label": "बैंक का नाम *",
                     "hint": "आपके क्रेडेंशियल्स को एन्क्रिप्ट और संग्रहीत करने के लिए हमें {{ walletName }} पासवर्ड की आवश्यकता है। बायोमेट्रिक सत्यापन हमेशा आवश्यक है।"
                 },
                 "buttons": {
                     "save": "पासवर्ड सुरक्षित करें",
                     "cancel": "रद्द करें"
+                },
+                "zns_cost": {
+                    "insufficient_balance": "Insufficient ZNS balance. You need at least 10 ZNS to save a password.",
+                    "strip": {
+                        "eyebrow": "Cost to save",
+                        "rate": "1 ZNS = $0.05 USD · fixed price",
+                        "details": "Details"
+                    },
+                    "modal": {
+                        "title": "Password Storage Cost",
+                        "body": "Saving a password costs $0.50 USD, paid in ZNS tokens.",
+                        "rate_label": "Token rate",
+                        "price_row": "1 ZNS = $0.05 USD (fixed)",
+                        "per_save_label": "Per save",
+                        "save_cost_row": "10 ZNS = $0.50 USD",
+                        "balance_label": "Your ZNS balance",
+                        "get_zns_title": "Need more ZNS?",
+                        "buy_presale": "Buy ZNS at Pre-Sale",
+                        "earn_rewards": "Earn free ZNS in Rewards"
+                    }
                 }
             }
         },
@@ -1546,7 +1572,7 @@
             },
             "secure_passwords": {
                 "title": "अपने पासवर्ड<br />सुरक्षित करें",
-                "description": "अपने पासवर्ड, भुगतान कार्ड और नोट्स जोड़ें।"
+                "description": "अपने पासवर्ड और कार्ड जोड़ें।"
             },
             "autocomplete": {
                 "title": "अपनी जानकारी<br />ऑटो-कम्पलीट करें",
@@ -1599,7 +1625,12 @@
                     "status": "स्थिति",
                     "copy_hint": "कॉपी करने के लिए क्लिक करें"
                 },
-                "gateway_link": "IPFS गेटवे पर देखें"
+                "gateway_link": "IPFS गेटवे पर देखें",
+                "bytes_unit": "bytes",
+                "status": {
+                    "pinned_saved": "Pinned & Saved",
+                    "incomplete": "Incomplete"
+                }
             },
             "walrus": {
                 "title": "भुगतान कार्ड की जानकारी",
@@ -1612,19 +1643,25 @@
                     "error": "त्रुटि"
                 },
                 "view_link": "Walrus पर देखें",
-                "explorer_link": "एक्सप्लोरर पर देखें"
+                "explorer_link": "एक्सप्लोरर पर देखें",
+                "status": {
+                    "success": "Success",
+                    "skipped": "Skipped",
+                    "failed": "Failed"
+                }
             },
             "zelfproof": {
                 "title": "भुगतान कार्ड की जानकारी",
                 "labels": {
-                    "string": "Zelf ID QR स्ट्रिंग",
+                    "string": "Zelf ID",
                     "qr_code": "QR कोड"
                 },
-                "copy_hint": "कॉपी करने के लिए क्लिक करें"
+                "copy_hint": "पूरा Zelf ID कॉपी करने के लिए टैप करें"
             },
             "next_steps": {
                 "title": "भुगतान कार्ड की जानकारी",
-                "success_message": "आपका नोट अब सुरक्षित रूप से संग्रहीत है। आप इसे अपने नोट्स की सूची में देख सकते हैं या दूसरा नोट जोड़ सकते हैं।",
+                "site_fallback": "इस साइट",
+                "success_message": "सब तैयार है। जब आप {{site}} पर जाते हैं, तो Zelf यह लॉगिन भर सकता है। कभी भी अपना वॉल्ट खोलकर देखें या संपादित करें।",
                 "error_message": "कृपया ऊपर दिए गए त्रुटि विवरण की समीक्षा करें और पुनः प्रयास करें। यदि समस्या बनी रहती है, तो सहायता से संपर्क करें।",
                 "unknown_message": "सिस्टम स्थिति निर्धारित नहीं कर सका। विवरण के लिए कृपया ऊपर API प्रतिक्रिया देखें।"
             }

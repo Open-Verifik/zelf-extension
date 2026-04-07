@@ -14,13 +14,13 @@ export const ZelfKeysResultGuard: CanActivateFn = (route, state) => {
 
     if (url.includes("/passwords/result")) {
         formType = "passwords";
-        redirectRoute = "/zelf-keys/passwords";
+        redirectRoute = "/zelf-keys/vault";
     } else if (url.includes("/notes/result")) {
         formType = "notes";
-        redirectRoute = "/zelf-keys/notes";
+        redirectRoute = "/zelf-keys/vault";
     } else if (url.includes("/payment-cards/result")) {
         formType = "payment-cards";
-        redirectRoute = "/zelf-keys/payment-cards";
+        redirectRoute = "/zelf-keys/vault";
     } else {
         router.navigate(["/zelf-keys"], { replaceUrl: true });
         return false;

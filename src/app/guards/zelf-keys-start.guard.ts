@@ -14,10 +14,10 @@ export const ZelfKeysStartGuard: CanActivateFn = async () => {
     if (!data) data = await _zelfKeysDataService.load();
 
     if (data) {
-        const hasAnyItems = data.passwords.length > 0 || data.notes.length > 0 || data.paymentCards.length > 0;
+        const hasAnyItems = data.passwords.length > 0 || data.paymentCards.length > 0;
 
         if (hasAnyItems) {
-            _router.navigate(["/zelf-keys/passwords"], { replaceUrl: true });
+            _router.navigate(["/zelf-keys/vault"], { replaceUrl: true });
 
             return false;
         }

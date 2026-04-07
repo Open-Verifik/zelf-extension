@@ -1157,6 +1157,7 @@
             "payment_cards": "결제 카드",
             "subscription": "구독",
             "add_password": "비밀번호 추가",
+            "add_card": "결제 카드 추가",
             "add_note": "노트 추가",
             "add_payment_card": "결제 카드 추가"
         },
@@ -1456,11 +1457,15 @@
                     "ipfs_hash": "IPFS 해시",
                     "copy_url": "웹사이트 URL 복사",
                     "launch_website": "웹사이트 실행",
-                    "prefill_autofill": "자동 채우기 설정"
+                    "prefill_autofill": "자동 채우기 설정",
+                    "copy_ipfs_hash": "탭하여 IPFS 해시 복사"
                 },
                 "zelfproof": {
-                    "title": "결제 카드 정보",
-                    "download": "Zelf ID QR 다운로드"
+                    "title": "Zelf Key QR",
+                    "download": "Zelf Key QR 다운로드",
+                    "proof_label": "Zelf Key",
+                    "copy_hint": "탭하여 전체 Zelf Key 복사",
+                    "image_alt": "Zelf Key QR 코드"
                 },
                 "decrypted": {
                     "title": "결제 카드 정보",
@@ -1500,12 +1505,33 @@
                     "placeholder": "카드 유형 선택"
                 },
                 "master_password": {
+                    "section_title": "Zelf ID로 서명",
                     "label": "은행명 *",
                     "hint": "자격 증명을 암호화하여 저장하려면 {{ walletName }} 비밀번호가 필요합니다. 생체 인증은 항상 요구됩니다."
                 },
                 "buttons": {
                     "save": "비밀번호 저장",
                     "cancel": "취소"
+                },
+                "zns_cost": {
+                    "insufficient_balance": "Insufficient ZNS balance. You need at least 10 ZNS to save a password.",
+                    "strip": {
+                        "eyebrow": "Cost to save",
+                        "rate": "1 ZNS = $0.05 USD · fixed price",
+                        "details": "Details"
+                    },
+                    "modal": {
+                        "title": "Password Storage Cost",
+                        "body": "Saving a password costs $0.50 USD, paid in ZNS tokens.",
+                        "rate_label": "Token rate",
+                        "price_row": "1 ZNS = $0.05 USD (fixed)",
+                        "per_save_label": "Per save",
+                        "save_cost_row": "10 ZNS = $0.50 USD",
+                        "balance_label": "Your ZNS balance",
+                        "get_zns_title": "Need more ZNS?",
+                        "buy_presale": "Buy ZNS at Pre-Sale",
+                        "earn_rewards": "Earn free ZNS in Rewards"
+                    }
                 }
             }
         },
@@ -1546,7 +1572,7 @@
             },
             "secure_passwords": {
                 "title": "비밀번호<br />보호",
-                "description": "비밀번호, 결제 카드, 노트를 추가하세요."
+                "description": "비밀번호와 카드를 추가하세요."
             },
             "autocomplete": {
                 "title": "정보<br />자동 입력",
@@ -1599,7 +1625,12 @@
                     "status": "상태",
                     "copy_hint": "클릭하여 복사"
                 },
-                "gateway_link": "IPFS 게이트웨이에서 보기"
+                "gateway_link": "IPFS 게이트웨이에서 보기",
+                "bytes_unit": "bytes",
+                "status": {
+                    "pinned_saved": "Pinned & Saved",
+                    "incomplete": "Incomplete"
+                }
             },
             "walrus": {
                 "title": "결제 카드 정보",
@@ -1612,19 +1643,25 @@
                     "error": "오류"
                 },
                 "view_link": "Walrus에서 보기",
-                "explorer_link": "익스플로러에서 보기"
+                "explorer_link": "익스플로러에서 보기",
+                "status": {
+                    "success": "Success",
+                    "skipped": "Skipped",
+                    "failed": "Failed"
+                }
             },
             "zelfproof": {
                 "title": "결제 카드 정보",
                 "labels": {
-                    "string": "Zelf ID QR 문자열",
+                    "string": "Zelf ID",
                     "qr_code": "QR 코드"
                 },
-                "copy_hint": "클릭하여 복사"
+                "copy_hint": "탭하여 전체 Zelf ID 복사"
             },
             "next_steps": {
                 "title": "결제 카드 정보",
-                "success_message": "노트가 안전하게 저장되었습니다. 노트 목록에서 확인하거나 다른 노트를 추가할 수 있습니다.",
+                "site_fallback": "이 사이트",
+                "success_message": "준비되었습니다. {{site}}를 방문하면 Zelf가 이 로그인을 채울 수 있습니다. 금고를 열어 언제든지 보거나 편집하세요.",
                 "error_message": "위의 오류 상세 내용을 확인하고 다시 시도해 주세요. 문제가 지속되면 지원팀에 문의해 주세요.",
                 "unknown_message": "상태를 특정할 수 없습니다. 위의 API 응답 상세 내용을 확인해 주세요."
             }

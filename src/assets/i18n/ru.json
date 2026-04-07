@@ -1157,6 +1157,7 @@
             "payment_cards": "Платежные карты",
             "subscription": "Подписка",
             "add_password": "Добавить пароль",
+            "add_card": "Добавить платежную карту",
             "add_note": "Добавить заметку",
             "add_payment_card": "Добавить платежную карту"
         },
@@ -1456,11 +1457,15 @@
                     "ipfs_hash": "Хеш IPFS",
                     "copy_url": "Копировать URL сайта",
                     "launch_website": "Открыть веб-сайт",
-                    "prefill_autofill": "Предзаполнить автозаполнение"
+                    "prefill_autofill": "Предзаполнить автозаполнение",
+                    "copy_ipfs_hash": "Нажмите, чтобы скопировать хеш IPFS"
                 },
                 "zelfproof": {
-                    "title": "Zelf ID QR",
-                    "download": "Скачать Zelf ID QR"
+                    "title": "Zelf Key QR",
+                    "download": "Скачать Zelf Key QR",
+                    "proof_label": "Zelf Key",
+                    "copy_hint": "Нажмите, чтобы скопировать полный Zelf Key",
+                    "image_alt": "QR-код Zelf Key"
                 },
                 "decrypted": {
                     "title": "Расшифрованное содержимое",
@@ -1500,12 +1505,33 @@
                     "placeholder": "Введите заметки (необязательно)"
                 },
                 "master_password": {
+                    "section_title": "Подпись с вашим Zelf ID",
                     "label": "Мастер-пароль *",
                     "hint": "Нам нужен пароль {{ walletName }} для шифрования и хранения ваших учетных данных. Биометрическая проверка всегда требуется."
                 },
                 "buttons": {
                     "save": "Сохранить пароль",
                     "cancel": "Отмена"
+                },
+                "zns_cost": {
+                    "insufficient_balance": "Insufficient ZNS balance. You need at least 10 ZNS to save a password.",
+                    "strip": {
+                        "eyebrow": "Cost to save",
+                        "rate": "1 ZNS = $0.05 USD · fixed price",
+                        "details": "Details"
+                    },
+                    "modal": {
+                        "title": "Password Storage Cost",
+                        "body": "Saving a password costs $0.50 USD, paid in ZNS tokens.",
+                        "rate_label": "Token rate",
+                        "price_row": "1 ZNS = $0.05 USD (fixed)",
+                        "per_save_label": "Per save",
+                        "save_cost_row": "10 ZNS = $0.50 USD",
+                        "balance_label": "Your ZNS balance",
+                        "get_zns_title": "Need more ZNS?",
+                        "buy_presale": "Buy ZNS at Pre-Sale",
+                        "earn_rewards": "Earn free ZNS in Rewards"
+                    }
                 }
             }
         },
@@ -1546,7 +1572,7 @@
             },
             "secure_passwords": {
                 "title": "ЗАЩИТИТЕ ВАШИ<br />ПАРОЛИ",
-                "description": "Добавляйте пароли, платежные карты и заметки."
+                "description": "Добавляйте пароли и платежные карты."
             },
             "autocomplete": {
                 "title": "АВТОЗАПОЛНЕНИЕ<br />ВАШИХ ДАННЫХ",
@@ -1599,7 +1625,12 @@
                     "status": "Статус",
                     "copy_hint": "Нажмите, чтобы скопировать"
                 },
-                "gateway_link": "Посмотреть в шлюзе IPFS"
+                "gateway_link": "Посмотреть в шлюзе IPFS",
+                "bytes_unit": "bytes",
+                "status": {
+                    "pinned_saved": "Pinned & Saved",
+                    "incomplete": "Incomplete"
+                }
             },
             "walrus": {
                 "title": "Хранилище Walrus",
@@ -1612,19 +1643,25 @@
                     "error": "Ошибка"
                 },
                 "view_link": "Посмотреть на Walrus",
-                "explorer_link": "Посмотреть в обозревателе"
+                "explorer_link": "Посмотреть в обозревателе",
+                "status": {
+                    "success": "Success",
+                    "skipped": "Skipped",
+                    "failed": "Failed"
+                }
             },
             "zelfproof": {
                 "title": "Zelf ID QR сгенерирован",
                 "labels": {
-                    "string": "Строка Zelf ID QR",
+                    "string": "Zelf ID",
                     "qr_code": "QR-код"
                 },
-                "copy_hint": "Нажмите, чтобы скопировать"
+                "copy_hint": "Нажмите, чтобы скопировать полный Zelf ID"
             },
             "next_steps": {
                 "title": "Следующие шаги",
-                "success_message": "Ваш пароль теперь надёжно сохранён. Вы можете просмотреть его в списке паролей или добавить ещё один.",
+                "site_fallback": "этот сайт",
+                "success_message": "Готово. Когда вы заходите на {{site}}, Zelf может заполнить этот вход. Откройте хранилище в любое время, чтобы просмотреть или изменить.",
                 "error_message": "Пожалуйста, ознакомьтесь с деталями ошибки выше и попробуйте снова. Если проблема повторится, обратитесь в поддержку.",
                 "unknown_message": "Система не смогла определить статус. Пожалуйста, проверьте ответ API выше для деталей."
             }

@@ -120,7 +120,7 @@ export class ZelfKeysPaymentCardFormComponent implements OnInit {
     }
 
     onCancel(): void {
-        this.router.navigate(["/zelf-keys/payment-cards"]);
+        this.router.navigate(["/zelf-keys/vault"]);
     }
 
     onBiometricsSuccess(biometricData: BiometricResult): void {

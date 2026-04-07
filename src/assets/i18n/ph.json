@@ -1157,6 +1157,7 @@
             "payment_cards": "Mga Payment Card",
             "subscription": "Subscription",
             "add_password": "Magdagdag ng Password",
+            "add_card": "Magdagdag ng Payment Card",
             "add_note": "Magdagdag ng Note",
             "add_payment_card": "Magdagdag ng Payment Card"
         },
@@ -1456,11 +1457,15 @@
                     "ipfs_hash": "IPFS Hash",
                     "copy_url": "Kopyahin ang URL ng website",
                     "launch_website": "Ilunsad ang website",
-                    "prefill_autofill": "Prefill autofill"
+                    "prefill_autofill": "Prefill autofill",
+                    "copy_ipfs_hash": "I-tap para kopyahin ang IPFS Hash"
                 },
                 "zelfproof": {
-                    "title": "Impormasyon ng Payment Card",
-                    "download": "I-download ang Zelf ID QR"
+                    "title": "Zelf Key QR",
+                    "download": "I-download ang Zelf Key QR",
+                    "proof_label": "Zelf Key",
+                    "copy_hint": "I-tap para kopyahin ang buong Zelf Key",
+                    "image_alt": "Zelf Key QR code"
                 },
                 "decrypted": {
                     "title": "Impormasyon ng Payment Card",
@@ -1500,12 +1505,33 @@
                     "placeholder": "Pumili ng uri ng card"
                 },
                 "master_password": {
+                    "section_title": "Pirmahan gamit ang iyong Zelf ID",
                     "label": "Pangalan ng Bangko *",
                     "hint": "Kailangan namin ang {{ walletName }} password upang i-encrypt at i-store ang iyong mga credential. Palaging kinakailangan ang biometric verification."
                 },
                 "buttons": {
                     "save": "I-save ang Password",
                     "cancel": "Kanselahin"
+                },
+                "zns_cost": {
+                    "insufficient_balance": "Insufficient ZNS balance. You need at least 10 ZNS to save a password.",
+                    "strip": {
+                        "eyebrow": "Cost to save",
+                        "rate": "1 ZNS = $0.05 USD · fixed price",
+                        "details": "Details"
+                    },
+                    "modal": {
+                        "title": "Password Storage Cost",
+                        "body": "Saving a password costs $0.50 USD, paid in ZNS tokens.",
+                        "rate_label": "Token rate",
+                        "price_row": "1 ZNS = $0.05 USD (fixed)",
+                        "per_save_label": "Per save",
+                        "save_cost_row": "10 ZNS = $0.50 USD",
+                        "balance_label": "Your ZNS balance",
+                        "get_zns_title": "Need more ZNS?",
+                        "buy_presale": "Buy ZNS at Pre-Sale",
+                        "earn_rewards": "Earn free ZNS in Rewards"
+                    }
                 }
             }
         },
@@ -1546,7 +1572,7 @@
             },
             "secure_passwords": {
                 "title": "I-SECURE ANG IYONG<br />MGA PASSWORD",
-                "description": "Idagdag ang iyong mga password, payment cards, at notes."
+                "description": "Idagdag ang iyong mga password at cards."
             },
             "autocomplete": {
                 "title": "AUTO-COMPLETE<br />ANG IYONG INFO",
@@ -1599,7 +1625,12 @@
                     "status": "Status",
                     "copy_hint": "I-click para kopyahin"
                 },
-                "gateway_link": "Tingnan sa IPFS Gateway"
+                "gateway_link": "Tingnan sa IPFS Gateway",
+                "bytes_unit": "bytes",
+                "status": {
+                    "pinned_saved": "Pinned & Saved",
+                    "incomplete": "Incomplete"
+                }
             },
             "walrus": {
                 "title": "Walrus Storage",
@@ -1612,19 +1643,25 @@
                     "error": "Error"
                 },
                 "view_link": "Tingnan sa Walrus",
-                "explorer_link": "Tingnan sa Explorer"
+                "explorer_link": "Tingnan sa Explorer",
+                "status": {
+                    "success": "Success",
+                    "skipped": "Skipped",
+                    "failed": "Failed"
+                }
             },
             "zelfproof": {
                 "title": "Na-generate ang Zelf ID QR",
                 "labels": {
-                    "string": "Zelf ID QR String",
+                    "string": "Zelf ID",
                     "qr_code": "QR Code"
                 },
-                "copy_hint": "I-click para kopyahin"
+                "copy_hint": "I-tap para kopyahin ang buong Zelf ID"
             },
             "next_steps": {
                 "title": "Mga Susunod na Hakbang",
-                "success_message": "Ang iyong password ay ligtas na ngayong nai-store. Maaari mo itong tingnan sa iyong listahan ng mga password o magdagdag ng isa pang password.",
+                "site_fallback": "ang site na ito",
+                "success_message": "Handa ka na. Kapag binisita mo ang {{site}}, maaaring punan ng Zelf ang login na ito. Buksan ang vault mo anumang oras para tingnan o i-edit.",
                 "error_message": "Mangyaring suriin ang mga detalye ng error sa itaas at subukan muli. Kung magpapatuloy ang problema, makipag-ugnayan sa support.",
                 "unknown_message": "Hindi matukoy ng system ang status. Mangyaring suriin ang API response sa itaas para sa mga detalye."
             }

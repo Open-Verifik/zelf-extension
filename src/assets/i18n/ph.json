@@ -1051,7 +1051,10 @@
         "token_sol_wrapped": "Naka-wrap",
         "total_balance": "Kabuuang Balanse",
         "hide_balances": "Itago ang mga balanse",
-        "show_balances": "Ipakita ang mga balanse"
+        "show_balances": "Ipakita ang mga balanse",
+        "recent_transactions": "Mga kamakailang transaksyon",
+        "rewards_banner_title": "I-claim ang mga gantimpala",
+        "rewards_banner_subtitle": "Kumita ng $ZNS araw-araw sa aming mga quest"
     },
     "id_scanning": {
         "camera_not_found": "Hindi nahanap ang camera",

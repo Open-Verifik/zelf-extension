@@ -1051,7 +1051,10 @@
         "token_sol_wrapped": "مغلف",
         "total_balance": "الرصيد الإجمالي",
         "hide_balances": "إخفاء الأرصدة",
-        "show_balances": "إظهار الأرصدة"
+        "show_balances": "إظهار الأرصدة",
+        "recent_transactions": "المعاملات الأخيرة",
+        "rewards_banner_title": "احصل على المكافآت",
+        "rewards_banner_subtitle": "احصل على $ZNS يوميًا مع مهامنا"
     },
     "id_scanning": {
         "camera_not_found": "لم يتم العثور على الكاميرا",

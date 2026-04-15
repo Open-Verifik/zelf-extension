@@ -1051,7 +1051,10 @@
         "token_sol_wrapped": "Embrulhado",
         "total_balance": "Saldo Total",
         "hide_balances": "Ocultar saldos",
-        "show_balances": "Mostrar saldos"
+        "show_balances": "Mostrar saldos",
+        "recent_transactions": "Transações recentes",
+        "rewards_banner_title": "Resgatar recompensas",
+        "rewards_banner_subtitle": "Ganhe $ZNS diariamente com nossas missões"
     },
     "id_scanning": {
         "camera_not_found": "Câmera não encontrada",

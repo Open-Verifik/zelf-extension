@@ -1051,7 +1051,10 @@
         "token_sol_wrapped": "ラップ済み",
         "total_balance": "合計残高",
         "hide_balances": "残高を非表示",
-        "show_balances": "残高を表示"
+        "show_balances": "残高を表示",
+        "recent_transactions": "最近の取引",
+        "rewards_banner_title": "報酬を獲得",
+        "rewards_banner_subtitle": "クエストで毎日 $ZNS を獲得しよう"
     },
     "id_scanning": {
         "camera_not_found": "カメラが見つかりません",

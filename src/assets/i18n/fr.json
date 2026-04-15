@@ -1051,7 +1051,10 @@
         "token_sol_wrapped": "Wrapped",
         "total_balance": "Solde Total",
         "hide_balances": "Masquer les soldes",
-        "show_balances": "Afficher les soldes"
+        "show_balances": "Afficher les soldes",
+        "recent_transactions": "Transactions récentes",
+        "rewards_banner_title": "Réclamer des récompenses",
+        "rewards_banner_subtitle": "Gagnez des $ZNS quotidiennement avec nos quêtes"
     },
     "id_scanning": {
         "camera_not_found": "Caméra non trouvée",

@@ -3,54 +3,47 @@
 .animated-tabs {
     user-select: none;
     display: flex;
-    gap: 10px;
     width: 100%;
 
     &__switch {
         display: flex;
-        gap: 10px;
         width: 100%;
         position: relative;
+        background: variables.$themeBorder;
+        border-radius: 8px;
+        padding: 4px;
+        gap: 0;
 
         .animated-tab {
             flex: 1;
-            padding: 8px 16px;
-            border-radius: 24px;
+            padding: 7px 12px;
+            border-radius: 6px;
             justify-content: center;
             align-items: center;
             gap: 10px;
             display: flex;
             cursor: pointer;
             transition:
-                opacity 0.3s variables.$smoothBezier,
-                background-color 0.3s variables.$smoothBezier,
-                box-shadow 0.3s variables.$smoothBezier,
-                outline 0.3s variables.$smoothBezier;
+                background-color 0.25s variables.$smoothBezier,
+                box-shadow 0.25s variables.$smoothBezier;
 
             &__text {
                 text-align: center;
-                justify-content: center;
-                display: flex;
-                flex-direction: column;
                 font-size: 14px;
-                font-family: Poppins;
-                font-weight: 500;
+                font-family: variables.$themeBodyFamily;
+                font-weight: 600;
                 line-height: 20px;
                 letter-spacing: 0.1px;
-                word-wrap: break-word;
-                transition: color 0.3s variables.$smoothBezier;
+                transition: color 0.25s variables.$smoothBezier;
             }
 
             &:hover:not(.animated-tab--active) {
-                opacity: 0.7;
+                opacity: 0.8;
             }
 
             &--active {
                 background: variables.$themeCard;
-                box-shadow: 0px 8px 24px variables.$themeShadow;
-                outline: 1px variables.$themeCardBorder solid;
-                outline-offset: -1px;
-                opacity: 1;
+                box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
 
                 .animated-tab__text {
                     color: variables.$themeText;
@@ -58,14 +51,14 @@
             }
 
             &:not(.animated-tab--active) {
-                opacity: 0.5;
-
                 .animated-tab__text {
                     color: variables.$themeTextMuted;
                 }
             }
 
             @media (max-width: variables.$minSmall) {
+                padding: 8px 12px;
+
                 .animated-tab__text {
                     font-size: 12px;
                 }

@@ -171,10 +171,11 @@ body {
         gap: calc(8px * var(--zns-action-scale, 1));
 
         &__icon {
-            padding: calc(16px * var(--zns-action-scale, 1)) calc(24px * var(--zns-action-scale, 1));
+            padding: calc(10px * var(--zns-action-scale, 1)) calc(20px * var(--zns-action-scale, 1));
+            gap: calc(8px * var(--zns-action-scale, 1));
 
             @media (max-width: variables.$minSmall) {
-                padding: calc(12px * var(--zns-action-scale, 1)) calc(16px * var(--zns-action-scale, 1));
+                padding: calc(8px * var(--zns-action-scale, 1)) calc(14px * var(--zns-action-scale, 1));
             }
         }
 
@@ -883,7 +884,10 @@ h3 {
 .zelf-card {
     box-sizing: border-box;
     align-items: start;
-    background-color: variables.$themeBackgroundSecondary;
+    // Warm radial glow: #FD6337 @ 450px blur (Figma spec)
+    background:
+        radial-gradient(ellipse 120% 45% at 50% -5%, rgba(253, 99, 55, 0.18) 0%, rgba(253, 99, 55, 0.06) 50%, transparent 100%),
+        variables.$themeBackgroundSecondary;
     border-radius: calc(64px * var(--zns-space-scale, 1));
     border: none;
     display: inline-flex;
@@ -896,7 +900,9 @@ h3 {
     position: relative;
 
     @media screen and (max-width: variables.$medium) {
-        background: variables.$themeBackgroundSecondary;
+        background:
+            radial-gradient(ellipse 120% 45% at 50% -5%, rgba(253, 99, 55, 0.18) 0%, rgba(253, 99, 55, 0.06) 50%, transparent 100%),
+            variables.$themeBackgroundSecondary;
         width: 100%;
         padding: 12px;
         border-radius: 0px;

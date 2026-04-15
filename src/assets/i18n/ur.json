@@ -1051,7 +1051,10 @@
         "token_sol_wrapped": "رَپڈ",
         "total_balance": "کل بیلنس",
         "hide_balances": "بیلنس چھپائیں",
-        "show_balances": "بیلنس دکھائیں"
+        "show_balances": "بیلنس دکھائیں",
+        "recent_transactions": "حالیہ لین دین",
+        "rewards_banner_title": "انعامات حاصل کریں",
+        "rewards_banner_subtitle": "ہمارے quests کے ساتھ روزانہ $ZNS کمائیں"
     },
     "id_scanning": {
         "camera_not_found": "کیمرا نہیں ملا",

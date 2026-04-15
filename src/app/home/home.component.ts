@@ -26,7 +26,6 @@ import { TokenCardComponent } from "./token-card/token-card.component";
     imports: [
         CurrencyPipe,
         FlexLayoutModule,
-        HomeBannersComponent,
         HomeCollectiblesComponent,
         HomeHeaderComponent,
         MatButtonModule,

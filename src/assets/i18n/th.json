@@ -1051,7 +1051,10 @@
         "token_sol_wrapped": "ห่อ",
         "total_balance": "ยอดคงเหลือทั้งหมด",
         "hide_balances": "ซ่อนยอดคงเหลือ",
-        "show_balances": "แสดงยอดคงเหลือ"
+        "show_balances": "แสดงยอดคงเหลือ",
+        "recent_transactions": "รายการล่าสุด",
+        "rewards_banner_title": "รับรางวัล",
+        "rewards_banner_subtitle": "รับ $ZNS รายวันด้วยภารกิจของเรา"
     },
     "id_scanning": {
         "camera_not_found": "ไม่พบกล้อง",

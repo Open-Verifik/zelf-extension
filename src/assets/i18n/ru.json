@@ -1051,7 +1051,10 @@
         "token_sol_wrapped": "Обёрнутый",
         "total_balance": "Общий баланс",
         "hide_balances": "Скрыть балансы",
-        "show_balances": "Показать балансы"
+        "show_balances": "Показать балансы",
+        "recent_transactions": "Последние транзакции",
+        "rewards_banner_title": "Получить награды",
+        "rewards_banner_subtitle": "Зарабатывайте $ZNS ежедневно с нашими заданиями"
     },
     "id_scanning": {
         "camera_not_found": "Камера не найдена",

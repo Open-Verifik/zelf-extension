@@ -2,26 +2,37 @@
 
 :host {
     width: 100%;
+    display: block;
+    margin-bottom: calc(8px * var(--zns-space-scale, 1));
+
+    &:last-child {
+        margin-bottom: 0;
+    }
 }
 
 .card-container {
     cursor: pointer;
     display: inline-flex;
-    gap: calc(16px * var(--zns-space-scale, 1));
-    height: calc(80px * var(--zns-action-scale, 1));
-    padding: calc(8px * var(--zns-space-scale, 1)) calc(12px * var(--zns-space-scale, 1));
-    transition: background 1s cubic-bezier(0.25, 0.8, 0.25, 1);
+    align-items: center;
+    gap: calc(14px * var(--zns-space-scale, 1));
+    height: calc(76px * var(--zns-action-scale, 1));
+    padding: calc(10px * var(--zns-space-scale, 1)) calc(12px * var(--zns-space-scale, 1));
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
     width: 100%;
-    border-radius: calc(22px * var(--zns-space-scale, 1));
+    border-radius: calc(12px * var(--zns-space-scale, 1));
     position: relative;
+    background: variables.$themeCard;
 
     &:hover {
-        background: #a8a8a821;
+        background: variables.$themeBackgroundSecondary;
     }
 
     @media (max-width: variables.$minSmall) {
-        gap: calc(8px * var(--zns-space-scale, 1));
-        height: calc(72px * var(--zns-action-scale, 1));
+        gap: calc(10px * var(--zns-space-scale, 1));
+        height: calc(68px * var(--zns-action-scale, 1));
     }
 }
 
@@ -30,13 +41,15 @@
     border-radius: 50%;
     display: flex;
     gap: calc(8px * var(--zns-space-scale, 1));
-    height: calc(40px * var(--zns-action-scale, 1));
+    height: calc(46px * var(--zns-action-scale, 1));
     justify-content: center;
-    width: calc(40px * var(--zns-action-scale, 1));
+    width: calc(46px * var(--zns-action-scale, 1));
+    flex-shrink: 0;
 
     :is(img) {
-        width: calc(40px * var(--zns-action-scale, 1));
+        width: calc(46px * var(--zns-action-scale, 1));
         object-fit: contain;
+        border-radius: 50%;
     }
 }
 
@@ -152,8 +165,8 @@
 .token-card {
     &__symbol {
         color: variables.$themeText;
-        font-weight: 500;
-        font-size: calc(14px * var(--zns-font-scale, 1));
+        font-weight: 700;
+        font-size: calc(15px * var(--zns-font-scale, 1));
         line-height: calc(20px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
     }
@@ -179,16 +192,16 @@
     }
 
     &__network-chip {
-        height: calc(20px * var(--zns-action-scale, 1));
+        height: calc(22px * var(--zns-action-scale, 1));
         border-radius: calc(24px * var(--zns-space-scale, 1));
-        gap: calc(10px * var(--zns-space-scale, 1));
-        padding: calc(2px * var(--zns-space-scale, 1)) calc(8px * var(--zns-space-scale, 1));
+        gap: calc(6px * var(--zns-space-scale, 1));
+        padding: calc(2px * var(--zns-space-scale, 1)) calc(10px * var(--zns-space-scale, 1));
         margin: 0;
         font-family: variables.$themeBodyFamily;
         font-weight: 500;
         font-size: calc(11px * var(--zns-font-scale, 1));
         line-height: calc(16px * var(--zns-font-scale, 1));
-        letter-spacing: 0.5px;
+        letter-spacing: 0.4px;
         text-align: center;
         vertical-align: middle;
         background-color: variables.$themeBorder;
@@ -211,9 +224,9 @@
 
     &__balance {
         color: variables.$themeTextSecondary;
-        font-weight: 500;
-        font-size: calc(14px * var(--zns-font-scale, 1));
-        line-height: calc(20px * var(--zns-font-scale, 1));
+        font-weight: 400;
+        font-size: calc(13px * var(--zns-font-scale, 1));
+        line-height: calc(18px * var(--zns-font-scale, 1));
         letter-spacing: 0.1px;
     }
 }

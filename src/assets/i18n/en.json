@@ -1047,7 +1047,10 @@
         "swap": "Swap",
         "total_balance": "Total Balance",
         "hide_balances": "Hide balances",
-        "show_balances": "Show balances"
+        "show_balances": "Show balances",
+        "recent_transactions": "Recent transactions",
+        "rewards_banner_title": "Claim rewards",
+        "rewards_banner_subtitle": "Get $ZNS daily with our quests"
     },
     "id_scanning": {
         "camera_not_found": "Camera not found",

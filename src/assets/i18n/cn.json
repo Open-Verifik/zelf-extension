@@ -1051,7 +1051,10 @@
         "token_sol_wrapped": "封装",
         "total_balance": "总余额",
         "hide_balances": "隐藏余额",
-        "show_balances": "显示余额"
+        "show_balances": "显示余额",
+        "recent_transactions": "最近交易",
+        "rewards_banner_title": "领取奖励",
+        "rewards_banner_subtitle": "每天通过我们的任务获得 $ZNS"
     },
     "id_scanning": {
         "camera_not_found": "未找到相机",

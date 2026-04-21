@@ -80,7 +80,6 @@ export interface AssetAbout {
     symbol: string;
     urls: {
         [key: string]: string[];
-        chat: string[];
         explorer: string[];
         facebook: string[];
         reddit: string[];
@@ -111,7 +110,6 @@ export class AssetAbout implements AssetAbout {
     symbol: string;
     urls: {
         [key: string]: string[];
-        chat: string[];
         explorer: string[];
         facebook: string[];
         reddit: string[];
@@ -141,7 +139,6 @@ export class AssetAbout implements AssetAbout {
         this.symbol = data.symbol || "";
 
         this.urls = {
-            chat: data.urls?.chat || [],
             explorer: data.urls?.explorer || [],
             facebook: data.urls?.facebook || [],
             reddit: data.urls?.reddit || [],

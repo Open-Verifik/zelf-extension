@@ -24,6 +24,10 @@ export class VaultService {
         this._chromeService.getItem("lastVerified").then((lastVerified) => {
             this._lastVerified = lastVerified ? lastVerified : 0;
         });
+
+        this._chromeService.getItemSession("vault_password").then((password) => {
+            if (password) this._password = password;
+        });
     }
 
     get mnemonic(): string {
@@ -53,6 +57,12 @@ export class VaultService {
     set password(value: string) {
         this._password$.next();
         this._password = value;
+
+        if (value) {
+            void this._chromeService.setItemSession("vault_password", value);
+        } else {
+            void this._chromeService.removeItemSession("vault_password");
+        }
     }
 
     get securityType(): "securePassword" | "pin" | "withoutPassword" {

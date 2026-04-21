@@ -7,7 +7,7 @@ import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from "
 import { MatButtonModule } from "@angular/material/button";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { Router, RouterModule } from "@angular/router";
+import { ActivatedRoute, Router, RouterModule } from "@angular/router";
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 
 import { AssetService } from "app/asset.service";
@@ -92,7 +92,10 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
     /** Stellar fee preview (native + classic) for confirm UI. */
     stellarFeeBreakdown: StellarFeeBreakdown | null = null;
 
+
+
     constructor(
+        private _activatedRoute: ActivatedRoute,
         private _assetService: AssetService,
         private _bitcoinService: BitcoinService,
         private _blockDAGService: BlockDAGService,
@@ -779,7 +782,9 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
             queryParams: {
                 network: this.transactionData?.network,
                 symbol: this.transactionData?.tokenType,
+
             },
         });
     }
+
 }

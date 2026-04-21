@@ -19,7 +19,7 @@ export class FooterMenuComponent implements OnInit, OnDestroy {
     private _destroy$ = new Subject<void>();
 
     currentRoute: string = "";
-    loading = false;
+    loading: boolean = false;
     showCloseButton: boolean = false;
 
     constructor(
@@ -94,4 +94,5 @@ export class FooterMenuComponent implements OnInit, OnDestroy {
 
         this._dialogRef.close();
     }
+
 }

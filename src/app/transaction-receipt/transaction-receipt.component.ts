@@ -36,6 +36,7 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
     tokens: TokenData[] = [];
     wallet!: Partial<TagModel> | null;
 
+
     private CAN_SWAP: NetworkPermissions = {};
 
     tokenProperties: any = {
@@ -48,6 +49,8 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
         targetNetworkImage: "",
         targetSymbol: "",
     };
+
+
 
     constructor(
         private _activatedRoute: ActivatedRoute,
@@ -73,11 +76,14 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
             this.symbol = responses.queryParams.symbol;
             this.network = responses.queryParams.network?.toLowerCase();
 
+
             if (this.loading) return;
 
             this._requestTransactionDetails();
         });
     }
+
+
 
     async ngOnInit(): Promise<void> {
         this.loading = true;
@@ -215,10 +221,14 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
 
             if (this.transaction.status === "pending") this._retryRequestTransactionDetails();
             else this._walletService.removePendingTransaction(this.hash);
+
+
         } catch (error) {
             this._handleTransactionDetailsError(error);
         }
     }
+
+
 
     /**
      * Merges API transaction response with pending transaction data.

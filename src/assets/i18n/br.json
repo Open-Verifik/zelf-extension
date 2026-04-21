@@ -7,8 +7,8 @@
             "qr_code": "QR Code",
             "no_folder": "Sem pasta",
             "download_zelfproof": "Baixar Zelf ID QR",
-            "back_to_payment_cards": "Voltar às Cartas de Pagamento",
-            "add_another_card": "Adicionar Outra Carta",
+            "back_to_payment_cards": "Voltar aos cartões de pagamento",
+            "add_another_card": "Adicionar outro cartão",
             "try_again": "Tentar novamente",
             "image_not_available": "Imagem não disponível"
         },
@@ -25,15 +25,15 @@
                 "card_holder_upper": "CARD HOLDER"
             },
             "decrypt": {
-                "button": "Descriptografar Cartão de Pagamento",
+                "button": "Descriptografar cartão",
                 "decrypting": "Descriptografando..."
             },
             "info": {
-                "title": "Informações do Cartão de Pagamento",
-                "payment_card_id": "ID do Cartão de Pagamento",
+                "title": "Informações do cartão",
+                "payment_card_id": "ID do cartão",
                 "type": "Tipo",
                 "folder": "Pasta",
-                "copy_payment_card_id": "Copiar ID do cartão de pagamento"
+                "copy_payment_card_id": "Copiar ID do cartão"
             },
             "zelfproof": {
                 "title": "Zelf ID QR",
@@ -1244,7 +1244,7 @@
                     "download": "Baixar Zelf ID QR"
                 },
                 "decrypted": {
-                    "title": "Informações Decriptografadas do Cartão",
+                    "title": "Informações descriptografadas do cartão",
                     "card_number": "Número do Cartão",
                     "card_holder": "Titular do Cartão",
                     "expiry_date": "Data de Validade",
@@ -1365,7 +1365,7 @@
                     "download": "Baixar Zelf ID QR"
                 },
                 "decrypted": {
-                    "title": "Conteúdo Decriptografado",
+                    "title": "Conteúdo Descriptografado",
                     "title_field": "Título",
                     "content": "Conteúdo",
                     "no_title": "Sem título",

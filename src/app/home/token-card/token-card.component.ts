@@ -58,7 +58,7 @@ import { WalletService } from "app/wallet.service";
                 <div class="token-card__balance" *ngIf="hideBalances">••••</div>
             </div>
 
-            <div class="pin-icon-container" *ngIf="isHovered || data.isPinned" (click)="onPinClick($event)" [class.pinned]="data.isPinned">
+            <div class="pin-icon-container" [class.visible]="isHovered || data.isPinned" [class.pinned]="data.isPinned" (click)="onPinClick($event)">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M16 9V4H15V3H9V4H8V9C8 9.55 7.55 10 7 10H6V12H11V20L12 21L13 20V12H18V10H17C16.45 10 16 9.55 16 9Z"

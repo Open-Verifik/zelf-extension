@@ -8,7 +8,7 @@ import { MatRippleModule } from "@angular/material/core";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { Router, RouterModule } from "@angular/router";
+import { ActivatedRoute, Router, RouterModule } from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 
@@ -60,7 +60,9 @@ export class SendTransactionComponent implements OnDestroy {
     transactionData!: TransactionData;
     withdrawStep: boolean = false;
 
+
     constructor(
+        private _activatedRoute: ActivatedRoute,
         private _assetService: AssetService,
         private _bitcoinService: BitcoinService,
         private _blockDAGService: BlockDAGService,
@@ -79,7 +81,10 @@ export class SendTransactionComponent implements OnDestroy {
         private _walletService: WalletService
     ) {
         this.loading = true;
+
     }
+
+
 
     async ngOnInit(): Promise<void> {
         this.transactionData = await this._transactionService.getCurrentTransactionData();

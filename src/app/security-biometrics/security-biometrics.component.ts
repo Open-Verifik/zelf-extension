@@ -77,7 +77,14 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
     }
 
     async ngOnInit(): Promise<void> {
-        this.flow = (await this._tagsService.getFlow()) || "create";
+        let savedFlow = await this._tagsService.getFlow();
+        
+        if (!savedFlow) {
+            const { wallet, wallets } = await this._walletService.getAllWalletsFromStorage();
+            savedFlow = (!!wallet?.name || wallets?.length) ? "unlock" : "create";
+        }
+
+        this.flow = savedFlow;
 
         this.newTagName = await this._tagsService.getNewTagName();
 
@@ -232,7 +239,11 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
 
     private _redirect(): void {
         if (this.returnState) {
-            this._router.navigate([this.returnState], { replaceUrl: true, queryParams: { return: this.returnState } });
+            let cleanReturn = this.returnState;
+            if (cleanReturn.includes("?")) {
+                cleanReturn = cleanReturn.split("?")[0];
+            }
+            this._router.navigate([cleanReturn], { replaceUrl: true });
 
             return;
         }
@@ -257,7 +268,11 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
         }
 
         if (this.returnState) {
-            this._router.navigate([this.returnState], { queryParams: { return: this.returnState } });
+            let cleanReturn = this.returnState;
+            if (cleanReturn.includes("?")) {
+                cleanReturn = cleanReturn.split("?")[0];
+            }
+            this._router.navigate([cleanReturn]);
         } else this._router.navigate(["/security/password"]);
     }
 

@@ -1,4 +1,4 @@
-import { CurrencyPipe, DecimalPipe, NgClass, NgFor, NgIf, NgTemplateOutlet } from "@angular/common";
+import { CurrencyPipe, DecimalPipe, NgClass, NgFor, NgIf, NgTemplateOutlet, TitleCasePipe } from "@angular/common";
 import {
     ChangeDetectorRef,
     Component,
@@ -37,6 +37,7 @@ export interface AssetChangeData {
         NgFor,
         NgClass,
         NgTemplateOutlet,
+        TitleCasePipe,
         ReactiveFormsModule,
         TranslocoModule,
         CurrencyPipe,

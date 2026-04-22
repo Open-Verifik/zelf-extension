@@ -16,6 +16,7 @@ import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 import { SwapData, TokenData } from "@shared/types/wallet.types";
 import { AssetService, NetworkPermissions } from "app/asset.service";
 import { ChromeService } from "app/chrome.service";
+import { mapTransactionErrorToTranslationKey } from "app/core/utils/user-facing-transaction-error.util";
 import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
 import { LifiService } from "app/services/lifi.service";
 import { NetworkName, NetworkService, NetworkSymbol } from "app/services/network.service";
@@ -923,10 +924,11 @@ export class SwapComponent implements OnInit, OnDestroy {
             } else {
                 throw new Error(`Unsupported network: ${sourceNetwork}`);
             }
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error("Swap execution error:", error);
-            this.swapError = error.message;
-            this.openErrorSnackBar(error.message || "errors.something_went_wrong");
+            const messageKey = mapTransactionErrorToTranslationKey(error);
+            this.swapError = this._translocoService.translate(messageKey);
+            this.openErrorSnackBar(messageKey);
         } finally {
             this.sending = false;
             this._changeDetectionRef.detectChanges();
@@ -1088,7 +1090,7 @@ export class SwapComponent implements OnInit, OnDestroy {
             }
         } catch (error) {
             console.error("Quote error:", error);
-            this.openErrorSnackBar(error instanceof Error ? error.message : "errors.failed_to_get_quote");
+            this.openErrorSnackBar(mapTransactionErrorToTranslationKey(error));
 
             this.form.patchValue({ targetAmount: "0", fee: 0, targetSwapValue: "0" }, { emitEvent: false });
 

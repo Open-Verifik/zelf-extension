@@ -549,6 +549,9 @@
         "i_already_have_a_wallet": "我已有钱包",
         "choose_tag_name_title": "选择您的 Zelf ID",
         "choose_tag_name_subtitle": "为您的 Zelf 网络身份选择一个唯一名称",
+        "find_import_step_label": "第 {{ current }} 步，共 {{ total }} 步",
+        "find_import_choose_tag_name_title": "选择您的 Zelf ID",
+        "find_import_choose_tag_name_subtitle": "我们将把此名称关联到您刚刚导入的钱包。",
         "choose_tag_name_placeholder": "输入您的 Zelf ID",
         "preview_name_placeholder": "yourname",
         "search_name_aria": "搜索此名称",
@@ -951,6 +954,8 @@
         "private_key_locked": "私钥已被锁定。您必须进行生物识别检查才能继续。",
         "required_field": "此字段为必填项",
         "same_address": "您不能向同一地址发送资金",
+        "send_transaction_network_error": "无法连接到网络。请检查您的连接并重试。",
+        "send_transaction_user_rejected": "交易已取消。",
         "session_init_info": "要使用Zelf ID服务扩展程序，您需要网络访问权限。如需离线解决方案，请查看我们的 iOS 和 Android 应用。",
         "session_init_message": "抱歉，初始化您的会话时出现问题。这可能是由于网络问题或服务器不可用造成的。请重试。",
         "session_init_title": "会话初始化失败",
@@ -968,7 +973,7 @@
         "stellar_classic_trustline_required": "The recipient must add a trustline for this asset before they can receive it.",
         "stellar_soroban_not_supported": "Soroban (contract) assets are not supported in this wallet yet.",
         "stellar_invalid_asset_format": "Invalid Stellar asset. Use CODE:ISSUER (for example USDC:G…).",
-        "swap_same_chain": "In Swaps mode, both tokens must be on the same network. Switch to Cross-chain or change your selection."
+        "swap_same_chain": "在 Swaps 模式下，两个代币必须位于同一网络。请切换到 Cross-chain 或更改您的选择。"
     },
     "swap": {
         "automatic": "自动",

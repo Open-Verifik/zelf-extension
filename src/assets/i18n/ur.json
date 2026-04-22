@@ -549,6 +549,9 @@
         "i_already_have_a_wallet": "میرے پاس پہلے سے والیٹ ہے",
         "choose_tag_name_title": "اپنا Zelf ID منتخب کریں",
         "choose_tag_name_subtitle": "Zelf نیٹ ورک پر اپنی شناخت کے لیے ایک منفرد نام منتخب کریں",
+        "find_import_step_label": "مرحلہ {{ current }} از {{ total }}",
+        "find_import_choose_tag_name_title": "اپنی Zelf ID منتخب کریں",
+        "find_import_choose_tag_name_subtitle": "ہم اس نام کو اس بٹوے سے منسلک کریں گے جسے آپ نے ابھی درآمد کیا ہے۔",
         "choose_tag_name_placeholder": "اپنا Zelf ID درج کریں",
         "preview_name_placeholder": "آپکانام",
         "search_name_aria": "اس نام کو تلاش کریں",
@@ -951,6 +954,8 @@
         "private_key_locked": "پرائیویٹ کلید لاک ہو گئی ہے۔ آگے بڑھنے کے لیے آپ کو بائیومیٹرکس چیک کرنا ہوگا۔",
         "required_field": "یہ فیلڈ درکار ہے",
         "same_address": "آپ اسی پتے پر فنڈز نہیں بھیج سکتے",
+        "send_transaction_network_error": "ہم نیٹ ورک سے رابطہ نہیں کر سکے۔ براہ کرم اپنا کنکشن چیک کریں اور دوبارہ کوشش کریں۔",
+        "send_transaction_user_rejected": "ٹرانزیکشن منسوخ کر دی گئی۔",
         "session_init_info": "ٹیگ نیم سروس ایکسٹینشن استعمال کرنے کے لیے، آپ کو نیٹ ورک تک رسائی کی ضرورت ہوگی۔ آف لائن حل کے لیے، ہماری iOS اور Android ایپس چیک کریں۔",
         "session_init_message": "معذرت، آپ کا سیشن شروع کرنے میں ایک مسئلہ تھا۔ یہ نیٹ ورک کے مسئلے یا سرور کی عدم دستیابی کی وجہ سے ہو سکتا ہے۔ براہ کرم دوبارہ کوشش کریں۔",
         "session_init_title": "سیشن کا آغاز ناکام ہو گیا",
@@ -968,7 +973,7 @@
         "stellar_classic_trustline_required": "The recipient must add a trustline for this asset before they can receive it.",
         "stellar_soroban_not_supported": "Soroban (contract) assets are not supported in this wallet yet.",
         "stellar_invalid_asset_format": "Invalid Stellar asset. Use CODE:ISSUER (for example USDC:G…).",
-        "swap_same_chain": "In Swaps mode, both tokens must be on the same network. Switch to Cross-chain or change your selection."
+        "swap_same_chain": "Swaps موڈ میں دونوں ٹوکن ایک ہی نیٹ ورک پر ہونے چاہئیں۔ Cross-chain پر جائیں یا اپنا انتخاب تبدیل کریں۔"
     },
     "swap": {
         "automatic": "خودکار",

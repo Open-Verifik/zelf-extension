@@ -549,6 +549,9 @@
         "i_already_have_a_wallet": "이미 지갑이 있어요",
         "choose_tag_name_title": "Zelf ID 선택",
         "choose_tag_name_subtitle": "Zelf 네트워크에서 사용할 고유한 이름을 선택하세요",
+        "find_import_step_label": "{{ total }}단계 중 {{ current }}단계",
+        "find_import_choose_tag_name_title": "Zelf ID를 선택하세요",
+        "find_import_choose_tag_name_subtitle": "방금 가져온 지갑에 이 이름을 연결합니다.",
         "choose_tag_name_placeholder": "Zelf ID 입력",
         "preview_name_placeholder": "yourname",
         "search_name_aria": "이 이름 검색",
@@ -951,6 +954,8 @@
         "private_key_locked": "개인키가 잠겼습니다. 계속하려면 생체 인증을 수행해야 합니다.",
         "required_field": "이 필드는 필수입니다",
         "same_address": "동일한 주소로 자금을 보낼 수 없습니다",
+        "send_transaction_network_error": "네트워크에 연결할 수 없습니다. 연결을 확인하고 다시 시도해 주세요.",
+        "send_transaction_user_rejected": "거래가 취소되었습니다.",
         "session_init_info": "Zelf ID 서비스 확장 프로그램을 사용하려면 네트워크 연결이 필요합니다. 오프라인 솔루션은 iOS 및 Android 앱을 확인해 주세요.",
         "session_init_message": "죄송합니다, 세션을 초기화하는 중에 문제가 발생했습니다. 네트워크 문제이거나 서버를 사용할 수 없는 상태일 수 있습니다. 다시 시도해 주세요.",
         "session_init_title": "세션 초기화 실패",
@@ -968,7 +973,7 @@
         "stellar_classic_trustline_required": "The recipient must add a trustline for this asset before they can receive it.",
         "stellar_soroban_not_supported": "Soroban (contract) assets are not supported in this wallet yet.",
         "stellar_invalid_asset_format": "Invalid Stellar asset. Use CODE:ISSUER (for example USDC:G…).",
-        "swap_same_chain": "In Swaps mode, both tokens must be on the same network. Switch to Cross-chain or change your selection."
+        "swap_same_chain": "Swaps 모드에서는 두 토큰이 같은 네트워크에 있어야 합니다. Cross-chain으로 전환하거나 선택을 변경하세요."
     },
     "swap": {
         "automatic": "자동",

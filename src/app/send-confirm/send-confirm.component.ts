@@ -12,6 +12,8 @@ import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 
 import { AssetService } from "app/asset.service";
 import { ChromeService } from "app/chrome.service";
+import { areSendAddressesSame } from "app/core/utils/same-wallet-address.util";
+import { mapTransactionErrorToTranslationKey } from "app/core/utils/user-facing-transaction-error.util";
 import { FeeCalculationParams, TransactionFeeEstimate, TransactionParams, TransactionResult } from "app/core/models/transaction-fee.model";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
 import { BitcoinService, MempoolFeeRates } from "app/services/bitcoin.service";
@@ -126,10 +128,29 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         this.passwordSet = !!this._password;
     }
 
+    /**
+     * Defense in depth: covers manual navigation to /send/confirmation with
+     * stale in-memory data where sender and receiver resolve to the same wallet.
+     */
+    private _isSelfTransfer(): boolean {
+        return areSendAddressesSame(
+            this.transactionData?.sender?.address,
+            this.transactionData?.receiver?.address,
+            this.transactionData
+        );
+    }
+
     async ngOnInit(): Promise<void> {
         this.transactionData = await this._transactionService.getCurrentTransactionData();
 
         if (this.transactionData && this.transactionData.hasTransactionData && this.transactionData.hasCompletePaymentData) {
+            if (this._isSelfTransfer()) {
+                this.openErrorSnackBar("errors.same_address");
+                this._router.navigate(["/send/transaction"]);
+                this.loading = false;
+                return;
+            }
+
             this.isStealthMode = localStorage.getItem("isStealthMode") === "true";
             await this._initTransactionData();
 
@@ -159,6 +180,13 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
             if (!this.transactionData.hasCompletePaymentData) {
                 this._router.navigate(["/send/transaction"]);
 
+                return;
+            }
+
+            if (this._isSelfTransfer()) {
+                this.openErrorSnackBar("errors.same_address");
+                this._router.navigate(["/send/transaction"]);
+                this.loading = false;
                 return;
             }
 
@@ -617,8 +645,9 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
             // Standard transaction flow (Solana, EVM, Bitcoin, SUI)
             await this._handleStandardTransaction(cleanMnemonic, normalizedAmount);
-        } catch (error: any) {
-            this.openErrorSnackBar(error.message || "errors.something_went_wrong");
+        } catch (error: unknown) {
+            console.error("Send transaction failed", error);
+            this.openErrorSnackBar(mapTransactionErrorToTranslationKey(error));
 
             this.sending = false;
         } finally {

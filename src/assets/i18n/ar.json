@@ -549,6 +549,9 @@
         "i_already_have_a_wallet": "لدي محفظة بالفعل",
         "choose_tag_name_title": "اختر Zelf ID الخاص بك",
         "choose_tag_name_subtitle": "اختر اسماً فريداً لهويتك على شبكة Zelf",
+        "find_import_step_label": "الخطوة {{ current }} من {{ total }}",
+        "find_import_choose_tag_name_title": "اختر معرف Zelf الخاص بك",
+        "find_import_choose_tag_name_subtitle": "سنربط هذا الاسم بالمحفظة التي قمت باستيرادها للتو.",
         "choose_tag_name_placeholder": "أدخل Zelf ID الخاص بك",
         "preview_name_placeholder": "اسمك",
         "search_name_aria": "البحث عن هذا الاسم",
@@ -951,6 +954,8 @@
         "private_key_locked": "تم قفل المفتاح الخاص. يجب عليك إجراء فحص القياسات الحيوية للمتابعة.",
         "required_field": "هذا الحقل مطلوب",
         "same_address": "لا يمكنك إرسال الأموال إلى نفس العنوان",
+        "send_transaction_network_error": "تعذّر الاتصال بالشبكة. يرجى التحقق من الاتصال والمحاولة مرة أخرى.",
+        "send_transaction_user_rejected": "تم إلغاء المعاملة.",
         "session_init_info": "لاستخدام امتداد خدمة Zelf ID Service، ستحتاج إلى وصول إلى الشبكة. للحلول التي تعمل بدون إنترنت، تحقق من تطبيقاتنا على iOS و Android.",
         "session_init_message": "عذراً، حدثت مشكلة في بدء جلستك. قد يكون هذا بسبب مشكلة في الشبكة أو عدم توفر الخادم. يرجى المحاولة مرة أخرى.",
         "session_init_title": "فشل بدء الجلسة",
@@ -968,7 +973,7 @@
         "stellar_classic_trustline_required": "The recipient must add a trustline for this asset before they can receive it.",
         "stellar_soroban_not_supported": "Soroban (contract) assets are not supported in this wallet yet.",
         "stellar_invalid_asset_format": "Invalid Stellar asset. Use CODE:ISSUER (for example USDC:G…).",
-        "swap_same_chain": "In Swaps mode, both tokens must be on the same network. Switch to Cross-chain or change your selection."
+        "swap_same_chain": "في وضع Swaps، يجب أن يكون كلا الرمزين على نفس الشبكة. انتقل إلى Cross-chain أو غيّر اختيارك."
     },
     "swap": {
         "automatic": "تلقائي",

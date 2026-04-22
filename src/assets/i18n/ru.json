@@ -549,6 +549,9 @@
         "i_already_have_a_wallet": "У меня уже есть кошелёк",
         "choose_tag_name_title": "Выберите свой Zelf ID",
         "choose_tag_name_subtitle": "Выберите уникальное имя для вашей личности в сети Zelf",
+        "find_import_step_label": "Шаг {{ current }} из {{ total }}",
+        "find_import_choose_tag_name_title": "Выберите свой Zelf ID",
+        "find_import_choose_tag_name_subtitle": "Мы привяжем это имя к кошельку, который вы только что импортировали.",
         "choose_tag_name_placeholder": "Введите ваш Zelf ID",
         "preview_name_placeholder": "vashnik",
         "search_name_aria": "Искать это имя",
@@ -951,6 +954,8 @@
         "private_key_locked": "Приватный ключ заблокирован. Вы должны пройти биометрическую проверку для продолжения.",
         "required_field": "Это поле обязательно для заполнения",
         "same_address": "Вы не можете отправить средства на тот же адрес",
+        "send_transaction_network_error": "Не удалось подключиться к сети. Проверьте подключение и попробуйте снова.",
+        "send_transaction_user_rejected": "Транзакция отменена.",
         "session_init_info": "Для использования расширения службы Zelf ID вам потребуется доступ к сети. Для офлайн-решения ознакомьтесь с нашими приложениями для iOS и Android.",
         "session_init_message": "Извините, при инициализации сессии произошла ошибка. Это может быть связано с проблемами сети или недоступностью сервера. Пожалуйста, попробуйте снова.",
         "session_init_title": "Ошибка инициализации сессии",
@@ -968,7 +973,7 @@
         "stellar_classic_trustline_required": "The recipient must add a trustline for this asset before they can receive it.",
         "stellar_soroban_not_supported": "Soroban (contract) assets are not supported in this wallet yet.",
         "stellar_invalid_asset_format": "Invalid Stellar asset. Use CODE:ISSUER (for example USDC:G…).",
-        "swap_same_chain": "In Swaps mode, both tokens must be on the same network. Switch to Cross-chain or change your selection."
+        "swap_same_chain": "В режиме Swaps оба токена должны быть в одной сети. Переключитесь на Cross-chain или измените выбор."
     },
     "swap": {
         "automatic": "Автоматический",

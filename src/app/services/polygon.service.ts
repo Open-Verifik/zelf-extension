@@ -235,8 +235,14 @@ export class PolygonService {
         }
     }
 
-    async requestTransactionDetails(transactionHash: string): Promise<{ data: any }> {
-        return this._httpWrapper.sendRequest("get", `${this._baseUrl}/api/polygon/transaction/${transactionHash}`);
+    /**
+     * @param source — when provided, hints which upstream the backend should try first
+     * (`"rpc"` for chain reads, `"bogota"` for the indexer). Backend treats the call as a
+     * single fast attempt; the client rotates the source across polls.
+     */
+    async requestTransactionDetails(transactionHash: string, source?: "rpc" | "bogota"): Promise<{ data: any }> {
+        const url = `${this._baseUrl}/api/polygon/transaction/${transactionHash}`;
+        return this._httpWrapper.sendRequest("get", url, source ? { source } : {});
     }
 
     async requestTransactionHistory(address: string, pagination: { page: number; show?: number }): Promise<any> {

@@ -549,6 +549,9 @@
         "i_already_have_a_wallet": "Ya tengo una billetera",
         "choose_tag_name_title": "Elige tu ID de Zelf",
         "choose_tag_name_subtitle": "Elige un nombre único para tu identidad en la red Zelf",
+        "find_import_step_label": "Paso {{ current }} de {{ total }}",
+        "find_import_choose_tag_name_title": "Elige tu Zelf ID",
+        "find_import_choose_tag_name_subtitle": "Asignaremos este nombre a la billetera que acabas de importar.",
         "choose_tag_name_placeholder": "Introduce tu ID de Zelf",
         "preview_name_placeholder": "tunombre",
         "search_name_aria": "Buscar este nombre",
@@ -951,6 +954,8 @@
         "private_key_locked": "La clave privada ha sido bloqueada. Debes realizar una verificación biométrica para continuar.",
         "required_field": "Este campo es obligatorio",
         "same_address": "No puedes enviar fondos a la misma dirección",
+        "send_transaction_network_error": "No pudimos conectar con la red. Verifica tu conexión e inténtalo de nuevo.",
+        "send_transaction_user_rejected": "Transacción cancelada.",
         "session_init_info": "Para usar la extensión del servicio Zelf ID, necesitará acceso a la red. Para una solución sin conexión, consulte nuestras aplicaciones iOS y Android.",
         "session_init_message": "Lo sentimos, hubo un problema al inicializar su sesión. Esto puede deberse a un problema de red o a la indisponibilidad del servidor. Por favor, inténtelo de nuevo.",
         "session_init_title": "Error al inicializar la sesión",
@@ -968,7 +973,7 @@
         "stellar_classic_trustline_required": "The recipient must add a trustline for this asset before they can receive it.",
         "stellar_soroban_not_supported": "Soroban (contract) assets are not supported in this wallet yet.",
         "stellar_invalid_asset_format": "Invalid Stellar asset. Use CODE:ISSUER (for example USDC:G…).",
-        "swap_same_chain": "In Swaps mode, both tokens must be on the same network. Switch to Cross-chain or change your selection."
+        "swap_same_chain": "En el modo Intercambios, ambos tokens deben estar en la misma red. Cambia a Entre cadenas o ajusta tu selección."
     },
     "swap": {
         "automatic": "Automático",

@@ -14,6 +14,7 @@ import { HttpInterceptorProviders } from "./interceptors";
 import { provideDomainInitializer } from "./core/providers/domain-initializer.provider";
 import { provideSessionInitializer } from "./core/providers/session-initializer.provider";
 import { provideAppInitializing, provideAppInitializerComplete } from "./core/providers/app-loading.provider";
+import { provideLanguageInitializer } from "./core/providers/language-initializer.provider";
 import { ZelfLoaderComponent } from "./zelf-loader/zelf-loader.component";
 
 @NgModule({
@@ -26,6 +27,7 @@ import { ZelfLoaderComponent } from "./zelf-loader/zelf-loader.component";
         provideAnimations(),
         { provide: ErrorHandler, useClass: GlobalErrorHandler },
         provideAppInitializing(),
+        provideLanguageInitializer(), // Restore saved language before first render
         provideSessionInitializer(), // Now handles both session AND public key
         provideDomainInitializer(),
         provideAppInitializerComplete(),

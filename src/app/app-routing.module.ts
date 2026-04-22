@@ -6,6 +6,7 @@ import { LoginGuard } from "./guards/login.guard";
 
 import { ExternalRedirectGuard } from "./guards/external-redirect.guard";
 import { MnemonicGuard } from "./guards/mnemonic.guard";
+import { MnemonicInVaultGuard } from "./guards/mnemonic-in-vault.guard";
 import { OnboardingGuard } from "./guards/onboarding.guard";
 import { PasswordGuard } from "./guards/password.guard";
 import { PopoutOnlyGuard } from "./guards/popout-only.guard";
@@ -252,6 +253,19 @@ const routes: Routes = [
                 path: "import",
                 loadComponent: () => import("./welcome-import/welcome-import.component").then((m) => m.WelcomeImportComponent),
                 canActivate: [ZelfNameGuard],
+            },
+            {
+                path: "find-import-mnemonic",
+                loadComponent: () =>
+                    import("./welcome-find-import-mnemonic/welcome-find-import-mnemonic.component").then(
+                        (m) => m.WelcomeFindImportMnemonicComponent
+                    ),
+            },
+            {
+                path: "find-import-claim",
+                loadComponent: () =>
+                    import("./welcome-find-import-claim/welcome-find-import-claim.component").then((m) => m.WelcomeFindImportClaimComponent),
+                canActivate: [MnemonicInVaultGuard],
             },
             {
                 path: "offline-import",

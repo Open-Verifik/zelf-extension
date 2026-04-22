@@ -12,32 +12,34 @@
             </div>
         </div>
 
-        <div class="welcome-error__content">
-            <div class="welcome-error__icon-container">
-                <ng-container *ngIf="errorImage; else defaultIcon">
-                    <img [src]="errorImage" class="welcome-error__image" alt="Error Image" />
-                </ng-container>
-                <ng-template #defaultIcon>
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M12 8V12M12 16H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z"
-                            stroke="#DC362E"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                        />
-                    </svg>
-                </ng-template>
+        <div class="welcome-error__main">
+            <div class="welcome-error__content">
+                <div class="welcome-error__icon-container">
+                    <ng-container *ngIf="errorImage; else defaultIcon">
+                        <img [src]="errorImage" class="welcome-error__image" alt="Error Image" />
+                    </ng-container>
+                    <ng-template #defaultIcon>
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M12 8V12M12 16H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z"
+                                stroke="#DC362E"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                        </svg>
+                    </ng-template>
+                </div>
+
+                <h2 class="welcome-error__title">{{ this.errorTitle }}</h2>
+                <p class="welcome-error__message" [innerHTML]="this.errorMessage"></p>
             </div>
 
-            <h2 class="welcome-error__title">{{ this.errorTitle }}</h2>
-            <p class="welcome-error__message" [innerHTML]="this.errorMessage"></p>
-        </div>
-
-        <div class="zelf-card__actions">
-            <button (click)="triggerGoBack()" class="zelf-button zelf-button--wide zelf-button--primary">
-                {{ t("common.try_again") }}
-            </button>
+            <div class="zelf-card__actions">
+                <button (click)="triggerGoBack()" class="zelf-button zelf-button--wide zelf-button--primary">
+                    {{ t("common.try_again") }}
+                </button>
+            </div>
         </div>
     </div>
 

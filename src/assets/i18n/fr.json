@@ -549,6 +549,9 @@
         "i_already_have_a_wallet": "J'ai déjà un portefeuille",
         "choose_tag_name_title": "Choisissez votre ID Zelf",
         "choose_tag_name_subtitle": "Choisissez un nom unique pour votre identité sur le réseau Zelf",
+        "find_import_step_label": "Étape {{ current }} sur {{ total }}",
+        "find_import_choose_tag_name_title": "Choisissez votre Zelf ID",
+        "find_import_choose_tag_name_subtitle": "Nous associerons ce nom au portefeuille que vous venez d'importer.",
         "choose_tag_name_placeholder": "Saisissez votre ID Zelf",
         "preview_name_placeholder": "votrenom",
         "search_name_aria": "Rechercher ce nom",
@@ -951,6 +954,8 @@
         "private_key_locked": "La clé privée a été verrouillée. Vous devez effectuer une vérification biométrique pour continuer.",
         "required_field": "Ce champ est obligatoire",
         "same_address": "Vous ne pouvez pas envoyer des fonds à la même adresse",
+        "send_transaction_network_error": "Impossible de se connecter au réseau. Vérifiez votre connexion et réessayez.",
+        "send_transaction_user_rejected": "Transaction annulée.",
         "session_init_info": "Pour utiliser l'Extension du Service de Noms Zelf, vous aurez besoin d'un accès réseau. Pour une solution hors ligne, consultez nos applications iOS et Android.",
         "session_init_message": "Désolé, un problème est survenu lors de l'initialisation de votre session. Cela peut être dû à un problème réseau ou à l'indisponibilité du serveur. Veuillez réessayer.",
         "session_init_title": "Échec de l'initialisation de la session",
@@ -968,7 +973,7 @@
         "stellar_classic_trustline_required": "The recipient must add a trustline for this asset before they can receive it.",
         "stellar_soroban_not_supported": "Soroban (contract) assets are not supported in this wallet yet.",
         "stellar_invalid_asset_format": "Invalid Stellar asset. Use CODE:ISSUER (for example USDC:G…).",
-        "swap_same_chain": "In Swaps mode, both tokens must be on the same network. Switch to Cross-chain or change your selection."
+        "swap_same_chain": "En mode Swaps, les deux jetons doivent être sur le même réseau. Passez à Cross-chain ou modifiez votre sélection."
     },
     "swap": {
         "automatic": "Automatique",

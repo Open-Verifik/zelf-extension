@@ -7,6 +7,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { ActivatedRoute, Router } from "@angular/router";
 
+import { isEmptyTransactionApiPayload } from "app/core/utils/empty-transaction-api-payload.util";
 import { AssetService, NetworkPermissions } from "app/asset.service";
 import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboard.base";
 import { ChromeService } from "app/chrome.service";
@@ -25,8 +26,26 @@ import { TagModel } from "app/tags.service";
     templateUrl: "./transaction-receipt.component.html",
 })
 export class TransactionReceiptComponent extends CopyToClipboardBase implements OnInit, OnDestroy {
+    /**
+     * Poll the tx API on a short interval (many fast requests) instead of one long server
+     * round-trip. The backend returns quickly; the indexer + client together resolve the receipt.
+     */
+    private static readonly _RECEIPT_POLL_INTERVAL_MS = 1000;
+
+    /**
+     * Polygon source rotation: try chain RPC first (fastest signal a tx exists), then
+     * fall back to the Bogota indexer for richer fields, then back to RPC. Cycles forever
+     * while the backend keeps returning empty data.
+     */
+    private static readonly _POLYGON_SOURCE_ROTATION: ReadonlyArray<"rpc" | "bogota"> = [
+        "rpc", "rpc", "rpc", "rpc", "rpc",
+        "bogota", "bogota", "bogota", "bogota", "bogota",
+        "rpc", "rpc", "rpc", "rpc", "rpc",
+    ];
+
     private _timeout!: ReturnType<typeof setTimeout>;
     private _originalPendingTransaction: any = null; // Store original pending transaction to preserve amount
+    private _polygonAttempt: number = 0;
 
     hash: string = "";
     loading: boolean = false;
@@ -196,9 +215,12 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
         await this._setNetworkProperties();
 
         try {
-            const response = await this._blockchainTransactionsService.requestTransactionDetails(this.hash, this.network);
+            const polygonSource = this.network === "polygon" ? this._nextPolygonSource() : undefined;
+            const response = await this._blockchainTransactionsService.requestTransactionDetails(this.hash, this.network, polygonSource);
 
-            if (!response || !response.data) return this._retryRequestTransactionDetails();
+            if (!response || response.data == null) return this._retryRequestTransactionDetails();
+
+            if (isEmptyTransactionApiPayload(response.data)) return this._retryRequestTransactionDetails();
 
             const apiTransaction = this._blockchainTransactionsService.processTransactionResponse(response, this.network);
 
@@ -293,9 +315,17 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
     }
 
     private async _retryRequestTransactionDetails(): Promise<void> {
+        if (this._timeout) clearTimeout(this._timeout);
         this._timeout = setTimeout(() => {
             this._requestTransactionDetails();
-        }, 5000);
+        }, TransactionReceiptComponent._RECEIPT_POLL_INTERVAL_MS);
+    }
+
+    private _nextPolygonSource(): "rpc" | "bogota" {
+        const rotation = TransactionReceiptComponent._POLYGON_SOURCE_ROTATION;
+        const next = rotation[this._polygonAttempt % rotation.length];
+        this._polygonAttempt += 1;
+        return next;
     }
 
     private async _setNetworkProperties(): Promise<void> {

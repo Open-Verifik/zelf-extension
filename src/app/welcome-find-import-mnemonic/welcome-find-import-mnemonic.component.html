@@ -1,0 +1,104 @@
+<ng-container *ngIf="errorTitle">
+    <welcome-error [errorTitle]="errorTitle" [errorMessage]="errorMessage"></welcome-error>
+</ng-container>
+
+<ng-container *ngIf="!errorTitle">
+    <div (paste)="onPaste($event)" class="zelf-card welcome-import__card" *transloco="let t">
+        <div class="zelf-card__header welcome-import__header">
+            <button mat-icon-button class="zelf-icon-button zelf-icon-button--40 welcome-import__back" [routerLink]="['/welcome/find']">
+                <svg viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M20.0898 5.8277H4.72478L8.08478 2.4677C8.53978 2.0127 8.53978 1.2777 8.08478 0.822695C7.62978 0.367695 6.89478 0.367695 6.43978 0.822695L1.08478 6.1777C0.62978 6.6327 0.62978 7.3677 1.08478 7.8227L6.43978 13.1777C6.89478 13.6327 7.62978 13.6327 8.08478 13.1777C8.53978 12.7227 8.53978 11.9877 8.08478 11.5327L4.72478 8.16103H20.0898C20.7314 8.16103 21.2564 7.63603 21.2564 6.99436C21.2564 6.3527 20.7314 5.8277 20.0898 5.8277Z"
+                    />
+                </svg>
+            </button>
+
+            <span class="zelf-chip zelf-chip--info welcome-find-mnemonic__step-pill">
+                {{ t("welcome.find_import_step_label", { current: 1, total: 4 }) }}
+            </span>
+
+            <h2 class="zelf-card__title">{{ t("welcome.import_title") }}</h2>
+            <p class="zelf-card__subtitle">{{ t("welcome.import_subtitle") }}</p>
+
+            <form [formGroup]="mnemonicCountForm" class="welcome-import__segmented">
+                <label
+                    *ngFor="let count of validMnemonicLengths"
+                    [for]="'mnemonicCount' + count"
+                    class="welcome-import__segment"
+                    [class.welcome-import__segment--active]="mnemonicCountForm.get('mnemonicCount')?.value === count"
+                >
+                    {{ count }}
+                    <input
+                        [value]="count"
+                        formControlName="mnemonicCount"
+                        [id]="'mnemonicCount' + count"
+                        name="mnemonicCount"
+                        type="radio"
+                    />
+                </label>
+            </form>
+        </div>
+
+        <form [formGroup]="mnemonicForm" class="welcome-import__form">
+            <div class="zelf-card__content">
+                <div class="welcome-import__grid">
+                    <div
+                        class="zelf-input welcome-import__grid-item"
+                        [ngClass]="{ 'zelf-input--error': isWordInvalid(key) }"
+                        *ngFor="let key of formControlKeys(mnemonicForm); let i = index"
+                    >
+                        <div class="zelf-input__prefix-text">{{ i + 1 }}</div>
+
+                        <input
+                            [formControlName]="key"
+                            [id]="key"
+                            [name]="key"
+                            [type]="showWords ? 'text' : 'password'"
+                            class="zelf-input__control"
+                            required
+                        />
+                    </div>
+                </div>
+
+                <button (click)="toggleShowWords()" class="zelf-button zelf-button--outlined zelf-button--wide">
+                    {{ showWords ? t("common.hide_words") : t("common.show_words") }}
+
+                    <ng-container *ngIf="!showWords">
+                        <ng-container *ngTemplateOutlet="closedEye"></ng-container>
+                    </ng-container>
+
+                    <ng-container *ngIf="showWords">
+                        <ng-container *ngTemplateOutlet="openEye"></ng-container>
+                    </ng-container>
+                </button>
+            </div>
+
+            <div class="zelf-card__actions welcome-import__actions">
+                <button
+                    (click)="setMnemonics()"
+                    [disabled]="mnemonicForm.invalid || hasInvalidWords"
+                    class="zelf-button zelf-button--primary zelf-button--wide"
+                    mat-flat-button
+                >
+                    {{ t("common.continue") }}
+                </button>
+            </div>
+        </form>
+    </div>
+</ng-container>
+
+<ng-template #openEye>
+    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+        <path
+            d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Zm0-300Zm0 220q113 0 207.5-59.5T832-500q-50-101-144.5-160.5T480-720q-113 0-207.5 59.5T128-500q50 101 144.5 160.5T480-280Z"
+        />
+    </svg>
+</ng-template>
+
+<ng-template #closedEye>
+    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+        <path
+            d="m644-428-58-58q9-47-27-88t-93-32l-58-58q17-8 34.5-12t37.5-4q75 0 127.5 52.5T660-500q0 20-4 37.5T644-428Zm128 126-58-56q38-29 67.5-63.5T832-500q-50-101-143.5-160.5T480-720q-29 0-57 4t-55 12l-62-62q41-17 84-25.5t90-8.5q151 0 269 83.5T920-500q-23 59-60.5 109.5T772-302Zm20 246L624-222q-35 11-70.5 16.5T480-200q-151 0-269-83.5T40-500q21-53 53-98.5t73-81.5L56-792l56-56 736 736-56 56ZM222-624q-29 26-53 57t-41 67q50 101 143.5 160.5T480-280q20 0 39-2.5t39-5.5l-36-38q-11 3-21 4.5t-21 1.5q-75 0-127.5-52.5T300-500q0-11 1.5-21t4.5-21l-84-82Zm319 93Zm-151 75Z"
+        />
+    </svg>
+</ng-template>

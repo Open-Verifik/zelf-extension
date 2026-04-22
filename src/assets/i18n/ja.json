@@ -549,6 +549,9 @@
         "i_already_have_a_wallet": "すでにウォレットを持っている",
         "choose_tag_name_title": "Zelf IDを選択",
         "choose_tag_name_subtitle": "Zelfネットワーク上のあなたのアイデンティティの一意の名前を選んでください",
+        "find_import_step_label": "ステップ {{ current }} / {{ total }}",
+        "find_import_choose_tag_name_title": "Zelf IDを選択",
+        "find_import_choose_tag_name_subtitle": "この名前を、今インポートしたウォレットに紐付けます。",
         "choose_tag_name_placeholder": "Zelf IDを入力",
         "preview_name_placeholder": "yourname",
         "search_name_aria": "この名前を検索",
@@ -951,6 +954,8 @@
         "private_key_locked": "秘密鍵がロックされました。続行するには生体認証が必要です。",
         "required_field": "この項目は必須です",
         "same_address": "同じアドレスに送金することはできません",
+        "send_transaction_network_error": "ネットワークに接続できませんでした。接続を確認してから、もう一度お試しください。",
+        "send_transaction_user_rejected": "トランザクションがキャンセルされました。",
         "session_init_info": "拡張機能を使用するにはネットワークアクセスが必要です。オフラインでの解決策については、iOSおよびAndroidアプリを確認してください。",
         "session_init_message": "申し訳ありません。セッションの初期化中に問題が発生しました。ネットワークの問題かサーバーが利用不可である可能性があります。もう一度お試しください。",
         "session_init_title": "セッションの初期化に失敗しました",
@@ -968,7 +973,7 @@
         "stellar_classic_trustline_required": "The recipient must add a trustline for this asset before they can receive it.",
         "stellar_soroban_not_supported": "Soroban (contract) assets are not supported in this wallet yet.",
         "stellar_invalid_asset_format": "Invalid Stellar asset. Use CODE:ISSUER (for example USDC:G…).",
-        "swap_same_chain": "In Swaps mode, both tokens must be on the same network. Switch to Cross-chain or change your selection."
+        "swap_same_chain": "Swapsモードでは、両方のトークンが同じネットワーク上にある必要があります。Cross-chainに切り替えるか、選択を変更してください。"
     },
     "swap": {
         "automatic": "自動",

@@ -106,25 +106,31 @@
 
     &__network-filters {
         display: flex;
+        flex-wrap: wrap;
         width: 100%;
         max-width: 100%;
-        gap: calc(8px * var(--zns-space-scale, 1));
-        overflow-x: auto;
-        scroll-behavior: smooth;
+        gap: calc(6px * var(--zns-space-scale, 1));
+        // No overflow — pills wrap into multiple rows
     }
 
     &__network-filter {
         display: flex;
-        min-width: calc(51px * var(--zns-space-scale, 1));
-        gap: calc(8px * var(--zns-space-scale, 1));
-        height: calc(36px * var(--zns-space-scale, 1));
-        min-height: calc(36px * var(--zns-space-scale, 1));
+        flex: 0 0 auto;
+        min-width: 0;
+        max-width: calc(50% - 4px);
+        gap: calc(4px * var(--zns-space-scale, 1));
+        height: calc(30px * var(--zns-space-scale, 1));
+        min-height: calc(30px * var(--zns-space-scale, 1));
+        padding: 0 calc(10px * var(--zns-space-scale, 1)) !important;
         font-family: variables.$themeBodyFamily;
         font-weight: 600;
-        font-size: calc(14px * var(--zns-font-scale, 1));
-        line-height: calc(20px * var(--zns-font-scale, 1));
+        font-size: calc(11px * var(--zns-font-scale, 1)) !important;
+        line-height: 1;
         letter-spacing: 0.1px;
         vertical-align: middle;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     &__assets {

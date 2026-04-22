@@ -117,6 +117,12 @@ export class RpcProviderService {
 
     /**
      * ethers v6 provider: `FetchRequest.preflightFunc` refreshes the Bearer token before each batch.
+     *
+     * `batchMaxCount: 1` is forced on the protected proxy path so each `JsonRpcProvider`
+     * call is sent as a single JSON-RPC object. The proxy validates a single object body
+     * via Joi; sending a batch array (ethers v6 default) was producing `code: -32600`
+     * `"value" must be of type object` and ethers `BAD_DATA` "missing response for request"
+     * with the raw payload leaking into the UI.
      */
     async getEthersProvider(chainKey: string, opts: RpcProviderOptions = {}): Promise<JsonRpcProvider> {
         const allowDirectFallback = opts.allowDirectFallback !== false;
@@ -145,11 +151,7 @@ export class RpcProviderService {
             return req;
         };
 
-        return new JsonRpcProvider(
-            fr,
-            undefined,
-            chainKey === "blockdag" ? { batchMaxCount: 1 } : undefined,
-        );
+        return new JsonRpcProvider(fr, undefined, { batchMaxCount: 1 });
     }
 
     async getEthersProviderForChainId(chainId: number, opts: RpcProviderOptions = {}): Promise<JsonRpcProvider> {

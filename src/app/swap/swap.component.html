@@ -206,10 +206,10 @@
                                 mat-flat-button
                                 type="button"
                             >
-                                USD
+                                {{ t("swap.usd_pill") }}
                             </button>
-                            <button (click)="setAmount(0.5)" class="swap__pill" mat-flat-button type="button">50%</button>
-                            <button (click)="setAmount(1)" class="swap__pill" mat-flat-button type="button">MAX</button>
+                            <button (click)="setAmount(0.5)" class="swap__pill" mat-flat-button type="button">{{ t("swap.half_pill") }}</button>
+                            <button (click)="setAmount(1)" class="swap__pill" mat-flat-button type="button">{{ t("swap.max_pill") }}</button>
                         </div>
                     </div>
 

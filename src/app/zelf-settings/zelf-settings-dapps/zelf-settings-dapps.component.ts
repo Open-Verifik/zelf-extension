@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { TranslocoModule } from "@jsverse/transloco";
 import { ChromeService } from "app/chrome.service";
 import { DappPermission, PendingDappRequest } from "@shared/types/dapp.types";
@@ -27,7 +27,8 @@ export class ZelfSettingsDappsComponent implements OnInit {
 
     constructor(
         private chromeService: ChromeService,
-        private router: Router
+        private _router: Router,
+        private _activatedRoute: ActivatedRoute
     ) {}
 
     ngOnInit() {
@@ -38,8 +39,9 @@ export class ZelfSettingsDappsComponent implements OnInit {
     cleanupRequests() {
         // Clean up from browser storage (background)
         if (this.chromeService.isExtension && typeof chrome !== "undefined" && chrome.runtime) {
-            chrome.runtime.sendMessage({ type: "DAPP_CLEANUP_REQUESTS" })
-                .then(res => console.log("[Dapp Cleanup] Background cleanup response:", res))
+            chrome.runtime
+                .sendMessage({ type: "DAPP_CLEANUP_REQUESTS" })
+                .then((res) => console.log("[Dapp Cleanup] Background cleanup response:", res))
                 .catch((e) => console.error("[Dapp Cleanup] Background cleanup failed", e));
         }
 
@@ -54,7 +56,7 @@ export class ZelfSettingsDappsComponent implements OnInit {
             }
             if (keysToRemove.length > 0) {
                 console.log(`[Dapp Cleanup] Found ${keysToRemove.length} orphaned dapp requests in window.localStorage. Removing:`, keysToRemove);
-                keysToRemove.forEach(k => localStorage.removeItem(k));
+                keysToRemove.forEach((k) => localStorage.removeItem(k));
                 console.log(`[Dapp Cleanup] Successfully cleaned up window.localStorage.`);
             } else {
                 console.log(`[Dapp Cleanup] No orphaned dapp requests found in window.localStorage.`);
@@ -98,8 +100,11 @@ export class ZelfSettingsDappsComponent implements OnInit {
         this.selectedSite = null;
     }
 
-    goToHome() {
-        this.router.navigate(["./"], { queryParams: { edit: "" } });
+    backToSettingsMenu(): void {
+        this._router.navigate([], {
+            relativeTo: this._activatedRoute,
+            queryParams: { edit: null },
+        });
     }
 
     shortenAddress(address: string | undefined): string {

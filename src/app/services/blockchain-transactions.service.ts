@@ -1,3 +1,4 @@
+import { isEmptyTransactionApiPayload } from "app/core/utils/empty-transaction-api-payload.util";
 import { forkJoin, from, Observable, of } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 
@@ -396,7 +397,11 @@ export class BlockchainTransactionsService {
     }
 
     processTransactionResponse(response: any, network: string): Transaction | null {
-        if (!response || !response.data) {
+        if (!response || response.data == null) {
+            return null;
+        }
+
+        if (isEmptyTransactionApiPayload(response.data)) {
             return null;
         }
 
@@ -422,7 +427,11 @@ export class BlockchainTransactionsService {
         }
     }
 
-    async requestTransactionDetails(hash: string, network: string): Promise<any> {
+    /**
+     * @param polygonSource — optional rotation hint forwarded to the Polygon backend
+     * (`"rpc" | "bogota"`) so each backend call stays a single fast attempt.
+     */
+    async requestTransactionDetails(hash: string, network: string, polygonSource?: "rpc" | "bogota"): Promise<any> {
         const networkLower = network.toLowerCase();
 
         try {
@@ -454,7 +463,7 @@ export class BlockchainTransactionsService {
                     promise = this._bscService.requestTransactionDetails(hash);
                     break;
                 case "polygon":
-                    promise = this._polygonService.requestTransactionDetails(hash);
+                    promise = this._polygonService.requestTransactionDetails(hash, polygonSource);
                     break;
                 default:
                     throw new Error(`Unsupported network: ${network}`);

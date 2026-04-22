@@ -549,6 +549,9 @@
         "i_already_have_a_wallet": "ฉันมีกระเป๋าเงินอยู่แล้ว",
         "choose_tag_name_title": "เลือก Zelf ID ของคุณ",
         "choose_tag_name_subtitle": "เลือกชื่อที่ไม่ซ้ำสำหรับตัวตนของคุณบนเครือข่าย Zelf",
+        "find_import_step_label": "ขั้นตอนที่ {{ current }} จาก {{ total }}",
+        "find_import_choose_tag_name_title": "เลือก Zelf ID ของคุณ",
+        "find_import_choose_tag_name_subtitle": "เราจะเชื่อมโยงชื่อนี้กับกระเป๋าเงินที่คุณเพิ่งนำเข้า",
         "choose_tag_name_placeholder": "ป้อน Zelf ID ของคุณ",
         "preview_name_placeholder": "ชื่อของคุณ",
         "search_name_aria": "ค้นหาชื่อนี้",
@@ -951,6 +954,8 @@
         "private_key_locked": "คีย์ส่วนตัวถูกล็อค คุณต้องทำการตรวจสอบไบโอเมตริกซ์เพื่อดำเนินการต่อ",
         "required_field": "กรุณากรอกข้อมูลในช่องนี้",
         "same_address": "คุณไม่สามารถส่งเงินไปยังที่อยู่เดียวกันได้",
+        "send_transaction_network_error": "ไม่สามารถเชื่อมต่อกับเครือข่ายได้ โปรดตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง",
+        "send_transaction_user_rejected": "ยกเลิกธุรกรรมแล้ว",
         "session_init_info": "ในการใช้ส่วนขยายบริการ Zelf ID คุณต้องเข้าถึงเครือข่าย สำหรับโซลูชันออฟไลน์ ดูแอป iOS และ Android ของเรา",
         "session_init_message": "ขออภัย เกิดปัญหาในการเริ่มต้นเซสชันของคุณ อาจเกิดจากปัญหาเครือข่ายหรือเซิร์ฟเวอร์ไม่พร้อมใช้งาน กรุณาลองใหม่อีกครั้ง",
         "session_init_title": "การเริ่มต้นเซสชันล้มเหลว",
@@ -968,7 +973,7 @@
         "stellar_classic_trustline_required": "The recipient must add a trustline for this asset before they can receive it.",
         "stellar_soroban_not_supported": "Soroban (contract) assets are not supported in this wallet yet.",
         "stellar_invalid_asset_format": "Invalid Stellar asset. Use CODE:ISSUER (for example USDC:G…).",
-        "swap_same_chain": "In Swaps mode, both tokens must be on the same network. Switch to Cross-chain or change your selection."
+        "swap_same_chain": "ในโหมด Swaps โทเค็นทั้งสองต้องอยู่บนเครือข่ายเดียวกัน สลับไปที่ Cross-chain หรือเปลี่ยนการเลือกของคุณ"
     },
     "swap": {
         "automatic": "อัตโนมัติ",

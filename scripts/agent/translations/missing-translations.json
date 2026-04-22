@@ -1,8 +1,8 @@
 {
     "metadata": {
-        "generatedAt": "2026-04-01T22:52:58.763Z",
-        "totalLanguages": 0,
-        "totalMissingKeys": 0,
+        "generatedAt": "2026-04-22T15:17:46.809Z",
+        "totalLanguages": 12,
+        "totalMissingKeys": 45,
         "languageNames": {
             "ar": "Arabic",
             "br": "Portuguese (Brazil)",
@@ -18,5 +18,75 @@
             "ur": "Urdu"
         }
     },
-    "missingTranslations": {}
+    "missingTranslations": {
+        "ar": {
+            "swap.usd_pill": "USD",
+            "swap.half_pill": "50%",
+            "swap.max_pill": "MAX",
+            "billing.dashboard.cards": "Cards"
+        },
+        "br": {
+            "swap.usd_pill": "USD",
+            "swap.half_pill": "50%",
+            "swap.max_pill": "MAX",
+            "billing.dashboard.cards": "Cards"
+        },
+        "cn": {
+            "swap.usd_pill": "USD",
+            "swap.half_pill": "50%",
+            "swap.max_pill": "MAX",
+            "billing.dashboard.cards": "Cards"
+        },
+        "es": {
+            "billing.dashboard.cards": "Cards"
+        },
+        "fr": {
+            "swap.usd_pill": "USD",
+            "swap.half_pill": "50%",
+            "swap.max_pill": "MAX",
+            "billing.dashboard.cards": "Cards"
+        },
+        "in": {
+            "swap.usd_pill": "USD",
+            "swap.half_pill": "50%",
+            "swap.max_pill": "MAX",
+            "billing.dashboard.cards": "Cards"
+        },
+        "ja": {
+            "swap.usd_pill": "USD",
+            "swap.half_pill": "50%",
+            "swap.max_pill": "MAX",
+            "billing.dashboard.cards": "Cards"
+        },
+        "kr": {
+            "swap.usd_pill": "USD",
+            "swap.half_pill": "50%",
+            "swap.max_pill": "MAX",
+            "billing.dashboard.cards": "Cards"
+        },
+        "ph": {
+            "swap.usd_pill": "USD",
+            "swap.half_pill": "50%",
+            "swap.max_pill": "MAX",
+            "billing.dashboard.cards": "Cards"
+        },
+        "ru": {
+            "swap.usd_pill": "USD",
+            "swap.half_pill": "50%",
+            "swap.max_pill": "MAX",
+            "billing.dashboard.cards": "Cards"
+        },
+        "th": {
+            "swap.usd_pill": "USD",
+            "swap.half_pill": "50%",
+            "swap.max_pill": "MAX",
+            "billing.dashboard.cards": "Cards"
+        },
+        "ur": {
+            "swap.usd_pill": "USD",
+            "swap.half_pill": "50%",
+            "swap.max_pill": "MAX",
+            "billing.dashboard.cards": "Cards"
+        }
+    }
 }

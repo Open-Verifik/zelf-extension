@@ -48,7 +48,7 @@ export class RewardsComponent implements OnInit, OnDestroy {
      * Toggle to test ZNS balance source: false = backend API (/api/solana/address), true = Solana RPC (getTokenAccountBalance).
      * Switch and compare latency/accuracy; leave false for production (backend) unless you prefer RPC.
      */
-    useRpcForZnsBalance: boolean = true;
+    useRpcForZnsBalance: boolean = false;
 
     tasks: Task[] = [
         {
@@ -127,13 +127,26 @@ export class RewardsComponent implements OnInit, OnDestroy {
                 return;
             }
 
-            const response = await this._solanaService.getWalletDetails(solanaAddress, { source: "oklink" });
+            let amount = 0;
+            
+            try {
+                const response = await this._solanaService.getWalletDetails(solanaAddress, { source: "oklink" });
+                const tokens = response?.data?.tokenHoldings?.tokens ?? response?.tokenHoldings?.tokens ?? [];
+                const znsToken = Array.isArray(tokens) ? tokens.find((t: any) => (t.symbol || "").toUpperCase() === ZNS_TOKEN_SYMBOL) : null;
+                amount = znsToken?.amount ?? znsToken?.balance ?? 0;
+            } catch (err) {
+                console.warn("Backend API for ZNS balance failed, preparing RPC fallback", err);
+            }
 
-            const tokens = response?.data?.tokenHoldings?.tokens ?? response?.tokenHoldings?.tokens ?? [];
-
-            const znsToken = Array.isArray(tokens) ? tokens.find((t: any) => (t.symbol || "").toUpperCase() === ZNS_TOKEN_SYMBOL) : null;
-
-            const amount = znsToken?.amount ?? znsToken?.balance ?? 0;
+            // Fallback to RPC if backend returned 0 (due to error, timeout, or pending sync)
+            if (!amount || amount === 0) {
+                try {
+                    const rpcAmount = await this._solanaService.getZnsBalanceViaRpc(solanaAddress);
+                    if (rpcAmount > 0) amount = rpcAmount;
+                } catch (rpcErr) {
+                    console.warn("RPC fallback for ZNS balance failed", rpcErr);
+                }
+            }
 
             this.znsBalance = typeof amount === "number" ? amount : parseFloat(String(amount)) || 0;
         } catch (error) {

@@ -13,6 +13,7 @@ import { FormsModule } from "@angular/forms";
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 
 import { AssetService } from "app/asset.service";
+import { areSendAddressesSame } from "app/core/utils/same-wallet-address.util";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
 import { BitcoinService } from "app/services/bitcoin.service";
 import { BlockDAGService } from "app/services/blockdag.service";
@@ -195,13 +196,52 @@ export class SendTransactionComponent implements OnDestroy {
         });
     }
 
+    /**
+     * True when the candidate destination resolves to the same on-chain
+     * address as the sender. Considers the resolved Zelf-name address (when
+     * available) so users can't bypass the check by typing their own tag.
+     */
+    private _isSameWalletAsSender(candidate?: string): boolean {
+        const senderAddress = this.transactionData?.sender?.address;
+        if (!senderAddress) return false;
+
+        if (candidate && areSendAddressesSame(senderAddress, candidate, this.transactionData)) return true;
+
+        const resolved = this.foundAddress?.publicData?.[this.addressKey];
+        if (resolved && areSendAddressesSame(senderAddress, resolved, this.transactionData)) return true;
+
+        return false;
+    }
+
+    /**
+     * Keep the `sameAddress` error in sync after async resolutions
+     * (e.g. Zelf-name lookups that populate `foundAddress`) without losing
+     * other validator errors set on the same control.
+     */
+    private _syncSameAddressControlError(): void {
+        const ctrl = this.form?.get("toAddress");
+        if (!ctrl) return;
+
+        const isSame = this._isSameWalletAsSender(ctrl.value);
+        const errors = { ...(ctrl.errors || {}) } as Record<string, unknown>;
+
+        if (isSame) {
+            errors["sameAddress"] = true;
+        } else if ("sameAddress" in errors) {
+            delete errors["sameAddress"];
+        }
+
+        const next = Object.keys(errors).length ? (errors as ValidationErrors) : null;
+        ctrl.setErrors(next);
+    }
+
     private _addressValidator(): ValidatorFn {
         return (control: AbstractControl): ValidationErrors | null => {
             const value = control.value;
 
             if (!value) return null;
 
-            if (control.value === this.transactionData.sender.address) return { sameAddress: true };
+            if (this._isSameWalletAsSender(value)) return { sameAddress: true };
 
             const pattern = this._getAddressPattern();
 
@@ -449,6 +489,7 @@ export class SendTransactionComponent implements OnDestroy {
 
             if (this.foundAddress) await this._setToCurrentTransactionData();
 
+            this._syncSameAddressControlError();
             this._changeDetectionRef.detectChanges();
         }
     }
@@ -562,11 +603,16 @@ export class SendTransactionComponent implements OnDestroy {
             },
         });
 
-        if (this.withdrawStep) return;
+        if (this.withdrawStep) {
+            this._syncSameAddressControlError();
+            return;
+        }
 
         const toAddressCtrl = this.form.get("toAddress");
 
         if (toAddressCtrl) toAddressCtrl.updateValueAndValidity({ emitEvent: false });
+
+        this._syncSameAddressControlError();
     }
 
     private async _setToCurrentTransactionData(): Promise<void> {
@@ -596,6 +642,12 @@ export class SendTransactionComponent implements OnDestroy {
 
     async continueToWithdraw(): Promise<void> {
         const address = this.form.get("toAddress")?.value;
+
+        if (this._isSameWalletAsSender(address)) {
+            this._syncSameAddressControlError();
+            this.openErrorSnackBar("errors.same_address");
+            return;
+        }
 
         const isEVM =
             this.transactionData.isEthToken ||
@@ -689,6 +741,12 @@ export class SendTransactionComponent implements OnDestroy {
 
         if (!this.foundAddress) {
             console.error("No valid address found");
+            return;
+        }
+
+        if (this._isSameWalletAsSender(this.foundAddress.publicData?.[this.addressKey])) {
+            this._syncSameAddressControlError();
+            this.openErrorSnackBar("errors.same_address");
             return;
         }
 

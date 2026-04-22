@@ -884,9 +884,12 @@ h3 {
 .zelf-card {
     box-sizing: border-box;
     align-items: start;
-    // Warm radial glow: #FD6337 @ 450px blur (Figma spec)
+    // Warm radial glow: top accent (Figma spec) + soft cool wash to keep tint reading
+    // through the full card height instead of fading to flat off-white.
     background:
         radial-gradient(ellipse 120% 45% at 50% -5%, rgba(253, 99, 55, 0.18) 0%, rgba(253, 99, 55, 0.06) 50%, transparent 100%),
+        radial-gradient(ellipse 110% 55% at 50% 105%, rgba(253, 99, 55, 0.08) 0%, rgba(253, 99, 55, 0.03) 55%, transparent 100%),
+        linear-gradient(180deg, rgba(253, 99, 55, 0.03) 0%, transparent 45%, rgba(98, 154, 244, 0.04) 100%),
         variables.$themeBackgroundSecondary;
     border-radius: calc(64px * var(--zns-space-scale, 1));
     border: none;
@@ -902,6 +905,8 @@ h3 {
     @media screen and (max-width: variables.$medium) {
         background:
             radial-gradient(ellipse 120% 45% at 50% -5%, rgba(253, 99, 55, 0.18) 0%, rgba(253, 99, 55, 0.06) 50%, transparent 100%),
+            radial-gradient(ellipse 110% 55% at 50% 105%, rgba(253, 99, 55, 0.08) 0%, rgba(253, 99, 55, 0.03) 55%, transparent 100%),
+            linear-gradient(180deg, rgba(253, 99, 55, 0.03) 0%, transparent 45%, rgba(98, 154, 244, 0.04) 100%),
             variables.$themeBackgroundSecondary;
         width: 100%;
         padding: 12px;

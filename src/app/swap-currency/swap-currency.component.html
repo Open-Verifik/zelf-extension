@@ -61,7 +61,7 @@
                     mat-flat-button
                     type="button"
                 >
-                    {{ network === "all" ? t("common.all") : network }}
+                    {{ network === "all" ? t("common.all") : (network | titlecase) }}
                 </button>
             </div>
         </div>

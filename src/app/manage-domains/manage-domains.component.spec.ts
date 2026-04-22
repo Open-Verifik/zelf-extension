@@ -56,6 +56,7 @@ describe("ManageDomainsComponent", () => {
 
         mockChromeService = jasmine.createSpyObj("ChromeService", ["removeItem"], {
             getItem: () => Promise.resolve(null),
+            getItemSession: () => Promise.resolve(null),
             setItem: () => Promise.resolve(null),
             onLastVerifiedChanged$: new BehaviorSubject(0).asObservable(),
             onWalletChanged$: new BehaviorSubject({}).asObservable(),

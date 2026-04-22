@@ -549,6 +549,9 @@
         "i_already_have_a_wallet": "May wallet na ako",
         "choose_tag_name_title": "Piliin ang iyong Zelf ID",
         "choose_tag_name_subtitle": "Pumili ng natatanging pangalan para sa iyong pagkakakilanlan sa Zelf network",
+        "find_import_step_label": "Hakbang {{ current }} ng {{ total }}",
+        "find_import_choose_tag_name_title": "Pumili ng iyong Zelf ID",
+        "find_import_choose_tag_name_subtitle": "Iuugnay namin ang pangalang ito sa wallet na kaka-import mo lang.",
         "choose_tag_name_placeholder": "Ilagay ang iyong Zelf ID",
         "preview_name_placeholder": "pangalanmo",
         "search_name_aria": "Maghanap ng pangalang ito",
@@ -951,6 +954,8 @@
         "private_key_locked": "Naka-lock ang private key. Kailangan mong mag-perform ng biometrics check para makapagpatuloy.",
         "required_field": "Kailangan ang field na ito",
         "same_address": "Hindi ka makakapagpadala ng pondo sa parehong address",
+        "send_transaction_network_error": "Hindi kami nakakonekta sa network. Pakisuri ang iyong koneksyon at subukan muli.",
+        "send_transaction_user_rejected": "Nakansela ang transaksyon.",
         "session_init_info": "Upang magamit ang Zelf ID Service Extension, kakailanganin mo ng access sa network. Para sa isang offline na solusyon, suriin ang aming mga app sa iOS at Android.",
         "session_init_message": "Paumanhin, may problema sa pag-initialize ng iyong session. Ito ay maaaring dahil sa problema sa network o server. Mangyaring subukan muli.",
         "session_init_title": "Nabigo ang pag-initialize ng session",
@@ -968,7 +973,7 @@
         "stellar_classic_trustline_required": "The recipient must add a trustline for this asset before they can receive it.",
         "stellar_soroban_not_supported": "Soroban (contract) assets are not supported in this wallet yet.",
         "stellar_invalid_asset_format": "Invalid Stellar asset. Use CODE:ISSUER (for example USDC:G…).",
-        "swap_same_chain": "In Swaps mode, both tokens must be on the same network. Switch to Cross-chain or change your selection."
+        "swap_same_chain": "Sa Swaps mode, dapat nasa parehong network ang parehong token. Lumipat sa Cross-chain o baguhin ang iyong pinili."
     },
     "swap": {
         "automatic": "Awtomatiko",

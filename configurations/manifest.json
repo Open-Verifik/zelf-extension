@@ -16,7 +16,7 @@
         "offscreen",
         "notifications"
     ],
-    "version": "2.1.14",
+    "version": "2.1.16",
     "action": {
         "default_popup": "index.html",
         "default_icon": "assets/icons/icon256.png"

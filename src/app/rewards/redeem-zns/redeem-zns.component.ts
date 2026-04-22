@@ -24,7 +24,7 @@ export interface RedeemOption {
 export class RedeemZnsComponent implements OnInit {
     znsBalance: number = 0;
     znsBalanceLoading: boolean = false;
-    useRpcForZnsBalance: boolean = true;
+    useRpcForZnsBalance: boolean = false;
 
     readonly options: RedeemOption[] = [
         { id: "zelfname-1m", title: "Get one month for your ZelfName", costZns: 100 },
@@ -59,13 +59,31 @@ export class RedeemZnsComponent implements OnInit {
 
             if (this.useRpcForZnsBalance) {
                 this.znsBalance = await this._solanaService.getZnsBalanceViaRpc(solanaAddress);
-            } else {
+                return;
+            }
+
+            let amount = 0;
+            
+            try {
                 const response = await this._solanaService.getWalletDetails(solanaAddress, { source: "oklink" });
                 const tokens = response?.data?.tokenHoldings?.tokens ?? response?.tokenHoldings?.tokens ?? [];
                 const znsToken = Array.isArray(tokens) ? tokens.find((t: any) => (t.symbol || "").toUpperCase() === ZNS_TOKEN_SYMBOL) : null;
-                const amount = znsToken?.amount ?? znsToken?.balance ?? 0;
-                this.znsBalance = typeof amount === "number" ? amount : parseFloat(String(amount)) || 0;
+                amount = znsToken?.amount ?? znsToken?.balance ?? 0;
+            } catch (err) {
+                console.warn("Backend API for ZNS balance failed, preparing RPC fallback", err);
             }
+
+            // Fallback to RPC if backend returned 0
+            if (!amount || amount === 0) {
+                try {
+                    const rpcAmount = await this._solanaService.getZnsBalanceViaRpc(solanaAddress);
+                    if (rpcAmount > 0) amount = rpcAmount;
+                } catch (rpcErr) {
+                    console.warn("RPC fallback for ZNS balance failed", rpcErr);
+                }
+            }
+
+            this.znsBalance = typeof amount === "number" ? amount : parseFloat(String(amount)) || 0;
         } catch (error) {
             console.error("Error loading ZNS balance:", error);
         } finally {

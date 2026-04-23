@@ -678,6 +678,7 @@
         "information": "Ang address na ito ay maaari lamang gamitin para tumanggap ng mga compatible na tokens.",
         "information_stellar": "Kailangan ng minimum na 1 XLM para ma-activate ang iyong Stellar account. Ang address na ito ay maaari lamang gamitin para tumanggap ng mga compatible na tokens.",
         "your_token_address": "Ang iyong {{ name }} address",
+        "generate": "Bumuo",
         "risks_modal": {
             "title": "Bago tumanggap ng {{ symbol }}",
             "risk_1_title": "{{ name }} network lamang",
@@ -1161,13 +1162,9 @@
         "dashboard": {
             "start": "Simulan",
             "passwords": "Mga Password",
-            "notes": "Mga Note",
-            "payment_cards": "Mga Payment Card",
             "subscription": "Subscription",
             "add_password": "Magdagdag ng Password",
-            "add_card": "Magdagdag ng Payment Card",
-            "add_note": "Magdagdag ng Note",
-            "add_payment_card": "Magdagdag ng Payment Card"
+            "add_card": "Magdagdag ng Payment Card"
         },
         "payment_cards": {
             "title": "Payment Cards",

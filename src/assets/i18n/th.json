@@ -678,6 +678,7 @@
         "information": "ที่อยู่นี้สามารถใช้รับโทเคนที่เข้ากันได้เท่านั้น",
         "information_stellar": "ต้องมี XLM อย่างน้อย 1 เหรียญเพื่อเปิดใช้งานบัญชี Stellar ของคุณ ที่อยู่นี้สามารถใช้รับโทเคนที่เข้ากันได้เท่านั้น",
         "your_token_address": "ที่อยู่ {{ name }} ของคุณ",
+        "generate": "สร้าง",
         "risks_modal": {
             "title": "ก่อนรับ {{ symbol }}",
             "risk_1_title": "เครือข่าย {{ name }} เท่านั้น",
@@ -1161,13 +1162,9 @@
         "dashboard": {
             "start": "เริ่มต้น",
             "passwords": "รหัสผ่าน",
-            "notes": "บันทึก",
-            "payment_cards": "บัตรชำระเงิน",
             "subscription": "สมาชิก",
             "add_password": "เพิ่มรหัสผ่าน",
-            "add_card": "เพิ่มบัตรชำระเงิน",
-            "add_note": "เพิ่มบันทึก",
-            "add_payment_card": "เพิ่มบัตรชำระเงิน"
+            "add_card": "เพิ่มบัตรชำระเงิน"
         },
         "payment_cards": {
             "title": "บัตรชำระเงิน",

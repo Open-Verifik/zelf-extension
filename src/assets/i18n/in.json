@@ -678,6 +678,7 @@
         "information": "यह पता केवल संगत टोकन प्राप्त करने के लिए उपयोग किया जा सकता है।",
         "information_stellar": "आपके Stellar खाते को सक्रिय करने के लिए कम से कम 1 XLM की आवश्यकता है। यह पता केवल संगत टोकन प्राप्त करने के लिए उपयोग किया जा सकता है।",
         "your_token_address": "आपका {{ name }} पता",
+        "generate": "जनरेट",
         "risks_modal": {
             "title": "{{ symbol }} प्राप्त करने से पहले",
             "risk_1_title": "केवल {{ name }} नेटवर्क",
@@ -1161,13 +1162,9 @@
         "dashboard": {
             "start": "शुरू करें",
             "passwords": "पासवर्ड",
-            "notes": "नोट्स",
-            "payment_cards": "भुगतान कार्ड",
             "subscription": "सदस्यता",
             "add_password": "पासवर्ड जोड़ें",
-            "add_card": "भुगतान कार्ड जोड़ें",
-            "add_note": "नोट जोड़ें",
-            "add_payment_card": "भुगतान कार्ड जोड़ें"
+            "add_card": "भुगतान कार्ड जोड़ें"
         },
         "payment_cards": {
             "title": "भुगतान कार्ड",

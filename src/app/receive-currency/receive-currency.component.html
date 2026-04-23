@@ -18,36 +18,68 @@
     </div>
 
     <div class="zelf-card__content receive-currency__content">
-        <div [routerLink]="['qr', network.name]" class="network-item" *ngFor="let network of networks">
-            <img class="network-item__icon" [src]="network.image" alt="icon" />
+        <ng-container *ngFor="let network of networks">
+            <a *ngIf="!network.needsSubstrateAddress" [routerLink]="['qr', network.name]" class="network-item">
+                <img class="network-item__icon" [src]="network.image" alt="icon" />
 
-            <div class="network-item__info">
-                <div class="network-item__network-info">
-                    <p class="network-item__network">{{ network.symbol }}</p>
-                    <p class="network-item__network-chip">{{ network.name }}</p>
+                <div class="network-item__info">
+                    <div class="network-item__network-info">
+                        <p class="network-item__network">{{ network.symbol }}</p>
+                        <p class="network-item__network-chip">{{ network.name }}</p>
+                    </div>
+
+                    <p class="network-item__name">{{ network.address | addressMask }}</p>
                 </div>
 
-                <p class="network-item__name">{{ network.address | addressMask }}</p>
-            </div>
+                <div class="network-item__buttons">
+                    <button class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--secondary zelf-icon-button--border-soft" mat-flat-button>
+                        <ng-container *ngTemplateOutlet="qrCodeIcon"></ng-container>
+                    </button>
 
-            <div class="network-item__buttons">
-                <button class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--secondary zelf-icon-button--border-soft" mat-flat-button>
-                    <ng-container *ngTemplateOutlet="qrCodeIcon"></ng-container>
-                </button>
+                    <button
+                        (click)="copyToClipboard($event, network)"
+                        class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--secondary zelf-icon-button--border-soft"
+                        mat-flat-button
+                    >
+                        <ng-container *ngTemplateOutlet="copyIcon"></ng-container>
+                    </button>
+                </div>
+            </a>
 
-                <button
-                    (click)="copyToClipboard($event, network)"
-                    class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--secondary zelf-icon-button--border-soft"
-                    mat-flat-button
-                >
-                    <ng-container *ngTemplateOutlet="copyIcon"></ng-container>
-                </button>
+            <div *ngIf="network.needsSubstrateAddress" class="network-item network-item--placeholder">
+                <img class="network-item__icon" [src]="network.image" alt="icon" />
+
+                <div class="network-item__info">
+                    <div class="network-item__network-info">
+                        <p class="network-item__network">{{ network.symbol }}</p>
+                        <p class="network-item__network-chip">{{ network.name }}</p>
+                    </div>
+
+                    <p class="network-item__name network-item__name--placeholder-blur" aria-hidden="true">{{ network.address }}</p>
+                </div>
+
+                <div class="network-item__buttons network-item__buttons--generate">
+                    <button type="button" (click)="onGenerateSubstrateClick($event, network)" class="network-item__generate-btn">
+                        <span class="network-item__generate-btn-wrap" aria-hidden="true">
+                            <ng-container *ngTemplateOutlet="generateAddressIcon"></ng-container>
+                        </span>
+                        <span class="network-item__generate-label">{{ t("receive.generate") }}</span>
+                    </button>
+                </div>
             </div>
-        </div>
+        </ng-container>
 
         <zelf-loader *ngIf="loading"></zelf-loader>
     </div>
 </div>
+
+<ng-template #generateAddressIcon>
+    <svg class="network-item__generate-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+        <path
+            d="M9.4 4.1c.2-.5.8-.5 1 0l.6 1.4 1.4.6c.5.2.5.8 0 1l-1.4.6-.6 1.4c-.2.5-.8.5-1 0l-.6-1.4-1.4-.6c-.5-.2-.5-.8 0-1l1.4-.6.6-1.4zm8.1 2.1c.1-.3.5-.3.6 0l.3.8.8.3c.3.1.3.5 0 .6l-.8.3-.3.8c-.1.3-.5.3-.6 0l-.3-.8-.8-.3c-.3-.1-.3-.5 0-.6l.8-.3.3-.8zm-3.5 6.7c.2-.4.7-.4.9 0l1.1 2.1 2.1 1.1c.4.2.4.7 0 .9l-2.1 1.1-1.1 2.1c-.2.4-.7.4-.9 0l-1.1-2.1-2.1-1.1c-.4-.2-.4-.7 0-.9l2.1-1.1 1.1-2.1z"
+        />
+    </svg>
+</ng-template>
 
 <ng-template #copyIcon>
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

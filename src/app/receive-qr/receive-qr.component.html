@@ -34,7 +34,7 @@
         <div class="qr-code receive-qr__qr-code" #qrCodeContainer></div>
 
         <ng-container *ngIf="!loading">
-            <div class="zelf-action-row receive-qr__action-row">
+            <div class="zelf-action-row receive-qr__action-row" *ngIf="!needsSubstrateAddress">
                 <div class="receive-qr__action-col">
                     <p class="receive-qr__token-type">
                         {{ symbol }} <ng-container *ngIf="type"> ({{ type }})</ng-container>
@@ -49,6 +49,23 @@
                     mat-flat-button
                 >
                     <ng-container *ngTemplateOutlet="copyIcon"></ng-container>
+                </button>
+            </div>
+
+            <div class="zelf-action-row receive-qr__action-row receive-qr__action-row--substrate" *ngIf="needsSubstrateAddress">
+                <div class="receive-qr__action-col receive-qr__action-col--wide">
+                    <p class="receive-qr__token-type">
+                        {{ symbol }} <ng-container *ngIf="type"> ({{ type }})</ng-container>
+                    </p>
+
+                    <p class="receive-qr__address receive-qr__address--placeholder-blur" aria-hidden="true">{{ substratePlaceholder }}</p>
+                </div>
+
+                <button type="button" (click)="onGenerateSubstrateClick($event)" class="receive-qr__generate-btn">
+                    <span class="receive-qr__generate-btn-wrap" aria-hidden="true">
+                        <ng-container *ngTemplateOutlet="generateAddressIcon"></ng-container>
+                    </span>
+                    <span class="receive-qr__generate-label">{{ t("receive.generate") }}</span>
                 </button>
             </div>
         </ng-container>
@@ -74,6 +91,14 @@
         </button>
     </div>
 </div>
+
+<ng-template #generateAddressIcon>
+    <svg class="receive-qr__generate-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+        <path
+            d="M9.4 4.1c.2-.5.8-.5 1 0l.6 1.4 1.4.6c.5.2.5.8 0 1l-1.4.6-.6 1.4c-.2.5-.8.5-1 0l-.6-1.4-1.4-.6c-.5-.2-.5-.8 0-1l1.4-.6.6-1.4zm8.1 2.1c.1-.3.5-.3.6 0l.3.8.8.3c.3.1.3.5 0 .6l-.8.3-.3.8c-.1.3-.5.3-.6 0l-.3-.8-.8-.3c-.3-.1-.3-.5 0-.6l.8-.3.3-.8zm-3.5 6.7c.2-.4.7-.4.9 0l1.1 2.1 2.1 1.1c.4.2.4.7 0 .9l-2.1 1.1-1.1 2.1c-.2.4-.7.4-.9 0l-1.1-2.1-2.1-1.1c-.4-.2-.4-.7 0-.9l2.1-1.1 1.1-2.1z"
+        />
+    </svg>
+</ng-template>
 
 <ng-template #copyIcon>
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

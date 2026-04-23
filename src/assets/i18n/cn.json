@@ -678,6 +678,7 @@
         "information": "此地址只能用于接收兼容的代币。",
         "information_stellar": "激活您的 Stellar 账户至少需要 1 XLM。此地址只能用于接收兼容的代币。",
         "your_token_address": "您的{{ name }}地址",
+        "generate": "生成",
         "risks_modal": {
             "title": "接收 {{ symbol }} 之前",
             "risk_1_title": "仅限 {{ name }} 网络",
@@ -1161,13 +1162,9 @@
         "dashboard": {
             "start": "开始",
             "passwords": "密码",
-            "notes": "笔记",
-            "payment_cards": "支付卡",
             "subscription": "订阅",
             "add_password": "添加密码",
-            "add_card": "添加支付卡",
-            "add_note": "添加笔记",
-            "add_payment_card": "添加支付卡"
+            "add_card": "添加支付卡"
         },
         "payment_cards": {
             "title": "支付卡",

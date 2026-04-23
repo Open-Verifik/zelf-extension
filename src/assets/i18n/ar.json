@@ -678,6 +678,7 @@
         "information": "يمكن استخدام هذا العنوان فقط لاستلام الرموز المتوافقة.",
         "information_stellar": "يتطلب الحد الأدنى 1 XLM لتفعيل حساب Stellar الخاص بك. يمكن استخدام هذا العنوان فقط لاستلام الرموز المتوافقة.",
         "your_token_address": "عنوان {{ name }} الخاص بك",
+        "generate": "إنشاء",
         "risks_modal": {
             "title": "قبل استلام {{ symbol }}",
             "risk_1_title": "شبكة {{ name }} فقط",
@@ -1161,13 +1162,9 @@
         "dashboard": {
             "start": "ابدأ",
             "passwords": "كلمات المرور",
-            "notes": "ملاحظات",
-            "payment_cards": "بطاقات الدفع",
             "subscription": "الاشتراك",
             "add_password": "إضافة كلمة مرور",
-            "add_card": "إضافة بطاقة دفع",
-            "add_note": "إضافة ملاحظة",
-            "add_payment_card": "إضافة بطاقة دفع"
+            "add_card": "إضافة بطاقة دفع"
         },
         "payment_cards": {
             "title": "بطاقات الدفع",

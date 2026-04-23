@@ -5,18 +5,27 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 
 import { environment } from "environments/environment";
-import { tryHealPublicDataXlmToCanonical } from "@shared/types/tag.types";
+import {
+    readPublicDataDotAddress,
+    readPublicDataKsmAddress,
+    tryHealPublicDataXlmToCanonical,
+} from "@shared/types/tag.types";
 import { TagModel } from "./tags.service";
 import { ChromeService } from "./chrome.service";
 import { HttpWrapperService } from "./http-wrapper.service";
 import { Asset, Wallet } from "@shared/types/wallet.types";
 import { generateDeviceFingerprint, simpleHash, UserFingerPrint } from "./core/utils/fingerprint.util";
 
+/** Display-only fake SS58-shaped string for receive rows before substrate address exists (not an on-chain address). */
+export const SUBSTRATE_ADDRESS_PLACEHOLDER = "1nm2Abc…xxxxxxxxxxxxxxxxxxxxx";
+
 export type Network = {
     symbol: string;
     name: string;
     address: string;
     image: string;
+    /** When true, `address` is `SUBSTRATE_ADDRESS_PLACEHOLDER` and the user must run decrypt to materialize DOT/KSM. */
+    needsSubstrateAddress?: boolean;
 };
 
 @Injectable({
@@ -186,6 +195,12 @@ export class WalletService {
                 break;
             case "XLM":
                 assetSrc = "./assets/icons/xlm_logo.svg";
+                break;
+            case "DOT":
+                assetSrc = "./assets/networks/dot.svg";
+                break;
+            case "KSM":
+                assetSrc = "./assets/networks/ksm.svg";
                 break;
             case "ZNS":
                 assetSrc = "./assets/tokens/zns.png";
@@ -825,7 +840,9 @@ export class WalletService {
     }
 
     private _normalizeTransactionHashKey(hash: string): string | null {
-        const s = String(hash || "").trim().toLowerCase();
+        const s = String(hash || "")
+            .trim()
+            .toLowerCase();
 
         return s || null;
     }
@@ -1077,45 +1094,45 @@ export class WalletService {
         return address;
     }
 
-    public async getAvailableWalletNetworks(): Promise<Network[]> {
-        const wallet = await this.getCurrentWallet();
+    public async getAvailableWalletNetworks(wallet: Partial<TagModel> | null): Promise<Network[]> {
+        const _wallet = wallet || (await this.getCurrentWallet());
 
-        if (!wallet) return [];
+        if (!_wallet) return [];
 
         const networks: Network[] = [];
 
-        if (wallet?.publicData?.blockDAGAddress) {
+        if (_wallet?.publicData?.blockDAGAddress) {
             networks.push({
                 // blockDAG address
-                address: wallet?.publicData?.blockDAGAddress,
+                address: _wallet?.publicData?.blockDAGAddress || _wallet?.publicData?.ethAddress || "",
                 image: this.getAssetImage("BDAG"),
                 name: "BlockDAG",
                 symbol: "BDAG",
             });
         }
 
-        if (wallet?.publicData?.ethAddress) {
+        if (_wallet?.publicData?.ethAddress) {
             networks.push(
                 {
-                    address: wallet?.publicData?.ethAddress,
+                    address: _wallet?.publicData?.ethAddress,
                     image: this.getAssetImage("ETH"),
                     name: "Ethereum",
                     symbol: "ETH",
                 },
                 {
-                    address: wallet?.publicData?.ethAddress,
+                    address: _wallet?.publicData?.ethAddress,
                     image: this.getAssetImage("AVAX"),
                     name: "Avalanche",
                     symbol: "AVAX",
                 },
                 {
-                    address: wallet?.publicData?.ethAddress,
+                    address: _wallet?.publicData?.ethAddress,
                     image: this.getAssetImage("BNB"),
                     name: "Binance",
                     symbol: "BNB",
                 },
                 {
-                    address: wallet?.publicData?.ethAddress,
+                    address: _wallet?.publicData?.ethAddress,
                     image: this.getAssetImage("MATIC"),
                     name: "Polygon",
                     symbol: "MATIC",
@@ -1123,39 +1140,60 @@ export class WalletService {
             );
         }
 
-        if (wallet?.publicData?.btcAddress) {
+        if (_wallet?.publicData?.btcAddress) {
             networks.push({
-                address: wallet?.publicData?.btcAddress,
+                address: _wallet?.publicData?.btcAddress,
                 image: this.getAssetImage("BTC"),
                 name: "Bitcoin",
                 symbol: "BTC",
             });
         }
 
-        if (wallet?.publicData?.solanaAddress) {
+        if (_wallet?.publicData?.solanaAddress) {
             networks.push({
-                address: wallet?.publicData?.solanaAddress,
+                address: _wallet?.publicData?.solanaAddress,
                 image: this.getAssetImage("SOL"),
                 name: "Solana",
                 symbol: "SOL",
             });
         }
 
-        if (wallet?.publicData?.suiAddress) {
+        if (_wallet?.publicData?.suiAddress) {
             networks.push({
-                address: wallet?.publicData?.suiAddress,
+                address: _wallet?.publicData?.suiAddress,
                 image: this.getAssetImage("SUI"),
                 name: "Sui",
                 symbol: "SUI",
             });
         }
 
-        if (wallet?.publicData?.xlmAddress) {
+        if (_wallet?.publicData?.xlmAddress) {
             networks.push({
-                address: wallet?.publicData?.xlmAddress || "",
+                address: _wallet?.publicData?.xlmAddress || "",
                 image: this.getAssetImage("XLM"),
                 name: "Stellar",
                 symbol: "XLM",
+            });
+        }
+
+        const pdForSubstrate = _wallet?.publicData as Record<string, unknown> | null | undefined;
+        const dotAddr = readPublicDataDotAddress(pdForSubstrate);
+        const ksmAddr = readPublicDataKsmAddress(pdForSubstrate);
+        if (dotAddr) {
+            networks.push({
+                address: dotAddr,
+                image: this.getAssetImage("DOT"),
+                name: "Polkadot",
+                symbol: "DOT",
+            });
+        }
+
+        if (ksmAddr) {
+            networks.push({
+                address: ksmAddr,
+                image: this.getAssetImage("KSM"),
+                name: "Kusama",
+                symbol: "KSM",
             });
         }
 

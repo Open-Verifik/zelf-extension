@@ -1,7 +1,20 @@
 import { Injectable } from "@angular/core";
 import { ChromeService } from "app/chrome.service";
 
-export type NetworkName = "ethereum" | "sui" | "avalanche" | "solana" | "bitcoin" | "binance" | "blockdag" | "polygon" | "stellar" | "Bitcoin" | "bitcoinTestnet";
+export type NetworkName =
+    | "ethereum"
+    | "sui"
+    | "avalanche"
+    | "solana"
+    | "bitcoin"
+    | "binance"
+    | "blockdag"
+    | "polygon"
+    | "stellar"
+    | "polkadot"
+    | "kusama"
+    | "Bitcoin"
+    | "bitcoinTestnet";
 export type NetworkSymbol =
     | "eth"
     | "sol"
@@ -20,6 +33,8 @@ export type NetworkSymbol =
     | "BNB"
     | "POL"
     | "XLM"
+    | "DOT"
+    | "KSM"
     | "BTCTEST";
 
 @Injectable({
@@ -48,6 +63,10 @@ export class NetworkService {
                 return "SOL";
             case "stellar":
                 return "XLM";
+            case "polkadot":
+                return "DOT";
+            case "kusama":
+                return "KSM";
             default:
                 return "";
         }
@@ -77,6 +96,10 @@ export class NetworkService {
                 return "polygon";
             case "XLM":
                 return "stellar";
+            case "DOT":
+                return "polkadot";
+            case "KSM":
+                return "kusama";
             default:
                 console.warn(`NetworkService: No name mapping for symbol: ${symbol}`);
                 return "";
@@ -109,6 +132,9 @@ export class NetworkService {
                 return 0;
             case "binance":
                 return 56;
+            case "polkadot":
+            case "kusama":
+                return 0;
             default:
                 return 1;
         }
@@ -143,6 +169,12 @@ export class NetworkService {
             case "polygon":
             case "POL":
                 return "./assets/networks/pol.png";
+            case "polkadot":
+            case "DOT":
+                return "./assets/networks/dot.svg";
+            case "kusama":
+            case "KSM":
+                return "./assets/networks/ksm.svg";
             default:
                 return "";
         }

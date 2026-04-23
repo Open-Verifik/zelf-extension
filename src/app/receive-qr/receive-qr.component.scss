@@ -118,6 +118,84 @@
         color: variables.$themeText;
         word-wrap: break-word;
     }
+
+    &__address--placeholder-blur {
+        user-select: none;
+        filter: blur(4px);
+    }
+
+    &__action-row--substrate {
+        align-items: flex-end;
+        flex-wrap: nowrap;
+        gap: 10px;
+    }
+
+    &__action-col--wide {
+        flex: 1 1 auto;
+        max-width: calc(100% - 120px);
+        min-width: 0;
+    }
+
+    &__generate-btn {
+        align-items: center;
+        background: variables.$themeCardBorder;
+        border: 1px solid variables.$themeBorder;
+        border-radius: 999px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+        color: variables.$themeText;
+        cursor: pointer;
+        display: inline-flex;
+        flex: 0 0 auto;
+        font-family: variables.$themeBodyFamily;
+        font-size: 10px;
+        font-weight: 600;
+        gap: 5px;
+        letter-spacing: 0.06em;
+        line-height: 1.15;
+        max-width: none;
+        min-height: 0;
+        padding: 6px 12px 6px 8px;
+        text-align: left;
+        text-transform: none;
+        transition:
+            background-color 0.2s variables.$smoothBezier,
+            border-color 0.2s variables.$smoothBezier,
+            box-shadow 0.2s variables.$smoothBezier,
+            transform 0.2s variables.$smoothBezier;
+
+        &:hover {
+            background: variables.$secondaryColorLight;
+            border-color: variables.$secondaryColor;
+            box-shadow: 0 0 0 1px rgba(255, 87, 33, 0.18);
+        }
+
+        &:active {
+            transform: scale(0.98);
+        }
+
+        &:focus-visible {
+            outline: 2px solid variables.$secondaryColor;
+            outline-offset: 2px;
+        }
+    }
+
+    &__generate-btn-wrap {
+        color: variables.$secondaryColor;
+        display: flex;
+        flex: 0 0 auto;
+        line-height: 0;
+    }
+
+    &__generate-icon {
+        display: block;
+        height: 12px;
+        width: 12px;
+    }
+
+    &__generate-label {
+        line-height: 1.2;
+        white-space: nowrap;
+    }
 }
 
 .tip-box__link {

@@ -94,7 +94,7 @@ export class WalletComponent extends CopyToClipboardBase implements OnInit {
     }
 
     private async _initNetworks(): Promise<void> {
-        this.networks = await this._walletService.getAvailableWalletNetworks();
+        this.networks = await this._walletService.getAvailableWalletNetworks(null);
     }
 
     private _mapSymbolToNetworkId(symbol: string): string {

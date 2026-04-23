@@ -1,0 +1,39 @@
+@use "../../../styles/variables";
+@use "../../../styles/buttons";
+
+.gen-sub-modal {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 24px;
+    width: min(320px, 92vw);
+    gap: 12px;
+    box-sizing: border-box;
+    background: variables.$themeCard;
+
+    &__title {
+        font-family: variables.$themeTitleFamily;
+        font-size: 16px;
+        font-weight: 700;
+        color: variables.$themeText;
+        margin: 0 0 4px;
+        text-align: center;
+    }
+
+    &__body {
+        font-family: variables.$themeBodyFamily;
+        font-size: 13px;
+        line-height: 1.45;
+        color: variables.$themeText;
+        margin: 0;
+    }
+
+    &__actions {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        gap: 8px;
+        margin-top: 8px;
+        flex-wrap: wrap;
+    }
+}

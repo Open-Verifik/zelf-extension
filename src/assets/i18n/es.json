@@ -678,6 +678,7 @@
         "information": "Esta dirección solo puede usarse para recibir tokens compatibles.",
         "information_stellar": "Se requiere un mínimo de 1 XLM para activar tu cuenta Stellar. Esta dirección solo puede usarse para recibir tokens compatibles.",
         "your_token_address": "Tu dirección de {{ name }}",
+        "generate": "Generar",
         "risks_modal": {
             "title": "Antes de recibir {{ symbol }}",
             "risk_1_title": "Solo red {{ name }}",
@@ -1161,13 +1162,9 @@
         "dashboard": {
             "start": "Iniciar",
             "passwords": "Contraseñas",
-            "notes": "Notas",
-            "payment_cards": "Tarjetas de pago",
             "subscription": "Suscripción",
             "add_password": "Agregar Contraseña",
-            "add_card": "Agregar Tarjeta",
-            "add_note": "Agregar Nota",
-            "add_payment_card": "Agregar Tarjeta"
+            "add_card": "Agregar Tarjeta"
         },
         "payment_cards": {
             "title": "Tarjetas de Pago",

@@ -678,6 +678,14 @@
         "information": "Este endereço só pode ser usado para receber tokens compatíveis.",
         "information_stellar": "Um mínimo de 1 XLM é necessário para ativar sua conta Stellar. Este endereço só pode ser usado para receber tokens compatíveis.",
         "your_token_address": "Seu endereço {{ name }}",
+        "generate": "Gerar",
+        "generate_substrate": {
+            "title": "Endereço {{ symbol }} ainda indisponível",
+            "line_1": "Um endereço de recebimento para {{ fullTagName }} ainda não foi gerado nesta rede.",
+            "line_2": "Para criá-lo, descriptografamos seu cofre uma vez e vinculamos o novo endereço ao seu perfil público. Esse processo único só ocorre após a sua confirmação.",
+            "line_3": "O mesmo fluxo de descriptografia que o app já usa para sincronizar sua carteira buscará e salvará esses dados.",
+            "line_4": "Depois de concluir a verificação facial, seus endereços atualizados serão salvos automaticamente neste dispositivo."
+        },
         "risks_modal": {
             "title": "Antes de receber {{ symbol }}",
             "risk_1_title": "Somente rede {{ name }}",
@@ -1161,13 +1169,9 @@
         "dashboard": {
             "start": "Iniciar",
             "passwords": "Senhas",
-            "notes": "Notas",
-            "payment_cards": "Cartões de Pagamento",
             "subscription": "Assinatura",
             "add_password": "Adicionar Senha",
-            "add_card": "Adicionar Cartão de Pagamento",
-            "add_note": "Adicionar Nota",
-            "add_payment_card": "Adicionar Cartão de Pagamento"
+            "add_card": "Adicionar Cartão de Pagamento"
         },
         "payment_cards": {
             "title": "Cartões de Pagamento",

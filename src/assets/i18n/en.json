@@ -678,6 +678,14 @@
         "information": "This address can only be used to receive compatible tokens.",
         "information_stellar": "A minimum of 1 XLM is required to activate your Stellar account. This address can only be used to receive compatible tokens.",
         "your_token_address": "Your {{ name }} address",
+        "generate": "Generate",
+        "generate_substrate": {
+            "title": "{{ symbol }} address not ready",
+            "line_1": "A receive address for {{ fullTagName }} has not been generated yet for this network.",
+            "line_2": "To create it, we decrypt your vault once and attach the new address to your public profile. This one-time step only runs when you confirm below.",
+            "line_3": "The same decrypt process the app already uses to sync your wallet will fetch and store this data.",
+            "line_4": "After you complete face verification, your updated addresses are saved automatically to this device."
+        },
         "risks_modal": {
             "title": "Before receiving {{ symbol }}",
             "risk_1_title": "{{ name }} network only",

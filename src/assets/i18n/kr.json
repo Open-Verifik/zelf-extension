@@ -678,6 +678,7 @@
         "information": "이 주소는 호환되는 토큰을 받는 데만 사용할 수 있습니다.",
         "information_stellar": "Stellar 계정을 활성화하려면 최소 1 XLM이 필요합니다. 이 주소는 호환되는 토큰을 받는 데만 사용할 수 있습니다.",
         "your_token_address": "{{ name }} 주소",
+        "generate": "생성",
         "risks_modal": {
             "title": "{{ symbol }} 수신 전",
             "risk_1_title": "{{ name }} 네트워크 전용",
@@ -1161,13 +1162,9 @@
         "dashboard": {
             "start": "시작",
             "passwords": "비밀번호",
-            "notes": "노트",
-            "payment_cards": "결제 카드",
             "subscription": "구독",
             "add_password": "비밀번호 추가",
-            "add_card": "결제 카드 추가",
-            "add_note": "노트 추가",
-            "add_payment_card": "결제 카드 추가"
+            "add_card": "결제 카드 추가"
         },
         "payment_cards": {
             "title": "결제 카드",

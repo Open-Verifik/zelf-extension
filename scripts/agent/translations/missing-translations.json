@@ -1,8 +1,8 @@
 {
     "metadata": {
-        "generatedAt": "2026-04-22T15:17:46.809Z",
+        "generatedAt": "2026-04-23T18:55:11.598Z",
         "totalLanguages": 12,
-        "totalMissingKeys": 45,
+        "totalMissingKeys": 67,
         "languageNames": {
             "ar": "Arabic",
             "br": "Portuguese (Brazil)",
@@ -20,72 +20,94 @@
     },
     "missingTranslations": {
         "ar": {
-            "swap.usd_pill": "USD",
-            "swap.half_pill": "50%",
-            "swap.max_pill": "MAX",
+            "receive.generate_substrate.title": "{{ symbol }} address not ready",
+            "receive.generate_substrate.line_1": "A receive address for {{ fullTagName }} has not been generated yet for this network.",
+            "receive.generate_substrate.line_2": "To create it, we decrypt your vault once and attach the new address to your public profile. This one-time step only runs when you confirm below.",
+            "receive.generate_substrate.line_3": "The same decrypt process the app already uses to sync your wallet will fetch and store this data.",
+            "receive.generate_substrate.line_4": "After you complete face verification, your updated addresses are saved automatically to this device.",
             "billing.dashboard.cards": "Cards"
         },
         "br": {
-            "swap.usd_pill": "USD",
-            "swap.half_pill": "50%",
-            "swap.max_pill": "MAX",
             "billing.dashboard.cards": "Cards"
         },
         "cn": {
-            "swap.usd_pill": "USD",
-            "swap.half_pill": "50%",
-            "swap.max_pill": "MAX",
+            "receive.generate_substrate.title": "{{ symbol }} address not ready",
+            "receive.generate_substrate.line_1": "A receive address for {{ fullTagName }} has not been generated yet for this network.",
+            "receive.generate_substrate.line_2": "To create it, we decrypt your vault once and attach the new address to your public profile. This one-time step only runs when you confirm below.",
+            "receive.generate_substrate.line_3": "The same decrypt process the app already uses to sync your wallet will fetch and store this data.",
+            "receive.generate_substrate.line_4": "After you complete face verification, your updated addresses are saved automatically to this device.",
             "billing.dashboard.cards": "Cards"
         },
         "es": {
+            "receive.generate_substrate.title": "{{ symbol }} address not ready",
+            "receive.generate_substrate.line_1": "A receive address for {{ fullTagName }} has not been generated yet for this network.",
+            "receive.generate_substrate.line_2": "To create it, we decrypt your vault once and attach the new address to your public profile. This one-time step only runs when you confirm below.",
+            "receive.generate_substrate.line_3": "The same decrypt process the app already uses to sync your wallet will fetch and store this data.",
+            "receive.generate_substrate.line_4": "After you complete face verification, your updated addresses are saved automatically to this device.",
             "billing.dashboard.cards": "Cards"
         },
         "fr": {
-            "swap.usd_pill": "USD",
-            "swap.half_pill": "50%",
-            "swap.max_pill": "MAX",
+            "receive.generate_substrate.title": "{{ symbol }} address not ready",
+            "receive.generate_substrate.line_1": "A receive address for {{ fullTagName }} has not been generated yet for this network.",
+            "receive.generate_substrate.line_2": "To create it, we decrypt your vault once and attach the new address to your public profile. This one-time step only runs when you confirm below.",
+            "receive.generate_substrate.line_3": "The same decrypt process the app already uses to sync your wallet will fetch and store this data.",
+            "receive.generate_substrate.line_4": "After you complete face verification, your updated addresses are saved automatically to this device.",
             "billing.dashboard.cards": "Cards"
         },
         "in": {
-            "swap.usd_pill": "USD",
-            "swap.half_pill": "50%",
-            "swap.max_pill": "MAX",
+            "receive.generate_substrate.title": "{{ symbol }} address not ready",
+            "receive.generate_substrate.line_1": "A receive address for {{ fullTagName }} has not been generated yet for this network.",
+            "receive.generate_substrate.line_2": "To create it, we decrypt your vault once and attach the new address to your public profile. This one-time step only runs when you confirm below.",
+            "receive.generate_substrate.line_3": "The same decrypt process the app already uses to sync your wallet will fetch and store this data.",
+            "receive.generate_substrate.line_4": "After you complete face verification, your updated addresses are saved automatically to this device.",
             "billing.dashboard.cards": "Cards"
         },
         "ja": {
-            "swap.usd_pill": "USD",
-            "swap.half_pill": "50%",
-            "swap.max_pill": "MAX",
+            "receive.generate_substrate.title": "{{ symbol }} address not ready",
+            "receive.generate_substrate.line_1": "A receive address for {{ fullTagName }} has not been generated yet for this network.",
+            "receive.generate_substrate.line_2": "To create it, we decrypt your vault once and attach the new address to your public profile. This one-time step only runs when you confirm below.",
+            "receive.generate_substrate.line_3": "The same decrypt process the app already uses to sync your wallet will fetch and store this data.",
+            "receive.generate_substrate.line_4": "After you complete face verification, your updated addresses are saved automatically to this device.",
             "billing.dashboard.cards": "Cards"
         },
         "kr": {
-            "swap.usd_pill": "USD",
-            "swap.half_pill": "50%",
-            "swap.max_pill": "MAX",
+            "receive.generate_substrate.title": "{{ symbol }} address not ready",
+            "receive.generate_substrate.line_1": "A receive address for {{ fullTagName }} has not been generated yet for this network.",
+            "receive.generate_substrate.line_2": "To create it, we decrypt your vault once and attach the new address to your public profile. This one-time step only runs when you confirm below.",
+            "receive.generate_substrate.line_3": "The same decrypt process the app already uses to sync your wallet will fetch and store this data.",
+            "receive.generate_substrate.line_4": "After you complete face verification, your updated addresses are saved automatically to this device.",
             "billing.dashboard.cards": "Cards"
         },
         "ph": {
-            "swap.usd_pill": "USD",
-            "swap.half_pill": "50%",
-            "swap.max_pill": "MAX",
+            "receive.generate_substrate.title": "{{ symbol }} address not ready",
+            "receive.generate_substrate.line_1": "A receive address for {{ fullTagName }} has not been generated yet for this network.",
+            "receive.generate_substrate.line_2": "To create it, we decrypt your vault once and attach the new address to your public profile. This one-time step only runs when you confirm below.",
+            "receive.generate_substrate.line_3": "The same decrypt process the app already uses to sync your wallet will fetch and store this data.",
+            "receive.generate_substrate.line_4": "After you complete face verification, your updated addresses are saved automatically to this device.",
             "billing.dashboard.cards": "Cards"
         },
         "ru": {
-            "swap.usd_pill": "USD",
-            "swap.half_pill": "50%",
-            "swap.max_pill": "MAX",
+            "receive.generate_substrate.title": "{{ symbol }} address not ready",
+            "receive.generate_substrate.line_1": "A receive address for {{ fullTagName }} has not been generated yet for this network.",
+            "receive.generate_substrate.line_2": "To create it, we decrypt your vault once and attach the new address to your public profile. This one-time step only runs when you confirm below.",
+            "receive.generate_substrate.line_3": "The same decrypt process the app already uses to sync your wallet will fetch and store this data.",
+            "receive.generate_substrate.line_4": "After you complete face verification, your updated addresses are saved automatically to this device.",
             "billing.dashboard.cards": "Cards"
         },
         "th": {
-            "swap.usd_pill": "USD",
-            "swap.half_pill": "50%",
-            "swap.max_pill": "MAX",
+            "receive.generate_substrate.title": "{{ symbol }} address not ready",
+            "receive.generate_substrate.line_1": "A receive address for {{ fullTagName }} has not been generated yet for this network.",
+            "receive.generate_substrate.line_2": "To create it, we decrypt your vault once and attach the new address to your public profile. This one-time step only runs when you confirm below.",
+            "receive.generate_substrate.line_3": "The same decrypt process the app already uses to sync your wallet will fetch and store this data.",
+            "receive.generate_substrate.line_4": "After you complete face verification, your updated addresses are saved automatically to this device.",
             "billing.dashboard.cards": "Cards"
         },
         "ur": {
-            "swap.usd_pill": "USD",
-            "swap.half_pill": "50%",
-            "swap.max_pill": "MAX",
+            "receive.generate_substrate.title": "{{ symbol }} address not ready",
+            "receive.generate_substrate.line_1": "A receive address for {{ fullTagName }} has not been generated yet for this network.",
+            "receive.generate_substrate.line_2": "To create it, we decrypt your vault once and attach the new address to your public profile. This one-time step only runs when you confirm below.",
+            "receive.generate_substrate.line_3": "The same decrypt process the app already uses to sync your wallet will fetch and store this data.",
+            "receive.generate_substrate.line_4": "After you complete face verification, your updated addresses are saved automatically to this device.",
             "billing.dashboard.cards": "Cards"
         }
     }

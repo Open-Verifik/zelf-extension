@@ -33,6 +33,60 @@ export function tryHealPublicDataXlmToCanonical(pd: Record<string, unknown> | nu
     return next;
 }
 
+const ADDRESS_CHUNK_KEYS = ["addresses", "addresses2", "addresses3"] as const;
+
+function mergeAddressChunkValue(out: Record<string, unknown>, key: (typeof ADDRESS_CHUNK_KEYS)[number]): void {
+    const raw = out[key];
+    if (raw == null) return;
+    if (typeof raw === "string") {
+        try {
+            const chunk: unknown = JSON.parse(raw);
+            if (chunk && typeof chunk === "object" && !Array.isArray(chunk)) {
+                Object.assign(out, chunk as Record<string, unknown>);
+            }
+        } catch {
+            /* keep raw string on out for debugging */
+        }
+        return;
+    }
+    if (typeof raw === "object" && !Array.isArray(raw)) {
+        Object.assign(out, raw as Record<string, unknown>);
+    }
+}
+
+/** Merges Pinata `addresses[N]` (JSON string or pre-parsed object) onto a shallow copy. */
+function withMergedAddressChunkFields(pd: Record<string, unknown>): Record<string, unknown> {
+    const out = { ...pd };
+
+    for (const k of ADDRESS_CHUNK_KEYS) {
+        mergeAddressChunkValue(out, k);
+    }
+
+    return out;
+}
+
+/** API / IPFS `publicData` uses `dotAddress`; `polkadotAddress` and short chunk key `dot` are fallbacks. */
+export function readPublicDataDotAddress(pd: Record<string, unknown> | null | undefined): string {
+    if (!pd) return "";
+    const m = withMergedAddressChunkFields(pd);
+    const primary = m.dotAddress;
+    const alt = (m as Record<string, string>).polkadotAddress;
+    const short = (m as Record<string, string>).dot;
+    const s = (typeof primary === "string" ? primary : "") || (typeof alt === "string" ? alt : "") || (typeof short === "string" ? short : "");
+    return s.trim();
+}
+
+/** API / IPFS `publicData` uses `ksmAddress`; `kusamaAddress` and short chunk key `ksm` are fallbacks. */
+export function readPublicDataKsmAddress(pd: Record<string, unknown> | null | undefined): string {
+    if (!pd) return "";
+    const m = withMergedAddressChunkFields(pd);
+    const primary = m.ksmAddress;
+    const alt = (m as Record<string, string>).kusamaAddress;
+    const short = (m as Record<string, string>).ksm;
+    const s = (typeof primary === "string" ? primary : "") || (typeof alt === "string" ? alt : "") || (typeof short === "string" ? short : "");
+    return s.trim();
+}
+
 export interface TagPublicData {
     btcAddress: string;
     domain: string;
@@ -40,6 +94,8 @@ export interface TagPublicData {
     solanaAddress: string;
     xlmAddress: string;
     suiAddress: string;
+    dotAddress: string;
+    ksmAddress: string;
     tagName: string;
     hasPassword: string;
     type: "mainnet" | "hold" | "";
@@ -68,6 +124,8 @@ export class TagPublicDataModel {
     solanaAddress: string;
     xlmAddress: string;
     suiAddress: string;
+    dotAddress: string;
+    ksmAddress: string;
     tagName: string;
     hasPassword: string;
     type: "mainnet" | "hold" | "";
@@ -87,6 +145,8 @@ export class TagPublicDataModel {
         this.solanaAddress = data.solanaAddress || "";
         this.xlmAddress = readPublicDataXlmAddress(data as Record<string, unknown>);
         this.suiAddress = data.suiAddress || "";
+        this.dotAddress = readPublicDataDotAddress(data as Record<string, unknown>);
+        this.ksmAddress = readPublicDataKsmAddress(data as Record<string, unknown>);
         this.tagName = data.tagName || "";
         this.hasPassword = data.hasPassword || "false";
         this.type = data.type || "";
@@ -205,7 +265,13 @@ export class TagModel {
         const explicitDomain = data.domain || data.publicData?.domain;
         const extractedDomain = explicitDomain || extractDomain(rawTagName);
 
+        // Spread raw `publicData` so Pinata/short keys (`dot`, `ksm`, chunk JSON) are visible to
+        // readPublicData* in TagPublicDataModel (same pattern as the full search API payload).
+        const publicDataSrc: Record<string, unknown> =
+            data.publicData && typeof data.publicData === "object" ? { ...(data.publicData as object) } : {};
+
         this.publicData = new TagPublicDataModel({
+            ...publicDataSrc,
             avalancheAddress: data.publicData?.avalancheAddress || data.publicData?.ethAddress || "",
             binanceAddress: data.publicData?.binanceAddress || data.publicData?.ethAddress || "",
             blockDAGAddress: data.publicData?.blockDAGAddress || "",
@@ -217,7 +283,6 @@ export class TagModel {
             origin: data.publicData?.origin || "",
             registeredAt: data.publicData?.registeredAt || "",
             solanaAddress: data.publicData?.solanaAddress || "",
-            xlmAddress: readPublicDataXlmAddress(data.publicData as Record<string, unknown>),
             suiAddress: data.publicData?.suiAddress || "",
             tagName: rawTagName,
             type: data.publicData?.type || "",

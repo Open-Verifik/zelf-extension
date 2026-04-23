@@ -1,6 +1,13 @@
 import { Injectable } from "@angular/core";
 
-import { TagModel, TagPublicData, TagPublicDataModel, PGP } from "@shared/types/tag.types";
+import {
+    readPublicDataDotAddress,
+    readPublicDataKsmAddress,
+    TagModel,
+    TagPublicData,
+    TagPublicDataModel,
+    PGP,
+} from "@shared/types/tag.types";
 import { environment } from "../environments/environment";
 import { ChromeService } from "./chrome.service";
 import { HttpWrapperService } from "./http-wrapper.service";
@@ -563,6 +570,52 @@ export class TagsService {
         }
 
         return true;
+    }
+
+    private static readonly _SUBSTRATE_BACKFILL_SESSION_KEY = "substratePublicDataBackfillDone" as const;
+
+    /**
+     * Fetches publicData in the **background** without blocking the UI.
+     * - Runs when the 30m session window allows (same as {@link refreshAllTagsPublicData}).
+     * - If TTL says "skip" but `readPublicData*` finds **no** DOT/KSM in storage, runs **one** search this session
+     *   to backfill canonical fields (e.g. after a merge that left empty `dotAddress` on the model).
+     */
+    scheduleTagPublicDataRefreshIfDue(tag: TagModel): void {
+        if (!tag) return;
+        void (async () => {
+            const pd = tag.publicData as unknown as Record<string, unknown> | null | undefined;
+            const hasSubstrateInStorage =
+                Boolean(readPublicDataDotAddress(pd)) || Boolean(readPublicDataKsmAddress(pd));
+
+            const refreshBySessionTtl = await this._shouldRefreshWallets();
+
+            if (refreshBySessionTtl) {
+                try {
+                    await this.refreshTagPublicData(tag);
+                } catch {
+                    /* non-blocking; no toast here */
+                }
+                return;
+            }
+
+            if (hasSubstrateInStorage) {
+                return;
+            }
+
+            const backfillDone = await this._chromeService.getItemSession<string>(TagsService._SUBSTRATE_BACKFILL_SESSION_KEY);
+            if (backfillDone) {
+                return;
+            }
+
+            try {
+                const updated = await this.refreshTagPublicData(tag);
+                if (updated) {
+                    await this._chromeService.setItemSession(TagsService._SUBSTRATE_BACKFILL_SESSION_KEY, "1");
+                }
+            } catch {
+                /* non-blocking; allow retry on next Receive open if search failed */
+            }
+        })();
     }
 
     async refreshTagPublicData(tag: TagModel): Promise<TagModel | null> {

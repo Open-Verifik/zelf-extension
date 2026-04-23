@@ -678,6 +678,7 @@
         "information": "このアドレスは互換性のあるトークンを受け取るためにのみ使用できます。",
         "information_stellar": "Stellarアカウントを有効にするには最低1 XLMが必要です。このアドレスは互換性のあるトークンを受け取るためにのみ使用できます。",
         "your_token_address": "{{ name }}アドレス",
+        "generate": "生成",
         "risks_modal": {
             "title": "{{ symbol }}を受け取る前に",
             "risk_1_title": "{{ name }}ネットワーク限定",
@@ -1161,13 +1162,9 @@
         "dashboard": {
             "start": "開始",
             "passwords": "パスワード",
-            "notes": "ノート",
-            "payment_cards": "支払いカード",
             "subscription": "サブスクリプション",
             "add_password": "パスワードを追加",
-            "add_card": "支払いカードを追加",
-            "add_note": "ノートを追加",
-            "add_payment_card": "支払いカードを追加"
+            "add_card": "支払いカードを追加"
         },
         "payment_cards": {
             "title": "支払いカード",

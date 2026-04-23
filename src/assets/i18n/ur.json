@@ -678,6 +678,7 @@
         "information": "یہ پتہ صرف مطابقت پذیر ٹوکنز وصول کرنے کے لیے استعمال کیا جا سکتا ہے۔",
         "information_stellar": "آپ کے Stellar اکاؤنٹ کو فعال کرنے کے لیے کم از کم 1 XLM درکار ہے۔ یہ پتہ صرف مطابقت پذیر ٹوکنز وصول کرنے کے لیے استعمال کیا جا سکتا ہے۔",
         "your_token_address": "آپ کا {{ name }} پتہ",
+        "generate": "بنائیں",
         "risks_modal": {
             "title": "{{ symbol }} وصول کرنے سے پہلے",
             "risk_1_title": "صرف {{ name }} نیٹ ورک",
@@ -1161,13 +1162,9 @@
         "dashboard": {
             "start": "شروع کریں",
             "passwords": "پاس ورڈز",
-            "notes": "نوٹ",
-            "payment_cards": "ادائیگی کارڈز",
             "subscription": "سبسکرپشن",
             "add_password": "پاس ورڈ شامل کریں",
-            "add_card": "ادائیگی کارڈ شامل کریں",
-            "add_note": "نوٹ شامل کریں",
-            "add_payment_card": "ادائیگی کارڈ شامل کریں"
+            "add_card": "ادائیگی کارڈ شامل کریں"
         },
         "payment_cards": {
             "title": "ادائیگی کارڈز",

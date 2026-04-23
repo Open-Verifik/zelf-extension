@@ -1,0 +1,19 @@
+<div class="gen-sub-modal" *transloco="let t">
+    <h2 class="gen-sub-modal__title">{{ t("receive.generate_substrate.title", { symbol: data.symbol }) }}</h2>
+
+    <p class="gen-sub-modal__body">
+        {{ t("receive.generate_substrate.line_1", { fullTagName: data.fullTagName }) }}
+    </p>
+    <p class="gen-sub-modal__body">{{ t("receive.generate_substrate.line_2") }}</p>
+    <p class="gen-sub-modal__body">{{ t("receive.generate_substrate.line_3") }}</p>
+    <p class="gen-sub-modal__body">{{ t("receive.generate_substrate.line_4") }}</p>
+
+    <div class="gen-sub-modal__actions">
+        <button type="button" class="zelf-button zelf-button--secondary" (click)="cancel()">
+            {{ t("common.cancel") }}
+        </button>
+        <button type="button" class="zelf-button zelf-button--primary" (click)="continue()">
+            {{ t("common.continue") }}
+        </button>
+    </div>
+</div>

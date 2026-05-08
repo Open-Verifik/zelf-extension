@@ -56,7 +56,13 @@ export class ManageDomainComponent implements OnInit, OnDestroy {
         const { wallet, wallets } = await this._walletService.getAllWalletsFromStorage();
 
         if (this._selectedZelfName) {
-            this.wallet = wallets.find((w) => w.tagName.toLowerCase() === this._selectedZelfName.toLowerCase()) || wallet || ({} as TagModel);
+            const fromList = wallets.find((w) => w.tagName.toLowerCase() === this._selectedZelfName.toLowerCase());
+
+            if (fromList && wallet && this._walletService.walletIdentityEquals(fromList, wallet)) {
+                this.wallet = wallet;
+            } else {
+                this.wallet = fromList || wallet || ({} as TagModel);
+            }
         } else {
             this.wallet = wallet || ({} as TagModel);
         }

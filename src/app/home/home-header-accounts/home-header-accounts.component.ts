@@ -24,7 +24,6 @@ export class HomeHeaderAccountsComponent implements OnInit, OnDestroy {
 
     currentRoute: string = "";
     currentWalletTagName: string = "";
-    isSeedPhraseActive: boolean = false;
     isZelfLinkActive: boolean = false;
     isZelfKeysLoading: boolean = false;
     loaded: boolean = false;
@@ -119,10 +118,8 @@ export class HomeHeaderAccountsComponent implements OnInit, OnDestroy {
         if (this.isRouteActive("/wallet")) {
             const parameters = await this._chromeService.getItem("parameters");
 
-            this.isSeedPhraseActive = parameters?.openPrivateKeyBottomSheet === true;
             this.isZelfLinkActive = parameters?.openMyArnsBottomSheet === true;
         } else {
-            this.isSeedPhraseActive = false;
             this.isZelfLinkActive = false;
         }
     }
@@ -153,7 +150,6 @@ export class HomeHeaderAccountsComponent implements OnInit, OnDestroy {
         if (this.isZelfKeysLoading) return;
 
         await this._walletService.switchWallet(selectedWallet);
-        await this._chromeService.setItem("parameters", { openPrivateKeyBottomSheet: true });
 
         await this._router.navigate(["/wallet"]);
 
@@ -239,15 +235,11 @@ export class HomeHeaderAccountsComponent implements OnInit, OnDestroy {
 
         if (walletTagName && !this.isWalletActive(walletTagName)) return false;
 
-        return !this.isSeedPhraseActive && !this.isZelfLinkActive;
+        return !this.isZelfLinkActive;
     }
 
     isSeedPhraseActiveForWallet(walletTagName?: string): boolean {
-        if (!this.isRouteActive("/wallet")) return false;
-
-        if (walletTagName && !this.isWalletActive(walletTagName)) return false;
-
-        return this.isSeedPhraseActive;
+        return this.isDownloadQRActive(walletTagName);
     }
 
     isZelfLinkActiveForWallet(walletTagName?: string): boolean {

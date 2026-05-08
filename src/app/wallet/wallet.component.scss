@@ -15,14 +15,37 @@
 }
 
 .wallet {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    gap: calc(24px * var(--zns-space-scale, 1));
-    justify-content: center;
+    position: relative;
     width: 100%;
-    max-width: var(--zns-card-width, 536px);
+    height: 100%;
     min-height: var(--zns-card-min-height, 768px);
+
+    &__app-content {
+        flex: 1;
+        width: 100%;
+        min-height: 0;
+        overflow: auto;
+        padding: calc(16px * var(--zns-space-scale, 1));
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+
+        @media (max-width: variables.$minSmall) {
+            padding: calc(8px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
+        }
+    }
+
+    &__container {
+        display: flex;
+        width: 100%;
+        flex-grow: 1;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        min-height: 100%;
+        max-width: var(--zns-card-width, 536px);
+        margin: 0 auto;
+    }
 
     &__header {
         display: grid;
@@ -32,6 +55,7 @@
         justify-content: flex-start;
         gap: calc(24px * var(--zns-space-scale, 1));
         width: 100%;
+        flex-shrink: 0;
     }
 
     &__col1,
@@ -54,6 +78,78 @@
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+
+    &__hero-card {
+        position: relative;
+        width: 100%;
+        border: none;
+        background: transparent;
+        border-radius: 0;
+        padding: 0;
+
+        @media (max-width: variables.$minSmall) {
+            padding: 0;
+        }
+    }
+
+    &__hero-inner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        gap: calc(12px * var(--zns-space-scale, 1));
+    }
+
+    &__qr {
+        margin-top: calc(4px * var(--zns-space-scale, 1));
+    }
+
+    &__tag-title {
+        margin: 0;
+        text-align: center;
+        max-width: 100%;
+        word-break: break-word;
+    }
+
+    &__download-row {
+        width: 100%;
+        margin-top: calc(4px * var(--zns-space-scale, 1));
+
+        &.zelf-action-row {
+            box-sizing: border-box;
+            align-items: center;
+            background-color: transparent;
+            border-radius: 0;
+            border: none;
+            border-top: 1px solid variables.$themeCardBorder;
+            box-shadow: none;
+            min-height: 0;
+            justify-content: space-between;
+            padding: calc(14px * var(--zns-space-scale, 1)) 0 calc(4px * var(--zns-space-scale, 1));
+            gap: calc(8px * var(--zns-space-scale, 1));
+        }
+    }
+
+    &__qr.qr-code,
+    &__hero-card .qr-code {
+        border: none;
+        border-radius: calc(12px * var(--zns-space-scale, 1));
+        background-color: transparent;
+        box-shadow: none;
+        padding: 0;
+        min-height: auto;
+        min-width: auto;
+        max-height: none;
+        max-width: min(236px, 100%);
+        width: min(236px, 100%);
+        aspect-ratio: 1;
+    }
+
+    &__quick-actions {
+        width: 100%;
+        margin-top: calc(12px * var(--zns-space-scale, 1));
+        padding-top: calc(4px * var(--zns-space-scale, 1));
     }
 
     &__status-chip {
@@ -79,99 +175,6 @@
         }
     }
 
-    &__name {
-        font-size: calc(20px * var(--zns-font-scale, 1));
-        font-weight: 400;
-        font-family: variables.$themeTitleFamily;
-        color: variables.$themeText;
-        margin: 0;
-
-        @media (max-width: variables.$minSmall) {
-            font-size: calc(18px * var(--zns-font-scale, 1));
-        }
-    }
-
-    &__tasks {
-        display: flex;
-        flex-direction: row;
-        gap: calc(8px * var(--zns-space-scale, 1));
-        justify-content: center;
-        align-items: center;
-        margin-top: calc(8px * var(--zns-space-scale, 1));
-        width: 100%;
-    }
-
-    &__task {
-        display: flex;
-        flex-direction: column;
-        gap: calc(8px * var(--zns-space-scale, 1));
-        justify-content: center;
-        align-items: center;
-
-        &-button {
-            background-color: variables.$themeBackgroundSecondary;
-            border-radius: 12px;
-            color: variables.$themeText;
-            cursor: pointer;
-            display: flex;
-            flex: 1;
-            font-family: variables.$themeBodyFamily;
-            font-size: calc(14px * var(--zns-font-scale, 1));
-            font-weight: 500;
-            height: calc(104px * var(--zns-space-scale, 1));
-            padding: calc(12px * var(--zns-space-scale, 1));
-            border: none;
-            transition:
-                background-color 0.2s variables.$smoothBezier,
-                color 0.2s variables.$smoothBezier;
-            width: calc(96px * var(--zns-space-scale, 1));
-
-            svg {
-                transition: fill 0.3s variables.$smoothBezier;
-                fill: variables.$themeText;
-            }
-
-            &:hover {
-                background-color: variables.$secondaryColor !important;
-                color: variables.$themeCard;
-
-                svg {
-                    fill: variables.$themeCard;
-                }
-            }
-        }
-
-        &-text {
-            margin: 0;
-            font-size: calc(11px * var(--zns-font-scale, 1));
-            font-weight: 500;
-            font-family: variables.$themeBodyFamily;
-            color: variables.$themeText;
-        }
-    }
-
-    &__task-button-content {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: calc(8px * var(--zns-space-scale, 1));
-        width: 100%;
-
-        svg {
-            width: calc(24px * var(--zns-space-scale, 1));
-            height: calc(24px * var(--zns-space-scale, 1));
-            flex-shrink: 0;
-        }
-
-        span {
-            font-size: calc(12px * var(--zns-font-scale, 1));
-            font-weight: 500;
-            text-align: center;
-            line-height: calc(14px * var(--zns-font-scale, 1));
-        }
-    }
-
     &__title {
         font-family: variables.$themeBodyFamily;
         font-weight: 500;
@@ -182,16 +185,6 @@
         vertical-align: middle;
         color: variables.$themeText;
         margin: 0;
-    }
-
-    &__content {
-        width: 100%;
-        max-width: min(400px, var(--zns-card-width, 400px));
-        display: flex;
-        flex-direction: column;
-        gap: calc(8px * var(--zns-space-scale, 1));
-        justify-content: center;
-        align-items: center;
     }
 
     &__details {
@@ -237,13 +230,14 @@
         flex-direction: column;
         gap: calc(12px * var(--zns-space-scale, 1));
         width: 100%;
-        margin-top: calc(24px * var(--zns-space-scale, 1));
+        margin-top: calc(16px * var(--zns-space-scale, 1));
     }
 
     &__tabs {
         margin-top: calc(16px * var(--zns-space-scale, 1));
         margin-bottom: calc(8px * var(--zns-space-scale, 1));
         width: 100%;
+        padding: 0 calc(4px * var(--zns-space-scale, 1));
     }
 
     &__tab-content {
@@ -263,6 +257,26 @@
         width: 100%;
         max-width: min(400px, var(--zns-card-width, 400px));
         margin-top: calc(12px * var(--zns-space-scale, 1));
+        flex-shrink: 0;
+    }
+}
+
+.wallet__quick-actions .zelf-action-button__icon {
+    border-radius: calc(16px * var(--zns-space-scale, 1));
+    width: calc(100px * var(--zns-space-scale, 1));
+}
+
+/* Flatten nested mnemonic chrome when embedded in wallet hero (one surface, not card-on-card). */
+:host ::ng-deep mnemonic {
+    .mnemonic__password-form,
+    .mnemonic__decrypting {
+        border: none;
+        box-shadow: none;
+        background-color: transparent;
+        margin-top: calc(8px * var(--zns-space-scale, 1));
+        margin-bottom: 0;
+        padding-left: 0;
+        padding-right: 0;
     }
 }
 

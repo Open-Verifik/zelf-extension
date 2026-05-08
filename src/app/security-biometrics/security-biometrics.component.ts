@@ -78,10 +78,10 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
 
     async ngOnInit(): Promise<void> {
         let savedFlow = await this._tagsService.getFlow();
-        
+
         if (!savedFlow) {
             const { wallet, wallets } = await this._walletService.getAllWalletsFromStorage();
-            savedFlow = (!!wallet?.name || wallets?.length) ? "unlock" : "create";
+            savedFlow = !!wallet?.name || wallets?.length ? "unlock" : "create";
         }
 
         this.flow = savedFlow;

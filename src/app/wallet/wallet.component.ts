@@ -1,20 +1,22 @@
 import { CommonModule, NgFor, NgIf, NgTemplateOutlet } from "@angular/common";
-import { Component, DestroyRef, OnInit } from "@angular/core";
+import { Component, DestroyRef, OnDestroy, OnInit } from "@angular/core";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatBottomSheet } from "@angular/material/bottom-sheet";
 import { MatButtonModule } from "@angular/material/button";
 import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
-import { RouterLink, RouterModule } from "@angular/router";
+import { Router, RouterLink, RouterModule } from "@angular/router";
 
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 
 import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboard.base";
 import { ChromeService } from "app/chrome.service";
 import { InfoSheetComponent } from "app/info-sheet/info-sheet.component";
+import { MnemonicComponent } from "app/mnemonic/mnemonic.component";
 import { MyArNSComponent } from "app/my-arns/my-arns.component";
-import { PrivateKeyComponent } from "app/private-key/private-key.component";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
 import { TagModel, TagsService } from "app/tags.service";
+import { VaultService } from "app/vault.service";
 import { Network, WalletService } from "app/wallet.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 
@@ -23,6 +25,7 @@ import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
         CommonModule,
         NgFor,
         NgIf,
+        FlexLayoutModule,
         MatButtonModule,
         TranslocoModule,
         RouterLink,
@@ -31,12 +34,13 @@ import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
         MatSnackBarModule,
         AddressMaskPipe,
         ZelfLoaderComponent,
+        MnemonicComponent,
     ],
     selector: "wallet",
-    styleUrls: ["./wallet.component.scss"],
+    styleUrls: ["./wallet.component.scss", "../main.scss"],
     templateUrl: "./wallet.component.html",
 })
-export class WalletComponent extends CopyToClipboardBase implements OnInit {
+export class WalletComponent extends CopyToClipboardBase implements OnInit, OnDestroy {
     private _showArnsInstructions: boolean = true;
 
     loading: boolean = true;
@@ -48,6 +52,8 @@ export class WalletComponent extends CopyToClipboardBase implements OnInit {
     constructor(
         private _bottomSheet: MatBottomSheet,
         private _destroyRef: DestroyRef,
+        private _router: Router,
+        private _vaultService: VaultService,
         private _walletService: WalletService,
         private _tagsService: TagsService,
         protected _chromeService: ChromeService,
@@ -70,14 +76,17 @@ export class WalletComponent extends CopyToClipboardBase implements OnInit {
 
         await this._chromeService.removeItem("parameters");
 
-        if (this.parameters.openPrivateKeyBottomSheet) this.openPrivateKeyBottomSheet();
-        else if (this.parameters.openMyArnsBottomSheet) this.openMyArnsBottomSheet();
+        if (this.parameters.openMyArnsBottomSheet) this.openMyArnsBottomSheet();
 
         await this._updateWallet();
 
         await this._initNetworks();
 
         this.loading = false;
+    }
+
+    ngOnDestroy(): void {
+        this._vaultService.mnemonic = "";
     }
 
     get showArnsButton(): boolean {
@@ -97,31 +106,12 @@ export class WalletComponent extends CopyToClipboardBase implements OnInit {
         this.networks = await this._walletService.getAvailableWalletNetworks(null);
     }
 
-    private _mapSymbolToNetworkId(symbol: string): string {
-        switch (symbol.toUpperCase()) {
-            case "ETH":
-                return "ethereum";
-            case "AVAX":
-                return "avalanche";
-            case "BNB":
-            case "BSC":
-                return "binance";
-            case "BTC":
-                return "bitcoin";
-            case "BDAG":
-                return "blockdag";
-            case "MATIC":
-            case "POL":
-                return "polygon";
-            case "SOL":
-                return "solana";
-            case "SUI":
-                return "sui";
-            case "XLM":
-                return "stellar";
-            default:
-                return symbol.toLowerCase();
-        }
+    async onMnemonicUnlock(): Promise<void> {
+        await this._tagsService.setFlow("unlock");
+
+        await this._tagsService.setTagName(this.wallet?.name as string);
+
+        this._router.navigate(["/security/biometrics"], { queryParams: { return: "/wallet" } });
     }
 
     async copyToClipboard(value: string): Promise<void> {
@@ -168,14 +158,6 @@ export class WalletComponent extends CopyToClipboardBase implements OnInit {
             backdropClass: "zelf-backdrop",
             panelClass: "zelf-bottom-sheet",
             data: { wallet: this.wallet },
-        });
-    }
-
-    openPrivateKeyBottomSheet(): void {
-        this._bottomSheet.open(PrivateKeyComponent, {
-            data: { wallet: this.wallet },
-            backdropClass: "zelf-backdrop",
-            panelClass: "zelf-bottom-sheet",
         });
     }
 

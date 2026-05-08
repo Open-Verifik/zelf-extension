@@ -7,51 +7,6 @@
     margin: calc(16px * var(--zns-space-scale, 1)) 0 0;
 }
 
-:host-context(.private-key) {
-    margin: calc(10px * var(--zns-space-scale, 1)) 0 0;
-
-    .mnemonic {
-        gap: calc(14px * var(--zns-space-scale, 1));
-
-        .mnemonic__password-form {
-            gap: calc(10px * var(--zns-space-scale, 1));
-            padding: calc(10px * var(--zns-space-scale, 1));
-            margin: calc(10px * var(--zns-space-scale, 1)) 0;
-        }
-
-        .mnemonic__pin-subtitle {
-            margin: 0 0 calc(8px * var(--zns-space-scale, 1));
-        }
-
-        .mnemonic__pin-inputs-container {
-            gap: calc(8px * var(--zns-space-scale, 1));
-        }
-
-        .mnemonic__pin-inputs-row {
-            gap: calc(6px * var(--zns-space-scale, 1));
-        }
-
-        .mnemonic__pin-inputs {
-            gap: calc(4px * var(--zns-space-scale, 1));
-        }
-
-        .mnemonic__pin-input {
-            width: calc(28px * var(--zns-space-scale, 1));
-            height: calc(36px * var(--zns-space-scale, 1));
-            font-size: calc(14px * var(--zns-font-scale, 1));
-        }
-
-        .mnemonic__pin-toggle svg {
-            width: calc(16px * var(--zns-space-scale, 1));
-            height: calc(16px * var(--zns-space-scale, 1));
-        }
-
-        .mnemonic__actions {
-            gap: calc(6px * var(--zns-space-scale, 1));
-        }
-    }
-}
-
 .mnemonic {
     position: relative;
     width: 100%;

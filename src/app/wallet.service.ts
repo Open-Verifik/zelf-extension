@@ -9,6 +9,7 @@ import {
     readPublicDataDotAddress,
     readPublicDataKsmAddress,
     tryHealPublicDataXlmToCanonical,
+    type PGP,
 } from "@shared/types/tag.types";
 import { TagModel } from "./tags.service";
 import { ChromeService } from "./chrome.service";
@@ -600,22 +601,64 @@ export class WalletService {
         return new TagModel(wallets[0] || {});
     }
 
+    /** Same logical Zelf identity (full tag + domain), using TagModel normalization for stored POJOs. */
+    walletIdentityEquals(a: Partial<TagModel>, b: Partial<TagModel>): boolean {
+        const ma = new TagModel(a as any);
+        const mb = new TagModel(b as any);
+        const af = ma.fullTagName;
+        const bf = mb.fullTagName;
+
+        return !!af && af === bf;
+    }
+
+    private _hasMeaningfulPgp(pgp: TagModel["pgp"] | undefined | null): boolean {
+        return !!(pgp?.encryptedMessage?.trim() && pgp?.privateKey?.trim());
+    }
+
+    /**
+     * Refresh/public-data updates often pass tags without `pgp`. Keep prior stored keys unless incoming
+     * includes non-empty armored material (e.g. after decrypt).
+     */
+    private _mergeWalletUpdatePreservingPgp(existing: Partial<TagModel> | null | undefined, walletToUpdate: Partial<TagModel>): TagModel {
+        const incoming = new TagModel(walletToUpdate as any);
+
+        if (!existing) return incoming;
+
+        const prior = new TagModel(existing as any);
+
+        if (!this._hasMeaningfulPgp(incoming.pgp) && this._hasMeaningfulPgp(prior.pgp)) {
+            const priorPgp = prior.pgp as PGP;
+
+            incoming.pgp = {
+                encryptedMessage: priorPgp.encryptedMessage,
+                privateKey: priorPgp.privateKey,
+            };
+        }
+
+        return incoming;
+    }
+
     async updateWallet(walletToUpdate: Partial<TagModel>): Promise<void> {
         if (!walletToUpdate || !walletToUpdate.publicData?.tagName) return;
 
         const { wallet, wallets } = await this.getAllWalletsFromStorage();
+        const incomingModel = new TagModel(walletToUpdate as any);
 
-        if (wallet && wallet.publicData?.tagName && wallet.publicData?.tagName === walletToUpdate.publicData?.tagName) {
-            await this._chromeService.setItem("wallet", walletToUpdate);
+        if (wallet && this.walletIdentityEquals(wallet, incomingModel)) {
+            const merged = this._mergeWalletUpdatePreservingPgp(wallet, walletToUpdate);
+
+            await this._chromeService.setItem("wallet", merged);
 
             return;
         }
 
-        const index = wallets.findIndex((_wallet) => _wallet.publicData.tagName === walletToUpdate.publicData?.tagName);
+        const index = wallets.findIndex((w) => w.fullTagName === incomingModel.fullTagName);
 
         if (index === -1) return;
 
-        wallets[index] = walletToUpdate as TagModel;
+        const merged = this._mergeWalletUpdatePreservingPgp(wallets[index], walletToUpdate);
+
+        wallets[index] = merged;
 
         await this._chromeService.setItem("wallets", wallets);
     }
@@ -686,9 +729,15 @@ export class WalletService {
     }
 
     async switchWallet(selectedWallet: TagModel): Promise<void> {
-        const oldCurrentWallet = (await this._chromeService.getItem<Partial<TagModel> | null>("wallet")) || {};
+        const oldRaw = (await this._chromeService.getItem<Partial<TagModel> | null>("wallet")) || {};
+        const oldCurrentWalletModel = new TagModel(oldRaw as any);
+        const selected = selectedWallet instanceof TagModel ? selectedWallet : new TagModel(selectedWallet as any);
 
-        if (selectedWallet.fullTagName === oldCurrentWallet?.fullTagName) return;
+        if (this.walletIdentityEquals(oldCurrentWalletModel, selected)) {
+            await this._chromeService.setItem("wallet", selected);
+
+            return;
+        }
 
         const otherWallets = (await this._chromeService.getItem<TagModel[]>("wallets")) || [];
 
@@ -698,12 +747,14 @@ export class WalletService {
             otherWallets[index] = new TagModel(_wallet);
         }
 
-        const oldCurrentWalletModel = new TagModel(oldCurrentWallet);
         const oldCurrentWalletIsSet = Boolean(
-            oldCurrentWalletModel._id || oldCurrentWalletModel.fullTagName || oldCurrentWalletModel.name || oldCurrentWalletModel.publicData?.tagName
+            oldCurrentWalletModel._id ||
+                oldCurrentWalletModel.fullTagName ||
+                oldCurrentWalletModel.name ||
+                oldCurrentWalletModel.publicData?.tagName
         );
 
-        const selectedFilteredFromOtherWallets = otherWallets.filter((_wallet) => _wallet.fullTagName !== selectedWallet.fullTagName);
+        const selectedFilteredFromOtherWallets = otherWallets.filter((_wallet) => _wallet.fullTagName !== selected.fullTagName);
 
         let updatedWalletsArray: TagModel[] = [];
 
@@ -720,9 +771,9 @@ export class WalletService {
         }
 
         await this._chromeService.setItems({
-            domain: selectedWallet.publicData?.domain,
-            tagName: selectedWallet.tagName,
-            wallet: selectedWallet,
+            domain: selected.publicData?.domain,
+            tagName: selected.tagName,
+            wallet: selected,
             wallets: updatedWalletsArray,
         });
     }

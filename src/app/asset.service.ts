@@ -17,7 +17,9 @@ export interface NetworkPermissions {
     BDAG?: boolean;
     BNB?: boolean;
     BTC?: boolean;
+    DOT?: boolean;
     ETH?: boolean;
+    KSM?: boolean;
     POL?: boolean;
     SOL?: boolean;
     SUI?: boolean;
@@ -83,7 +85,9 @@ export class AssetService {
             BDAG: true,
             BNB: true,
             BTC: true,
+            DOT: true,
             ETH: true,
+            KSM: true,
             POL: true,
             SOL: true,
             SUI: true,
@@ -143,6 +147,10 @@ export class AssetService {
                     return "MATIC";
                 case "Stellar":
                     return "XLM";
+                case "Polkadot":
+                    return "DOT";
+                case "Kusama":
+                    return "KSM";
                 default:
                     return "NATIVE";
             }
@@ -177,6 +185,8 @@ export class AssetService {
             Solana: ["SOL", "SOLANA"],
             Stellar: ["XLM", "STELLAR"],
             Sui: ["SUI", "SUI-TOKEN"],
+            Polkadot: ["DOT", "POLKADOT"],
+            Kusama: ["KSM", "KUSAMA"],
         };
 
         const networkNativeSymbols = nativeTokenSymbols[network] || [];
@@ -306,7 +316,9 @@ export class AssetService {
                     (network === "Sui" && !permissions.SUI) ||
                     (network === "Binance" && !permissions.BNB) ||
                     (network === "Polygon" && !permissions.POL) ||
-                    (network === "Stellar" && !permissions.XLM)
+                    (network === "Stellar" && !permissions.XLM) ||
+                    (network === "Polkadot" && !permissions.DOT) ||
+                    (network === "Kusama" && !permissions.KSM)
                 ) {
                     continue;
                 }
@@ -369,6 +381,14 @@ export class AssetService {
 
         if (response?.sui?.data?.tokenHoldings?.tokens && (!permissions || permissions.SUI)) {
             tokens = this.processTokens("Sui", response.sui.data.tokenHoldings.tokens, tokens, permissions);
+        }
+
+        if (response?.polkadot?.data?.tokenHoldings?.tokens && (!permissions || permissions.DOT)) {
+            tokens = this.processTokens("Polkadot", response.polkadot.data.tokenHoldings.tokens, tokens, permissions);
+        }
+
+        if (response?.kusama?.data?.tokenHoldings?.tokens && (!permissions || permissions.KSM)) {
+            tokens = this.processTokens("Kusama", response.kusama.data.tokenHoldings.tokens, tokens, permissions);
         }
 
         if (response?.stellar?.data && (!permissions || permissions.XLM)) {

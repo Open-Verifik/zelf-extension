@@ -25,8 +25,9 @@ import { NetworkName } from "./network.service";
 import { PolygonService } from "./polygon.service";
 import { StellarService } from "./stellar.service";
 import { SuiService } from "./sui.service";
-import { readPublicDataXlmAddress } from "@shared/types/tag.types";
+import { readPublicDataDotAddress, readPublicDataKsmAddress, readPublicDataXlmAddress } from "@shared/types/tag.types";
 import { TagModel } from "app/tags.service";
+import { SubstrateRelayService } from "./substrate-relay.service";
 
 @Injectable({
     providedIn: "root",
@@ -41,11 +42,20 @@ export class BlockchainTransactionsService {
         private _polygonService: PolygonService,
         private _solanaService: SolanaService,
         private _stellarService: StellarService,
-        private _suiService: SuiService
+        private _suiService: SuiService,
+        private _substrateRelayService: SubstrateRelayService
     ) {}
 
     private _getXlmAddress(wallet: Partial<TagModel> | null | undefined): string {
         return readPublicDataXlmAddress(wallet?.publicData as Record<string, unknown> | undefined);
+    }
+
+    private _getDotAddress(wallet: Partial<TagModel> | null | undefined): string {
+        return readPublicDataDotAddress(wallet?.publicData as Record<string, unknown> | undefined);
+    }
+
+    private _getKsmAddress(wallet: Partial<TagModel> | null | undefined): string {
+        return readPublicDataKsmAddress(wallet?.publicData as Record<string, unknown> | undefined);
     }
 
     private _processTransactions(responses: any): Transaction[] {
@@ -147,6 +157,11 @@ export class BlockchainTransactionsService {
                         tokenDecimals,
                         params.senderAddress
                     );
+                case "polkadot":
+                    return await this._substrateRelayService.calculateTransactionFees("polkadot", params.senderAddress || "", receiverAddress, amount, tokenPrice || 0);
+                case "kusama":
+                case "ksm":
+                    return await this._substrateRelayService.calculateTransactionFees("kusama", params.senderAddress || "", receiverAddress, amount, tokenPrice || 0);
                 case "ethereum":
                 default:
                     return await this._ethereumService.calculateTransactionFees(
@@ -183,6 +198,8 @@ export class BlockchainTransactionsService {
         if (network === "solana") return `https://solscan.io/tx/${hash}`;
         if (network === "stellar") return `https://stellar.expert/explorer/public/tx/${hash}`;
         if (network === "sui") return `https://suiscan.xyz/tx/${hash}`;
+        if (network === "polkadot") return `https://polkadot.subscan.io/extrinsic/${hash}`;
+        if (network === "kusama") return `https://kusama.subscan.io/extrinsic/${hash}`;
 
         return "";
     }
@@ -192,6 +209,8 @@ export class BlockchainTransactionsService {
 
         const isEnabled = (network: string) => !enabledNetworks || enabledNetworks.includes(network);
         const xlmAddr = this._getXlmAddress(wallet);
+        const dotAddr = this._getDotAddress(wallet);
+        const ksmAddr = this._getKsmAddress(wallet);
 
         return forkJoin({
             ethereum:
@@ -234,6 +253,14 @@ export class BlockchainTransactionsService {
                 isEnabled("sui") && wallet.publicData?.suiAddress
                     ? from(this._suiService.getWalletDetails(wallet.publicData?.suiAddress)).pipe(catchError(() => of(null)))
                     : of(null),
+            polkadot:
+                isEnabled("polkadot") && dotAddr
+                    ? from(this._substrateRelayService.getWalletDetails("polkadot", dotAddr)).pipe(catchError(() => of(null)))
+                    : of(null),
+            kusama:
+                isEnabled("kusama") && ksmAddr
+                    ? from(this._substrateRelayService.getWalletDetails("kusama", ksmAddr)).pipe(catchError(() => of(null)))
+                    : of(null),
         }).pipe(
             map((responses) => {
                 return {
@@ -247,6 +274,8 @@ export class BlockchainTransactionsService {
                     solana: responses.solana,
                     stellar: responses.stellar,
                     sui: responses.sui,
+                    polkadot: responses.polkadot,
+                    kusama: responses.kusama,
                     transactions: this._processTransactions(responses),
                 };
             })
@@ -292,6 +321,16 @@ export class BlockchainTransactionsService {
             }
         }
 
+        const dotAddress = this._getDotAddress(wallet);
+        if (dotAddress && token === "DOT") {
+            observable = forkJoin({ polkadot: from(this._substrateRelayService.getWalletDetails("polkadot", dotAddress)) });
+        }
+
+        const ksmAddress = this._getKsmAddress(wallet);
+        if (ksmAddress && token === "KSM") {
+            observable = forkJoin({ kusama: from(this._substrateRelayService.getWalletDetails("kusama", ksmAddress)) });
+        }
+
         return observable
             ? observable.pipe(
                   map((responses) => {
@@ -306,6 +345,8 @@ export class BlockchainTransactionsService {
                           solana: responses.solana,
                           stellar: responses.stellar,
                           sui: responses.sui,
+                          polkadot: responses.polkadot,
+                          kusama: responses.kusama,
                           transactions: this._processTransactions(responses),
                       };
                   })
@@ -502,6 +543,11 @@ export class BlockchainTransactionsService {
                     return await this._polygonService.sendTransaction(params);
                 case "binance":
                     return await this._bscService.sendTransaction(params);
+                case "polkadot":
+                    return await this._substrateRelayService.sendTransaction(params);
+                case "kusama":
+                case "ksm":
+                    return await this._substrateRelayService.sendTransaction({ ...params, network: "kusama" });
                 default:
                     throw new Error(`Unsupported network: ${network}`);
             }

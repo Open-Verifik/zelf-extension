@@ -1063,6 +1063,16 @@ export class TransactionData implements TransactionData {
         return this.tokenType === "XLM" && this.network === "stellar";
     }
 
+    /** Native DOT on Polkadot relay (public profile `dotAddress`). */
+    get isDotToken(): boolean {
+        return this.tokenType === "DOT" && this.network === "polkadot";
+    }
+
+    /** Native KSM on Kusama relay (public profile `ksmAddress`). */
+    get isKsmToken(): boolean {
+        return this.tokenType === "KSM" && this.network === "kusama";
+    }
+
     get senderFullTagName(): string {
         return this.sender?.fullTagName || (this.sender?.domain ? `${this.sender?.tagName}.${this.sender?.domain}` : this.sender?.tagName || "");
     }

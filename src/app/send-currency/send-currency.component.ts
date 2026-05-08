@@ -11,6 +11,7 @@ import { BitcoinService } from "app/services/bitcoin.service";
 import { BlockchainTransactionsService } from "app/services/blockchain-transactions.service";
 import { TokenItemComponent } from "app/token-item/token-item.component";
 import { TransactionService } from "app/transaction.service";
+import { readPublicDataDotAddress, readPublicDataKsmAddress } from "@shared/types/tag.types";
 import { TokenData, TransactionData } from "@shared/types/wallet.types";
 import { WalletService } from "app/wallet.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
@@ -130,13 +131,26 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
         if (token.network === "Polygon" && this.CAN_SEND.POL) return true;
         if (token.network === "Bitcoin" && this.CAN_SEND.BTC) return true;
         if (token.network === "Stellar" && this.CAN_SEND.XLM && token.tokenType === "XLM" && token.price) return true;
+        if (token.network === "Polkadot" && this.CAN_SEND.DOT && token.tokenType === "DOT" && token.price) return true;
+        if (token.network === "Kusama" && this.CAN_SEND.KSM && token.tokenType === "KSM" && token.price) return true;
 
         return false;
     }
 
     private async _fetchTokens(): Promise<void> {
         try {
-            if (!this.wallet || !this.wallet.publicData?.ethAddress) return;
+            if (!this.wallet?.publicData) return;
+
+            const pd = this.wallet.publicData as unknown as Record<string, unknown>;
+            const hasAnySendPath =
+                Boolean(pd["ethAddress"]) ||
+                Boolean(readPublicDataDotAddress(pd)) ||
+                Boolean(readPublicDataKsmAddress(pd)) ||
+                Boolean(pd["btcAddress"]) ||
+                Boolean(pd["solanaAddress"]) ||
+                Boolean(pd["suiAddress"]) ||
+                Boolean(pd["xlmAddress"]);
+            if (!hasAnySendPath) return;
 
             const enabledNetworkIds = this._getEnabledNetworkIds();
             const response = await firstValueFrom(this._blockchainTransactionsService.getAddressData(this.wallet, enabledNetworkIds));
@@ -215,6 +229,12 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
         } else if (token.tokenType === "XLM" || (token.network === "Stellar" && token.symbol === "XLM")) {
             address = this.wallet?.publicData?.xlmAddress || "";
             tokenType = "XLM";
+        } else if (token.tokenType === "DOT" || (token.network === "Polkadot" && token.symbol === "DOT")) {
+            address = readPublicDataDotAddress(this.wallet?.publicData as Record<string, unknown> | null | undefined) || "";
+            tokenType = "DOT";
+        } else if (token.tokenType === "KSM" || (token.network === "Kusama" && token.symbol === "KSM")) {
+            address = readPublicDataKsmAddress(this.wallet?.publicData as Record<string, unknown> | null | undefined) || "";
+            tokenType = "KSM";
         }
 
         if (!address) return console.error("No address found for token type:", token.tokenType, { wallet: this.wallet });

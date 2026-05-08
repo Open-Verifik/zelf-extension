@@ -40,4 +40,7 @@ export const environment = {
         testnet: "https://fullnode.testnet.sui.io:443",
         devnet: "https://fullnode.devnet.sui.io:443",
     },
+    polkadotRelayRpc: "https://rpc.polkadot.io",
+    kusamaRelayRpc: "https://kusama-rpc.polkadot.io",
+    kusamaAssetHubRpc: "https://kusama-asset-hub-rpc.polkadot.io",
 };

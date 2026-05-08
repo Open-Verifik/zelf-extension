@@ -19,6 +19,7 @@ import { BitcoinService } from "app/services/bitcoin.service";
 import { BlockDAGService } from "app/services/blockdag.service";
 import { TransactionParams } from "app/core/models/transaction-fee.model";
 import { StellarService } from "app/services/stellar.service";
+import { SubstrateRelayService } from "app/services/substrate-relay.service";
 import { SuiService } from "app/services/sui.service";
 import { SolanaService } from "app/solana.service";
 import { EthereumService } from "app/eth.service";
@@ -74,6 +75,7 @@ export class SendTransactionComponent implements OnDestroy {
         private _snackBar: MatSnackBar,
         private _solanaService: SolanaService,
         private _stellarService: StellarService,
+        private _substrateRelayService: SubstrateRelayService,
         private _suiService: SuiService,
         private _tagsService: TagsService,
         private _transactionService: TransactionService,
@@ -118,7 +120,7 @@ export class SendTransactionComponent implements OnDestroy {
         this.unsubscriber$.complete();
     }
 
-    get addressKey(): "ethAddress" | "solanaAddress" | "btcAddress" | "suiAddress" | "blockDAGAddress" | "xlmAddress" {
+    get addressKey(): "ethAddress" | "solanaAddress" | "btcAddress" | "suiAddress" | "blockDAGAddress" | "xlmAddress" | "dotAddress" | "ksmAddress" {
         if (this.transactionData.isBscToken) return "ethAddress";
         if (this.transactionData.isBDAGToken) return "ethAddress";
         if (this.transactionData.isBtcToken) return "btcAddress";
@@ -127,6 +129,8 @@ export class SendTransactionComponent implements OnDestroy {
         if (this.transactionData.isSolToken) return "solanaAddress";
         if (this.transactionData.isSuiToken) return "suiAddress";
         if (this.transactionData.isXlmToken) return "xlmAddress";
+        if (this.transactionData.isDotToken) return "dotAddress";
+        if (this.transactionData.isKsmToken) return "ksmAddress";
 
         throw new Error("Network address key unavailable");
     }
@@ -169,6 +173,7 @@ export class SendTransactionComponent implements OnDestroy {
 
     private _getMinSendableAmount(): number {
         if (this.transactionData.isXlmToken) return 1e-7;
+        if (this.transactionData.isDotToken || this.transactionData.isKsmToken) return 1e-8;
 
         return SendTransactionComponent._MIN_SENDABLE_AMOUNT;
     }
@@ -274,6 +279,13 @@ export class SendTransactionComponent implements OnDestroy {
                 return { invalidBTC: true };
             }
 
+            if (this.transactionData.isDotToken && !this._substrateRelayService.isValidAddress(value)) {
+                return { invalidFormat: true };
+            }
+            if (this.transactionData.isKsmToken && !this._substrateRelayService.isValidAddress(value)) {
+                return { invalidFormat: true };
+            }
+
             return null;
         };
     }
@@ -309,6 +321,7 @@ export class SendTransactionComponent implements OnDestroy {
         if (this.transactionData.isSuiToken) return 9;
         if (this.transactionData.isSolToken) return 9;
         if (this.transactionData.isXlmToken) return 7;
+        if (this.transactionData.isDotToken || this.transactionData.isKsmToken) return 10;
         if (this.transactionData.isBtcToken) return 8;
         if (
             this.transactionData.isEthToken ||
@@ -394,6 +407,7 @@ export class SendTransactionComponent implements OnDestroy {
         if (this.transactionData.isBtcToken) pattern = this._walletService.BTCRegex;
         if (this.transactionData.isSuiToken) pattern = this._walletService.SUIRegex;
         if (this.transactionData.isXlmToken) pattern = /^G[A-Z2-7]{54}$/;
+        if (this.transactionData.isDotToken || this.transactionData.isKsmToken) pattern = /^[1-9A-HJ-NP-Za-km-z]{30,100}$/;
 
         return pattern;
     }
@@ -462,6 +476,14 @@ export class SendTransactionComponent implements OnDestroy {
                     await this._searchTag("btcAddress", text);
 
                     if (!this.foundAddress) this._setRawAddressToFoundAddress(text, "btcAddress");
+                } else if (this.transactionData.isDotToken && this._substrateRelayService.isValidAddress(text)) {
+                    await this._searchTag("dotAddress", text);
+
+                    if (!this.foundAddress) this._setRawAddressToFoundAddress(text, "dotAddress");
+                } else if (this.transactionData.isKsmToken && this._substrateRelayService.isValidAddress(text)) {
+                    await this._searchTag("ksmAddress", text);
+
+                    if (!this.foundAddress) this._setRawAddressToFoundAddress(text, "ksmAddress");
                 }
             }
 
@@ -479,6 +501,10 @@ export class SendTransactionComponent implements OnDestroy {
                 this._setRawAddressToFoundAddress(text, "xlmAddress");
             } else if (this.transactionData.isBtcToken && this._bitcoinService.isValidBTCAddress(text)) {
                 this._setRawAddressToFoundAddress(text, "btcAddress");
+            } else if (this.transactionData.isDotToken && this._substrateRelayService.isValidAddress(text)) {
+                this._setRawAddressToFoundAddress(text, "dotAddress");
+            } else if (this.transactionData.isKsmToken && this._substrateRelayService.isValidAddress(text)) {
+                this._setRawAddressToFoundAddress(text, "ksmAddress");
             } else {
                 this.isZelfNameNotFound = true;
                 this.foundAddress = undefined;
@@ -496,7 +522,7 @@ export class SendTransactionComponent implements OnDestroy {
 
     private _initForm(): void {
         const maxSend = this._getMaxSendableAmount();
-        const maxAddrLen = this.transactionData.isXlmToken ? 56 : 66;
+        const maxAddrLen = this.transactionData.isXlmToken ? 56 : this.transactionData.isDotToken || this.transactionData.isKsmToken ? 100 : 66;
 
         const controls: Record<string, unknown> = {
             amount: [this.transactionData?.amount || "", [this._amountValidation(maxSend)]],

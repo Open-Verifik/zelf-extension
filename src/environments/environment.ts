@@ -40,4 +40,9 @@ export const environment = {
         testnet: "https://fullnode.testnet.sui.io:443",
         devnet: "https://fullnode.devnet.sui.io:443",
     },
+    /** Polkadot / Kusama relay JSON-RPC (HTTP) for @polkadot/api in the extension. */
+    polkadotRelayRpc: "https://rpc.polkadot.io",
+    kusamaRelayRpc: "https://kusama-rpc.polkadot.io",
+    /** Kusama Asset Hub (parachain) — same SS58 as relay; Trust and many apps default native KSM here. */
+    kusamaAssetHubRpc: "https://kusama-asset-hub-rpc.polkadot.io",
 };

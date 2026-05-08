@@ -1,4 +1,6 @@
 import { ethers } from "ethers";
+import { u8aEq } from "@polkadot/util";
+import { decodeAddress } from "@polkadot/util-crypto";
 
 import { TransactionData } from "@shared/types/wallet.types";
 
@@ -35,7 +37,7 @@ export function areSendAddressesSame(
     receiverAddress: string | undefined | null,
     transactionData: Pick<
         TransactionData,
-        "isEthToken" | "isPolToken" | "isBscToken" | "isAvaxToken" | "isBDAGToken"
+        "isEthToken" | "isPolToken" | "isBscToken" | "isAvaxToken" | "isBDAGToken" | "isDotToken" | "isKsmToken"
     >
 ): boolean {
     if (!senderAddress || !receiverAddress) return false;
@@ -52,6 +54,14 @@ export function areSendAddressesSame(
     const receiver = normalizeAddressForChain(receiverAddress, isEVM);
 
     if (!sender || !receiver) return false;
+
+    if (transactionData.isDotToken || transactionData.isKsmToken) {
+        try {
+            return u8aEq(decodeAddress(sender), decodeAddress(receiver));
+        } catch {
+            return false;
+        }
+    }
 
     return sender === receiver;
 }

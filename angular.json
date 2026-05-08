@@ -96,7 +96,21 @@
                             "@stellar/stellar-sdk",
                             "@stellar/stellar-base",
                             "stellar-hd-wallet",
-                            "urijs"
+                            "urijs",
+                            "@polkadot/api",
+                            "@polkadot/rpc-provider",
+                            "@polkadot/types",
+                            "@polkadot/types-codec",
+                            "@polkadot/types-known",
+                            "@polkadot/types-create",
+                            "@polkadot/rpc-core",
+                            "@polkadot/rpc-augment",
+                            "@polkadot/keyring",
+                            "@polkadot/util",
+                            "@polkadot/util-crypto",
+                            "@polkadot/wasm-crypto",
+                            "@polkadot/wasm-crypto-asmjs",
+                            "@polkadot/wasm-crypto-wasm"
                         ]
                     },
                     "configurations": {

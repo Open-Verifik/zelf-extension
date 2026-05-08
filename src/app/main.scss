@@ -95,9 +95,9 @@ body {
     --zns-action-scale: 0.9;
 }
 
-/* Popup: tiny reduction (<=5%) */
+/* Popup: match extension window width (see .main-div--popout width below) */
 .main-div--popout {
-    --zns-card-width: 358px;
+    --zns-card-width: 375px;
     --zns-card-min-height: 570px;
     --zns-font-scale: 0.97;
     --zns-space-scale: 0.95;

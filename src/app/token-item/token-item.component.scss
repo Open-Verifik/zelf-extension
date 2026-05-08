@@ -9,7 +9,7 @@
 .token-item {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     gap: calc(24px * var(--zns-space-scale, 1));
     padding: calc(16px * var(--zns-space-scale, 1));
     border-radius: 16px;
@@ -43,13 +43,14 @@
         gap: calc(4px * var(--zns-space-scale, 1));
         justify-content: flex-start;
         align-items: flex-start;
-        flex: 1 1 auto;
+        flex: 1 1 0;
+        min-width: 0;
     }
 
     &__network-info {
         display: flex;
         flex-direction: row;
-        gap: calc(8px * var(--zns-space-scale, 1));
+        gap: calc(10px * var(--zns-space-scale, 1));
         justify-content: center;
         align-items: flex-start;
     }
@@ -96,6 +97,7 @@
     &__balance {
         display: flex;
         flex-direction: column;
+        flex-shrink: 0;
         gap: calc(4px * var(--zns-space-scale, 1));
         justify-content: center;
         align-items: flex-end;
@@ -124,6 +126,7 @@
     &__buttons {
         display: flex;
         flex-direction: row;
+        flex-shrink: 0;
         gap: calc(8px * var(--zns-space-scale, 1));
         justify-content: center;
         align-items: center;

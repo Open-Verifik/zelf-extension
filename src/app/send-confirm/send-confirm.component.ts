@@ -72,6 +72,8 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         { id: "solana", name: "Solana", symbol: "SOL" },
         { id: "stellar", name: "Stellar", symbol: "XLM" },
         { id: "sui", name: "Sui", symbol: "SUI" },
+        { id: "polkadot", name: "Polkadot", symbol: "DOT" },
+        { id: "kusama", name: "Kusama", symbol: "KSM" },
     ];
 
     form!: UntypedFormGroup;
@@ -296,7 +298,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
 
             let tokenAddress = this.transactionData.token?.address_token;
 
-            const isNativeToken = ["AVAX", "ETH", "BNB", "MATIC", "BDAG", "XLM"].includes(tokenSymbol);
+            const isNativeToken = ["AVAX", "ETH", "BNB", "MATIC", "BDAG", "XLM", "DOT", "KSM"].includes(tokenSymbol);
 
             if (!tokenAddress && this.wallet && this.wallet.publicData?.ethAddress && !isNativeToken) {
                 try {
@@ -438,7 +440,7 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
         const sessionTokens = await this._assetService.loadTokensFromSession();
 
         // Check if we're sending a native token (doesn't need token contract address)
-        const isNativeToken = ["AVAX", "ETH", "BNB", "MATIC", "BDAG", "BTC", "SOL", "SUI", "XLM"].includes(
+        const isNativeToken = ["AVAX", "ETH", "BNB", "MATIC", "BDAG", "BTC", "SOL", "SUI", "XLM", "DOT", "KSM"].includes(
             this.transactionData.token?.symbol || ""
         );
 
@@ -783,7 +785,11 @@ export class SendConfirmComponent implements OnInit, OnDestroy {
                         ? "AVAX"
                         : this.transactionData.network === "bitcoin"
                           ? "BTC"
-                          : this.transactionData.tokenType,
+                          : this.transactionData.network === "polkadot"
+                            ? "DOT"
+                            : this.transactionData.network === "kusama"
+                              ? "KSM"
+                              : this.transactionData.tokenType,
         });
 
         this.sending = false;

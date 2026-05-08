@@ -595,12 +595,28 @@
             transition: fill 0.3s variables.$smoothBezier;
         }
 
+        .material-symbols-outlined {
+            color: variables.$themeText;
+            font-size: 24px;
+            line-height: 1;
+            font-variation-settings:
+                "FILL" 0,
+                "wght" 400,
+                "GRAD" 0,
+                "opsz" 24;
+            transition: color 0.3s variables.$smoothBezier;
+        }
+
         &:hover {
             background-color: variables.$primaryColor;
             color: variables.$themeCard;
 
             svg {
                 fill: variables.$themeCard;
+            }
+
+            .material-symbols-outlined {
+                color: variables.$themeCard;
             }
 
             .zelf-action-button__text {

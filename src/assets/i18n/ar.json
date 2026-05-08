@@ -856,6 +856,8 @@
     },
     "wallet": {
         "download_qr": "تحميل رمز QR",
+        "action_download": "تنزيل",
+        "action_unlock": "فتح",
         "info_title": "احتفظ برمز QR الخاص بك بأمان",
         "info_description": "تذكر أن تحتفظ برمز QR الخاص بك بشكل آمن لحماية حسابك. قم بتنزيله واحفظه في مكان آمن.",
         "private_key": "المفتاح الخاص",

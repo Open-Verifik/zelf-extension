@@ -855,6 +855,8 @@
         "years": "{{ yearCount }} ans"
     },
     "wallet": {
+        "action_download": "Télécharger",
+        "action_unlock": "Déverrouiller",
         "download_qr": "Télécharger le QR",
         "info_title": "Gardez votre code QR en sécurité",
         "info_description": "N'oubliez pas de garder votre code QR en sécurité pour protéger votre compte. Téléchargez-le et sauvegardez-le dans un endroit sûr.",

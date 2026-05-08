@@ -71,6 +71,10 @@
 
     &__col3 {
         justify-content: end;
+
+        &--spacer {
+            pointer-events: none;
+        }
     }
 
     &__col2 {
@@ -112,25 +116,6 @@
         word-break: break-word;
     }
 
-    &__download-row {
-        width: 100%;
-        margin-top: calc(4px * var(--zns-space-scale, 1));
-
-        &.zelf-action-row {
-            box-sizing: border-box;
-            align-items: center;
-            background-color: transparent;
-            border-radius: 0;
-            border: none;
-            border-top: 1px solid variables.$themeCardBorder;
-            box-shadow: none;
-            min-height: 0;
-            justify-content: space-between;
-            padding: calc(14px * var(--zns-space-scale, 1)) 0 calc(4px * var(--zns-space-scale, 1));
-            gap: calc(8px * var(--zns-space-scale, 1));
-        }
-    }
-
     &__qr.qr-code,
     &__hero-card .qr-code {
         border: none;
@@ -150,6 +135,9 @@
         width: 100%;
         margin-top: calc(12px * var(--zns-space-scale, 1));
         padding-top: calc(4px * var(--zns-space-scale, 1));
+        flex-wrap: wrap;
+        justify-content: center;
+        row-gap: calc(12px * var(--zns-space-scale, 1));
     }
 
     &__status-chip {
@@ -263,21 +251,17 @@
 
 .wallet__quick-actions .zelf-action-button__icon {
     border-radius: calc(16px * var(--zns-space-scale, 1));
-    width: calc(100px * var(--zns-space-scale, 1));
+    width: auto;
+    min-width: calc(100px * var(--zns-space-scale, 1));
+    max-width: calc(132px * var(--zns-space-scale, 1));
 }
 
-/* Flatten nested mnemonic chrome when embedded in wallet hero (one surface, not card-on-card). */
-:host ::ng-deep mnemonic {
-    .mnemonic__password-form,
-    .mnemonic__decrypting {
-        border: none;
-        box-shadow: none;
-        background-color: transparent;
-        margin-top: calc(8px * var(--zns-space-scale, 1));
-        margin-bottom: 0;
-        padding-left: 0;
-        padding-right: 0;
-    }
+.wallet__quick-actions .zelf-action-button__text {
+    line-height: 1.25;
+    max-width: 100%;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    white-space: normal;
 }
 
 .crypto-address {

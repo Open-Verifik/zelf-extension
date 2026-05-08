@@ -856,6 +856,8 @@
     },
     "wallet": {
         "download_qr": "QR 다운로드",
+        "action_download": "다운로드",
+        "action_unlock": "잠금 해제",
         "info_title": "QR 코드를 안전하게 보관하세요",
         "info_description": "계정을 보호하기 위해 QR 코드를 안전하게 보관하세요. 다운로드하여 안전한 곳에 저장하세요.",
         "private_key": "시드 구문",

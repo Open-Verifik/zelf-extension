@@ -1,0 +1,111 @@
+@use "../../../styles/variables";
+
+:host {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: calc(16px * var(--zns-space-scale, 1));
+}
+
+.seed-sheet {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: flex-start;
+    align-items: center;
+    gap: calc(12px * var(--zns-space-scale, 1));
+    max-width: min(400px, var(--zns-card-width, 400px));
+
+    &__exit {
+        align-items: center;
+        background-color: transparent;
+        border-radius: 9999px;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        height: calc(48px * var(--zns-space-scale, 1));
+        justify-content: center;
+        margin: calc(8px * var(--zns-space-scale, 1));
+        min-height: calc(48px * var(--zns-space-scale, 1));
+        min-width: calc(48px * var(--zns-space-scale, 1));
+        outline: none;
+        padding: calc(8px * var(--zns-space-scale, 1));
+        position: absolute;
+        right: 0;
+        top: 0;
+        transition:
+            color 0.3s variables.$smoothBezier,
+            background-color 0.3s variables.$smoothBezier;
+        width: calc(48px * var(--zns-space-scale, 1));
+
+        .seed-sheet__exit-icon {
+            color: variables.$themeText;
+            font-size: calc(20px * var(--zns-space-scale, 1));
+            line-height: 1;
+            font-variation-settings:
+                "FILL" 0,
+                "wght" 400,
+                "GRAD" 0,
+                "opsz" 24;
+            transition: color 0.3s variables.$smoothBezier;
+        }
+
+        &:hover {
+            background-color: variables.$themeButton;
+            color: variables.$themeCard;
+
+            .seed-sheet__exit-icon {
+                color: variables.$themeCard;
+            }
+        }
+    }
+
+    &__body {
+        display: flex;
+        flex-direction: column;
+        gap: calc(12px * var(--zns-space-scale, 1));
+        width: 100%;
+        justify-content: flex-start;
+        align-items: center;
+        padding-top: calc(24px * var(--zns-space-scale, 1));
+    }
+
+    &__icon {
+        color: variables.$themeText;
+        flex-shrink: 0;
+        font-size: calc(48px * var(--zns-space-scale, 1));
+        line-height: 1;
+        font-variation-settings:
+            "FILL" 0,
+            "wght" 400,
+            "GRAD" 0,
+            "opsz" 48;
+    }
+
+    &__title {
+        font-size: calc(18px * var(--zns-font-scale, 1));
+        font-weight: 600;
+        font-family: variables.$themeTitleFamily;
+        color: variables.$themeText;
+        text-transform: uppercase;
+        margin: 0;
+        text-align: center;
+    }
+}
+
+:host ::ng-deep mnemonic .mnemonic {
+    margin-top: 0;
+}
+
+:host ::ng-deep mnemonic .mnemonic__password-form,
+:host ::ng-deep mnemonic .mnemonic__decrypting {
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+    margin-top: calc(8px * var(--zns-space-scale, 1));
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+}

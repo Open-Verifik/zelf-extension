@@ -856,6 +856,8 @@
     },
     "wallet": {
         "download_qr": "下载二维码",
+        "action_download": "下载",
+        "action_unlock": "解锁",
         "info_title": "保护您的二维码安全",
         "info_description": "请记住保护您的二维码安全以保护您的账户。下载并保存在安全的地方。",
         "private_key": "种子短语",

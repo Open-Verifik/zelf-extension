@@ -1,0 +1,17 @@
+<ng-container *transloco="let t">
+    <div class="seed-sheet">
+        <button mat-icon-button type="button" class="seed-sheet__exit" (click)="cancel()">
+            <span class="material-symbols-outlined seed-sheet__exit-icon" aria-hidden="true">close</span>
+        </button>
+
+        <div class="seed-sheet__body">
+            <span class="material-symbols-outlined seed-sheet__icon" aria-hidden="true">key</span>
+
+            <h4 class="seed-sheet__title">
+                {{ t("common.seed_phrase") }}
+            </h4>
+
+            <mnemonic [hideCancelButton]="true" (redirect)="onMnemonicRedirect()"></mnemonic>
+        </div>
+    </div>
+</ng-container>

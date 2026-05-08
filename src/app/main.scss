@@ -182,6 +182,10 @@ body {
         &__icon-box {
             width: calc(28px * var(--zns-action-scale, 1));
             height: calc(28px * var(--zns-action-scale, 1));
+
+            .material-symbols-outlined {
+                font-size: calc(24px * var(--zns-action-scale, 1));
+            }
         }
 
         &__text {

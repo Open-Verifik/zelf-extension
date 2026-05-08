@@ -856,6 +856,8 @@
     },
     "wallet": {
         "download_qr": "Descargar QR",
+        "action_download": "Descargar",
+        "action_unlock": "Desbloquear",
         "info_title": "Mantén tu código QR seguro",
         "info_description": "Recuerda mantener tu código QR seguro para proteger tu cuenta. Descárgalo y guárdalo en un lugar seguro.",
         "private_key": "Clave Privada",

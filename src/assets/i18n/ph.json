@@ -856,6 +856,8 @@
     },
     "wallet": {
         "download_qr": "I-download ang QR",
+        "action_download": "I-download",
+        "action_unlock": "Unlock",
         "info_title": "Panatilihing ligtas ang iyong QR code",
         "info_description": "Tandaan na panatilihing ligtas ang iyong QR code para maprotektahan ang iyong account. I-download ito at i-save sa ligtas na lugar.",
         "private_key": "Seed Phrase",

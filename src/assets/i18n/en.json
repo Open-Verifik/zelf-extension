@@ -863,6 +863,8 @@
     },
     "wallet": {
         "download_qr": "QR",
+        "action_download": "Download",
+        "action_unlock": "Unlock",
         "info_title": "Keep your QR code safe",
         "info_description": "Remember to keep your QR code secure to protect your account. Download it and save it in a safe place.",
         "private_key": "Seed Phrase",

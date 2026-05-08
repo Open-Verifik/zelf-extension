@@ -5,15 +5,14 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatBottomSheet } from "@angular/material/bottom-sheet";
 import { MatButtonModule } from "@angular/material/button";
 import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
-import { Router, RouterLink, RouterModule } from "@angular/router";
+import { RouterLink, RouterModule } from "@angular/router";
 
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 
 import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboard.base";
 import { ChromeService } from "app/chrome.service";
-import { InfoSheetComponent } from "app/info-sheet/info-sheet.component";
-import { MnemonicComponent } from "app/mnemonic/mnemonic.component";
 import { MyArNSComponent } from "app/my-arns/my-arns.component";
+import { WalletSeedPhraseSheetComponent } from "app/wallet/wallet-seed-phrase-sheet/wallet-seed-phrase-sheet.component";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
 import { TagModel, TagsService } from "app/tags.service";
 import { VaultService } from "app/vault.service";
@@ -34,7 +33,6 @@ import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
         MatSnackBarModule,
         AddressMaskPipe,
         ZelfLoaderComponent,
-        MnemonicComponent,
     ],
     selector: "wallet",
     styleUrls: ["./wallet.component.scss", "../main.scss"],
@@ -52,7 +50,6 @@ export class WalletComponent extends CopyToClipboardBase implements OnInit, OnDe
     constructor(
         private _bottomSheet: MatBottomSheet,
         private _destroyRef: DestroyRef,
-        private _router: Router,
         private _vaultService: VaultService,
         private _walletService: WalletService,
         private _tagsService: TagsService,
@@ -93,6 +90,14 @@ export class WalletComponent extends CopyToClipboardBase implements OnInit, OnDe
         return !!this.wallet?.fullTagName && this.wallet?.publicData?.type === "mainnet";
     }
 
+    get showDownloadQrButton(): boolean {
+        return !!this.wallet?.fullTagName && !!this.wallet?.image;
+    }
+
+    get showSeedPhraseButton(): boolean {
+        return !!this.wallet?.fullTagName;
+    }
+
     private async _updateWallet(): Promise<void> {
         const updatedWallet = await this._tagsService.refreshTagPublicData(this.wallet as TagModel);
 
@@ -104,14 +109,6 @@ export class WalletComponent extends CopyToClipboardBase implements OnInit, OnDe
 
     private async _initNetworks(): Promise<void> {
         this.networks = await this._walletService.getAvailableWalletNetworks(null);
-    }
-
-    async onMnemonicUnlock(): Promise<void> {
-        await this._tagsService.setFlow("unlock");
-
-        await this._tagsService.setTagName(this.wallet?.name as string);
-
-        this._router.navigate(["/security/biometrics"], { queryParams: { return: "/wallet" } });
     }
 
     async copyToClipboard(value: string): Promise<void> {
@@ -144,17 +141,16 @@ export class WalletComponent extends CopyToClipboardBase implements OnInit, OnDe
         return !!this.wallet?.publicData?.isExpired;
     }
 
-    openInfoSheet(): void {
-        this._bottomSheet.open(InfoSheetComponent, {
-            backdropClass: "zelf-backdrop-full",
-            panelClass: "zelf-botton-sheet-full",
-            height: "100vh",
-            maxHeight: "100vh",
+    openMyArnsBottomSheet(): void {
+        this._bottomSheet.open(MyArNSComponent, {
+            backdropClass: "zelf-backdrop",
+            panelClass: "zelf-bottom-sheet",
+            data: { wallet: this.wallet },
         });
     }
 
-    openMyArnsBottomSheet(): void {
-        this._bottomSheet.open(MyArNSComponent, {
+    openSeedPhraseSheet(): void {
+        this._bottomSheet.open(WalletSeedPhraseSheetComponent, {
             backdropClass: "zelf-backdrop",
             panelClass: "zelf-bottom-sheet",
             data: { wallet: this.wallet },

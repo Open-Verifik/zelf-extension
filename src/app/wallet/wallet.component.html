@@ -14,15 +14,7 @@
             <p class="wallet__title">{{ t("common.zelf_wallet") }}</p>
         </div>
 
-        <div class="wallet__col3">
-            <button (click)="openInfoSheet()" mat-flat-button class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--secondary">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M10.8334 6.16732H13.1667V8.50065H10.8334V6.16732ZM10.8334 10.834H13.1667V17.834H10.8334V10.834ZM12 0.333984C5.56004 0.333984 0.333374 5.56065 0.333374 12.0007C0.333374 18.4407 5.56004 23.6673 12 23.6673C18.44 23.6673 23.6667 18.4407 23.6667 12.0007C23.6667 5.56065 18.44 0.333984 12 0.333984ZM12 21.334C6.85504 21.334 2.66671 17.1457 2.66671 12.0007C2.66671 6.85565 6.85504 2.66732 12 2.66732C17.145 2.66732 21.3334 6.85565 21.3334 12.0007C21.3334 17.1457 17.145 21.334 12 21.334Z"
-                    />
-                </svg>
-            </button>
-        </div>
+        <div class="wallet__col3 wallet__col3--spacer" aria-hidden="true"></div>
     </div>
 
     <div class="wallet__app-content">
@@ -47,27 +39,42 @@
 
                         <h2 class="zelf-card__title wallet__tag-title">{{ wallet.fullTagName }}</h2>
 
-                        <div class="zelf-action-row wallet__download-row">
-                            <p class="zelf-action-row__text">{{ t("common.download_zelfproof") }}</p>
-
-                            <button (click)="downloadQRCode()" mat-icon-button class="zelf-icon-button zelf-icon-button--border-soft zelf-icon-button--40">
-                                <svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M11.59 6.5H10V1.5C10 0.95 9.55 0.5 9 0.5H5C4.45 0.5 4 0.95 4 1.5V6.5H2.41C1.52 6.5 1.07 7.58 1.7 8.21L6.29 12.8C6.68 13.19 7.31 13.19 7.7 12.8L12.29 8.21C12.92 7.58 12.48 6.5 11.59 6.5ZM0 16.5C0 17.05 0.45 17.5 1 17.5H13C13.55 17.5 14 17.05 14 16.5C14 15.95 13.55 15.5 13 15.5H1C0.45 15.5 0 15.95 0 16.5Z"
-                                    />
-                                </svg>
-                            </button>
-                        </div>
-
-                        <mnemonic (redirect)="onMnemonicUnlock()"></mnemonic>
-
                         <div
                             class="wallet__quick-actions"
-                            fxLayout="row"
+                            fxLayout="row wrap"
                             fxLayoutAlign="center center"
-                            *ngIf="showArnsButton"
+                            fxLayoutGap="16px"
+                            *ngIf="showDownloadQrButton || showSeedPhraseButton || showArnsButton"
                         >
-                            <div class="zelf-action-button">
+                            <div class="zelf-action-button" *ngIf="showDownloadQrButton">
+                                <div
+                                    class="zelf-action-button__icon"
+                                    role="button"
+                                    tabindex="0"
+                                    (click)="downloadQRCode()"
+                                    (keydown.enter)="downloadQRCode()"
+                                >
+                                    <div class="zelf-action-button__icon-box">
+                                        <span class="material-symbols-outlined" aria-hidden="true">download</span>
+                                    </div>
+                                    <div class="zelf-action-button__text">{{ t("wallet.action_download") }}</div>
+                                </div>
+                            </div>
+                            <div class="zelf-action-button" *ngIf="showSeedPhraseButton">
+                                <div
+                                    class="zelf-action-button__icon"
+                                    role="button"
+                                    tabindex="0"
+                                    (click)="openSeedPhraseSheet()"
+                                    (keydown.enter)="openSeedPhraseSheet()"
+                                >
+                                    <div class="zelf-action-button__icon-box">
+                                        <span class="material-symbols-outlined" aria-hidden="true">key</span>
+                                    </div>
+                                    <div class="zelf-action-button__text">{{ t("wallet.action_unlock") }}</div>
+                                </div>
+                            </div>
+                            <div class="zelf-action-button" *ngIf="showArnsButton">
                                 <div
                                     class="zelf-action-button__icon"
                                     role="button"
@@ -76,11 +83,7 @@
                                     (keydown.enter)="openMyArnsBottomSheet()"
                                 >
                                     <div class="zelf-action-button__icon-box">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M11.9884 0.333984C5.54837 0.333984 0.333374 5.56065 0.333374 12.0007C0.333374 18.4407 5.54837 23.6673 11.9884 23.6673C18.44 23.6673 23.6667 18.4407 23.6667 12.0007C23.6667 5.56065 18.44 0.333984 11.9884 0.333984ZM20.0734 7.33398H16.6317C16.2584 5.87565 15.7217 4.47565 15.0217 3.18065C17.1684 3.91565 18.9534 5.40898 20.0734 7.33398ZM12 2.71398C12.9684 4.11398 13.7267 5.66565 14.2284 7.33398H9.77171C10.2734 5.66565 11.0317 4.11398 12 2.71398ZM2.97004 14.334C2.78337 13.5873 2.66671 12.8057 2.66671 12.0007C2.66671 11.1957 2.78337 10.414 2.97004 9.66732H6.91337C6.82004 10.4373 6.75004 11.2073 6.75004 12.0007C6.75004 12.794 6.82004 13.564 6.91337 14.334H2.97004ZM3.92671 16.6673H7.36837C7.74171 18.1257 8.27837 19.5256 8.97837 20.8206C6.83171 20.0856 5.04671 18.604 3.92671 16.6673ZM7.36837 7.33398H3.92671C5.04671 5.39732 6.83171 3.91565 8.97837 3.18065C8.27837 4.47565 7.74171 5.87565 7.36837 7.33398ZM12 21.2873C11.0317 19.8873 10.2734 18.3357 9.77171 16.6673H14.2284C13.7267 18.3357 12.9684 19.8873 12 21.2873ZM14.73 14.334H9.27004C9.16504 13.564 9.08337 12.794 9.08337 12.0007C9.08337 11.2073 9.16504 10.4257 9.27004 9.66732H14.73C14.835 10.4257 14.9167 11.2073 14.9167 12.0007C14.9167 12.794 14.835 13.564 14.73 14.334ZM15.0217 20.8206C15.7217 19.5256 16.2584 18.1257 16.6317 16.6673H20.0734C18.9534 18.5923 17.1684 20.0856 15.0217 20.8206ZM17.0867 14.334C17.18 13.564 17.25 12.794 17.25 12.0007C17.25 11.2073 17.18 10.4373 17.0867 9.66732H21.03C21.2167 10.414 21.3334 11.1957 21.3334 12.0007C21.3334 12.8057 21.2167 13.5873 21.03 14.334H17.0867Z"
-                                            />
-                                        </svg>
+                                        <span class="material-symbols-outlined" aria-hidden="true">public</span>
                                     </div>
                                     <div class="zelf-action-button__text">{{ t("common.my_arns") }}</div>
                                 </div>

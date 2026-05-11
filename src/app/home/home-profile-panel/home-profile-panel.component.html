@@ -1,0 +1,38 @@
+<div class="panel-backdrop" (click)="close()" aria-hidden="true"></div>
+
+<div class="panel" [class.panel--open]="visible" *transloco="let t">
+    <div class="panel__header">
+        <button type="button" class="panel__close" (click)="close()" [attr.aria-label]="t('common.close')">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M13.3 0.710703C12.91 0.320703 12.28 0.320703 11.89 0.710703L6.99997 5.5907L2.10997 0.700703C1.71997 0.310703 1.08997 0.310703 0.699971 0.700703C0.309971 1.0907 0.309971 1.7207 0.699971 2.1107L5.58997 7.0007L0.699971 11.8907C0.309971 12.2807 0.309971 12.9107 0.699971 13.3007C1.08997 13.6907 1.71997 13.6907 2.10997 13.3007L6.99997 8.4107L11.89 13.3007C12.28 13.6907 12.91 13.6907 13.3 13.3007C13.69 12.9107 13.69 12.2807 13.3 11.8907L8.40997 7.0007L13.3 2.1107C13.68 1.7307 13.68 1.0907 13.3 0.710703Z" fill="currentColor"/>
+            </svg>
+        </button>
+    </div>
+
+    <div class="panel__wallets">
+        <button
+            type="button"
+            class="panel__wallet-item"
+            [class.panel__wallet-item--active]="isCurrentWallet(wallet)"
+            *ngFor="let wallet of allWallets"
+            (click)="selectWallet(wallet)"
+        >
+            <div class="panel__avatar">
+                <img src="assets/icons/profile_icon.svg" alt="" class="panel__avatar-img" aria-hidden="true" />
+            </div>
+            <span class="panel__wallet-name">{{ truncateName(wallet.fullTagName) }}</span>
+        </button>
+    </div>
+
+    <div class="panel__settings">
+        <button type="button" class="panel__settings-btn" (click)="onSettings()" [attr.aria-label]="t('home.settings_button')">
+            <img src="assets/icons/config_icon.svg" alt="" class="panel__settings-icon" aria-hidden="true" />
+        </button>
+    </div>
+
+    <div class="panel__add-section">
+        <button type="button" class="panel__add-btn" (click)="onAddAccount()" [attr.aria-label]="t('home_hub.add_account_aria')">
+            <img src="assets/icons/add_zelf_id.svg" alt="" class="panel__add-icon" aria-hidden="true" />
+        </button>
+    </div>
+</div>

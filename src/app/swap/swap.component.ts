@@ -1126,7 +1126,7 @@ export class SwapComponent implements OnInit, OnDestroy {
             return;
         }
 
-        this._router.navigate(["/home"]);
+        this._router.navigate(["/wallet"]);
     }
 
     setSwapMode(mode: SwapFlowMode): void {

@@ -1,196 +1,139 @@
-<div class="zelf-card home" fxLayout="column" fxLayoutAlign="start center" *transloco="let t">
-    <home-header [shareables]="shareables"></home-header>
-
-    <div class="home__app-content">
-        <div class="home__container">
-            <div class="home__balance-card">
-                <div class="home__actions-container">
-                    <div class="home-balance">
-                        <div class="home-balance__info">
-                            <div class="home-balance__label-row">
-                                <!-- Orange Zelf brand icon -->
-                                <svg class="home-balance__brand-icon" width="20" height="20" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <rect width="40" height="40" rx="20" fill="#FF5C00"/>
-                                    <path d="M20.0108 8C21.363 9.83518 23.0993 11.9272 25.2883 14.0893H15.4609C17.5873 11.8373 19.0426 9.67625 20.0128 8H20.0118H20.0108Z" fill="white"/>
-                                    <path d="M8 20.0292C9.7302 19.1896 12.0031 17.8722 14.2841 15.8571C14.4852 15.6792 14.6823 15.4992 14.8713 15.3203H23.6597C23.6597 15.3203 17.2948 24.3153 13.8121 24.3423C10.9389 24.3652 9.73525 21.0997 8 20.0282V20.0292Z" fill="white"/>
-                                    <path d="M20.5727 31.9996C19.5125 30.5603 18.1472 28.917 16.418 27.2168H24.499C22.787 28.942 21.5085 30.6073 20.5737 31.9996H20.5727Z" fill="white"/>
-                                    <path d="M25.7777 25.7316C25.6827 25.8155 25.5897 25.9005 25.4977 25.9845H16.0625C16.0625 25.9845 22.5325 16.8726 26.0617 16.8536C29.0066 16.8386 30.2265 20.1821 31.9991 21.2766C30.1962 22.2891 28.0011 23.7295 25.7767 25.7316H25.7777Z" fill="white"/>
-                                </svg>
-                                <span class="home-balance__label">{{ t("home.total_balance") }}</span>
-                            </div>
-
-                            <div class="home-balance__amount-row">
-                                <div class="home-balance__amount-skeleton" *ngIf="balancesLoading && !hideBalances">
-                                    <div class="home-balance__skeleton-bar"></div>
-                                </div>
-
-                                <h3 class="home-balance__amount" *ngIf="!balancesLoading && !hideBalances">
-                                    {{ totalFiatBalance || 0 | currency: "USD" : "symbol" : "1.2-5" }}
-                                </h3>
-
-                                <h3 class="home-balance__amount" *ngIf="hideBalances">••••••</h3>
-
-                                <button
-                                    *ngIf="!hideBalances"
-                                    class="home-balance__refresh"
-                                    [class.home-balance__refresh--spinning]="balancesLoading"
-                                    (click)="refreshTokens()"
-                                >
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
-                                        <path
-                                            d="M480-160q-134 0-227-93t-93-227q0-134 93-227t227-93q69 0 132 28.5T720-690v-110h80v280H520v-80h168q-32-56-87.5-88T480-720q-100 0-170 70t-70 170q0 100 70 170t170 70q77 0 139-44t87-116h84q-28 106-114 173t-196 67Z"
-                                        />
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-
-                        <button
-                            class="home-balance__visibility"
-                            (click)="toggleHideBalances()"
-                            [attr.aria-label]="hideBalances ? t('home.show_balances') : t('home.hide_balances')"
-                        >
-                            <svg *ngIf="!hideBalances" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
-                                <path
-                                    d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Z"
-                                />
-                            </svg>
-                            <svg *ngIf="hideBalances" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
-                                <path
-                                    d="m644-428-58-58q9-47-27-88t-93-32l-58-58q17-8 34.5-12t37.5-4q75 0 127.5 52.5T660-500q0 20-4 37.5T644-428Zm128 126-58-56q38-29 67.5-63.5T832-500q-50-101-143.5-160.5T480-720q-29 0-57 4t-55 12l-62-62q41-17 84-25.5t90-8.5q151 0 269 83.5T920-500q-23 59-60.5 109.5T772-302Zm20 246L624-222q-35 11-70.5 16.5T480-200q-151 0-269-83.5T40-500q21-53 53-98.5t73-81.5L56-792l56-56 736 736-56 56ZM222-624q-29 26-53 57t-41 67q50 101 143.5 160.5T480-280q20 0 39-2.5t39-5.5l-36-38q-11 3-21 4.5t-21 1.5q-75 0-127.5-52.5T300-500q0-11 1.5-21t4.5-21l-84-82Z"
-                                />
-                            </svg>
-                        </button>
-                    </div>
-
-                    <div class="home__actions home__action-buttons" fxLayout="row" fxLayoutAlign="start center">
-                        <!-- Receive -->
-                        <div class="zelf-action-button">
-                            <div class="zelf-action-button__icon" [routerLink]="['/receive']">
-                                <div class="zelf-action-button__icon-box">
-                                    <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M16.6755 0.834414C16.2205 0.379414 15.4855 0.379414 15.0305 0.834414L2.32552 13.5277V7.00608C2.32552 6.36441 1.80052 5.83941 1.15885 5.83941C0.517187 5.83941 -0.0078125 6.36441 -0.0078125 7.00608V16.3394C-0.0078125 16.9811 0.517187 17.5061 1.15885 17.5061H10.4922C11.1339 17.5061 11.6589 16.9811 11.6589 16.3394C11.6589 15.6977 11.1339 15.1727 10.4922 15.1727H3.97052L16.6755 2.46775C17.1189 2.02441 17.1189 1.27775 16.6755 0.834414Z"
-                                        />
-                                    </svg>
-                                </div>
-                                <div class="zelf-action-button__text">{{ t("home.receive_transaction_button") }}</div>
-                            </div>
-                        </div>
-
-                        <!-- Swap (middle) -->
-                        <div class="zelf-action-button">
-                            <div class="zelf-action-button__icon" [routerLink]="['/swap']">
-                                <div class="zelf-action-button__icon-box">
-                                    <svg width="24" height="19" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M3.13563 6.85496L0.355635 9.64496C0.165635 9.84496 0.165635 10.155 0.355635 10.355L3.13563 13.145C3.44563 13.465 3.98563 13.235 3.98563 12.795V10.995H9.99564C10.5456 10.995 10.9956 10.545 10.9956 9.99496C10.9956 9.44496 10.5456 8.99496 9.99564 8.99496H3.98563V7.20496C3.98563 6.75496 3.44563 6.53496 3.13563 6.85496ZM17.6456 3.64496L14.8656 0.854961C14.5556 0.534961 14.0156 0.764961 14.0156 1.20496V2.99496H7.99564C7.44563 2.99496 6.99564 3.44496 6.99564 3.99496C6.99564 4.54496 7.44563 4.99496 7.99564 4.99496H14.0056V6.78496C14.0056 7.23496 14.5456 7.45496 14.8556 7.13496L17.6356 4.34496C17.8356 4.15496 17.8356 3.83496 17.6456 3.64496Z"
-                                        />
-                                    </svg>
-                                </div>
-                                <div class="zelf-action-button__text">{{ t("home.swap") }}</div>
-                            </div>
-                        </div>
-
-                        <!-- Send -->
-                        <div class="zelf-action-button">
-                            <div class="zelf-action-button__icon" [routerLink]="['/send']">
-                                <div class="zelf-action-button__icon-box">
-                                    <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M6.34571 1.65397C6.34571 2.3073 6.87071 2.82064 7.51238 2.82064H14.034L1.32904 15.5256C0.874043 15.9806 0.874043 16.7156 1.32904 17.1706C1.78404 17.6256 2.51904 17.6256 2.97404 17.1706L15.679 4.46564V10.9873C15.679 11.629 16.204 12.154 16.8457 12.154C17.4874 12.154 18.0124 11.629 18.0124 10.9873V1.65397C18.0124 1.0123 17.4874 0.487305 16.8457 0.487305H7.51238C6.87071 0.487305 6.34571 1.0123 6.34571 1.65397Z"
-                                        />
-                                    </svg>
-                                </div>
-                                <div class="zelf-action-button__text">{{ t("home.send_transaction_button") }}</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Recent transactions row -->
-                    <div class="home__recent-transactions" [routerLink]="['/activity']">
-                        <span class="home__recent-transactions__label">{{ t("home.recent_transactions") }}</span>
-                        <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1 1L7 7L1 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
+<div class="zelf-card home-hub" fxLayout="column" fxLayoutAlign="start center" *transloco="let t">
+    <div class="home-hub__header" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="12px">
+        <div class="home-hub__header-left">
+            <button type="button" class="home-hub__avatar-btn" (click)="openProfilePanel()" [attr.aria-label]="t('home_hub.header_profile_aria')">
+                <div class="home-hub__avatar">
+                    <img src="assets/icons/profile_icon.svg" alt="" class="home-hub__avatar-img" aria-hidden="true" />
                 </div>
-            </div>
-
-            <!-- Claim rewards banner -->
-            <div class="home__rewards-banner" [routerLink]="['/rewards']">
-                <span class="home__rewards-banner__chest" aria-hidden="true">🎁</span>
-                <div class="home__rewards-banner__copy">
-                    <span class="home__rewards-banner__title">{{ t("home.rewards_banner_title") }}</span>
-                    <span class="home__rewards-banner__subtitle">{{ t("home.rewards_banner_subtitle") }}</span>
-                </div>
-                <svg class="home__rewards-banner__chevron" width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1 1L7 7L1 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </button>
+            <span class="home-hub__wallet-name" *ngIf="showName && walletName">{{ walletName }}</span>
+            <button
+                type="button"
+                class="home-hub__name-toggle"
+                *ngIf="walletName"
+                (click)="toggleName()"
+                [attr.aria-label]="showName ? t('home_hub.header_collapse_aria') : t('home_hub.header_expand_aria')"
+            >
+                <svg width="6" height="10" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path *ngIf="!showName" d="M1 1L7 7L1 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path *ngIf="showName" d="M7 1L1 7L7 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-            </div>
-
-            <div class="home__tabs">
-                <div class="animated-tabs">
-                    <div class="animated-tabs__switch">
-                        <div
-                            (click)="selectTab('assets')"
-                            [ngClass]="{ 'animated-tab--active': shareables.selectedTab === 'assets' }"
-                            class="animated-tab"
-                        >
-                            <div class="animated-tab__text">{{ t("home.assets") }}</div>
-                        </div>
-
-                        <div
-                            (click)="selectTab('nfts')"
-                            [ngClass]="{ 'animated-tab--active': shareables.selectedTab === 'nfts' }"
-                            class="animated-tab"
-                        >
-                            <div class="animated-tab__text">{{ t("home.NFTs") }}</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="home__assets-content" *ngIf="shareables.selectedTab === 'assets'" fxLayout="column" fxLayoutAlign="start start">
-                <!-- Skeleton Loader -->
-                <div class="home__skeleton-list" *ngIf="balancesLoading">
-                    <div *ngFor="let item of [1, 2, 3, 4]" class="home__token-skeleton">
-                        <div class="home__skeleton-left">
-                            <div class="home__skeleton-icon"></div>
-                            <div class="home__skeleton-info">
-                                <div class="home__skeleton-line home__skeleton-line--title"></div>
-                                <div class="home__skeleton-line home__skeleton-line--subtitle"></div>
-                            </div>
-                        </div>
-                        <div class="home__skeleton-right">
-                            <div class="home__skeleton-line home__skeleton-line--balance"></div>
-                            <div class="home__skeleton-line home__skeleton-line--fiat"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <token-card
-                    (click)="setSelectedAsset(token)"
-                    [data]="token"
-                    [hideBalances]="hideBalances"
-                    *ngFor="let token of tokens"
-                    (pinToggled)="onTokenPinToggled($event)"
-                ></token-card>
-
-                <div class="home__manage-networks" [routerLink]="['/settings']" [queryParams]="{ edit: 'networks' }">
-                    {{ t("home.manage_networks") }}
-                </div>
-            </div>
-
-            <div class="home__assets-content" *ngIf="shareables.selectedTab === 'nfts'" fxLayout="column" fxLayoutAlign="start stretch">
-                <home-collectibles
-                    [active]="shareables.selectedTab === 'nfts'"
-                    [reloadKey]="collectiblesReloadKey"
-                    [wallet]="wallet"
-                ></home-collectibles>
-            </div>
+            </button>
+        </div>
+        <div class="home-hub__header-actions" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
+            <a
+                class="home-hub__icon-tile"
+                routerLink="/rewards"
+                [attr.aria-label]="t('home_hub.header_rewards_aria')"
+            >
+                <img src="assets/icons/rewards_icon.svg" alt="" class="home-hub__header-icon" aria-hidden="true" />
+            </a>
+            <button type="button" class="home-hub__icon-tile home-hub__icon-tile--ghost" [attr.aria-label]="t('home_hub.header_notifications_aria')">
+                <img src="assets/icons/notifications_icon.svg" alt="" class="home-hub__header-icon" aria-hidden="true" />
+            </button>
         </div>
     </div>
 
+    <div class="home-hub__body">
+        <wallet-balance-top-card
+            [totalFiatBalance]="totalFiatBalance"
+            [balancesLoading]="balancesLoading"
+            [hideBalances]="hideBalances"
+            (refresh)="refreshTokens()"
+            (toggleHide)="toggleHideBalances()"
+        />
+
+        <section class="home-hub__section home-hub__section--subscription">
+            <div class="home-hub__subscription-card" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="12px">
+                <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="12px">
+                    <div class="home-hub__subscription-icon" aria-hidden="true">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M19 4H18V2H16V4H8V2H6V4H5C3.89 4 3.01 4.9 3.01 6L3 20C3 21.1 3.89 22 5 22H19C20.1 22 21 21.1 21 20V6C21 4.9 20.1 4 19 4ZM19 20H5V10H19V20ZM5 8V6H19V8H5ZM12 11H17V16H12V11Z"
+                                fill="currentColor"
+                            />
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="home-hub__subscription-title">{{ t("home_hub.subscription_title") }}</p>
+                        <p class="home-hub__subscription-sub">{{ t("home_hub.subscription_subtitle") }}</p>
+                    </div>
+                </div>
+                <a routerLink="/manage-domains" class="zelf-button zelf-button--primary zelf-button--thin" mat-flat-button>
+                    {{ t("home_hub.subscription_cta") }}
+                </a>
+            </div>
+            <p class="home-hub__countdown">{{ t("home_hub.subscription_countdown_placeholder") }}</p>
+        </section>
+
+        <section class="home-hub__section home-hub__section--start">
+            <button type="button" class="home-hub__start-toggle" mat-flat-button>
+                <span class="home-hub__start-title">{{ t("home_hub.start_here_title") }}</span>
+                <span class="home-hub__start-sub">{{ t("home_hub.start_here_subtitle") }}</span>
+            </button>
+            <div class="home-hub__start-progress">
+                {{ t("home_hub.start_here_progress", { current: startHereCurrent, total: startHereTotal }) }}
+            </div>
+        </section>
+
+        <section class="home-hub__section">
+            <p class="home-hub__section-label">{{ t("home_hub.quick_apps_heading") }}</p>
+            <div class="home-hub__quick-row" fxLayout="row" fxLayoutAlign="space-between center">
+                <a
+                    *ngFor="let dest of quickDestinations"
+                    class="home-hub__quick-item"
+                    [routerLink]="dest.route"
+                >
+                    <div class="home-hub__quick-tile">
+                        <img [src]="dest.iconUrl" alt="" class="home-hub__quick-icon" />
+                    </div>
+                    <span class="home-hub__quick-label">{{ t(navService.hubLabelKey(dest)) }}</span>
+                </a>
+                <button type="button" class="home-hub__quick-item" (click)="openAppsHub()">
+                    <div class="home-hub__quick-tile">
+                        <span class="home-hub__more-dots" aria-hidden="true">⋯</span>
+                    </div>
+                    <span class="home-hub__quick-label">{{ t("home_hub.more_apps") }}</span>
+                </button>
+            </div>
+        </section>
+
+        <section class="home-hub__section home-hub__section--promo">
+            <div class="home-hub__promo-card">
+                <div class="home-hub__promo-copy">
+                    <p class="home-hub__promo-title">{{ t("home_hub.promo_placeholder_title") }}</p>
+                    <p class="home-hub__promo-body">{{ t("home_hub.promo_placeholder_body") }}</p>
+                    <a routerLink="/zelf-keys" class="zelf-button zelf-button--primary zelf-button--thin" mat-flat-button>
+                        {{ t("home_hub.promo_placeholder_cta") }}
+                    </a>
+                </div>
+                <div class="home-hub__promo-visual" aria-hidden="true"></div>
+            </div>
+        </section>
+
+        <section class="home-hub__section">
+            <div class="home-hub__signals-head" fxLayout="row" fxLayoutAlign="space-between center">
+                <span class="home-hub__signals-title">{{ t("home_hub.signals_heading") }}</span>
+                <a routerLink="/zelf-signals" class="home-hub__signals-link">{{ t("home_hub.signals_explore") }}</a>
+            </div>
+            <div class="home-hub__signals-card">
+                <p class="home-hub__signals-eyebrow">{{ t("common.zelf_signals") }}</p>
+                <p class="home-hub__signals-placeholder-title">{{ t("home_hub.signals_placeholder_title") }}</p>
+                <p class="home-hub__signals-placeholder-body">{{ t("home_hub.signals_placeholder_body") }}</p>
+            </div>
+        </section>
+    </div>
+
     <zelf-footer [shareables]="shareables"></zelf-footer>
+
+    <home-profile-panel
+        *ngIf="showProfilePanel"
+        [wallets]="allWallets"
+        [currentWallet]="shareables.wallet"
+        [visible]="showProfilePanel"
+        (closed)="closeProfilePanel()"
+        (walletSelected)="onPanelWalletSelected($event)"
+        (openSettings)="onPanelSettings()"
+        (addAccount)="onPanelAddAccount()"
+    />
 </div>

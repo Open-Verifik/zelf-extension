@@ -115,7 +115,7 @@ export class HomeHeaderAccountsComponent implements OnInit, OnDestroy {
     }
 
     private async _updateActiveStates(): Promise<void> {
-        if (this.isRouteActive("/wallet")) {
+        if (this.isRouteActive("/wallet-manage")) {
             const parameters = await this._chromeService.getItem("parameters");
 
             this.isZelfLinkActive = parameters?.openMyArnsBottomSheet === true;
@@ -141,7 +141,7 @@ export class HomeHeaderAccountsComponent implements OnInit, OnDestroy {
 
         await this._walletService.switchWallet(selectedWallet);
 
-        await this._router.navigate(["/wallet"]);
+        await this._router.navigate(["/wallet-manage"]);
 
         this.close();
     }
@@ -151,7 +151,7 @@ export class HomeHeaderAccountsComponent implements OnInit, OnDestroy {
 
         await this._walletService.switchWallet(selectedWallet);
 
-        await this._router.navigate(["/wallet"]);
+        await this._router.navigate(["/wallet-manage"]);
 
         this.close();
     }
@@ -161,7 +161,7 @@ export class HomeHeaderAccountsComponent implements OnInit, OnDestroy {
 
         await this._walletService.switchWallet(selectedWallet);
 
-        await this._router.navigate(["/home"]);
+        await this._router.navigate(["/wallet"]);
 
         this.close();
     }
@@ -172,7 +172,7 @@ export class HomeHeaderAccountsComponent implements OnInit, OnDestroy {
         await this._walletService.switchWallet(selectedWallet);
         await this._chromeService.setItem("parameters", { openMyArnsBottomSheet: true });
 
-        await this._router.navigate(["/wallet"]);
+        await this._router.navigate(["/wallet-manage"]);
 
         this.close();
     }
@@ -231,7 +231,7 @@ export class HomeHeaderAccountsComponent implements OnInit, OnDestroy {
     }
 
     isDownloadQRActive(walletTagName?: string): boolean {
-        if (!this.isRouteActive("/wallet")) return false;
+        if (!this.isRouteActive("/wallet-manage")) return false;
 
         if (walletTagName && !this.isWalletActive(walletTagName)) return false;
 
@@ -243,7 +243,7 @@ export class HomeHeaderAccountsComponent implements OnInit, OnDestroy {
     }
 
     isZelfLinkActiveForWallet(walletTagName?: string): boolean {
-        if (!this.isRouteActive("/wallet")) return false;
+        if (!this.isRouteActive("/wallet-manage")) return false;
 
         if (walletTagName && !this.isWalletActive(walletTagName)) return false;
 

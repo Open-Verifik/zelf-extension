@@ -41,6 +41,14 @@ const routes: Routes = [
                 data: { animation: "HomePage" },
             },
             {
+                path: "wallet-manage",
+                loadComponent: () => import("./wallet/wallet.component").then((m) => m.WalletComponent),
+            },
+            {
+                path: "apps",
+                loadComponent: () => import("./apps-hub/apps-hub.component").then((m) => m.AppsHubComponent),
+            },
+            {
                 path: "nft-asset/:id",
                 loadComponent: () => import("./nft-asset-detail/nft-asset-detail.component").then((m) => m.NftAssetDetailComponent),
             },
@@ -64,7 +72,8 @@ const routes: Routes = [
             },
             {
                 path: "wallet",
-                loadComponent: () => import("./wallet/wallet.component").then((m) => m.WalletComponent),
+                loadComponent: () => import("./zelf-wallet/zelf-wallet.component").then((m) => m.ZelfWalletComponent),
+                data: { animation: "WalletPage" },
             },
             {
                 path: "asset",
@@ -77,6 +86,24 @@ const routes: Routes = [
             {
                 path: "settings",
                 loadComponent: () => import("./zelf-settings/zelf-settings.component").then((m) => m.ZelfSettingsComponent),
+            },
+            {
+                path: "zelf-id",
+                loadComponent: () => import("./zelf-id/zelf-id.component").then((m) => m.ZelfIdComponent),
+            },
+            {
+                path: "zelf-ai",
+                loadComponent: () => import("./zelf-ai/zelf-ai.component").then((m) => m.ZelfAiComponent),
+            },
+            {
+                path: "zelf-chat",
+                loadComponent: () => import("./shared/feature-coming-soon.component").then((m) => m.FeatureComingSoonComponent),
+                data: { titleKey: "common.zelf_chat", bodyKey: "common.zelf_chat_coming_soon" }
+            },
+            {
+                path: "zelf-signals",
+                loadComponent: () => import("./shared/feature-coming-soon.component").then((m) => m.FeatureComingSoonComponent),
+                data: { titleKey: "common.zelf_signals", bodyKey: "common.zelf_signals_coming_soon" }
             },
             { path: "swap", loadComponent: () => import("./swap/swap.component").then((m) => m.SwapComponent) },
             {

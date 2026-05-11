@@ -37,6 +37,6 @@ export class WalletSeedPhraseSheetComponent {
 
         await this._tagsService.setTagName(this.data?.wallet?.name as string);
 
-        await this._router.navigate(["/security/biometrics"], { queryParams: { return: "/wallet" } });
+        await this._router.navigate(["/security/biometrics"], { queryParams: { return: "/wallet-manage" } });
     }
 }

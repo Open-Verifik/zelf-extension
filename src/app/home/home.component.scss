@@ -1,5 +1,4 @@
 @use "../../styles/variables";
-@use "../../styles/buttons";
 
 :host {
     align-items: center;
@@ -13,487 +12,348 @@
     box-sizing: border-box;
 }
 
-.home {
+.home-hub {
     position: relative;
     width: 100%;
     height: 100%;
+    overflow: hidden;
 
-    &__app-content {
-        left: 0;
-        right: 0;
-        position: absolute;
-        top: calc(76px * var(--zns-space-scale, 1));
-        bottom: calc(82px * var(--zns-space-scale, 1));
+    &__header {
         width: 100%;
-        overflow: auto;
-        padding: calc(16px * var(--zns-space-scale, 1));
-        display: flex;
-        justify-content: flex-start;
-        align-items: flex-start;
-
-        @media (max-width: variables.$minSmall) {
-            top: calc(64px * var(--zns-space-scale, 1));
-            padding: calc(8px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
-        }
+        padding: calc(8px * var(--zns-space-scale, 1)) 0 calc(16px * var(--zns-space-scale, 1));
     }
 
-    &__container {
-        display: flex;
-        width: 100%;
-        flex-grow: 1;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        min-height: 100%;
-    }
-
-    &__balance-card {
-        position: relative;
-        width: 100%;
-        border: 1px solid transparent;
-        background:
-            linear-gradient(variables.$themeCardBorder, variables.$themeCardBorder) padding-box,
-            linear-gradient(135deg, variables.$themeBorderHover, variables.$themeCardBorder) border-box;
-        border-radius: calc(20px * var(--zns-space-scale, 1));
-        padding: calc(16px * var(--zns-space-scale, 1));
-
-        @media (max-width: variables.$minSmall) {
-            border-radius: calc(16px * var(--zns-space-scale, 1));
-            padding: calc(10px * var(--zns-space-scale, 1));
-        }
-    }
-
-    &__actions-container {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: stretch;
-        width: 100%;
-    }
-
-    &__actions {
-        width: 100%;
-        margin-top: calc(16px * var(--zns-space-scale, 1));
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        gap: calc(8px * var(--zns-space-scale, 1));
-
-        @media (max-width: variables.$minSmall) {
-            margin-top: calc(10px * var(--zns-space-scale, 1));
-            gap: calc(6px * var(--zns-space-scale, 1));
-        }
-    }
-
-    &__banners {
-        width: 100%;
-    }
-
-    &__tabs {
-        margin-top: calc(8px * var(--zns-space-scale, 1));
-        margin-bottom: calc(8px * var(--zns-space-scale, 1));
-        padding: 0 calc(12px * var(--zns-space-scale, 1));
-        width: 100%;
-    }
-
-    &__assets-content {
-        padding: calc(8px * var(--zns-space-scale, 1)) 0;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        flex-grow: 1;
-    }
-
-    &__manage-networks {
-        padding: calc(16px * var(--zns-space-scale, 1));
-        width: 100%;
-        text-align: center;
-        font-family: variables.$themeBodyFamily;
-        font-size: calc(13px * var(--zns-font-scale, 1));
-        font-weight: 500;
-        color: variables.$themeTextSecondary;
-        cursor: pointer;
-        transition: color 0.2s variables.$smoothBezier;
-
-        &:hover {
-            color: variables.$primaryColor;
-            text-decoration: underline;
-        }
-    }
-
-    &__no-results-text {
-        color: variables.$themeCard;
-        font-family: variables.$themeBodyFamily;
-        font-weight: 500;
-        font-size: calc(14px * var(--zns-font-scale, 1));
-        line-height: calc(20px * var(--zns-font-scale, 1));
-        letter-spacing: 0.1px;
-        vertical-align: middle;
-        margin-bottom: calc(4px * var(--zns-space-scale, 1));
-        padding: calc(16px * var(--zns-space-scale, 1));
-
-        @media (max-width: variables.$minSmall) {
-            padding: 0;
-        }
-    }
-}
-
-:host-context(html.zns-theme-light) {
-    .home__balance-card {
-        background: white;
-    }
-}
-
-.home-balance {
-    position: relative;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    width: 100%;
-
-    &__info {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-start;
-        gap: calc(4px * var(--zns-space-scale, 1));
-    }
-
-    &__label-row {
+    &__header-left {
         display: inline-flex;
         align-items: center;
         gap: calc(6px * var(--zns-space-scale, 1));
-    }
-
-    &__brand-icon {
-        flex-shrink: 0;
-        display: block;
-    }
-
-    &__label {
-        font-size: calc(13px * var(--zns-font-scale, 1));
-        font-weight: 400;
-        color: variables.$themeTextSecondary;
-        font-family: variables.$themeBodyFamily;
-        letter-spacing: 0.3px;
-    }
-
-    &__amount-row {
-        display: inline-flex;
-        align-items: center;
-        gap: calc(8px * var(--zns-space-scale, 1));
-    }
-
-    &__amount {
-        color: variables.$themeText;
-        font-size: calc(40px * var(--zns-font-scale, 1));
-        font-weight: 800;
-        line-height: calc(44px * var(--zns-font-scale, 1));
-        margin: 0;
-        word-wrap: break-word;
-
-        @media (max-width: variables.$minSmall) {
-            font-size: calc(32px * var(--zns-font-scale, 1));
-            line-height: calc(36px * var(--zns-font-scale, 1));
-        }
-    }
-
-    &__refresh {
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: calc(4px * var(--zns-space-scale, 1));
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        transition: background-color 0.2s variables.$smoothBezier;
-
-        svg {
-            width: calc(22px * var(--zns-font-scale, 1));
-            height: calc(22px * var(--zns-font-scale, 1));
-            fill: variables.$themeTextSecondary;
-            transition: fill 0.2s variables.$smoothBezier;
-        }
-
-        &:hover {
-            background-color: variables.$themeCardBorder;
-
-            svg {
-                fill: variables.$themeText;
-            }
-        }
-
-        &--spinning svg {
-            animation: spin 1s linear infinite;
-        }
-    }
-
-    &__visibility {
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: calc(6px * var(--zns-space-scale, 1));
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        transition: background-color 0.2s variables.$smoothBezier;
-        align-self: flex-start;
-        flex-shrink: 0;
-
-        svg {
-            width: calc(22px * var(--zns-font-scale, 1));
-            height: calc(22px * var(--zns-font-scale, 1));
-            fill: variables.$themeTextSecondary;
-            transition: fill 0.2s variables.$smoothBezier;
-        }
-
-        &:hover {
-            background-color: variables.$themeCardBorder;
-
-            svg {
-                fill: variables.$themeText;
-            }
-        }
-    }
-
-    &__amount-skeleton {
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-    }
-
-    &__skeleton-bar {
-        width: calc(160px * var(--zns-space-scale, 1));
-        height: calc(40px * var(--zns-font-scale, 1));
-        background: variables.$themeBorder;
-        border-radius: calc(8px * var(--zns-space-scale, 1));
-        position: relative;
-        overflow: hidden;
-
-        &::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            transform: translateX(-100%);
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            animation: shimmer 1.5s infinite;
-        }
-
-        @media (max-width: variables.$minSmall) {
-            height: calc(32px * var(--zns-font-scale, 1));
-        }
-    }
-}
-
-.home__action-buttons {
-    .zelf-action-button__icon {
-        border-radius: calc(16px * var(--zns-space-scale, 1));
-        width: calc(100px * var(--zns-space-scale, 1));
-    }
-}
-
-.home__rewards-banner {
-    display: flex;
-    align-items: center;
-    gap: calc(14px * var(--zns-space-scale, 1));
-    width: 100%;
-    margin-top: calc(12px * var(--zns-space-scale, 1));
-    padding: calc(14px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
-    background: variables.$themeCard;
-    border-radius: calc(20px * var(--zns-space-scale, 1));
-    outline: 1px solid variables.$themeBorder;
-    outline-offset: -1px;
-    cursor: pointer;
-    transition: opacity 0.2s variables.$smoothBezier;
-
-    &:hover {
-        opacity: 0.8;
-    }
-
-    &__chest {
-        font-size: calc(48px * var(--zns-font-scale, 1));
-        line-height: 1;
-        flex-shrink: 0;
-    }
-
-    &__copy {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-        flex: 1;
         min-width: 0;
     }
 
-    &__title {
-        font-family: variables.$themeBodyFamily;
-        font-size: calc(15px * var(--zns-font-scale, 1));
-        font-weight: 700;
-        color: variables.$themeText;
-        line-height: 1.2;
-    }
-
-    &__subtitle {
-        font-family: variables.$themeBodyFamily;
-        font-size: calc(12px * var(--zns-font-scale, 1));
-        font-weight: 400;
-        color: variables.$themeTextSecondary;
-        line-height: 1.3;
-    }
-
-    &__chevron {
-        color: variables.$themeTextSecondary;
+    &__avatar-btn {
         flex-shrink: 0;
-    }
-}
-
-.home__recent-transactions {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    margin-top: calc(16px * var(--zns-space-scale, 1));
-    padding-top: calc(12px * var(--zns-space-scale, 1));
-    cursor: pointer;
-    transition: opacity 0.2s variables.$smoothBezier;
-
-    &:hover {
-        opacity: 0.7;
-    }
-
-    &__label {
-        font-family: variables.$themeBodyFamily;
-        font-size: calc(14px * var(--zns-font-scale, 1));
-        font-weight: 400;
-        color: variables.$themeText;
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        border-radius: 50%;
+        line-height: 0;
+        transition: opacity 0.15s variables.$smoothBezier;
 
         &:hover {
-            font-weight: 700;
+            opacity: 0.85;
         }
     }
 
-    svg {
-        color: variables.$themeTextSecondary;
+    &__avatar {
+        width: calc(40px * var(--zns-space-scale, 1));
+        height: calc(40px * var(--zns-space-scale, 1));
+        border-radius: 50%;
+        background: variables.$themeCard;
+        border: 1px solid variables.$themeBorder;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    &__avatar-img {
+        width: calc(20px * var(--zns-space-scale, 1));
+        height: calc(20px * var(--zns-space-scale, 1));
+        object-fit: contain;
+        display: block;
+    }
+
+    &__wallet-name {
+        font-family: variables.$themeBodyFamily;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        font-weight: 600;
+        color: variables.$themeText;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: calc(130px * var(--zns-space-scale, 1));
+    }
+
+    &__name-toggle {
         flex-shrink: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        border: none;
+        padding: calc(4px * var(--zns-space-scale, 1));
+        cursor: pointer;
+        color: variables.$themeTextSecondary;
+        line-height: 0;
+        transition: color 0.15s variables.$smoothBezier;
+
+        &:hover {
+            color: variables.$themeText;
+        }
     }
-}
 
-@keyframes spin {
-    from {
-        transform: rotate(0deg);
+    &__header-icon {
+        width: 20px;
+        height: 20px;
+        object-fit: contain;
+        display: block;
     }
 
-    to {
-        transform: rotate(360deg);
+    &__icon-tile {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: calc(44px * var(--zns-space-scale, 1));
+        height: calc(44px * var(--zns-space-scale, 1));
+        border-radius: 12px;
+        background: #fff0eb;
+        color: variables.$secondaryColor;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        transition: opacity 0.15s variables.$smoothBezier;
+
+        &:hover {
+            opacity: 0.92;
+        }
+
+        &--ghost {
+            background: variables.$themeCard;
+            border: 1px solid variables.$themeBorder;
+            color: variables.$themeText;
+        }
     }
-}
 
-.home__skeleton-list {
-    width: 100%;
-    margin-top: calc(10px * var(--zns-space-scale, 1));
-}
-
-.home__token-skeleton {
-    width: 100%;
-    height: calc(72px * var(--zns-space-scale, 1));
-    padding: calc(12px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: variables.$themeCard;
-    border-bottom: 1px solid variables.$themeBorder;
-
-    &:first-child {
-        border-top: 1px solid variables.$themeBorder;
-    }
-}
-
-.home__skeleton-left {
-    display: flex;
-    align-items: center;
-    gap: calc(12px * var(--zns-space-scale, 1));
-}
-
-.home__skeleton-icon {
-    width: calc(40px * var(--zns-space-scale, 1));
-    height: calc(40px * var(--zns-space-scale, 1));
-    border-radius: 50%;
-    background: variables.$themeBorder;
-    position: relative;
-    overflow: hidden;
-
-    &::after {
-        content: "";
+    &__body {
         position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
         left: 0;
-        transform: translateX(-100%);
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-        animation: shimmer 1.5s infinite;
-    }
-}
-
-.home__skeleton-info {
-    display: flex;
-    flex-direction: column;
-    gap: calc(6px * var(--zns-space-scale, 1));
-}
-
-.home__skeleton-line {
-    height: calc(10px * var(--zns-space-scale, 1));
-    background: variables.$themeBorder;
-    border-radius: calc(4px * var(--zns-space-scale, 1));
-    position: relative;
-    overflow: hidden;
-
-    &::after {
-        content: "";
-        position: absolute;
-        top: 0;
         right: 0;
-        bottom: 0;
-        left: 0;
-        transform: translateX(-100%);
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-        animation: shimmer 1.5s infinite;
+        top: calc(88px * var(--zns-space-scale, 1));
+        bottom: calc(82px * var(--zns-space-scale, 1));
+        overflow: auto;
+        padding: 0 calc(24px * var(--zns-space-scale, 1));
+        display: flex;
+        flex-direction: column;
+        gap: calc(18px * var(--zns-space-scale, 1));
+
+        @media (max-width: variables.$minSmall) {
+            top: calc(76px * var(--zns-space-scale, 1));
+            padding: 0 calc(16px * var(--zns-space-scale, 1));
+        }
     }
 
-    &--title {
-        width: calc(80px * var(--zns-space-scale, 1));
-        height: calc(14px * var(--zns-font-scale, 1));
+    &__section {
+        width: 100%;
+
+        &-label {
+            font-size: calc(13px * var(--zns-font-scale, 1));
+            font-weight: 600;
+            color: variables.$themeTextSecondary;
+            margin: 0 0 calc(10px * var(--zns-space-scale, 1));
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
     }
 
-    &--subtitle {
-        width: calc(50px * var(--zns-space-scale, 1));
+    &__subscription-card {
+        width: 100%;
+        padding: calc(14px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
+        border-radius: 16px;
+        border: 1px solid variables.$themeBorder;
+        background: variables.$themeCard;
     }
 
-    &--balance {
-        width: calc(70px * var(--zns-space-scale, 1));
-        height: calc(14px * var(--zns-font-scale, 1));
+    &__subscription-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: variables.$secondaryColor;
     }
 
-    &--fiat {
-        width: calc(45px * var(--zns-space-scale, 1));
+    &__subscription-title {
+        margin: 0;
+        font-weight: 700;
+        font-size: calc(15px * var(--zns-font-scale, 1));
+        color: variables.$themeText;
     }
-}
 
-.home__skeleton-right {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: calc(6px * var(--zns-space-scale, 1));
-}
+    &__subscription-sub {
+        margin: 4px 0 0;
+        font-size: calc(13px * var(--zns-font-scale, 1));
+        color: variables.$themeTextSecondary;
+    }
 
-@keyframes shimmer {
-    100% {
-        transform: translateX(100%);
+    &__countdown {
+        margin: calc(10px * var(--zns-space-scale, 1)) 0 0;
+        font-size: calc(13px * var(--zns-font-scale, 1));
+        color: variables.$themeTextMuted;
+        text-align: center;
+    }
+
+    &__start-toggle {
+        width: 100%;
+        text-align: left;
+        border-radius: 16px !important;
+        padding: calc(14px * var(--zns-space-scale, 1)) !important;
+        border: 1px solid variables.$themeBorder !important;
+        background: variables.$themeCard !important;
+        height: auto !important;
+        line-height: 1.35 !important;
+    }
+
+    &__start-title {
+        display: block;
+        font-weight: 700;
+        font-size: calc(16px * var(--zns-font-scale, 1));
+        color: variables.$themeText;
+    }
+
+    &__start-sub {
+        display: block;
+        margin-top: 6px;
+        font-size: calc(13px * var(--zns-font-scale, 1));
+        color: variables.$themeTextSecondary;
+        font-weight: 400;
+    }
+
+    &__start-progress {
+        margin-top: calc(10px * var(--zns-space-scale, 1));
+        font-size: calc(13px * var(--zns-font-scale, 1));
+        color: variables.$themeTextMuted;
+    }
+
+    &__quick-row {
+        width: 100%;
+        flex-wrap: wrap;
+        gap: calc(8px * var(--zns-space-scale, 1));
+    }
+
+    &__quick-item {
+        flex: 1 1 18%;
+        min-width: 56px;
+        max-width: 72px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        color: inherit;
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+    }
+
+    &__quick-tile {
+        width: calc(52px * var(--zns-space-scale, 1));
+        height: calc(52px * var(--zns-space-scale, 1));
+        border-radius: 14px;
+        background: #fff0eb;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__quick-icon {
+        width: calc(24px * var(--zns-space-scale, 1));
+        height: calc(24px * var(--zns-space-scale, 1));
+        object-fit: contain;
+        filter: brightness(0) saturate(100%) invert(47%) sepia(93%) saturate(1830%) hue-rotate(339deg) brightness(98%) contrast(94%);
+    }
+
+    &__more-dots {
+        font-size: 22px;
+        line-height: 1;
+        color: variables.$secondaryColor;
+        font-weight: 700;
+    }
+
+    &__quick-label {
+        font-size: calc(11px * var(--zns-font-scale, 1));
+        font-weight: 600;
+        text-align: center;
+        color: variables.$themeText;
+    }
+
+    &__promo-card {
+        display: flex;
+        flex-direction: row;
+        gap: calc(12px * var(--zns-space-scale, 1));
+        padding: calc(16px * var(--zns-space-scale, 1));
+        border-radius: 20px;
+        border: 1px solid variables.$themeBorder;
+        background: variables.$themeCard;
+        align-items: center;
+    }
+
+    &__promo-copy {
+        flex: 1;
+    }
+
+    &__promo-title {
+        margin: 0;
+        font-weight: 700;
+        font-size: calc(15px * var(--zns-font-scale, 1));
+    }
+
+    &__promo-body {
+        margin: calc(8px * var(--zns-space-scale, 1)) 0 calc(12px * var(--zns-space-scale, 1));
+        font-size: calc(13px * var(--zns-font-scale, 1));
+        color: variables.$themeTextSecondary;
+    }
+
+    &__promo-visual {
+        flex: 0 0 88px;
+        height: 100px;
+        border-radius: 12px;
+        background: linear-gradient(145deg, rgba(253, 99, 55, 0.12), rgba(98, 154, 244, 0.12));
+    }
+
+    &__signals-head {
+        margin-bottom: calc(10px * var(--zns-space-scale, 1));
+    }
+
+    &__signals-title {
+        font-weight: 700;
+        font-size: calc(16px * var(--zns-font-scale, 1));
+        color: variables.$themeText;
+    }
+
+    &__signals-link {
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        font-weight: 600;
+        color: variables.$secondaryColor;
+        text-decoration: none;
+    }
+
+    &__signals-card {
+        border-radius: 20px;
+        padding: calc(16px * var(--zns-space-scale, 1));
+        border: 1px solid variables.$themeBorder;
+        background: variables.$themeCard;
+    }
+
+    &__signals-eyebrow {
+        margin: 0;
+        font-size: calc(12px * var(--zns-font-scale, 1));
+        font-weight: 600;
+        color: variables.$secondaryColor;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+    }
+
+    &__signals-placeholder-title {
+        margin: calc(8px * var(--zns-space-scale, 1)) 0;
+        font-weight: 700;
+        font-size: calc(15px * var(--zns-font-scale, 1));
+        color: variables.$themeText;
+    }
+
+    &__signals-placeholder-body {
+        margin: 0;
+        font-size: calc(13px * var(--zns-font-scale, 1));
+        color: variables.$themeTextSecondary;
+        line-height: 1.45;
     }
 }

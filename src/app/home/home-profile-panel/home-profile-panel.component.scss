@@ -1,0 +1,211 @@
+@use "../../../styles/variables";
+
+:host {
+    position: absolute;
+    inset: 0;
+    z-index: 1050;
+    pointer-events: all;
+    border-radius: inherit;
+    overflow: hidden;
+}
+
+.panel-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+}
+
+.panel {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 145px;
+    background: variables.$themeCard;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(-100%);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 0 calc(20px * var(--zns-space-scale, 1)) calc(20px * var(--zns-space-scale, 1)) 0;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.12);
+    overflow: hidden;
+
+    &--open {
+        transform: translateX(0);
+    }
+
+    &__header {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: calc(12px * var(--zns-space-scale, 1)) calc(12px * var(--zns-space-scale, 1)) calc(8px * var(--zns-space-scale, 1));
+        flex-shrink: 0;
+    }
+
+    &__close {
+        width: calc(36px * var(--zns-space-scale, 1));
+        height: calc(36px * var(--zns-space-scale, 1));
+        border-radius: 50%;
+        border: none;
+        background: variables.$themeCardBorder;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: variables.$themeText;
+        transition: background-color 0.15s variables.$smoothBezier;
+        flex-shrink: 0;
+
+        &:hover {
+            background: variables.$themeBorder;
+        }
+
+        svg {
+            width: 14px;
+            height: 14px;
+        }
+    }
+
+    &__wallets {
+        flex: 1;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: calc(4px * var(--zns-space-scale, 1));
+        padding: 0 calc(10px * var(--zns-space-scale, 1));
+        scrollbar-width: thin;
+    }
+
+    &__wallet-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: calc(6px * var(--zns-space-scale, 1));
+        padding: calc(10px * var(--zns-space-scale, 1)) calc(8px * var(--zns-space-scale, 1));
+        border-radius: calc(14px * var(--zns-space-scale, 1));
+        border: 2px solid transparent;
+        background: none;
+        cursor: pointer;
+        width: 100%;
+        transition:
+            background-color 0.15s variables.$smoothBezier,
+            border-color 0.15s variables.$smoothBezier;
+
+        &:hover {
+            background: variables.$themeCardBorder;
+        }
+
+        &--active {
+            border-color: variables.$secondaryColor;
+            background: rgba(253, 99, 55, 0.06);
+        }
+    }
+
+    &__avatar {
+        width: calc(56px * var(--zns-space-scale, 1));
+        height: calc(56px * var(--zns-space-scale, 1));
+        border-radius: 50%;
+        background: variables.$themeCardBorder;
+        border: 1px solid variables.$themeBorder;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        flex-shrink: 0;
+    }
+
+    &__avatar-img {
+        width: calc(28px * var(--zns-space-scale, 1));
+        height: calc(28px * var(--zns-space-scale, 1));
+        object-fit: contain;
+        display: block;
+    }
+
+    &__wallet-name {
+        font-family: variables.$themeBodyFamily;
+        font-size: calc(11px * var(--zns-font-scale, 1));
+        font-weight: 600;
+        color: variables.$themeText;
+        text-align: center;
+        word-break: break-all;
+        line-height: 1.3;
+    }
+
+    // ── Settings row ────────────────────────────────────────────
+    &__settings {
+        flex-shrink: 0;
+        padding: calc(14px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
+        border-top: 1px solid variables.$themeBorder;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__settings-btn {
+        width: calc(40px * var(--zns-space-scale, 1));
+        height: calc(40px * var(--zns-space-scale, 1));
+        border-radius: 50%;
+        border: none;
+        background: none;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+            background-color 0.15s variables.$smoothBezier,
+            transform 0.15s variables.$smoothBezier;
+
+        &:hover {
+            background: variables.$themeCardBorder;
+            transform: scale(1.06);
+        }
+    }
+
+    &__settings-icon {
+        width: calc(22px * var(--zns-space-scale, 1));
+        height: calc(22px * var(--zns-space-scale, 1));
+        object-fit: contain;
+        display: block;
+    }
+
+    // ── Add-account row (peach tinted area) ─────────────────────
+    &__add-section {
+        flex-shrink: 0;
+        padding: calc(14px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1)) calc(18px * var(--zns-space-scale, 1));
+        background: rgba(253, 99, 55, 0.06);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__add-btn {
+        width: calc(40px * var(--zns-space-scale, 1));
+        height: calc(40px * var(--zns-space-scale, 1));
+        border-radius: 50%;
+        border: 1.5px solid rgba(253, 99, 55, 0.22);
+        background: rgba(253, 99, 55, 0.08);
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+            background-color 0.15s variables.$smoothBezier,
+            border-color 0.15s variables.$smoothBezier,
+            transform 0.15s variables.$smoothBezier;
+
+        &:hover {
+            background: rgba(253, 99, 55, 0.16);
+            border-color: rgba(253, 99, 55, 0.35);
+            transform: scale(1.06);
+        }
+    }
+
+    &__add-icon {
+        width: calc(20px * var(--zns-space-scale, 1));
+        height: calc(20px * var(--zns-space-scale, 1));
+        object-fit: contain;
+        display: block;
+    }
+}

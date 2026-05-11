@@ -1,0 +1,90 @@
+<div class="zelf-card home" fxLayout="column" fxLayoutAlign="start center" *transloco="let t">
+    <home-header [shareables]="shareables"></home-header>
+
+    <div class="home__app-content">
+        <div class="home__container">
+            <wallet-balance-top-card
+                [totalFiatBalance]="totalFiatBalance"
+                [balancesLoading]="balancesLoading"
+                [hideBalances]="hideBalances"
+                (refresh)="refreshTokens()"
+                (toggleHide)="toggleHideBalances()"
+            />
+
+            <!-- Claim rewards banner -->
+            <div class="home__rewards-banner" [routerLink]="['/rewards']">
+                <span class="home__rewards-banner__chest" aria-hidden="true">🎁</span>
+                <div class="home__rewards-banner__copy">
+                    <span class="home__rewards-banner__title">{{ t("home.rewards_banner_title") }}</span>
+                    <span class="home__rewards-banner__subtitle">{{ t("home.rewards_banner_subtitle") }}</span>
+                </div>
+                <svg class="home__rewards-banner__chevron" width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 1L7 7L1 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+
+            <div class="home__tabs">
+                <div class="animated-tabs">
+                    <div class="animated-tabs__switch">
+                        <div
+                            (click)="selectTab('assets')"
+                            [ngClass]="{ 'animated-tab--active': shareables.selectedTab === 'assets' }"
+                            class="animated-tab"
+                        >
+                            <div class="animated-tab__text">{{ t("home.assets") }}</div>
+                        </div>
+
+                        <div
+                            (click)="selectTab('nfts')"
+                            [ngClass]="{ 'animated-tab--active': shareables.selectedTab === 'nfts' }"
+                            class="animated-tab"
+                        >
+                            <div class="animated-tab__text">{{ t("home.NFTs") }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="home__assets-content" *ngIf="shareables.selectedTab === 'assets'" fxLayout="column" fxLayoutAlign="start start">
+                <!-- Skeleton Loader -->
+                <div class="home__skeleton-list" *ngIf="balancesLoading">
+                    <div *ngFor="let item of [1, 2, 3, 4]" class="home__token-skeleton">
+                        <div class="home__skeleton-left">
+                            <div class="home__skeleton-icon"></div>
+                            <div class="home__skeleton-info">
+                                <div class="home__skeleton-line home__skeleton-line--title"></div>
+                                <div class="home__skeleton-line home__skeleton-line--subtitle"></div>
+                            </div>
+                        </div>
+                        <div class="home__skeleton-right">
+                            <div class="home__skeleton-line home__skeleton-line--balance"></div>
+                            <div class="home__skeleton-line home__skeleton-line--fiat"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <token-card
+                    (click)="setSelectedAsset(token)"
+                    [data]="token"
+                    [hideBalances]="hideBalances"
+                    *ngFor="let token of tokens"
+                    (pinToggled)="onTokenPinToggled($event)"
+                ></token-card>
+
+                <div class="home__manage-networks" [routerLink]="['/settings']" [queryParams]="{ edit: 'networks' }">
+                    {{ t("home.manage_networks") }}
+                </div>
+            </div>
+
+            <div class="home__assets-content" *ngIf="shareables.selectedTab === 'nfts'" fxLayout="column" fxLayoutAlign="start stretch">
+                <home-collectibles
+                    [active]="shareables.selectedTab === 'nfts'"
+                    [reloadKey]="collectiblesReloadKey"
+                    [wallet]="wallet"
+                ></home-collectibles>
+            </div>
+        </div>
+    </div>
+
+    <zelf-footer [shareables]="shareables"></zelf-footer>
+</div>

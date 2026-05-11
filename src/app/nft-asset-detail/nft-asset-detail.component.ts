@@ -148,7 +148,7 @@ export class NftAssetDetailComponent implements OnInit, OnDestroy {
         const t = this._routeTokenId || String(this.detail?.tokenId ?? "");
         if (!c || !t) return;
         await this._manual.remove(c, t);
-        await this._router.navigate(["/home"], { queryParams: { tab: "nfts" } });
+        await this._router.navigate(["/wallet"], { queryParams: { tab: "nfts" } });
     }
 
     private _marketplaceLocale(lang: string): string {

@@ -13,7 +13,7 @@ import { interval, Subject, takeUntil } from "rxjs";
 
 import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboard.base";
 import { ChromeService } from "app/chrome.service";
-import { HomeHeaderComponent } from "app/home/home-header/home-header.component";
+import { HomeHeaderComponent } from "app/zelf-wallet/home-header/home-header.component";
 import { ZOTP } from "app/models/zotp.model";
 import { FirstLetterPipe } from "app/pipes/first-letter.pipe";
 import { TOTPService } from "app/services/totp.service";

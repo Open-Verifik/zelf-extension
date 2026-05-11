@@ -1,0 +1,187 @@
+@use "../../styles/variables";
+
+:host {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+$apps-hub-peach-tile: #fff0eb;
+$apps-hub-coral-icon-filter: brightness(0) saturate(100%) invert(47%) sepia(93%) saturate(1830%) hue-rotate(339deg) brightness(98%) contrast(94%);
+
+.apps-hub {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    box-sizing: border-box;
+
+    &__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: calc(8px * var(--zns-space-scale, 1)) calc(4px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
+        border-bottom: 1px solid variables.$themeBorder;
+    }
+
+    &__header-col1,
+    &__header-col3 {
+        flex: 0 0 calc(40px * var(--zns-action-scale, 1));
+    }
+
+    &__header-col2 {
+        flex: 1;
+        text-align: center;
+    }
+
+    &__title {
+        margin: 0;
+        font-size: calc(16px * var(--zns-font-scale, 1));
+        font-weight: 600;
+        color: variables.$themeText;
+    }
+
+    &__body {
+        width: 100%;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: calc(12px * var(--zns-space-scale, 1));
+        padding: calc(16px * var(--zns-space-scale, 1)) calc(4px * var(--zns-space-scale, 1)) calc(24px * var(--zns-space-scale, 1));
+    }
+
+    &__actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: calc(8px * var(--zns-space-scale, 1));
+    }
+
+    &__action-btn {
+        flex: 1;
+        min-width: min(140px, 100%);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: calc(6px * var(--zns-space-scale, 1));
+        padding: calc(10px * var(--zns-space-scale, 1)) calc(12px * var(--zns-space-scale, 1));
+        border: none;
+        border-radius: 12px;
+        background: variables.$secondaryColor;
+        color: variables.$themeCard;
+        font-size: calc(13px * var(--zns-font-scale, 1));
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.2s variables.$smoothBezier;
+
+        &:hover {
+            background: variables.$themeButtonHover;
+        }
+    }
+
+    &__action-icon {
+        font-size: 16px;
+        line-height: 1;
+    }
+
+    &__list {
+        display: flex;
+        flex-direction: column;
+        gap: calc(10px * var(--zns-space-scale, 1));
+    }
+
+    &__row {
+        display: flex;
+        align-items: center;
+        gap: calc(12px * var(--zns-space-scale, 1));
+        width: 100%;
+        padding: calc(12px * var(--zns-space-scale, 1)) calc(14px * var(--zns-space-scale, 1));
+        border: 1px solid variables.$themeBorder;
+        border-radius: 14px;
+        background: variables.$themeCard;
+        cursor: pointer;
+        text-align: left;
+        text-decoration: none;
+        color: variables.$themeText;
+        transition:
+            border-color 0.2s variables.$smoothBezier,
+            box-shadow 0.2s variables.$smoothBezier;
+
+        &:hover .apps-hub__label {
+            font-weight: 700;
+        }
+
+        &--active {
+            border-color: variables.$themeBorderHover;
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04);
+
+            .apps-hub__label {
+                font-weight: 700;
+            }
+        }
+
+        &--link {
+            margin-top: calc(4px * var(--zns-space-scale, 1));
+        }
+    }
+
+    &__icon-tile {
+        flex-shrink: 0;
+        width: calc(44px * var(--zns-space-scale, 1));
+        height: calc(44px * var(--zns-space-scale, 1));
+        border-radius: 12px;
+        background: $apps-hub-peach-tile;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__icon-img {
+        width: calc(22px * var(--zns-space-scale, 1));
+        height: calc(22px * var(--zns-space-scale, 1));
+        object-fit: contain;
+        filter: $apps-hub-coral-icon-filter;
+    }
+
+    &__label {
+        flex: 1;
+        font-size: calc(15px * var(--zns-font-scale, 1));
+        font-weight: 500;
+        transition: font-weight 0.15s variables.$smoothBezier;
+    }
+
+    &__chevron {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        color: variables.$themeTextMuted;
+
+        svg {
+            fill: currentColor;
+        }
+    }
+
+    &__footer-strip {
+        margin-top: auto;
+        padding-top: calc(8px * var(--zns-space-scale, 1));
+        display: flex;
+        flex-direction: column;
+        gap: calc(10px * var(--zns-space-scale, 1));
+    }
+
+    &__language-tile {
+        border: 1px solid variables.$themeBorder;
+        border-radius: 14px;
+        padding: calc(4px * var(--zns-space-scale, 1)) calc(8px * var(--zns-space-scale, 1));
+        background: variables.$themeCard;
+
+        ::ng-deep .language__button {
+            width: 100%;
+            justify-content: flex-start;
+        }
+    }
+}

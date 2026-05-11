@@ -7,9 +7,9 @@ import { TranslocoModule } from "@jsverse/transloco";
 import { Subject, takeUntil } from "rxjs";
 
 import { ChromeService } from "app/chrome.service";
-import { HomeHeaderComponent } from "app/home/home-header/home-header.component";
+import { HomeHeaderComponent } from "app/zelf-wallet/home-header/home-header.component";
 import { TagModel } from "app/tags.service";
-import { HomeHeaderAccountsComponent } from "../home/home-header-accounts/home-header-accounts.component";
+import { HomeHeaderAccountsComponent } from "app/zelf-wallet/home-header-accounts/home-header-accounts.component";
 import { ScrollToSectionService } from "../services/scroll-to-section.service";
 import { WalletService } from "../wallet.service";
 import { ZelfFooterComponent } from "app/zelf-footer/zelf-footer.component";
@@ -97,7 +97,7 @@ export class ZelfKeysDashboardComponent implements OnInit, OnDestroy {
     }
 
     navigateToWallet(): void {
-        this._router.navigate(["/home"]);
+        this._router.navigate(["/wallet"]);
     }
 
     openBottomSheet(): void {

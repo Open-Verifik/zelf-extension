@@ -1,8 +1,8 @@
-import { CurrencyPipe, NgClass, NgFor, NgIf } from "@angular/common";
+import { NgFor, NgIf } from "@angular/common";
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatButtonModule } from "@angular/material/button";
-import { ActivatedRoute, Router, RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { TranslocoModule } from "@jsverse/transloco";
 import { firstValueFrom, Subject, takeUntil } from "rxjs";
 
@@ -14,27 +14,23 @@ import { AuthService } from "app/services/auth.service";
 import { SettingsService } from "app/services/settings.service";
 import { TagModel, TagsService } from "app/tags.service";
 import { WalletService } from "app/wallet.service";
-import { homeLoadPerfLog, homeLoadPerfMark, homeLoadPerfMeasure, homeLoadPerfStart } from "@shared/utils/home-load-perf";
+import { HomeProfilePanelComponent } from "./home-profile-panel/home-profile-panel.component";
+import { WalletBalanceTopCardComponent } from "app/zelf-wallet/wallet-balance-top-card/wallet-balance-top-card.component";
+import { FooterNavDestination, FooterNavigationService } from "app/zelf-footer/footer-navigation.service";
 import { ZelfFooterComponent } from "app/zelf-footer/zelf-footer.component";
-import { ZelfNameService } from "app/zelf-name-service.service";
-import { HomeBannersComponent } from "./home-banners/home-banners.component";
-import { HomeCollectiblesComponent } from "./home-collectibles/home-collectibles.component";
-import { HomeHeaderComponent } from "./home-header/home-header.component";
-import { TokenCardComponent } from "./token-card/token-card.component";
+
+const QUICK_HUB_IDS = ["zelf-keys", "zelf-authenticator", "zelf-signals", "manage-domains"] as const;
 
 @Component({
     imports: [
-        CurrencyPipe,
         FlexLayoutModule,
-        HomeCollectiblesComponent,
-        HomeHeaderComponent,
+        HomeProfilePanelComponent,
         MatButtonModule,
-        NgClass,
         NgFor,
         NgIf,
         RouterLink,
-        TokenCardComponent,
         TranslocoModule,
+        WalletBalanceTopCardComponent,
         ZelfFooterComponent,
     ],
     selector: "home",
@@ -42,93 +38,64 @@ import { TokenCardComponent } from "./token-card/token-card.component";
     templateUrl: "./home.component.html",
 })
 export class HomeComponent implements OnInit, OnDestroy {
-    private unsubscriber$: Subject<void> = new Subject<void>();
-    private unsubscriberForBalances$: Subject<void> = new Subject<void>();
+    private readonly _destroy$ = new Subject<void>();
+    private _unsubscriberForBalances$ = new Subject<void>();
 
-    balances: any;
+    readonly quickDestinations: FooterNavDestination[];
+
+    /** Same shape as Zelf wallet: footer only renders when `shareables.wallet` is set. */
+    shareables: { wallet: Partial<TagModel>; selectedTab?: string } = { wallet: {} };
+
     balancesLoading: boolean = false;
-    collectiblesReloadKey = 0;
     hideBalances: boolean = false;
-    selectedNetwork!: string;
-    shareables: any;
-    tokens!: Array<any>;
+    showName: boolean = false;
+    showProfilePanel: boolean = false;
+    allWallets: TagModel[] = [];
     totalFiatBalance: number = 0;
-    wallet!: TagModel;
+    private _wallet!: Partial<TagModel>;
+
+    /** Checklist steps (placeholder until wired to rewards/onboarding API). */
+    readonly startHereTotal = 4;
+    readonly startHereCurrent = 0;
 
     constructor(
-        private _assetService: AssetService,
-        private _authService: AuthService,
-        private _blockchainNetworkService: BlockchainNetworksService,
-        private _blockchainTransactionsService: BlockchainTransactionsService,
-        private _changeDetectorRef: ChangeDetectorRef,
-        private _chromeService: ChromeService,
-        private _route: ActivatedRoute,
-        private _router: Router,
-        private _settingsService: SettingsService,
-        private _tagsService: TagsService,
-        private _walletService: WalletService,
-        private _zelfNameService: ZelfNameService
+        public readonly navService: FooterNavigationService,
+        private readonly _router: Router,
+        private readonly _walletService: WalletService,
+        private readonly _chromeService: ChromeService,
+        private readonly _changeDetectorRef: ChangeDetectorRef,
+        private readonly _assetService: AssetService,
+        private readonly _authService: AuthService,
+        private readonly _blockchainNetworkService: BlockchainNetworksService,
+        private readonly _blockchainTransactionsService: BlockchainTransactionsService,
+        private readonly _settingsService: SettingsService,
+        private readonly _tagsService: TagsService
     ) {
-        this.balances = {};
-        this.balancesLoading = false;
-
-        this.shareables = {
-            selectedTab: "assets",
-            wallet: {},
-        };
-
-        this.tokens = [];
+        const hub = this.navService.getHubDestinations();
+        this.quickDestinations = QUICK_HUB_IDS.map((id) => hub.find((d) => d.id === id)).filter(
+            (d): d is FooterNavDestination => !!d
+        );
     }
 
-    async ngOnInit(): Promise<any> {
-        homeLoadPerfStart();
-
+    async ngOnInit(): Promise<void> {
         const storedHide = await this._chromeService.getItem("hideWalletBalances");
-
         this.hideBalances = storedHide === true || storedHide === "true";
 
-        this._chromeService.onHideWalletBalancesChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe((hidden) => {
+        this._chromeService.onHideWalletBalancesChanged$.pipe(takeUntil(this._destroy$)).subscribe((hidden) => {
             this.hideBalances = hidden;
             this._changeDetectorRef.detectChanges();
         });
 
-        homeLoadPerfMark("initNetwork:start");
-        this.selectedNetwork = await this._blockchainNetworkService._initNetwork();
-        homeLoadPerfMark("initNetwork:end");
+        await this._blockchainNetworkService._initNetwork();
 
-        this._chromeService.onWalletChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe(this._initializeWallet);
-
-        this._route.queryParams.pipe(takeUntil(this.unsubscriber$)).subscribe((q) => {
-            if (q["tab"] === "nfts") {
-                this.shareables.selectedTab = "nfts";
-                this.collectiblesReloadKey += 1;
-                this._changeDetectorRef.detectChanges();
-            }
-        });
-
-        this._cleanSessionItems();
-    }
-
-    private _cleanSessionItems(): void {
-        this._chromeService.removeItem("transactionData");
-        this._chromeService.removeItem("newTagName");
-        this._chromeService.removeItem("flow");
+        this._chromeService.onWalletChanged$.pipe(takeUntil(this._destroy$)).subscribe(this._initializeWallet);
     }
 
     ngOnDestroy(): void {
-        this.unsubscriber$.next();
-        this.unsubscriber$.complete();
-
-        this.unsubscriberForBalances$.next();
-        this.unsubscriberForBalances$.complete();
-    }
-
-    /** Prefer `this.wallet`: `shareables.wallet` can be overwritten by child header sync before `this.wallet` is reassigned. */
-    private _tagNameForPerfLog(): string {
-        const w = this.wallet ?? this.shareables?.wallet;
-        if (!w) return "";
-
-        return (w.fullTagName || w.publicData?.tagName || w.name || "") as string;
+        this._destroy$.next();
+        this._destroy$.complete();
+        this._unsubscriberForBalances$.next();
+        this._unsubscriberForBalances$.complete();
     }
 
     private _getEnabledNetworkIds(): string[] | undefined {
@@ -146,37 +113,20 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     private async _getBalances(): Promise<void> {
-        homeLoadPerfMark("getBalances:start");
         this.balancesLoading = true;
-        this.tokens = [];
 
         const enabledNetworks = this._getEnabledNetworkIds();
         const loadedFromSession = await this._loadBalancesFromSession(enabledNetworks);
 
         if (loadedFromSession) {
             this.balancesLoading = false;
-
             this._changeDetectorRef.detectChanges();
-
-            homeLoadPerfMark("balancesIdle:end");
-            homeLoadPerfLog("balances_loading_false", {
-                source: "session",
-                fullTagName: this._tagNameForPerfLog(),
-                balancesLoading: false,
-            });
-            homeLoadPerfMeasure("walletSet_to_balancesIdle", "walletSet:end", "balancesIdle:end");
-            homeLoadPerfMark("getBalances:end");
-
             return;
         }
 
         await this._fetchBalancesFromNetwork(enabledNetworks);
-        homeLoadPerfMark("getBalances:end");
     }
 
-    /**
-     * Load balances from session storage if available
-     */
     private async _loadBalancesFromSession(enabledNetworks?: string[]): Promise<boolean> {
         const sessionTokens = await this._assetService.loadTokensFromSession();
 
@@ -190,13 +140,12 @@ export class HomeComponent implements OnInit, OnDestroy {
         return true;
     }
 
-    /**
-     * Fetch balances from network
-     */
     private async _fetchBalancesFromNetwork(enabledNetworks?: string[]): Promise<void> {
         try {
             const response = await firstValueFrom(
-                this._blockchainTransactionsService.getAddressData(this.wallet, enabledNetworks).pipe(takeUntil(this.unsubscriberForBalances$))
+                this._blockchainTransactionsService
+                    .getAddressData(this._wallet as TagModel, enabledNetworks)
+                    .pipe(takeUntil(this._unsubscriberForBalances$))
             );
 
             const result = await this._assetService.processTokensFromResponse(response);
@@ -209,35 +158,22 @@ export class HomeComponent implements OnInit, OnDestroy {
         } finally {
             this.balancesLoading = false;
             this._changeDetectorRef.detectChanges();
-
-            homeLoadPerfMark("balancesIdle:end");
-            homeLoadPerfLog("balances_loading_false", {
-                source: "network",
-                fullTagName: this._tagNameForPerfLog(),
-                balancesLoading: false,
-            });
-            homeLoadPerfMeasure("walletSet_to_balancesIdle", "walletSet:end", "balancesIdle:end");
         }
     }
 
     private _updateTokenState(tokens: any[]): void {
-        this.tokens = tokens;
-        this.totalFiatBalance = this.tokens.reduce((total, token) => {
+        this.totalFiatBalance = tokens.reduce((total, token) => {
             return total + (parseFloat(token.fiatBalance) || 0);
         }, 0);
     }
 
-    /**
-     * First call to initialize wallet, balances and refresh wallet if needed
-     */
     private _initializeWallet = async (wallet: TagModel): Promise<void> => {
-        if (this.wallet && this.wallet.tagName === wallet.tagName) return;
+        if (this._wallet && this._wallet.tagName === wallet.tagName) return;
 
         if (this.balancesLoading) {
-            this.unsubscriberForBalances$.next();
-            this.unsubscriberForBalances$.complete();
-
-            this.unsubscriberForBalances$ = new Subject<void>();
+            this._unsubscriberForBalances$.next();
+            this._unsubscriberForBalances$.complete();
+            this._unsubscriberForBalances$ = new Subject<void>();
         }
 
         this.balancesLoading = true;
@@ -246,71 +182,47 @@ export class HomeComponent implements OnInit, OnDestroy {
         await this._getBalances();
         await this._refreshWallets();
 
-        homeLoadPerfLog("initialize_wallet_pipeline_done", {
-            fullTagName: this._tagNameForPerfLog(),
-            balancesLoading: this.balancesLoading,
-        });
-        homeLoadPerfMeasure("initNetwork_to_refreshWallets", "initNetwork:end", "refreshWallets:end");
-
-        this._chromeService.onWalletChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe(this._listenForWalletUpdates);
+        this._chromeService.onWalletChanged$.pipe(takeUntil(this._destroy$)).subscribe(this._listenForWalletUpdates);
     };
 
-    /**
-     * Set this listener once initialization is complete.
-     * This helps prevent endless component update cycles should the wallet update in storage during initialization.
-     */
     private _listenForWalletUpdates = async (): Promise<void> => {
-        const currentWallet = this.wallet;
+        const currentWallet = this._wallet;
 
         await this._setWallet();
 
-        const nextWallet = this.wallet;
+        const nextWallet = this._wallet;
 
         if (currentWallet.tagName === nextWallet.tagName) return;
 
         await this.refreshTokens();
     };
 
-    /**
-     * Use with caution.
-     * This updates the wallet in local storage and could trigger an endless update cycle with out subscription to onWalletChanged$.
-     */
     private _refreshWallets = async (forceRefresh = false): Promise<void> => {
-        homeLoadPerfMark("refreshWallets:start");
-        await this._tagsService.refreshAllTagsPublicData([this.wallet] as TagModel[], forceRefresh);
-        homeLoadPerfMark("refreshWallets:end");
+        await this._tagsService.refreshAllTagsPublicData([this._wallet] as TagModel[], forceRefresh);
     };
 
-    private async _setWallet(): Promise<any> {
+    private async _setWallet(): Promise<void> {
         const wallet = await this._walletService.getFirstWalletFromStorage();
 
         if (!wallet?.name) {
             this._router.navigate(["/welcome"]);
-
             return;
         }
 
-        this.shareables.wallet = wallet;
-        this.wallet = this.shareables.wallet;
-
+        this.shareables = { ...this.shareables, wallet };
+        this._wallet = this.shareables.wallet;
         this._changeDetectorRef.detectChanges();
-
-        homeLoadPerfMark("walletSet:end");
-        homeLoadPerfLog("wallet_ready", {
-            fullTagName: wallet.fullTagName ?? "",
-            balancesLoading: this.balancesLoading,
-        });
     }
 
     async toggleHideBalances(): Promise<void> {
         await this._chromeService.setHideWalletBalances(!this.hideBalances);
     }
 
-    async refreshTokens(): Promise<any> {
+    async refreshTokens(): Promise<void> {
         if (this.balancesLoading) return;
 
         this.balancesLoading = true;
-        this.tokens = [];
+        this.totalFiatBalance = 0;
 
         await this._authService.reauthenticateSession();
 
@@ -318,7 +230,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         await this._fetchBalancesFromNetwork(enabledNetworks);
 
         await this._refreshWallets(true);
-        this.collectiblesReloadKey += 1;
         this._changeDetectorRef.detectChanges();
     }
 
@@ -348,40 +259,42 @@ export class HomeComponent implements OnInit, OnDestroy {
         return Array.from(byKey.values());
     }
 
-    selectTab(tab: string): void {
-        this.shareables.selectedTab = tab;
+    get walletName(): string {
+        const w = this.shareables.wallet;
+        return (w?.fullTagName || (w?.publicData as any)?.tagName || '') as string;
     }
 
-    sendTransaction(): void {
-        this._router.navigate(["/send-transaction"]);
+    toggleName(): void {
+        this.showName = !this.showName;
     }
 
-    async setSelectedAsset(asset: any): Promise<any> {
-        await this._assetService.setSourceAsset(asset);
-
-        this._router.navigate(["/asset"]);
+    async openProfilePanel(): Promise<void> {
+        const { wallets } = await this._walletService.getAllWalletsFromStorage();
+        this.allWallets = wallets;
+        this.showProfilePanel = true;
+        this._changeDetectorRef.detectChanges();
     }
 
-    async onTokenPinToggled(token: any): Promise<void> {
-        const isPinned = await this._assetService.togglePinToken(token);
+    closeProfilePanel(): void {
+        this.showProfilePanel = false;
+    }
 
-        // Update the token in the list
-        const tokenIndex = this.tokens.findIndex((t) => t.symbol === token.symbol && t.network === token.network && t.tokenType === token.tokenType);
+    async onPanelWalletSelected(wallet: TagModel): Promise<void> {
+        this.closeProfilePanel();
+        await this._walletService.switchWallet(wallet);
+    }
 
-        if (tokenIndex !== -1) {
-            this.tokens[tokenIndex].isPinned = isPinned;
+    onPanelSettings(): void {
+        this.closeProfilePanel();
+        void this._router.navigate(["/settings"]);
+    }
 
-            // Re-sort the tokens: pinned first, then by fiat balance
-            this.tokens.sort((a, b) => {
-                if (a.isPinned && !b.isPinned) return -1;
-                if (!a.isPinned && b.isPinned) return 1;
-                return b.fiatBalance - a.fiatBalance;
-            });
+    onPanelAddAccount(): void {
+        this.closeProfilePanel();
+        void this._router.navigate(["/wallet-manage"]);
+    }
 
-            // Save updated tokens to session
-            await this._assetService.saveTokensToSession(this.tokens);
-
-            this._changeDetectorRef.detectChanges();
-        }
+    openAppsHub(): void {
+        void this._router.navigate(["/apps"]);
     }
 }

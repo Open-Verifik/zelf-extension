@@ -13,6 +13,13 @@
     width: 100%;
     z-index: 1000;
     padding: 0 calc(24px * var(--zns-space-scale, 1));
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+html.zns-theme-dark .footer {
+    background: rgba(28, 28, 30, 0.6);
 }
 
 .footer-link {

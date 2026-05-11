@@ -1,0 +1,257 @@
+@use "../../../styles/variables";
+
+* {
+    box-sizing: border-box;
+}
+
+:host {
+    display: block;
+    width: 100%;
+}
+
+.home__balance-card {
+    position: relative;
+    width: 100%;
+    border: 1px solid transparent;
+    background:
+        linear-gradient(variables.$themeCardBorder, variables.$themeCardBorder) padding-box,
+        linear-gradient(135deg, variables.$themeBorderHover, variables.$themeCardBorder) border-box;
+    border-radius: calc(20px * var(--zns-space-scale, 1));
+    padding: calc(16px * var(--zns-space-scale, 1));
+
+    @media (max-width: variables.$minSmall) {
+        border-radius: calc(16px * var(--zns-space-scale, 1));
+        padding: calc(10px * var(--zns-space-scale, 1));
+    }
+}
+
+:host-context(html.zns-theme-light) {
+    .home__balance-card {
+        background: white;
+    }
+}
+
+.home__actions-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    width: 100%;
+}
+
+.home__actions {
+    width: 100%;
+    margin-top: calc(16px * var(--zns-space-scale, 1));
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: calc(8px * var(--zns-space-scale, 1));
+
+    @media (max-width: variables.$minSmall) {
+        margin-top: calc(10px * var(--zns-space-scale, 1));
+        gap: calc(6px * var(--zns-space-scale, 1));
+    }
+}
+
+.home__action-buttons {
+    .zelf-action-button__icon {
+        border-radius: calc(16px * var(--zns-space-scale, 1));
+        width: calc(100px * var(--zns-space-scale, 1));
+    }
+}
+
+.home-balance {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: calc(4px * var(--zns-space-scale, 1));
+    }
+
+    &__label-row {
+        display: inline-flex;
+        align-items: center;
+        gap: calc(6px * var(--zns-space-scale, 1));
+    }
+
+    &__brand-icon {
+        flex-shrink: 0;
+        display: block;
+    }
+
+    &__label {
+        font-size: calc(13px * var(--zns-font-scale, 1));
+        font-weight: 400;
+        color: variables.$themeTextSecondary;
+        font-family: variables.$themeBodyFamily;
+        letter-spacing: 0.3px;
+    }
+
+    &__amount-row {
+        display: inline-flex;
+        align-items: center;
+        gap: calc(8px * var(--zns-space-scale, 1));
+    }
+
+    &__amount {
+        color: variables.$themeText;
+        font-size: calc(40px * var(--zns-font-scale, 1));
+        font-weight: 800;
+        line-height: calc(44px * var(--zns-font-scale, 1));
+        margin: 0;
+        word-wrap: break-word;
+
+        @media (max-width: variables.$minSmall) {
+            font-size: calc(32px * var(--zns-font-scale, 1));
+            line-height: calc(36px * var(--zns-font-scale, 1));
+        }
+    }
+
+    &__refresh {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: calc(4px * var(--zns-space-scale, 1));
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        line-height: 0;
+        border-radius: 50%;
+        transition: background-color 0.2s variables.$smoothBezier;
+
+        svg {
+            width: calc(22px * var(--zns-font-scale, 1));
+            height: calc(22px * var(--zns-font-scale, 1));
+            fill: variables.$themeTextSecondary;
+            transition: fill 0.2s variables.$smoothBezier;
+        }
+
+        &:hover {
+            background-color: variables.$themeCardBorder;
+
+            svg {
+                fill: variables.$themeText;
+            }
+        }
+
+        &--spinning svg {
+            animation: spin 1s linear infinite;
+        }
+    }
+
+    &__visibility {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: calc(6px * var(--zns-space-scale, 1));
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 0;
+        border-radius: 50%;
+        transition: background-color 0.2s variables.$smoothBezier;
+        align-self: flex-start;
+        flex-shrink: 0;
+
+        svg {
+            width: calc(22px * var(--zns-font-scale, 1));
+            height: calc(22px * var(--zns-font-scale, 1));
+            fill: variables.$themeTextSecondary;
+            transition: fill 0.2s variables.$smoothBezier;
+        }
+
+        &:hover {
+            background-color: variables.$themeCardBorder;
+
+            svg {
+                fill: variables.$themeText;
+            }
+        }
+    }
+
+    &__amount-skeleton {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    &__skeleton-bar {
+        width: calc(160px * var(--zns-space-scale, 1));
+        height: calc(40px * var(--zns-font-scale, 1));
+        background: variables.$themeBorder;
+        border-radius: calc(8px * var(--zns-space-scale, 1));
+        position: relative;
+        overflow: hidden;
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            transform: translateX(-100%);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shimmer 1.5s infinite;
+        }
+
+        @media (max-width: variables.$minSmall) {
+            height: calc(32px * var(--zns-font-scale, 1));
+        }
+    }
+}
+
+.home__recent-transactions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: calc(16px * var(--zns-space-scale, 1));
+    padding-top: calc(12px * var(--zns-space-scale, 1));
+    cursor: pointer;
+    transition: opacity 0.2s variables.$smoothBezier;
+
+    &:hover {
+        opacity: 0.7;
+    }
+
+    &__label {
+        font-family: variables.$themeBodyFamily;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        font-weight: 400;
+        color: variables.$themeText;
+
+        &:hover {
+            font-weight: 700;
+        }
+    }
+
+    svg {
+        color: variables.$themeTextSecondary;
+        flex-shrink: 0;
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes shimmer {
+    100% {
+        transform: translateX(100%);
+    }
+}

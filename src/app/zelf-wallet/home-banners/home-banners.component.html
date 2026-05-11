@@ -3,7 +3,7 @@
         <!-- Left tile: expiration countdown or stable QR -->
         <a
             class="home-banners__tile home-banners__tile--expiration"
-            [routerLink]="showExpiration ? ['/manage-domains'] : ['/wallet']"
+            [routerLink]="showExpiration ? ['/manage-domains'] : ['/wallet-manage']"
             [attr.aria-label]="showExpiration ? t('home_banners.expiration.title') : t('wallet.info_title')"
         >
             <div class="home-banners__tile-exp-inner">

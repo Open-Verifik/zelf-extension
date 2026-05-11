@@ -701,6 +701,14 @@
         }
     },
     "common": {
+        "apps": "Apps",
+        "coming_soon_desc": "This feature is not yet available.",
+        "zelf_chat": "zChat",
+        "zelf_chats": "zChats",
+        "zelf_signals": "zSignals",
+        "zelf_ai": "zIA",
+        "zelf_chat_coming_soon": "Zelf Chat will be available soon.",
+        "zelf_signals_coming_soon": "Zelf Signals will be available soon.",
         "back": "Back",
         "optional": "Optional",
         "no_results_found": "No results found",
@@ -758,6 +766,7 @@
         "go_back": "Go back",
         "hide_words": "Hide words",
         "history": "History",
+        "home": "Home",
         "import_a_wallet": "Import a wallet",
         "import_wallet": "Import wallet",
         "import": "Import",
@@ -838,7 +847,8 @@
         "download_short": "Download",
         "mnemonics": "Mnemonics",
         "wallet_short": "Wallet",
-        "auth_short": "Auth"
+        "auth_short": "Auth",
+        "coming_soon": "Coming Soon"
     },
     "token": {
         "24h_performance": "24h Performance",
@@ -1066,6 +1076,27 @@
         "recent_transactions": "Recent transactions",
         "rewards_banner_title": "Claim rewards",
         "rewards_banner_subtitle": "Get $ZNS daily with our quests"
+    },
+    "home_hub": {
+        "greeting": "Welcome",
+        "header_rewards_aria": "Rewards",
+        "header_notifications_aria": "Notifications",
+        "subscription_title": "Free Plan",
+        "subscription_subtitle": "Manage your subscription",
+        "subscription_cta": "Keep Access",
+        "subscription_countdown_placeholder": "Renewal countdown",
+        "start_here_title": "Start here",
+        "start_here_subtitle": "Complete the starting guide and earn $ZNS",
+        "start_here_progress": "{{ current }} / {{ total }}",
+        "quick_apps_heading": "Quick access",
+        "promo_placeholder_title": "Zelf Keys",
+        "promo_placeholder_body": "Secure passwords and cards in one place.",
+        "promo_placeholder_cta": "Explore now",
+        "signals_heading": "Zelf Signals",
+        "signals_explore": "Explore",
+        "signals_placeholder_title": "Highlights from Zelf Signals",
+        "signals_placeholder_body": "Market and asset highlights will appear here.",
+        "more_apps": "More"
     },
     "id_scanning": {
         "camera_not_found": "Camera not found",

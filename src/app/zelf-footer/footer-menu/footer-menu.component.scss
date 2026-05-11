@@ -1,164 +1,101 @@
 @use "../../../styles/variables";
 
+// Floating pill — match marketing mock: white bar, peach active chip, coral icon, muted grid/star.
+// Avoid theme $secondaryColor on the chip (reads as a strong “system” blue/orange on hover).
+$footer-pill-active-bg: #fff0eb;
+$footer-pill-active-icon: #f06543;
+$footer-pill-muted-icon: #9aa3b2;
+// ~20% smaller than the first implementation (tighter pill + strip height).
+$footer-pill-scale: 0.8;
+
 :host {
     display: block;
-    padding: calc(32px * var(--zns-space-scale, 1));
+    width: 100%;
 }
 
-.footer-menu {
+.footer-menu-pill {
     display: flex;
-    flex-direction: column;
-    width: min(400px, var(--zns-card-width, 400px));
-    max-width: 100%;
-    justify-content: center;
     align-items: center;
-    gap: calc(16px * var(--zns-space-scale, 1));
+    justify-content: space-between;
+    width: 100%;
+    max-width: calc(320px * $footer-pill-scale);
     margin: 0 auto;
+    padding: calc(6px * $footer-pill-scale * var(--zns-space-scale, 1)) calc(16px * $footer-pill-scale * var(--zns-space-scale, 1));
+    background-color: variables.$themeCard;
+    border-radius: 100px;
+    box-shadow: 0 calc(4px * $footer-pill-scale) calc(20px * $footer-pill-scale) variables.$themeShadow;
+    gap: calc(12px * $footer-pill-scale * var(--zns-space-scale, 1));
+    border: 1px solid variables.$themeCardBorder;
 
-    &__item {
-        display: inline-flex;
-        justify-content: center;
+    &__active {
+        display: flex;
         align-items: center;
-        gap: calc(8px * var(--zns-space-scale, 1));
+        gap: calc(8px * $footer-pill-scale * var(--zns-space-scale, 1));
+        padding: calc(8px * $footer-pill-scale * var(--zns-space-scale, 1)) calc(16px * $footer-pill-scale * var(--zns-space-scale, 1));
+        background-color: $footer-pill-active-bg;
+        border-radius: 100px;
         cursor: pointer;
-        border: none;
-        outline: none;
-        user-select: none;
-        width: 100%;
-        border-radius: 12px;
-        padding: calc(12px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
-        transition: background-color 0.3s variables.$smoothBezier;
-
-        svg {
-            transition: fill 0.3s variables.$smoothBezier;
-            fill: variables.$themeText;
-        }
+        text-decoration: none;
+        transition: box-shadow 0.2s variables.$smoothBezier;
 
         &:hover {
-            background-color: variables.$secondaryColor;
-            color: variables.$themeCard;
+            background-color: $footer-pill-active-bg;
+            box-shadow: none;
 
-            .footer-menu__icon-container {
-                background-color: variables.$themeText;
-            }
-
-            .footer-menu__text {
-                color: variables.$themeCard;
-            }
-
-            svg {
-                fill: variables.$themeCard;
-            }
-
-            .footer-menu__arrow-container {
-                svg {
-                    fill: variables.$themeText;
-                }
+            .footer-menu-pill__active-text {
+                font-weight: 700;
             }
         }
 
-        &--active {
-            background-color: variables.$secondaryColor;
-            color: variables.$themeCard;
+        &:focus-visible {
+            outline: 2px solid $footer-pill-active-icon;
+            outline-offset: 2px;
+        }
 
-            .footer-menu__icon-container {
-                background-color: variables.$themeText;
-            }
+        &-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            object-fit: contain;
+            // Neutral / dark SVG → coral accent (~#f06543)
+            filter: brightness(0) saturate(100%) invert(47%) sepia(93%) saturate(1830%) hue-rotate(339deg) brightness(98%) contrast(94%);
+        }
 
-            .footer-menu__text {
-                color: variables.$themeCard;
-            }
-
-            svg {
-                fill: variables.$themeCard;
-            }
-
-            .footer-menu__arrow-container {
-                svg {
-                    fill: variables.$themeText;
-                }
-            }
-
-            &:hover {
-                background-color: variables.$secondaryColor;
-            }
+        &-text {
+            font-size: calc(14px * var(--zns-font-scale, 1));
+            font-weight: 500;
+            color: variables.$themeText;
+            white-space: nowrap;
+            transition: font-weight 0.15s variables.$smoothBezier;
         }
     }
 
-    &__icon-container {
-        background: variables.$themeCard;
-        border-radius: 12px;
-        padding: calc(8px * var(--zns-space-scale, 1));
-        width: calc(24px * var(--zns-space-scale, 1));
-        height: calc(24px * var(--zns-space-scale, 1));
-        min-width: calc(24px * var(--zns-space-scale, 1));
-        min-height: calc(24px * var(--zns-space-scale, 1));
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        transition: background-color 0.3s variables.$smoothBezier;
-        position: relative;
-
-        &--loading {
-            opacity: 0.5;
-        }
-    }
-
-    &__text {
-        font-size: calc(14px * var(--zns-font-scale, 1));
-        font-weight: 500;
-        color: variables.$themeText;
-        margin-left: calc(8px * var(--zns-space-scale, 1));
-        width: 100%;
-        transition: color 0.3s variables.$smoothBezier;
-    }
-
-    &__arrow-container {
-        svg {
-            transition: fill 0.3s variables.$smoothBezier;
-            fill: variables.$themeTextMuted;
-        }
-    }
-
-    &__close-container {
-        position: fixed !important;
-        bottom: calc(20px * var(--zns-space-scale, 1));
-        width: 100%;
+    &__icon-btn {
         display: flex;
-        justify-content: center;
         align-items: center;
-    }
-
-    &__close {
-        cursor: pointer;
-        min-height: calc(64px * var(--zns-space-scale, 1));
-        min-width: calc(64px * var(--zns-space-scale, 1));
-        width: calc(64px * var(--zns-space-scale, 1));
-        height: calc(64px * var(--zns-space-scale, 1));
-        border-radius: 64px;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
         border: none;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: variables.$themeCard;
-
-        &:focus {
-            outline: none;
-            border: none;
-        }
-
-        svg {
-            transition: fill 0.3s variables.$smoothBezier;
-            fill: variables.$themeText;
-        }
+        background: transparent;
+        color: $footer-pill-muted-icon;
+        cursor: pointer;
+        transition: color 0.2s variables.$smoothBezier;
 
         &:hover {
-            background-color: variables.$secondaryColor;
-            color: variables.$themeCard;
+            color: #7a8494;
+            background: transparent;
+        }
 
-            svg {
-                fill: variables.$themeCard;
-            }
+        &:focus-visible {
+            outline: 2px solid $footer-pill-muted-icon;
+            outline-offset: 2px;
+        }
+
+        svg {
+            width: 24px;
+            height: 24px;
         }
     }
 }

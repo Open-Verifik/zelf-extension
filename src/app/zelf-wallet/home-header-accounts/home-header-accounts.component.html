@@ -8,7 +8,7 @@
             </svg>
         </button>
 
-        <div class="zelf-name" (click)="close()" [routerLink]="['/wallet']">
+        <div class="zelf-name" (click)="close()" [routerLink]="['/wallet-manage']">
             <h4 class="zelf-name__title" *ngIf="shareables.wallet.publicData">
                 {{ shareables.wallet.fullTagName }}
             </h4>
@@ -143,7 +143,7 @@
                 <div class="wallet-row__action-grid">
                     <button
                         (click)="navigateToWallet(wallet)"
-                        [ngClass]="{ 'wallet-row__action-item--active': isRouteActiveForWallet('/home', wallet.fullTagName) }"
+                        [ngClass]="{ 'wallet-row__action-item--active': isRouteActiveForWallet('/wallet', wallet.fullTagName) }"
                         [attr.data-tooltip]="t('common.zelf_wallet')"
                         class="wallet-row__action-item"
                     >

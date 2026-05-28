@@ -4,8 +4,9 @@ import { BehaviorSubject, Observable } from "rxjs";
 export interface PopoutDecryptionData {
     type?: "password" | "notes" | "credit_card" | "zotp" | "wallet";
     requestId: string;
+    zelfProof?: string;
     publicData: {
-        zelfProof: string;
+        zelfProof?: string;
         title: string;
         website: string;
     };

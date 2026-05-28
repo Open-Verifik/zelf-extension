@@ -1,5 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
+import { MatButtonModule } from "@angular/material/button";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslocoModule } from "@jsverse/transloco";
 import { ChromeService } from "app/chrome.service";
@@ -17,7 +18,7 @@ interface DappSite {
 @Component({
     selector: "zelf-settings-dapps",
     standalone: true,
-    imports: [CommonModule, TranslocoModule],
+    imports: [CommonModule, MatButtonModule, TranslocoModule],
     templateUrl: "./zelf-settings-dapps.component.html",
     styleUrls: ["./zelf-settings-dapps.component.scss"],
 })

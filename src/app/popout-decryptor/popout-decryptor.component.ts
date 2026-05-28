@@ -7,12 +7,14 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { Router, RouterModule } from "@angular/router";
-import { TranslocoModule } from "@jsverse/transloco";
+import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 import * as faceapi from "@vladmandic/face-api";
 import { WebcamComponent, WebcamImage, WebcamInitError, WebcamModule } from "ngx-webcam";
 import { Observable, Subject, takeUntil } from "rxjs";
 
+import { ChromeService } from "app/chrome.service";
 import { HttpWrapperService } from "app/http-wrapper.service";
+import { AuthService } from "app/services/auth.service";
 import { ErrorService } from "app/services/error.service";
 import { ZelfKeysService } from "app/services/zelf-keys.service";
 import { TagModel } from "app/tags.service";
@@ -75,7 +77,6 @@ export class PopoutDecryptorComponent implements OnInit, OnDestroy {
         isLowQuality: false,
         dimensions: {
             video: { width: 0, height: 0, max: { width: 400, height: 300 } },
-            result: { width: 0, height: 0, offsetX: 0, offsetY: 0 },
             real: { width: 0, height: 0, offsetX: 0, offsetY: 0 },
         } as { [key: string]: { width: number; height: number; offsetX?: number; offsetY?: number; max?: { width: number; height: number } } },
         configuration: {
@@ -105,6 +106,7 @@ export class PopoutDecryptorComponent implements OnInit, OnDestroy {
     });
 
     masterPasswordFormSubmitted = false;
+    showMasterPassword = false;
     record: any = {};
 
     response = {
@@ -115,12 +117,15 @@ export class PopoutDecryptorComponent implements OnInit, OnDestroy {
     wallet!: Partial<TagModel>;
 
     constructor(
+        private _authService: AuthService,
         private _changeDetectorRef: ChangeDetectorRef,
+        private _chromeService: ChromeService,
         private _errorService: ErrorService,
         private _httpWrapperService: HttpWrapperService,
         private _popoutCommunicationService: PopoutCommunicationService,
         private _router: Router,
         private _themeService: ThemeService,
+        private _translocoService: TranslocoService,
         private _vaultService: VaultService,
         private _walletService: WalletService,
         private _zelfKeysService: ZelfKeysService
@@ -151,7 +156,7 @@ export class PopoutDecryptorComponent implements OnInit, OnDestroy {
     }
 
     get dataTypeIcon(): string {
-        switch (this.record.type) {
+        switch (this.recordType) {
             case "note":
             case "notes":
                 return "note";
@@ -165,6 +170,10 @@ export class PopoutDecryptorComponent implements OnInit, OnDestroy {
             default:
                 return "lock";
         }
+    }
+
+    get recordType(): string {
+        return this.record?.type || "password";
     }
 
     get takePicture$(): Observable<void> {
@@ -268,6 +277,7 @@ export class PopoutDecryptorComponent implements OnInit, OnDestroy {
                 this.face.successPosition = 0;
 
                 this.errorFace = {
+                    icon: "face",
                     title: "No face detected",
                     subtitle: "Please look at the camera",
                 };
@@ -377,11 +387,21 @@ export class PopoutDecryptorComponent implements OnInit, OnDestroy {
     private _getRecordForDecryptingFromService(): void {
         const popoutData = this._popoutCommunicationService.getDecryptionData();
 
-        if (popoutData) {
-            this.record = { ...popoutData };
-        } else {
-            this.record = {};
-        }
+        this.record = this._normalizeDecryptionRecord(popoutData);
+    }
+
+    private _normalizeDecryptionRecord(data: any): Record<string, any> {
+        if (!data) return {};
+
+        const type = data.type || data.publicData?.type || "password";
+        const zelfProof = data.zelfProof || data.publicData?.zelfProof || "";
+
+        return {
+            ...data,
+            type,
+            zelfProof,
+            publicData: data.publicData || {},
+        };
     }
 
     private _handleDecryptionSuccess(result: any): void {
@@ -397,24 +417,47 @@ export class PopoutDecryptorComponent implements OnInit, OnDestroy {
     }
 
     private _handleError(error: any): void {
-        const message = error.message || "unknown_error";
+        const rawMessage = typeof error?.message === "string" ? error.message : "";
 
-        if (message === "User cancelled decryption") {
+        if (rawMessage === "User cancelled decryption") {
             this._closeDecryptor();
             return;
         }
 
-        const snakeCaseMessage = message.toLowerCase().replace(/\s+/g, "_");
+        const errorKey = this._errorService.resolveErrorKey(error);
+        const translatedMessage = this._errorService.translateErrorMessage(errorKey);
 
-        this.error = this._errorService.translateErrorMessage(snakeCaseMessage);
-
-        this.masterPassword = "";
-        this.masterPasswordForm.reset();
-        this.masterPasswordFormSubmitted = false;
+        if (errorKey.includes("failed_to_decrypt") || errorKey.includes("encryption_key_didnt_match")) {
+            this._logIdentifierDiagnostics(errorKey);
+        }
 
         this.camera.isLoading = false;
         this.response.isLoading = false;
         this.response.base64Image = "";
+
+        if (this._errorService.isLivenessError(errorKey)) {
+            this.error = null;
+            this.errorFace = {
+                icon: "face",
+                title: translatedMessage,
+                subtitle: this._translocoService.translate("liveness.center_your_face_subtitle"),
+            };
+
+            this._resetBiometricSession();
+            this._changeDetectorRef.detectChanges();
+
+            return;
+        }
+
+        this.error = translatedMessage;
+        this.errorFace = null;
+
+        this.masterPassword = "";
+        this.masterPasswordForm.reset();
+        this.masterPasswordFormSubmitted = false;
+        this.showMasterPassword = false;
+
+        this._stopBiometricDetection();
 
         this._changeDetectorRef.detectChanges();
     }
@@ -441,7 +484,7 @@ export class PopoutDecryptorComponent implements OnInit, OnDestroy {
         this._popoutCommunicationService.decryptionData$.pipe(takeUntil(this._destroy$)).subscribe((data) => {
             if (!data) return;
 
-            this.record = { ...data };
+            this.record = this._normalizeDecryptionRecord(data);
         });
     }
 
@@ -468,6 +511,7 @@ export class PopoutDecryptorComponent implements OnInit, OnDestroy {
 
         this.errorFace = {
             canvas: direction,
+            icon: "center_focus_strong",
             subtitle: "Center your face in the oval",
             title: "Center your face",
         };
@@ -481,6 +525,7 @@ export class PopoutDecryptorComponent implements OnInit, OnDestroy {
 
         if (faceProportion < this.face.threshold || landmarks.imageHeight < this.face.minPixels || landmarks.imageWidth < this.face.minPixels) {
             this.errorFace = {
+                icon: "zoom_in",
                 title: "Get closer",
                 subtitle: "Move your face closer to the camera",
             };
@@ -568,25 +613,101 @@ export class PopoutDecryptorComponent implements OnInit, OnDestroy {
         }
     }
 
-    private _setImageOnCanvas(canvas: HTMLCanvasElement, img: HTMLImageElement, dimensions: any, resultDimensions: any): void {
+    private _drawCrop(
+        canvas: HTMLCanvasElement,
+        img: HTMLImageElement,
+        src: { x: number; y: number; width: number; height: number },
+        dst: { x?: number; y?: number; width: number; height: number }
+    ): void {
         const context = canvas.getContext("2d");
 
         if (!context) return;
 
-        canvas.width = resultDimensions.width;
-        canvas.height = resultDimensions.height;
+        canvas.width = dst.width;
+        canvas.height = dst.height;
 
-        context.drawImage(
-            img,
-            dimensions.offsetX,
-            dimensions.offsetY,
-            dimensions.width,
-            dimensions.height,
-            0,
-            0,
-            resultDimensions.width,
-            resultDimensions.height
-        );
+        context.drawImage(img, src.x, src.y, src.width, src.height, 0, 0, dst.width, dst.height);
+    }
+
+    /**
+     * Compute the face-oval crop in both source (native video) and display coordinates.
+     *
+     * The live `<video>` element uses `object-fit: cover`, so the underlying source
+     * frame is rendered with a uniform scale and the overflowing edges are clipped.
+     * We replicate that mapping when cropping the captured frame so the preview canvas
+     * and the to-send canvas share the same aspect ratio as what the user saw on screen
+     * — otherwise the captured face gets stretched (egg-face).
+     *
+     * - `display` is the rectangle in popup coords (375x600). Used as the buffer for
+     *   the preview canvas, rendered 1:1 by CSS.
+     * - `original` is the corresponding rectangle in native source coords (e.g. 1920x1080),
+     *   computed via the same single-scale + centered offset that `object-fit: cover` uses.
+     *   `original` always has the same aspect as `display` so drawing `original -> display`
+     *   is a pure uniform scale, no distortion.
+     *
+     * Returns `null` if face detection has not produced real dimensions yet.
+     */
+    private _computeOvalCrops(): {
+        original: { x: number; y: number; width: number; height: number };
+        display: { x: number; y: number; width: number; height: number };
+    } | null {
+        const videoDim = this.camera.dimensions.video;
+        const realDim = this.camera.dimensions.real;
+
+        if (!videoDim?.width || !videoDim?.height) return null;
+        if (!realDim?.width || !realDim?.height) return null;
+
+        const ovalRadiusX = this.face.video?.radius?.x || 0;
+        const centerX = this.face.video?.center?.x ?? videoDim.width / 2;
+
+        if (!ovalRadiusX) return null;
+
+        const displayWidth = Math.min(2.8 * ovalRadiusX, videoDim.width);
+        const display = {
+            x: Math.max(0, centerX - displayWidth / 2),
+            y: 0,
+            width: displayWidth,
+            height: videoDim.height,
+        };
+
+        // object-fit: cover math — uniform scale so the source fully covers the display
+        // box, then the box is read out of the centered visible portion of the source.
+        const coverScale = Math.max(videoDim.width / realDim.width, videoDim.height / realDim.height);
+        const visibleSrcWidth = videoDim.width / coverScale;
+        const visibleSrcHeight = videoDim.height / coverScale;
+        const offsetSrcX = (realDim.width - visibleSrcWidth) / 2;
+        const offsetSrcY = (realDim.height - visibleSrcHeight) / 2;
+
+        const original = {
+            x: offsetSrcX + display.x / coverScale,
+            y: offsetSrcY + display.y / coverScale,
+            width: display.width / coverScale,
+            height: display.height / coverScale,
+        };
+
+        return { original, display };
+    }
+
+    /**
+     * Optionally downscale a rect so that the longest edge does not exceed `maxEdge`.
+     * Used to cap the to-send canvas size and reduce the base64 upload payload.
+     */
+    private _capRect(
+        rect: { x: number; y: number; width: number; height: number },
+        maxEdge: number
+    ): { x: number; y: number; width: number; height: number } {
+        const longest = Math.max(rect.width, rect.height);
+
+        if (longest <= maxEdge) return rect;
+
+        const scale = maxEdge / longest;
+
+        return {
+            x: rect.x,
+            y: rect.y,
+            width: Math.round(rect.width * scale),
+            height: Math.round(rect.height * scale),
+        };
     }
 
     private async _setMaxVideoDimensions(): Promise<void> {
@@ -599,23 +720,9 @@ export class PopoutDecryptorComponent implements OnInit, OnDestroy {
         this.camera.dimensions.video.width = viewportWidth;
         this.camera.dimensions.video.height = viewportHeight;
 
-        this.camera.dimensions.result.width = viewportWidth;
-        this.camera.dimensions.result.height = viewportHeight;
-
         this.face.video = this._getCenterAndRadius(viewportHeight, viewportWidth);
 
         this._changeDetectorRef.markForCheck();
-    }
-
-    private _setResultDimensions(type: string, height: number, width: number): void {
-        const dimensions = this.camera.dimensions[type as keyof typeof this.camera.dimensions] as any;
-
-        if (!dimensions) return;
-
-        dimensions.height = height;
-        dimensions.offsetY = 0;
-        dimensions.width = Math.min(2.8 * (this.face.real?.radius?.x || 0), width);
-        dimensions.offsetX = (this.face.real?.center?.x || 0) - dimensions.width / 2;
     }
 
     private _setupCloseMessageListener(): void {
@@ -643,9 +750,6 @@ export class PopoutDecryptorComponent implements OnInit, OnDestroy {
 
         this.camera.dimensions.video.height = containerHeight;
         this.camera.dimensions.video.width = containerWidth;
-        this.camera.dimensions.result = { height: 0, width: 0, offsetX: 0, offsetY: 0 };
-
-        this._setResultDimensions("result", containerHeight, containerWidth);
 
         this.face.video = this._getCenterAndRadius(containerHeight, containerWidth);
 
@@ -657,6 +761,48 @@ export class PopoutDecryptorComponent implements OnInit, OnDestroy {
         }
 
         this._changeDetectorRef.markForCheck();
+    }
+
+    private async _logIdentifierDiagnostics(reason: string): Promise<void> {
+        try {
+            const accessToken = (await this._chromeService.getItem("accessToken")) || "";
+            const storedSessionIdentifier = (await this._chromeService.getItem("sessionIdentifier")) || null;
+            const jwtIdentifier = accessToken ? this._authService.getJwtIdentifier(accessToken) : null;
+
+            console.warn("[Zelf Keys] popout decrypt failed — identifier diagnostics", {
+                reason,
+                jwtIdentifier,
+                storedSessionIdentifier,
+                identifierMismatch: !!(jwtIdentifier && storedSessionIdentifier && jwtIdentifier !== storedSessionIdentifier),
+            });
+        } catch (diagError) {
+            console.warn("[Zelf Keys] failed to collect identifier diagnostics:", diagError);
+        }
+    }
+
+    private _resetBiometricSession(): void {
+        this.response.base64Image = "";
+        this.response.isLoading = false;
+        this.errorFace = null;
+        this.face.successPosition = 0;
+        this.lastFace = null;
+
+        const videoNgx = this.webcamRef?.nativeVideoElement;
+
+        if (videoNgx) {
+            this._setVideoDimensions(videoNgx);
+        }
+
+        this._drawOvalCenterAndMask();
+        this._startFaceDetectionInterval();
+        this._changeDetectorRef.markForCheck();
+    }
+
+    private _stopBiometricDetection(): void {
+        if (this._intervals.detectFace) {
+            clearInterval(this._intervals.detectFace);
+            this._intervals.detectFace = null;
+        }
     }
 
     private _startFaceDetectionInterval(): void {
@@ -710,16 +856,25 @@ export class PopoutDecryptorComponent implements OnInit, OnDestroy {
 
         if (!maskResultCanvas || !toSendCanvas) return;
 
-        if (!this.camera.dimensions.real || !this.camera.dimensions.result) {
+        const crops = this._computeOvalCrops();
+
+        if (!crops) {
             console.error("Camera dimensions not properly initialized");
 
             return;
         }
 
-        this._setImageOnCanvas(maskResultCanvas, img, this.camera.dimensions.real, this.camera.dimensions.result);
-        this._setImageOnCanvas(toSendCanvas, img, this.camera.dimensions.real, this.camera.dimensions.real);
+        const { original, display } = crops;
 
-        this.response.base64Image = toSendCanvas.toDataURL("image/jpeg");
+        // Preview canvas: buffer matches the display crop so CSS renders 1:1 (no squash).
+        this._drawCrop(maskResultCanvas, img, original, display);
+
+        // To-send canvas: buffer matches the native crop so the API gets a clean face
+        // crop at full quality, capped to 1080px long edge to keep the payload light.
+        const sendDst = this._capRect(original, 1080);
+        this._drawCrop(toSendCanvas, img, original, sendDst);
+
+        this.response.base64Image = toSendCanvas.toDataURL("image/jpeg", 0.92);
         this.response.isLoading = true;
 
         this._changeDetectorRef.detectChanges();
@@ -735,8 +890,16 @@ export class PopoutDecryptorComponent implements OnInit, OnDestroy {
         this.masterPassword = "";
         this.masterPasswordForm.reset();
         this.masterPasswordFormSubmitted = false;
+        this.showMasterPassword = false;
 
         this.error = null;
+
+        this._stopBiometricDetection();
+        this.response.base64Image = "";
+        this.response.isLoading = false;
+        this.errorFace = null;
+        this.face.successPosition = 0;
+        this.lastFace = null;
     }
 
     onBiometricsCancel(): void {
@@ -745,6 +908,10 @@ export class PopoutDecryptorComponent implements OnInit, OnDestroy {
 
     onCancel(): void {
         this.onBiometricsCancel();
+    }
+
+    toggleMasterPasswordVisibility(): void {
+        this.showMasterPassword = !this.showMasterPassword;
     }
 
     processImage(webcamImage: WebcamImage): void {
@@ -768,8 +935,18 @@ export class PopoutDecryptorComponent implements OnInit, OnDestroy {
     submitMasterPassword(): void {
         if (this.masterPasswordForm.invalid) return;
 
+        this.record = this._normalizeDecryptionRecord(this.record);
+
+        if (!this.record.zelfProof) {
+            this.error = this._errorService.translateErrorMessage("missing_zelf_proof");
+            return;
+        }
+
         this.masterPassword = this.masterPasswordForm.value.masterPassword as string;
         this.masterPasswordFormSubmitted = true;
         this.error = null;
+
+        this._changeDetectorRef.detectChanges();
+        this._resetBiometricSession();
     }
 }

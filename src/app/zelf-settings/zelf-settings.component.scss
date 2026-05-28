@@ -1,6 +1,9 @@
 @use "../../styles/variables";
 @use "../../styles/buttons";
 
+$settings-hub-peach-tile: #fff0eb;
+$settings-hub-coral-icon: #ff5c45;
+
 :host {
     align-items: center;
     display: flex;
@@ -10,10 +13,17 @@
 }
 
 .zelf-settings {
-    gap: calc(16px * var(--zns-space-scale, 1));
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    box-sizing: border-box;
     width: 100%;
     max-width: var(--zns-card-width, 536px);
     min-height: var(--zns-card-min-height, 768px);
+
+    * {
+        box-sizing: border-box;
+    }
 
     &--start {
         align-items: flex-start !important;
@@ -21,44 +31,38 @@
     }
 
     &__header {
-        align-content: center;
-        column-gap: calc(12px * var(--zns-space-scale, 1));
-        display: grid;
-        gap: calc(24px * var(--zns-space-scale, 1));
-        grid-template-columns: repeat(10, 1fr);
-        justify-content: start;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: calc(8px * var(--zns-space-scale, 1)) calc(4px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
+        border-bottom: 1px solid variables.$themeBorder;
         width: 100%;
     }
 
-    &__col1,
-    &__col3 {
-        grid-column: span 2;
+    &__header-col1,
+    &__header-col3 {
+        flex: 0 0 calc(40px * var(--zns-action-scale, 1));
         display: flex;
         align-items: center;
     }
 
-    &__col1 {
-        justify-content: start;
+    &__header-col1 {
+        justify-content: flex-start;
     }
 
-    &__col2 {
-        grid-column: span 6;
+    &__header-col2 {
+        flex: 1;
         text-align: center;
-        align-items: center;
     }
 
-    &__col3 {
-        justify-content: end;
+    &__header-col3 {
+        justify-content: flex-end;
     }
 
     &__title {
-        font-family: variables.$themeTitleFamily;
-        font-weight: 500;
-        font-size: calc(20px * var(--zns-font-scale, 1));
-        line-height: calc(20px * var(--zns-font-scale, 1));
-        letter-spacing: 0.1px;
-        text-align: center;
-        vertical-align: middle;
+        margin: 0;
+        font-size: calc(16px * var(--zns-font-scale, 1));
+        font-weight: 600;
         color: variables.$themeText;
     }
 
@@ -74,100 +78,86 @@
         width: 100%;
     }
 
-    &__content {
-        position: relative;
-        flex: 1 1 auto;
+    &__body {
         width: 100%;
-    }
-
-    &__item {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: calc(14px * var(--zns-space-scale, 1)) calc(18px * var(--zns-space-scale, 1));
-        gap: calc(16px * var(--zns-space-scale, 1));
-        cursor: pointer;
-        border-radius: 16px;
-        transition: all 0.2s variables.$smoothBezier;
-        width: 100%;
-        margin-bottom: 8px;
-        background-color: transparent;
-        border: 1px solid transparent;
-
-        &:hover {
-            background-color: variables.$themeCardBorder;
-            border-color: variables.$themeBorder;
-            transform: translateY(-1px);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-        }
-
-        &:active {
-            transform: translateY(0);
-        }
-    }
-
-    &__item-col1 {
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        gap: calc(16px * var(--zns-space-scale, 1));
         flex: 1;
-        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: calc(12px * var(--zns-space-scale, 1));
+        padding: calc(16px * var(--zns-space-scale, 1)) calc(4px * var(--zns-space-scale, 1)) calc(24px * var(--zns-space-scale, 1));
     }
 
-    &__item-col1-icon {
+    &__list {
+        display: flex;
+        flex-direction: column;
+        gap: calc(10px * var(--zns-space-scale, 1));
+    }
+
+    &__row {
+        display: flex;
+        align-items: center;
+        gap: calc(12px * var(--zns-space-scale, 1));
+        width: 100%;
+        padding: calc(12px * var(--zns-space-scale, 1)) calc(14px * var(--zns-space-scale, 1));
+        border: 1px solid variables.$themeBorder;
+        border-radius: 14px;
+        background: variables.$themeCard;
+        cursor: pointer;
+        text-align: left;
+        text-decoration: none;
+        color: inherit;
+        transition:
+            border-color 0.2s variables.$smoothBezier,
+            box-shadow 0.2s variables.$smoothBezier;
+
+        &:hover .zelf-settings__label {
+            font-weight: 700;
+        }
+
+        &--link {
+            margin-top: 0;
+        }
+    }
+
+    &__icon-tile {
+        flex-shrink: 0;
+        width: calc(44px * var(--zns-space-scale, 1));
+        height: calc(44px * var(--zns-space-scale, 1));
+        border-radius: 12px;
+        background: $settings-hub-peach-tile;
         display: flex;
         align-items: center;
         justify-content: center;
-        height: calc(42px * var(--zns-space-scale, 1));
-        width: calc(42px * var(--zns-space-scale, 1));
-        border-radius: 12px;
-        background: linear-gradient(135deg, variables.$primaryColor 0%, variables.$primaryColor 100%);
-        color: variables.$themeButtonText;
-        flex-shrink: 0;
-        transition: transform 0.2s variables.$smoothBezier;
+        color: $settings-hub-coral-icon;
 
         .zelf-icon {
-            font-size: 20px;
-            color: variables.$themeButtonText;
+            font-size: calc(22px * var(--zns-font-scale, 1));
+            color: $settings-hub-coral-icon;
         }
 
-        svg {
-            height: 18px;
-            width: 18px;
-            fill: variables.$themeButtonText;
-        }
-
-        .zelf-settings__item:hover & {
-            transform: scale(1.05);
+        svg.zelf-icon {
+            width: calc(22px * var(--zns-font-scale, 1));
+            height: calc(22px * var(--zns-font-scale, 1));
         }
     }
 
-    &__item-col1-title {
-        font-weight: 500;
+    &__label {
+        flex: 1;
         font-size: calc(15px * var(--zns-font-scale, 1));
-        line-height: 1.4;
+        font-weight: 500;
         color: variables.$themeText;
-        margin: 0;
+        transition: font-weight 0.15s variables.$smoothBezier;
+        min-width: 0;
     }
 
-    &__item-col2 {
+    &__chevron {
+        flex-shrink: 0;
         display: flex;
         align-items: center;
-        justify-content: flex-end;
-        flex-shrink: 0;
-        opacity: 0.5;
-        transition: all 0.2s variables.$smoothBezier;
+        color: variables.$themeTextMuted;
 
         svg {
-            height: 16px;
-            width: 16px;
-            fill: variables.$themeText;
-        }
-
-        .zelf-settings__item:hover & {
-            opacity: 1;
-            transform: translateX(2px);
+            fill: currentColor;
         }
     }
 

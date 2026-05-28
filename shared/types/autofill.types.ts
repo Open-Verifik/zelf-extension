@@ -138,8 +138,9 @@ export interface ZelfKeyIcon {
 export interface DecryptionRequest {
     requestId: string;
     type?: "password" | "notes" | "credit_card" | "zotp";
+    zelfProof?: string;
     publicData: {
-        zelfProof: string;
+        zelfProof?: string;
         title: string;
         website: string;
     };

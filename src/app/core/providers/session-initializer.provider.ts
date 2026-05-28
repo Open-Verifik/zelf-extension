@@ -43,6 +43,11 @@ async function initializeSessionAndPublicKey(): Promise<void> {
     // This ensures consistency between session and encryption key
     const { hash } = generateUserFingerprint(walletAddress, tagName, domain);
 
+    // Persist the canonical session identifier so the background script (which
+    // can't compute a DOM-based fingerprint from its service worker context)
+    // can read it from chrome.storage and stay aligned with the in-app session.
+    await chromeService.setItem("sessionIdentifier", hash);
+
     const url = `${apiUrl}/api/sessions/yek-cilbup`;
 
     try {

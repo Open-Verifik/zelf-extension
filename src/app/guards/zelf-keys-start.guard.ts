@@ -4,23 +4,16 @@ import { Router, type CanActivateFn } from "@angular/router";
 import { ZelfKeysDataService } from "../services/zelf-keys-data.service";
 
 export const ZelfKeysStartGuard: CanActivateFn = async () => {
-    const _zelfKeysDataService = inject(ZelfKeysDataService);
-    const _router = inject(Router);
+    const zelfKeysDataService = inject(ZelfKeysDataService);
+    const router = inject(Router);
 
-    // Get data from service (resolver should have already loaded it)
-    // If not loaded yet, load it now
-    let data = _zelfKeysDataService.data;
+    const data = await zelfKeysDataService.ensureLoadedForCurrentWallet({ reason: "start-guard" });
+    const hasAnyItems = data.passwords.length > 0 || data.paymentCards.length > 0;
 
-    if (!data) data = await _zelfKeysDataService.load();
+    if (hasAnyItems) {
+        await router.navigate(["/zelf-keys/vault"], { replaceUrl: true });
 
-    if (data) {
-        const hasAnyItems = data.passwords.length > 0 || data.paymentCards.length > 0;
-
-        if (hasAnyItems) {
-            _router.navigate(["/zelf-keys/vault"], { replaceUrl: true });
-
-            return false;
-        }
+        return false;
     }
 
     return true;

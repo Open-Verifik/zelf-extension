@@ -1,5 +1,10 @@
-<div class="zelf-card home" fxLayout="column" fxLayoutAlign="start center" *transloco="let t">
-    <home-header [shareables]="shareables"></home-header>
+<div class="zelf-card home-hub" *transloco="let t">
+    <home-hub-header
+        [walletName]="walletName"
+        [showName]="showName"
+        (profileClick)="openProfilePanel()"
+        (toggleNameClick)="toggleName()"
+    />
 
     <div class="home__app-content">
         <div class="home__container">
@@ -83,8 +88,19 @@
                     [wallet]="wallet"
                 ></home-collectibles>
             </div>
+            </div>
         </div>
-    </div>
 
     <zelf-footer [shareables]="shareables"></zelf-footer>
+
+    <home-profile-panel
+        *ngIf="showProfilePanel"
+        [wallets]="allWallets"
+        [currentWallet]="wallet"
+        [visible]="showProfilePanel"
+        (closed)="closeProfilePanel()"
+        (walletSelected)="onPanelWalletSelected($event)"
+        (openSettings)="onPanelSettings()"
+        (addAccount)="onPanelAddAccount()"
+    />
 </div>

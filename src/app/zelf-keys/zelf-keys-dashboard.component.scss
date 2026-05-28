@@ -12,7 +12,7 @@
 
 .dashboard {
     position: relative;
-    padding-top: calc(88px * var(--zns-space-scale, 1)) !important;
+    overflow: hidden;
     gap: calc(24px * var(--zns-space-scale, 1)) !important;
     padding-bottom: calc(94px * var(--zns-space-scale, 1)) !important;
     display: flex;

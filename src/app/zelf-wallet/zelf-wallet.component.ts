@@ -23,7 +23,8 @@ import {
 import { ZelfFooterComponent } from "app/zelf-footer/zelf-footer.component";
 import { ZelfNameService } from "app/zelf-name-service.service";
 import { HomeCollectiblesComponent } from "./home-collectibles/home-collectibles.component";
-import { HomeHeaderComponent } from "./home-header/home-header.component";
+import { HomeHubHeaderComponent } from "app/home/home-hub-header/home-hub-header.component";
+import { HomeProfilePanelComponent } from "app/home/home-profile-panel/home-profile-panel.component";
 import { TokenCardComponent } from "./token-card/token-card.component";
 import { WalletBalanceTopCardComponent } from "./wallet-balance-top-card/wallet-balance-top-card.component";
 
@@ -31,7 +32,8 @@ import { WalletBalanceTopCardComponent } from "./wallet-balance-top-card/wallet-
     imports: [
         FlexLayoutModule,
         HomeCollectiblesComponent,
-        HomeHeaderComponent,
+        HomeHubHeaderComponent,
+        HomeProfilePanelComponent,
         MatButtonModule,
         NgClass,
         NgFor,
@@ -59,6 +61,11 @@ export class ZelfWalletComponent implements OnInit, OnDestroy {
     tokens!: Array<any>;
     totalFiatBalance: number = 0;
     wallet!: TagModel;
+
+    // New hub header state (consistent with Home / zAuth / etc.)
+    showProfilePanel = false;
+    allWallets: TagModel[] = [];
+    showName = false;
 
     constructor(
         private _assetService: AssetService,
@@ -388,5 +395,41 @@ export class ZelfWalletComponent implements OnInit, OnDestroy {
 
             this._changeDetectorRef.detectChanges();
         }
+    }
+
+    // === New Hub Header + Profile Panel (consistent with Home/zAuth/etc.) ===
+
+    get walletName(): string {
+        return (this.wallet?.fullTagName || this.wallet?.publicData?.tagName || (this.shareables?.wallet?.fullTagName) || "") as string;
+    }
+
+    toggleName(): void {
+        this.showName = !this.showName;
+    }
+
+    async openProfilePanel(): Promise<void> {
+        const { wallets } = await this._walletService.getAllWalletsFromStorage();
+        this.allWallets = wallets || [];
+        this.showProfilePanel = true;
+        this._changeDetectorRef.detectChanges();
+    }
+
+    closeProfilePanel(): void {
+        this.showProfilePanel = false;
+    }
+
+    async onPanelWalletSelected(selected: TagModel): Promise<void> {
+        this.closeProfilePanel();
+        await this._walletService.switchWallet(selected);
+    }
+
+    onPanelSettings(): void {
+        this.closeProfilePanel();
+        void this._router.navigate(["/settings"]);
+    }
+
+    onPanelAddAccount(): void {
+        this.closeProfilePanel();
+        void this._router.navigate(["/wallet-manage"]);
     }
 }

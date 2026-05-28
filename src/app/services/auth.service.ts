@@ -5,6 +5,7 @@ import { Injectable } from "@angular/core";
 
 import { ChromeService } from "app/chrome.service";
 import { DISABLE_GLOBAL_EXCEPTION_HANDLING } from "app/interceptors/interceptor.model";
+import { TagModel } from "app/tags.service";
 import { WalletService } from "app/wallet.service";
 import { environment } from "environments/environment";
 import { generateUniqueFingerprint, simpleHash } from "app/core/utils/fingerprint.util";
@@ -54,6 +55,112 @@ export class AuthService {
         return moment.unix(this._accessTokenExpiresAt).local().isAfter(moment());
     }
 
+    getJwtSessionTag(token: string): { tagName: string | null; domain: string | null } {
+        try {
+            const payloadPart = token.split(".")[1];
+            if (!payloadPart) return { tagName: null, domain: null };
+
+            const payload = JSON.parse(atob(payloadPart.replace(/-/g, "+").replace(/_/g, "/")));
+
+            return {
+                tagName: payload?.tagName ?? null,
+                domain: payload?.domain ?? null,
+            };
+        } catch {
+            return { tagName: null, domain: null };
+        }
+    }
+
+    getJwtIdentifier(token: string): string | null {
+        try {
+            const payloadPart = token.split(".")[1];
+            if (!payloadPart) return null;
+
+            const payload = JSON.parse(atob(payloadPart.replace(/-/g, "+").replace(/_/g, "/")));
+
+            return payload?.identifier ?? null;
+        } catch {
+            return null;
+        }
+    }
+
+    private async _resolveWalletParams(): Promise<{ tagName: string | null; domain: string | null; ethAddress: string | null }> {
+        let tagName: string | null = null;
+        let domain: string | null = null;
+        let ethAddress: string | null = null;
+
+        try {
+            const currentWallet = await this._walletService.getCurrentWallet();
+
+            if (currentWallet) {
+                tagName = currentWallet.tagName || currentWallet.name || null;
+                domain = currentWallet.publicData?.domain || "zelf";
+                ethAddress = currentWallet.publicData?.ethAddress || null;
+            } else {
+                domain = "zelf";
+            }
+        } catch (error) {
+            console.warn("Could not get current wallet for token generation:", error);
+            domain = "zelf";
+        }
+
+        return { tagName, domain, ethAddress };
+    }
+
+    private async _persistSession(
+        token: string,
+        expiresAt: number,
+        sessionIdentifier: string
+    ): Promise<void> {
+        this._accessToken = token;
+        this._accessTokenExpiresAt = expiresAt;
+
+        await this._chromeService.setItem("accessToken", token);
+        await this._chromeService.setItem("accessTokenExpiresAt", expiresAt);
+        await this._chromeService.setItem("sessionIdentifier", sessionIdentifier);
+    }
+
+    jwtMatchesCurrentWallet(token: string, wallet: Partial<TagModel> | null | undefined): boolean {
+        if (!token || !wallet) return false;
+
+        const jwtTag = this.getJwtSessionTag(token);
+        const walletTagName = (wallet.tagName || wallet.name || "").trim().toLowerCase();
+        const walletDomain = (wallet.publicData?.domain || "zelf").trim().toLowerCase();
+        const jwtTagName = (jwtTag.tagName || "").trim().toLowerCase();
+        const jwtDomain = (jwtTag.domain || "zelf").trim().toLowerCase();
+
+        if (!walletTagName || !jwtTagName) return false;
+
+        return walletTagName === jwtTagName && walletDomain === jwtDomain;
+    }
+
+    async ensureAccessTokenForCurrentWallet(options: { forceReauth?: boolean } = {}): Promise<string> {
+        const { forceReauth = false } = options;
+
+        if (!this._accessToken || !this._accessTokenExpiresAt) {
+            this._accessToken = (await this._chromeService.getItem("accessToken")) || "";
+            this._accessTokenExpiresAt = (await this._chromeService.getItem("accessTokenExpiresAt")) || 0;
+        }
+
+        const wallet = await this._walletService.getCurrentWallet();
+        const tokenValid = this._isValidToken();
+        const tokenMatchesWallet = tokenValid && this.jwtMatchesCurrentWallet(this._accessToken, wallet);
+
+        if (!forceReauth && tokenMatchesWallet) {
+            return this._accessToken;
+        }
+
+        if (tokenValid && !tokenMatchesWallet) {
+            const jwtTag = this.getJwtSessionTag(this._accessToken);
+            console.log("[Zelf Keys] JWT mismatch — reauthing", {
+                storageTag: wallet?.tagName || wallet?.name || null,
+                jwtTag: jwtTag.tagName,
+            });
+        }
+
+        return this.reauthenticateSession();
+    }
+
     async checkAccessToken(): Promise<string> {
         if (!this._accessToken || !this._accessTokenExpiresAt) {
             this._accessToken = (await this._chromeService.getItem("accessToken")) || "";
@@ -62,43 +169,35 @@ export class AuthService {
 
         const isValidToken = this._isValidToken();
 
-        if (isValidToken) return this._accessToken;
+        if (isValidToken) {
+            // Detect identifier drift between the stored JWT and the current device fingerprint
+            // (e.g. background script may have created a session under a different identifier).
+            // When they don't match, the PGP session key the client uses to encrypt requests will
+            // not match the private key the backend looks up by JWT identifier → 412/409 errors.
+            const { tagName, domain, ethAddress } = await this._resolveWalletParams();
+            const expectedIdentifier = simpleHash(generateUniqueFingerprint(ethAddress, tagName, domain));
+            const jwtIdentifier = this.getJwtIdentifier(this._accessToken);
 
-        // Get current wallet to extract tagName and domain for new token
-        let domain: string | null = null;
-        let ethAddress: string | null = null;
-        let tagName: string | null = null;
+            if (jwtIdentifier && jwtIdentifier !== expectedIdentifier) {
+                console.log("[Zelf Keys] session identifier mismatch — reauthing", {
+                    jwtIdentifier,
+                    expectedIdentifier,
+                });
 
-        try {
-            const currentWallet = await this._walletService.getCurrentWallet();
-
-            if (currentWallet) {
-                // Get tagName (without domain suffix, e.g., "miguel")
-                tagName = currentWallet.tagName || currentWallet.name || null;
-
-                // Get domain from publicData, default to "zelf" if not available
-                domain = currentWallet.publicData?.domain || "zelf";
-
-                ethAddress = currentWallet.publicData?.ethAddress || null;
-            } else {
-                // No wallet available, use default domain
-                domain = "zelf";
+                return this.reauthenticateSession();
             }
-        } catch (error) {
-            // If wallet service fails, use default domain
-            console.warn("Could not get current wallet for token generation:", error);
-            domain = "zelf";
+
+            return this._accessToken;
         }
+
+        const { tagName, domain, ethAddress } = await this._resolveWalletParams();
 
         try {
             const fingerprint = generateUniqueFingerprint(ethAddress, tagName, domain);
+            const sessionIdentifier = simpleHash(fingerprint);
             const newAuthToken = await this._requestAuthToken(fingerprint, tagName, domain, ethAddress);
 
-            this._accessToken = newAuthToken.data.token;
-            this._accessTokenExpiresAt = newAuthToken.data.expiresAt;
-
-            await this._chromeService.setItem("accessToken", newAuthToken.data.token);
-            await this._chromeService.setItem("accessTokenExpiresAt", newAuthToken.data.expiresAt);
+            await this._persistSession(newAuthToken.data.token, newAuthToken.data.expiresAt, sessionIdentifier);
 
             return this._accessToken;
         } catch (error) {
@@ -107,38 +206,20 @@ export class AuthService {
 
             await this._chromeService.removeItem("accessToken");
             await this._chromeService.removeItem("accessTokenExpiresAt");
+            await this._chromeService.removeItem("sessionIdentifier");
 
             throw error;
         }
     }
 
     async reauthenticateSession(): Promise<string> {
-        let tagName: string | null = null;
-        let domain: string | null = null;
-        let ethAddress: string | null = null;
-
-        try {
-            const currentWallet = await this._walletService.getCurrentWallet();
-
-            if (currentWallet) {
-                tagName = currentWallet.tagName || currentWallet.name || null;
-                domain = currentWallet.publicData?.domain || "zelf";
-                ethAddress = currentWallet.publicData?.ethAddress || null;
-            } else {
-                domain = "zelf";
-            }
-        } catch (error) {
-            domain = "zelf";
-        }
+        const { tagName, domain, ethAddress } = await this._resolveWalletParams();
 
         const fingerprint = generateUniqueFingerprint(ethAddress, tagName, domain);
+        const sessionIdentifier = simpleHash(fingerprint);
         const newAuthToken = await this._requestAuthToken(fingerprint, tagName, domain, ethAddress, true);
 
-        this._accessToken = newAuthToken.data.token;
-        this._accessTokenExpiresAt = newAuthToken.data.expiresAt;
-
-        await this._chromeService.setItem("accessToken", newAuthToken.data.token);
-        await this._chromeService.setItem("accessTokenExpiresAt", newAuthToken.data.expiresAt);
+        await this._persistSession(newAuthToken.data.token, newAuthToken.data.expiresAt, sessionIdentifier);
 
         return this._accessToken;
     }

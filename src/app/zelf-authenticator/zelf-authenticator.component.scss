@@ -9,6 +9,36 @@
     justify-content: center;
 }
 
+::ng-deep .home-hub {
+    overflow: hidden;
+    padding-bottom: calc(94px * var(--zns-space-scale, 1)) !important;
+}
+
+/* Prevent old zAuth padding from fighting with the hub body layout (makes the card feel taller and cleaner) */
+.home-hub__body .zelf-authenticator {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.home-hub__body {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(88px * var(--zns-space-scale, 1));
+    bottom: calc(82px * var(--zns-space-scale, 1));
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    padding: 0 calc(16px * var(--zns-space-scale, 1));
+}
+
+@media screen and (max-width: variables.$medium) {
+    .home-hub__body {
+        top: calc(76px * var(--zns-space-scale, 1));
+        bottom: calc(70px * var(--zns-space-scale, 1));
+    }
+}
+
 * {
     box-sizing: border-box;
 }
@@ -38,7 +68,7 @@
         text-align: center;
         vertical-align: middle;
         color: variables.$themeText;
-        margin: calc(12px * var(--zns-space-scale, 1)) 0 0 0;
+        margin: calc(8px * var(--zns-space-scale, 1)) 0 calc(24px * var(--zns-space-scale, 1)) 0;
     }
 
     &__content {
@@ -46,16 +76,17 @@
         max-width: min(600px, var(--zns-card-width, 600px));
         display: flex;
         flex-direction: column;
-        gap: calc(12px * var(--zns-space-scale, 1));
-        justify-content: center;
+        gap: calc(16px * var(--zns-space-scale, 1));
+        justify-content: flex-start;
         align-items: center;
         flex-grow: 1;
+        padding-top: calc(8px * var(--zns-space-scale, 1));
     }
 
     &__search {
         width: 100%;
         padding: 0 calc(16px * var(--zns-space-scale, 1));
-        margin-bottom: calc(12px * var(--zns-space-scale, 1));
+        margin-bottom: calc(16px * var(--zns-space-scale, 1));
     }
 
     &__search .zelf-icon-button {
@@ -74,10 +105,15 @@
     &__empty {
         display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: stretch;
         justify-content: center;
         padding: calc(48px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
         text-align: center;
+        width: 100%;
+
+        .zotp.zotp--add-placeholder {
+            margin-top: calc(4px * var(--zns-space-scale, 1));
+        }
     }
 
     &__empty-text {
@@ -85,6 +121,15 @@
         font-size: calc(14px * var(--zns-font-scale, 1));
         color: variables.$themeTextMuted;
         margin: 0;
+    }
+
+    &__empty-intro {
+        font-family: variables.$themeBodyFamily;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        color: variables.$themeTextMuted;
+        margin: 0 0 calc(8px * var(--zns-space-scale, 1)) 0;
+        text-align: center;
+        max-width: 100%;
     }
 }
 :host ::ng-deep .zelf-card__content {
@@ -97,11 +142,17 @@
     flex-direction: column;
     gap: calc(12px * var(--zns-space-scale, 1));
     width: 100%;
-    justify-content: center;
     align-items: center;
     padding: 0 calc(16px * var(--zns-space-scale, 1));
-    overflow: visible;
     position: relative;
+
+    /* When there are many ZOTPs, make the list the tall scrollable area inside the phone card */
+    &:not(:empty) {
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow: auto;
+        justify-content: flex-start;   /* list starts from top when tall */
+    }
 }
 
 .zotp {
@@ -285,6 +336,85 @@
             svg {
                 fill: variables.$themeBackground;
             }
+        }
+    }
+
+    &--add-placeholder {
+        $self: &;
+        align-items: stretch;
+        appearance: none;
+        background: color-mix(in srgb, variables.$themeBackground 92%, transparent);
+        border: 2px dashed variables.$themeBorder;
+        box-sizing: border-box;
+        color: inherit;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        font: inherit;
+        gap: calc(10px * var(--zns-space-scale, 1));
+        margin: 0;
+        outline: none;
+        padding: calc(20px * var(--zns-space-scale, 1));
+        text-align: left;
+        transition:
+            border-color 0.25s variables.$smoothBezier,
+            box-shadow 0.25s variables.$smoothBezier,
+            background-color 0.25s variables.$smoothBezier;
+
+        &:hover {
+            background: variables.$themeBackground;
+            border-color: variables.$secondaryColor;
+            box-shadow: 0 6px 24px color-mix(in srgb, variables.$themeShadow 85%, transparent);
+        }
+
+        &:focus-visible {
+            border-color: variables.$secondaryColor;
+            box-shadow: 0 0 0 3px color-mix(in srgb, variables.$secondaryColor 35%, transparent);
+        }
+
+        #{$self}__display {
+            width: 100%;
+        }
+
+        #{$self}__body {
+            width: 100%;
+        }
+
+        #{$self}__avatar {
+            background: color-mix(in srgb, variables.$secondaryColor 12%, variables.$themeBackground);
+            color: variables.$secondaryColor;
+        }
+
+        #{$self}__plus {
+            font-size: calc(22px * var(--zns-font-scale, 1));
+            font-weight: 600;
+            letter-spacing: 0;
+            line-height: 1;
+        }
+
+        #{$self}__cta {
+            display: block;
+            font-family: variables.$themeBodyFamily;
+            font-size: calc(15px * var(--zns-font-scale, 1));
+            font-weight: 600;
+            text-align: center;
+            color: variables.$secondaryColor;
+        }
+
+        #{$self}__hint {
+            display: block;
+            font-family: variables.$themeBodyFamily;
+            font-size: calc(12px * var(--zns-font-scale, 1));
+            font-weight: 400;
+            line-height: 1.35;
+            text-align: center;
+            color: variables.$themeTextMuted;
+        }
+
+        #{$self} .zotp__name,
+        #{$self} .zotp__issuer,
+        #{$self} .zotp__code {
+            color: variables.$themeTextMuted;
         }
     }
 }

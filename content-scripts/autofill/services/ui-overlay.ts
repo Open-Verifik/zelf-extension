@@ -679,11 +679,11 @@ export class UIOverlay {
                         fieldId: this.currentField?.element.id,
                         fieldType: this.currentFieldType,
                         requestId: password.id,
+                        type: "password",
+                        zelfProof: password.zelfProof || "",
                         publicData: {
                             title: password.website || password.publicData.website,
-                            type: "password",
                             website: password.publicData.website,
-                            zelfProof: password.zelfProof,
                         },
                     },
                 });
@@ -715,8 +715,9 @@ export class UIOverlay {
                         type: "SEND_DECRYPTION_DATA_TO_POPOUT",
                         payload: {
                             requestId: password.id,
+                            type: "password",
+                            zelfProof: password.zelfProof || "",
                             publicData: {
-                                zelfProof: password.zelfProof,
                                 title: password.website || password.publicData.website,
                                 website: password.publicData.website,
                             },

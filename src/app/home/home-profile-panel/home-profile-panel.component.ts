@@ -31,6 +31,7 @@ export class HomeProfilePanelComponent implements OnChanges {
 
     private _buildWalletList(): void {
         const current = this.currentWallet?.fullTagName;
+
         const currentAsTagModel = this.currentWallet as TagModel;
 
         const others = (this.wallets || []).filter((w) => w.fullTagName !== current);

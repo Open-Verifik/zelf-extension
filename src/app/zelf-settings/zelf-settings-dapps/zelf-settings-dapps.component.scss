@@ -1,22 +1,42 @@
 @use "../../../styles/variables";
-@use "../../../styles/buttons";
+
+$dapps-peach-tile: #fff0eb;
+$dapps-coral-icon: #ff5c45;
+
+// Parent `.zelf-settings--start` uses `align-items: flex-start`, so this host would
+// otherwise shrink to content width and rows with `width: 100%` would not fill the card.
+:host {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    align-self: stretch;
+    min-height: 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
 
 .zelf-settings-dapps {
     display: flex;
     flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    width: 100%;
     padding: 0;
+    box-sizing: border-box;
+
+    * {
+        box-sizing: border-box;
+    }
 
     &__header {
-        align-content: center;
-        column-gap: calc(12px * var(--zns-space-scale, 1));
-        display: grid;
-        gap: calc(24px * var(--zns-space-scale, 1));
-        grid-template-columns: repeat(10, 1fr);
-        justify-content: start;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
         width: 100%;
-        margin-bottom: 24px;
-        padding: calc(24px * var(--zns-space-scale, 1)) 0 0;
-        box-sizing: border-box;
+        padding: calc(8px * var(--zns-space-scale, 1)) calc(4px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
+        border-bottom: 1px solid variables.$themeBorder;
+        flex-shrink: 0;
 
         h3 {
             margin: 0;
@@ -30,179 +50,218 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
+            gap: calc(10px * var(--zns-space-scale, 1));
+            min-width: 0;
         }
     }
 
-    &__col1,
-    &__col3 {
-        grid-column: span 2;
+    &__header-col1,
+    &__header-col3 {
+        flex: 0 0 calc(40px * var(--zns-action-scale, 1));
         display: flex;
         align-items: center;
     }
 
-    &__col1 {
-        justify-content: start;
+    &__header-col1 {
+        justify-content: flex-start;
     }
 
-    &__col2 {
-        grid-column: span 6;
+    &__header-col2 {
+        flex: 1;
         text-align: center;
-        align-items: center;
         display: flex;
         justify-content: center;
+        align-items: center;
+        min-width: 0;
     }
 
-    &__col3 {
-        justify-content: end;
+    &__header-col3 {
+        justify-content: flex-end;
     }
 
     &__title {
-        font-family: variables.$themeTitleFamily;
-        font-weight: 500;
-        font-size: calc(20px * var(--zns-font-scale, 1));
-        line-height: calc(20px * var(--zns-font-scale, 1));
-        letter-spacing: 0.1px;
-        text-align: center;
-        vertical-align: middle;
-        color: variables.$themeText;
         margin: 0;
+        font-size: calc(16px * var(--zns-font-scale, 1));
+        font-weight: 600;
+        color: variables.$themeText;
+        text-align: center;
+
+        &--header-site {
+            text-align: left;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+
+    &__body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        min-height: 0;
+        gap: calc(12px * var(--zns-space-scale, 1));
+        padding: calc(16px * var(--zns-space-scale, 1)) calc(4px * var(--zns-space-scale, 1)) calc(24px * var(--zns-space-scale, 1));
+
+        &--detail {
+            padding-top: calc(12px * var(--zns-space-scale, 1));
+        }
+    }
+
+    &__section-label {
+        margin: 0 0 calc(4px * var(--zns-space-scale, 1));
+        font-size: calc(13px * var(--zns-font-scale, 1));
+        font-weight: 600;
+        color: variables.$themeText;
     }
 
     &__list {
         display: flex;
         flex-direction: column;
+        gap: calc(10px * var(--zns-space-scale, 1));
         width: 100%;
         padding: 0;
-        box-sizing: border-box;
-
-        &.detail {
-            gap: 16px;
-            margin-bottom: 24px;
-        }
     }
 
-    &__site {
+    &__row {
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        padding: 14px 16px;
+        gap: calc(12px * var(--zns-space-scale, 1));
+        width: 100%;
+        margin: 0;
+        padding: calc(12px * var(--zns-space-scale, 1)) calc(14px * var(--zns-space-scale, 1));
+        border: 1px solid variables.$themeBorder;
+        border-radius: 14px;
+        background: variables.$themeCard;
         cursor: pointer;
-        border-radius: 16px;
-        transition: all 0.2s variables.$smoothBezier;
-        width: 90%;
-        margin-bottom: 8px;
-        background-color: transparent;
-        border: 1px solid transparent;
+        text-align: left;
+        font: inherit;
+        color: inherit;
+        transition:
+            border-color 0.2s variables.$smoothBezier,
+            box-shadow 0.2s variables.$smoothBezier;
 
-        &:hover {
-            background-color: variables.$themeCardBorder;
-            border-color: variables.$themeBorder;
-            transform: translateY(-1px);
-        }
-
-        &-col1 {
-            display: flex;
-            align-items: center;
-            flex: 1;
-            min-width: 0;
-            gap: 12px;
-        }
-
-        &-col2 {
-            display: flex;
-            align-items: center;
-            opacity: 0.5;
-            transition: all 0.2s variables.$smoothBezier;
-            flex-shrink: 0;
-
-            .zelf-settings-dapps__site:hover & {
-                opacity: 1;
-                transform: translateX(2px);
-            }
-        }
-
-        &-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: variables.$primaryColor;
-            color: variables.$themeCard;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        &:hover .zelf-settings-dapps__site-title {
             font-weight: 700;
-            font-size: 18px;
-
-            &.self-small {
-                width: 32px;
-                height: 32px;
-                font-size: 16px;
-            }
-        }
-
-        &-info {
-            display: flex;
-            flex-direction: column;
-        }
-
-        &-title {
-            margin: 0;
-            font-size: 15px;
-            font-weight: 500;
-            color: variables.$themeText;
-        }
-
-        &-meta {
-            margin: 0;
-            font-size: 13px;
-            color: variables.$themeTextSecondary;
-            margin-top: 4px;
         }
     }
-    &__permission-item {
-        display: flex;
-        align-items: flex-start;
-        padding: 16px;
-        background-color: variables.$themeBackgroundSecondary;
+
+    &__icon-tile {
+        flex-shrink: 0;
+        width: calc(44px * var(--zns-space-scale, 1));
+        height: calc(44px * var(--zns-space-scale, 1));
         border-radius: 12px;
-        gap: 16px;
-    }
-
-    &__permission-icon {
-        color: variables.$themeTextSecondary;
+        background: $dapps-peach-tile;
+        color: $dapps-coral-icon;
         display: flex;
         align-items: center;
         justify-content: center;
+        font-weight: 700;
+        font-size: calc(18px * var(--zns-font-scale, 1));
+
+        &--compact {
+            width: calc(36px * var(--zns-space-scale, 1));
+            height: calc(36px * var(--zns-space-scale, 1));
+            font-size: calc(15px * var(--zns-font-scale, 1));
+        }
+
+        &--symbol .material-symbols-outlined {
+            font-size: calc(22px * var(--zns-font-scale, 1));
+            color: $dapps-coral-icon;
+            font-variation-settings:
+                "FILL" 0,
+                "wght" 500,
+                "GRAD" 0,
+                "opsz" 24;
+        }
+    }
+
+    &__site-text {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: calc(4px * var(--zns-space-scale, 1));
+    }
+
+    &__site-title {
+        font-size: calc(15px * var(--zns-font-scale, 1));
+        font-weight: 500;
+        color: variables.$themeText;
+        transition: font-weight 0.15s variables.$smoothBezier;
+    }
+
+    &__site-meta {
+        font-size: calc(13px * var(--zns-font-scale, 1));
+        color: variables.$themeTextSecondary;
+        line-height: 1.35;
+    }
+
+    &__chevron {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        color: variables.$themeTextMuted;
+
+        svg {
+            fill: currentColor;
+        }
+    }
+
+    &__detail-list {
+        display: flex;
+        flex-direction: column;
+        gap: calc(10px * var(--zns-space-scale, 1));
+    }
+
+    &__detail-card {
+        display: flex;
+        align-items: flex-start;
+        gap: calc(12px * var(--zns-space-scale, 1));
+        width: 100%;
+        padding: calc(12px * var(--zns-space-scale, 1)) calc(14px * var(--zns-space-scale, 1));
+        border: 1px solid variables.$themeBorder;
+        border-radius: 14px;
+        background: variables.$themeCard;
     }
 
     &__permission-info {
         flex: 1;
+        min-width: 0;
         display: flex;
         flex-direction: column;
+        gap: calc(4px * var(--zns-space-scale, 1));
+        padding-top: calc(2px * var(--zns-space-scale, 1));
 
-        .title {
-            margin: 0 0 4px 0;
-            font-size: 14px;
-            font-weight: 600;
-            color: variables.$themeText;
-        }
-
-        .meta {
-            margin: 0;
-            font-size: 13px;
-            color: variables.$themeTextSecondary;
+        &--fill {
+            padding-top: calc(2px * var(--zns-space-scale, 1));
         }
     }
 
+    &__permission-title {
+        margin: 0;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        font-weight: 600;
+        color: variables.$themeText;
+    }
+
+    &__permission-meta {
+        margin: 0;
+        font-size: calc(13px * var(--zns-font-scale, 1));
+        color: variables.$themeTextSecondary;
+        line-height: 1.4;
+    }
+
     &__edit-btn {
+        flex-shrink: 0;
+        align-self: center;
         background: none;
-        border: none;
+        border: 0;
         color: variables.$primaryColor;
-        font-size: 14px;
+        font-size: calc(14px * var(--zns-font-scale, 1));
         font-weight: 600;
         cursor: pointer;
-        padding: 4px 8px;
+        padding: calc(8px * var(--zns-space-scale, 1)) calc(4px * var(--zns-space-scale, 1));
 
         &:hover {
             text-decoration: underline;
@@ -210,35 +269,26 @@
     }
 
     &__empty {
-        padding: 32px 24px;
+        padding: calc(32px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
         text-align: center;
-        color: variables.$themeTextSecondary;
-        font-size: 14px;
+        border: 1px dashed variables.$themeBorder;
+        border-radius: 14px;
+        background: variables.$themeCard;
+
+        p {
+            margin: 0;
+            font-size: calc(14px * var(--zns-font-scale, 1));
+            color: variables.$themeTextSecondary;
+            line-height: 1.5;
+        }
     }
 
     &__actions {
         display: flex;
-        justify-content: center;
-        padding: 24px;
+        justify-content: stretch;
+        width: 100%;
+        padding: 0;
         margin-top: auto;
-    }
-
-    &__btn-danger {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        background: none;
-        border: none;
-        color: variables.$error;
-        font-size: 14px;
-        font-weight: 600;
-        cursor: pointer;
-        padding: 12px 24px;
-        border-radius: 24px;
-        transition: background-color 0.2s variables.$smoothBezier;
-
-        &:hover {
-            background-color: rgba(variables.$error, 0.1);
-        }
+        padding-top: calc(8px * var(--zns-space-scale, 1));
     }
 }

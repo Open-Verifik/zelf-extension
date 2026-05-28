@@ -138,8 +138,10 @@ export class BackgroundCredentialManager {
     }
 
     public async getAccessToken(): Promise<string | null> {
-        if (this.hasValidToken()) return this._accessToken;
-
+        // Always refresh from storage first so the background picks up any token the
+        // main app or popout may have just written (e.g. after reauthenticateSession).
+        // Without this, the background's in-memory token can race ahead of storage and
+        // cause JWT/identifier mismatches with the popout's PGP session key.
         await this.loadAccessTokenFromStorage();
 
         if (this.hasValidToken()) return this._accessToken;
@@ -228,7 +230,31 @@ export class BackgroundCredentialManager {
 
         const tagName = wallet.tagName || wallet.name || null;
         const domain = wallet.domain || "zelf";
-        const identifier = wallet.fullTagName || wallet.publicData?.ethAddress;
+
+        // Prefer the canonical session identifier persisted by the in-app AuthService
+        // (a device-fingerprint hash). This keeps the JWT identifier aligned with the
+        // PGP session key the popout uses to encrypt requests. Only fall back to the
+        // wallet's full tag name if the main app has never booted yet — and warn so we
+        // can catch ordering issues.
+        let identifier: string | null = null;
+
+        try {
+            if (this.browserApi?.has("storage")) {
+                const stored = await (this.browserApi.storage as any).local.get(["sessionIdentifier"]);
+                identifier = stored?.sessionIdentifier || null;
+            }
+        } catch (error) {
+            Logger.warn("Could not read sessionIdentifier from storage:", error);
+        }
+
+        if (!identifier) {
+            identifier = wallet.fullTagName || wallet.publicData?.ethAddress || null;
+
+            Logger.warn(
+                "BackgroundCredentialManager.initSession: sessionIdentifier missing in storage, falling back to wallet tag identifier",
+                { fallbackIdentifier: identifier }
+            );
+        }
 
         const url = `${this.API_BASE_URL}/api/sessions`;
         const payload: any = {

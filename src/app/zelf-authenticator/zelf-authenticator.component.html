@@ -1,11 +1,17 @@
-<div class="zelf-card zelf-authenticator" fxLayout="column" fxLayoutAlign="start center" *transloco="let t">
-    <home-header [shareables]="shareables"></home-header>
+<div class="zelf-card home-hub" *transloco="let t">
+    <home-hub-header
+        [walletName]="walletName"
+        [showName]="showName"
+        (profileClick)="openProfilePanel()"
+        (toggleNameClick)="toggleName()"
+    />
 
-    <div class="zelf-authenticator__header">
-        <p class="zelf-authenticator__title">{{ t("common.zelf_authenticator") }}</p>
-    </div>
+    <div class="home-hub__body">
+        <div class="zelf-authenticator__header">
+            <p class="zelf-authenticator__title">{{ t("common.zelf_authenticator") }}</p>
+        </div>
 
-    <div class="zelf-card__content zelf-authenticator__content">
+        <div class="zelf-card__content zelf-authenticator__content">
         <div class="zelf-authenticator__search">
             <div class="zelf-input zelf-input--wide">
                 <input
@@ -140,10 +146,49 @@
 
             <div class="zelf-authenticator__empty" *ngIf="!loading && filteredZotps.length === 0">
                 <p class="zelf-authenticator__empty-text" *ngIf="searchQuery.trim()">{{ t("common.no_results_found") }}</p>
-                <p class="zelf-authenticator__empty-text" *ngIf="!searchQuery.trim()">{{ t("zotp.no_zotps_added") }}</p>
+
+                <ng-container *ngIf="!searchQuery.trim()">
+                    <p class="zelf-authenticator__empty-intro">{{ t("zotp.no_zotps_added") }}</p>
+
+                    <button type="button" class="zotp zotp--add-placeholder" (click)="openAddZotp()" [attr.aria-label]="t('zotp.add_zotp')">
+                        <div class="zotp__display zotp--add-placeholder__display">
+                            <div class="zotp__clickable zotp--add-placeholder__body">
+                                <div class="zotp__avatar zotp--add-placeholder__avatar" aria-hidden="true">
+                                    <span class="zotp__character zotp--add-placeholder__plus">+</span>
+                                </div>
+
+                                <div class="zotp__info">
+                                    <div class="zotp__name-container">
+                                        <h4 class="zotp__name">{{ t("zotp.empty_preview_name") }}</h4>
+                                        <p class="zotp__issuer">{{ t("zotp.empty_preview_issuer") }}</p>
+                                    </div>
+
+                                    <div class="zotp__code-container">
+                                        <div class="zotp__code zotp__code--masked" aria-hidden="true">* * * * * *</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <span class="zotp--add-placeholder__cta">{{ t("zotp.add_zotp") }}</span>
+                        <span class="zotp--add-placeholder__hint">{{ t("zotp.empty_add_hint") }}</span>
+                    </button>
+                </ng-container>
             </div>
         </ng-container>
-    </div>
+            </div>
+        </div>
 
-    <zelf-footer [shareables]="shareables"></zelf-footer>
-</div>
+        <zelf-footer [shareables]="{ wallet: wallet }"></zelf-footer>
+
+        <home-profile-panel
+            *ngIf="showProfilePanel"
+            [wallets]="allWallets"
+            [currentWallet]="wallet"
+            [visible]="showProfilePanel"
+            (closed)="closeProfilePanel()"
+            (walletSelected)="onPanelWalletSelected($event)"
+            (openSettings)="onPanelSettings()"
+            (addAccount)="onPanelAddAccount()"
+        />
+    </div>

@@ -5,7 +5,7 @@ import { WebcamComponent, WebcamImage, WebcamInitError, WebcamModule } from "ngx
 import { Observable, Subject, takeUntil } from "rxjs";
 
 import { CommonModule } from "@angular/common";
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, Renderer2, ViewChild } from "@angular/core";
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, Renderer2, ViewChild } from "@angular/core";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatButtonModule } from "@angular/material/button";
 import { MatDialogModule } from "@angular/material/dialog";
@@ -38,6 +38,10 @@ export class BiometricsGeneralComponent implements OnInit, OnDestroy {
     @ViewChild("maskResult", { static: false }) public maskResultCanvasRef: ElementRef | undefined;
     @ViewChild("toSend", { static: false }) public ToSendCanvasRef: ElementRef | undefined;
     @ViewChild("webcam", { static: false }) public webcamRef?: WebcamComponent;
+
+    @Input() displayMode: "auto" | "portrait" = "auto";
+    @Input() maxDisplayHeight = 600;
+    @Input() maxDisplayWidth = 420;
 
     @Output() canNavigate: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() error: EventEmitter<any> = new EventEmitter<any>();
@@ -124,9 +128,25 @@ export class BiometricsGeneralComponent implements OnInit, OnDestroy {
     private _calculateDisplayDimensions() {
         const isLandscape = window.innerHeight < window.innerWidth;
 
+        if (this.displayMode === "portrait") {
+            const portraitAspectRatio = this.maxDisplayWidth / this.maxDisplayHeight;
+            const maxAvailableHeight = Math.ceil(window.innerHeight - 96);
+            const maxAvailableWidth = Math.ceil(window.innerWidth * 0.92);
+            const maxHeight = Math.min(maxAvailableHeight, this.maxDisplayHeight);
+            const maxWidth = Math.min(maxAvailableWidth, this.maxDisplayWidth);
+            const widthFromHeight = Math.round(maxHeight * portraitAspectRatio);
+            const width = Math.min(widthFromHeight, maxWidth);
+            const height = Math.round(width / portraitAspectRatio);
+
+            return {
+                isLandscape: false,
+                height,
+                width,
+            };
+        }
+
         const maxAvailableHeight = Math.ceil(window.innerHeight * 0.7);
         const maxAvailableWidth = Math.ceil(window.innerWidth * 0.9);
-
         const targetAspectRatio = 16 / 9;
 
         if (isLandscape) {
@@ -318,6 +338,7 @@ export class BiometricsGeneralComponent implements OnInit, OnDestroy {
 
         this.errorFace = {
             canvas: direction,
+            icon: "center_focus_strong",
             subtitle: this._translocoService.translate("liveness.center_your_face_subtitle"),
             title: this._translocoService.translate("liveness.center_your_face"),
         };
@@ -331,6 +352,7 @@ export class BiometricsGeneralComponent implements OnInit, OnDestroy {
 
         if (faceProportion < this.face.threshold || landmarks.imageHeight < this.face.minPixels || landmarks.imageWidth < this.face.minPixels) {
             this.errorFace = {
+                icon: "zoom_in",
                 title: this._translocoService.translate("liveness.get_closer"),
                 subtitle: this._translocoService.translate("liveness.get_closer_subtitle"),
             };

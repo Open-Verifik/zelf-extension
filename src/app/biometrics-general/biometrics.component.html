@@ -1,17 +1,15 @@
-<div fxLayout="column" fxLayoutAlign="center center" class="min-h-[60vh] justify-center p-4 sm:p-1 xs:p-1 w-full">
+<div
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    class="biometric-shell min-h-[60vh] justify-center p-4 sm:p-1 xs:p-1 w-full"
+    [class.biometric-shell--portrait]="displayMode === 'portrait'"
+>
     <div
         *ngIf="!camera.isLoading && camera.hasPermissions && !camera.isLowQuality"
         class="justify-center w-full"
         fxLayout="column"
         fxLayoutAlign="center center"
     >
-        <div fxLayout="column" fxLayoutAlign="center center" class="justify-center text-center h-20 sm:h-8 xs:h-8 my-2">
-            <div *ngIf="errorFace && !response.isLoading" class="biometric__error">
-                <div class="biometric__error-title">{{ errorFace.title }}</div>
-                <div class="biometric__error-subtitle">{{ errorFace.subtitle }}</div>
-            </div>
-        </div>
-
         <div class="relative" [style.width.px]="camera.dimensions.video.width" [style.height.px]="camera.dimensions.video.height">
             <webcam
                 (imageCapture)="processImage($event)"
@@ -34,6 +32,19 @@
                 #maskResult
                 class="absolute top-0 left-0"
             ></canvas>
+
+            <div
+                *ngIf="errorFace && !response.isLoading"
+                class="biometric__status"
+                role="status"
+                aria-live="polite"
+            >
+                <span class="material-symbols-outlined biometric__status-icon">{{ errorFace.icon || "face" }}</span>
+                <div class="biometric__status-content">
+                    <span class="biometric__status-title">{{ errorFace.title }}</span>
+                    <span class="biometric__status-subtitle">{{ errorFace.subtitle }}</span>
+                </div>
+            </div>
 
             <canvas #toSend hidden="true"></canvas>
         </div>

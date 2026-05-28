@@ -9,6 +9,12 @@
     justify-content: center;
 }
 
+/* Bottom rounding under the footer (same pattern as Home / zAuth) */
+::ng-deep .home-hub {
+    overflow: hidden;
+    padding-bottom: calc(94px * var(--zns-space-scale, 1)) !important;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -19,21 +25,41 @@
     height: 100%;
 
     &__app-content {
-        left: 0;
-        right: 0;
-        position: absolute;
-        top: calc(76px * var(--zns-space-scale, 1));
-        bottom: calc(82px * var(--zns-space-scale, 1));
+        /* When the wallet is inside the new hub header shell (.home-hub),
+           let this content area automatically take all remaining height
+           between the header and the footer + bottom rounding space.
+           This prevents the "tiny scrollable box" problem. */
+        position: relative;
+        top: auto;
+        bottom: auto;
+        left: auto;
+        right: auto;
         width: 100%;
+        height: 100%;           /* fill whatever space the parent gives it */
+        min-height: 0;          /* allow proper flex shrinking + scrolling */
         overflow: auto;
         padding: calc(16px * var(--zns-space-scale, 1));
         display: flex;
+        flex-direction: column;
         justify-content: flex-start;
-        align-items: flex-start;
+        align-items: stretch;
+
+        /* When NOT inside the hub shell (legacy or other contexts), keep the old absolute behavior */
+        .home:not(.home-hub) & {
+            position: absolute;
+            top: calc(76px * var(--zns-space-scale, 1));
+            bottom: calc(82px * var(--zns-space-scale, 1));
+            left: 0;
+            right: 0;
+            height: auto;
+        }
 
         @media (max-width: variables.$minSmall) {
-            top: calc(64px * var(--zns-space-scale, 1));
             padding: calc(8px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
+
+            .home:not(.home-hub) & {
+                top: calc(64px * var(--zns-space-scale, 1));
+            }
         }
     }
 

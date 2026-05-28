@@ -132,11 +132,25 @@ export class FooterNavigationService {
             .filter((d): d is FooterNavDestination => !!d);
     }
 
-    /** Label key for hub list (e.g. zChats vs zChat). */
+    /** Short z-prefixed labels for the full-screen Apps Hub list (reference UI). */
     public hubLabelKey(dest: FooterNavDestination): string {
-        if (dest.id === "zelf-chat") {
-            return "common.zelf_chats";
+        switch (dest.id) {
+            case "wallet":
+                return "apps_hub.label_wallet";
+            case "zelf-keys":
+                return "apps_hub.label_keys";
+            case "zelf-authenticator":
+                return "apps_hub.label_auth";
+            case "zelf-chat":
+                return "common.zelf_chats";
+            case "zelf-signals":
+                return "common.zelf_signals";
+            case "manage-domains":
+                return "apps_hub.label_id";
+            case "zelf-ai":
+                return "apps_hub.label_ai";
+            default:
+                return dest.labelKey;
         }
-        return dest.labelKey;
     }
 }

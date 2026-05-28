@@ -97,8 +97,7 @@ const routes: Routes = [
             },
             {
                 path: "zelf-chat",
-                loadComponent: () => import("./shared/feature-coming-soon.component").then((m) => m.FeatureComingSoonComponent),
-                data: { titleKey: "common.zelf_chat", bodyKey: "common.zelf_chat_coming_soon" }
+                loadComponent: () => import("./zelf-chat/zelf-chat.component").then((m) => m.ZelfChatComponent),
             },
             {
                 path: "zelf-signals",

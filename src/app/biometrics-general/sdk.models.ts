@@ -86,6 +86,7 @@ export interface ErrorFace {
 	title: string;
 	subtitle: string;
 	canvas?: string;
+	icon?: string;
 }
 
 export interface IdCard {

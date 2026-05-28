@@ -1,5 +1,6 @@
 import { CommonModule, NgClass, NgFor, NgIf } from "@angular/common";
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { FormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
@@ -9,11 +10,13 @@ import { MatMenuModule } from "@angular/material/menu";
 import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 import { debounce } from "lodash";
-import { interval, Subject, takeUntil } from "rxjs";
+import { distinctUntilChanged, filter, interval, map, skip, Subject, takeUntil } from "rxjs";
 
 import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboard.base";
 import { ChromeService } from "app/chrome.service";
-import { HomeHeaderComponent } from "app/zelf-wallet/home-header/home-header.component";
+import { AuthService } from "app/services/auth.service";
+import { HomeHubHeaderComponent } from "app/home/home-hub-header/home-hub-header.component";
+import { HomeProfilePanelComponent } from "app/home/home-profile-panel/home-profile-panel.component";
 import { ZOTP } from "app/models/zotp.model";
 import { FirstLetterPipe } from "app/pipes/first-letter.pipe";
 import { TOTPService } from "app/services/totp.service";
@@ -22,6 +25,7 @@ import { TagModel } from "app/tags.service";
 import { WalletService } from "app/wallet.service";
 import { ZelfFooterComponent } from "app/zelf-footer/zelf-footer.component";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
+import { AddZotpComponent } from "./add-zotp/add-zotp.component";
 import { DeleteZotpComponent, DeleteZOTPData } from "./delete-zotp/delete-zotp.component";
 import { ExportZotpComponent, ExportZOTPData } from "./export-zotp/export-zotp.component";
 import { RecoverZotpComponent, RecoverZOTPData } from "./recover-zotp/recover-zotp.component";
@@ -34,7 +38,8 @@ import { ZotpDetailsComponent, ZOTPDetailsData } from "./zotp-details/zotp-detai
         FirstLetterPipe,
         FlexLayoutModule,
         FormsModule,
-        HomeHeaderComponent,
+        HomeHubHeaderComponent,
+        HomeProfilePanelComponent,
         MatButtonModule,
         MatIconModule,
         MatMenuModule,
@@ -68,9 +73,16 @@ export class ZelfAuthenticatorComponent extends CopyToClipboardBase implements O
         wallet: {} as Partial<TagModel>,
     };
 
+    wallet: Partial<TagModel> = {};
+    showProfilePanel = false;
+    allWallets: TagModel[] = [];
+    showName = false;
+
     constructor(
+        private _authService: AuthService,
         private _changeDetectorRef: ChangeDetectorRef,
         private _dialog: MatDialog,
+        private _router: Router,
         private _totpService: TOTPService,
         private _walletService: WalletService,
         private _zotpService: ZOTPService,
@@ -87,7 +99,7 @@ export class ZelfAuthenticatorComponent extends CopyToClipboardBase implements O
     }
 
     async ngOnInit(): Promise<void> {
-        await this._loadZOTPs();
+        await this._reloadZotps(false);
 
         this._updateInterval$.pipe(takeUntil(this.unsubscriber$)).subscribe(async () => {
             this.currentTime = Math.floor(Date.now() / 1000);
@@ -115,39 +127,71 @@ export class ZelfAuthenticatorComponent extends CopyToClipboardBase implements O
         this._walletService.getCurrentWallet().then((wallet: Partial<TagModel> | null) => {
             if (!wallet) return;
 
+            this.wallet = wallet;
             this.shareables.wallet = wallet;
         });
     }
 
     private _initSubscriptions(): void {
-        this._chromeService.onWalletChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe((wallet) => {
-            if (!wallet) return;
-
-            this.shareables.wallet = wallet;
-        });
-
-        this._chromeService.onAccessTokenChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe((accessToken) => {
-            if (!accessToken) return;
-
-            this.refreshList();
-        });
+        this._chromeService.onWalletChanged$
+            .pipe(
+                map((w) => w?.fullTagName ?? ""),
+                distinctUntilChanged(),
+                filter((tag) => !!tag),
+                skip(1),
+                takeUntil(this.unsubscriber$)
+            )
+            .subscribe((fullTagName) => {
+                void this._reloadZotpsForWalletSwitch(fullTagName);
+            });
     }
 
-    private async _loadZOTPs(): Promise<void> {
+    private async _reloadZotpsForWalletSwitch(fullTagName: string): Promise<void> {
+        console.log(`[zAuth] reload for ${fullTagName}`);
+
+        const wallet = await this._walletService.getCurrentWallet();
+        if (wallet) this.shareables.wallet = wallet;
+
+        this._decryptedSecrets.clear();
+        this._codeCache.clear();
+        this._zotpService.clearCache();
+
+        try {
+            await this._authService.reauthenticateSession();
+        } catch (error) {
+            console.error("[zAuth] session reauth failed:", error);
+        }
+
+        await this._reloadZotps(true);
+    }
+
+    private async _reloadZotps(forceRefresh: boolean): Promise<void> {
         this.loading = true;
 
         try {
             this._decryptedSecrets.clear();
             this._codeCache.clear();
 
-            this.zotps = await this._zotpService.loadZOTPsFromBackend();
+            this.zotps = forceRefresh
+                ? await this._zotpService.loadZOTPsFromBackend(true)
+                : await this._zotpService.loadZOTPsFromBackend(false);
 
             this.zotps.forEach((zotp) => {
                 zotp.isDecrypted = false;
                 zotp.decryptedSecret = undefined;
             });
 
-            this.filteredZotps = this.zotps;
+            if (this.searchQuery.trim()) {
+                const lowerQuery = this.searchQuery.toLowerCase().trim();
+
+                this.filteredZotps = this.zotps.filter((zotp) => {
+                    const nameMatch = zotp.name.toLowerCase().includes(lowerQuery);
+                    const issuerMatch = zotp.issuer?.toLowerCase().includes(lowerQuery);
+                    return nameMatch || issuerMatch;
+                });
+            } else {
+                this.filteredZotps = this.zotps;
+            }
 
             await this._updateCodeCache();
         } catch (error) {
@@ -252,6 +296,19 @@ export class ZelfAuthenticatorComponent extends CopyToClipboardBase implements O
         dialogRef.afterClosed().subscribe();
     }
 
+    openAddZotp(): void {
+        const dialogRef = this._dialog.open(AddZotpComponent, {
+            backdropClass: "zelf-backdrop",
+            maxWidth: "500px",
+            panelClass: "zelf-dialog",
+            width: "90vw",
+        });
+
+        dialogRef.afterClosed().subscribe((added: boolean | undefined) => {
+            if (added) void this.refreshList();
+        });
+    }
+
     async recoverZOTP(): Promise<void> {
         const dialogRef = this._dialog.open(RecoverZotpComponent, {
             panelClass: "zelf-dialog",
@@ -309,8 +366,9 @@ export class ZelfAuthenticatorComponent extends CopyToClipboardBase implements O
         const dialogRef = this._dialog.open(UnlockZotpComponent, {
             panelClass: "zelf-dialog",
             backdropClass: "zelf-backdrop",
-            width: "90vw",
-            maxWidth: "90vw",
+            width: "min(460px, 92vw)",
+            maxWidth: "92vw",
+            maxHeight: "calc(100vh - 48px)",
             minWidth: "320px",
             disableClose: true,
             data: {
@@ -398,35 +456,41 @@ export class ZelfAuthenticatorComponent extends CopyToClipboardBase implements O
         return remaining;
     }
 
+    get walletName(): string {
+        return (this.wallet?.fullTagName || this.wallet?.publicData?.tagName || "") as string;
+    }
+
     async refreshList(): Promise<void> {
-        this.loading = true;
+        await this._reloadZotps(true);
+    }
 
-        try {
-            this.zotps = await this._zotpService.clearCacheAndRefresh();
+    toggleName(): void {
+        this.showName = !this.showName;
+    }
 
-            this.zotps.forEach((zotp) => {
-                zotp.isDecrypted = false;
-                zotp.decryptedSecret = undefined;
-            });
+    async openProfilePanel(): Promise<void> {
+        const { wallets } = await this._walletService.getAllWalletsFromStorage();
+        this.allWallets = wallets;
+        this.showProfilePanel = true;
+        this._changeDetectorRef.detectChanges();
+    }
 
-            if (this.searchQuery.trim()) {
-                const lowerQuery = this.searchQuery.toLowerCase().trim();
+    closeProfilePanel(): void {
+        this.showProfilePanel = false;
+    }
 
-                this.filteredZotps = this.zotps.filter((zotp) => {
-                    const nameMatch = zotp.name.toLowerCase().includes(lowerQuery);
-                    const issuerMatch = zotp.issuer?.toLowerCase().includes(lowerQuery);
-                    return nameMatch || issuerMatch;
-                });
-            } else {
-                this.filteredZotps = this.zotps;
-            }
+    async onPanelWalletSelected(selectedWallet: TagModel): Promise<void> {
+        this.closeProfilePanel();
+        await this._walletService.switchWallet(selectedWallet);
+    }
 
-            await this._updateCodeCache();
-        } catch (error) {
-            console.error("Error refreshing ZOTP list:", error);
-        } finally {
-            this.loading = false;
-            this._changeDetectorRef.detectChanges();
-        }
+    onPanelSettings(): void {
+        this.closeProfilePanel();
+        void this._router.navigate(["/settings"], { state: { fromZAuthScreen: true } });
+    }
+
+    onPanelAddAccount(): void {
+        this.closeProfilePanel();
+        void this._router.navigate(["/wallet-manage"], { state: { fromZAuthScreen: true } });
     }
 }

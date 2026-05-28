@@ -1,4 +1,4 @@
-import { NgFor, NgIf } from "@angular/common";
+import { NgFor, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from "@angular/common";
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatButtonModule } from "@angular/material/button";
@@ -14,6 +14,7 @@ import { AuthService } from "app/services/auth.service";
 import { SettingsService } from "app/services/settings.service";
 import { TagModel, TagsService } from "app/tags.service";
 import { WalletService } from "app/wallet.service";
+import { HomeHubHeaderComponent } from "./home-hub-header/home-hub-header.component";
 import { HomeProfilePanelComponent } from "./home-profile-panel/home-profile-panel.component";
 import { WalletBalanceTopCardComponent } from "app/zelf-wallet/wallet-balance-top-card/wallet-balance-top-card.component";
 import { FooterNavDestination, FooterNavigationService } from "app/zelf-footer/footer-navigation.service";
@@ -24,10 +25,14 @@ const QUICK_HUB_IDS = ["zelf-keys", "zelf-authenticator", "zelf-signals", "manag
 @Component({
     imports: [
         FlexLayoutModule,
+        HomeHubHeaderComponent,
         HomeProfilePanelComponent,
         MatButtonModule,
         NgFor,
         NgIf,
+        NgSwitch,
+        NgSwitchCase,
+        NgSwitchDefault,
         RouterLink,
         TranslocoModule,
         WalletBalanceTopCardComponent,
@@ -40,6 +45,10 @@ const QUICK_HUB_IDS = ["zelf-keys", "zelf-authenticator", "zelf-signals", "manag
 export class HomeComponent implements OnInit, OnDestroy {
     private readonly _destroy$ = new Subject<void>();
     private _unsubscriberForBalances$ = new Subject<void>();
+    private _subscriptionCountdownInterval: ReturnType<typeof setInterval> | null = null;
+
+    /** Live days + hours when `expiresAt` is in the future; updates periodically. */
+    subscriptionDhms: { days: number; hours: number } | null = null;
 
     readonly quickDestinations: FooterNavDestination[];
 
@@ -57,6 +66,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     /** Checklist steps (placeholder until wired to rewards/onboarding API). */
     readonly startHereTotal = 4;
     readonly startHereCurrent = 0;
+
+    /** Hidden until onboarding/rewards wiring; flip for follow-up ticket. */
+    readonly showStartHere = false;
 
     constructor(
         public readonly navService: FooterNavigationService,
@@ -77,6 +89,22 @@ export class HomeComponent implements OnInit, OnDestroy {
         );
     }
 
+    /** Short hub row labels (reference UI); falls back to footer `hubLabelKey`. */
+    homeQuickLabelKey(dest: FooterNavDestination): string {
+        switch (dest.id) {
+            case "zelf-keys":
+                return "home_hub.quick_label_keys";
+            case "zelf-authenticator":
+                return "home_hub.quick_label_auth";
+            case "zelf-signals":
+                return "home_hub.quick_label_signals";
+            case "manage-domains":
+                return "home_hub.quick_label_id";
+            default:
+                return this.navService.hubLabelKey(dest);
+        }
+    }
+
     async ngOnInit(): Promise<void> {
         const storedHide = await this._chromeService.getItem("hideWalletBalances");
         this.hideBalances = storedHide === true || storedHide === "true";
@@ -92,6 +120,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
+        this._stopSubscriptionCountdown();
         this._destroy$.next();
         this._destroy$.complete();
         this._unsubscriberForBalances$.next();
@@ -182,6 +211,11 @@ export class HomeComponent implements OnInit, OnDestroy {
         await this._getBalances();
         await this._refreshWallets();
 
+        this._syncSubscriptionDhms();
+        this._startSubscriptionCountdown();
+
+        this._changeDetectorRef.detectChanges();
+
         this._chromeService.onWalletChanged$.pipe(takeUntil(this._destroy$)).subscribe(this._listenForWalletUpdates);
     };
 
@@ -211,6 +245,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
         this.shareables = { ...this.shareables, wallet };
         this._wallet = this.shareables.wallet;
+        this._syncSubscriptionDhms();
+        this._startSubscriptionCountdown();
         this._changeDetectorRef.detectChanges();
     }
 
@@ -230,6 +266,8 @@ export class HomeComponent implements OnInit, OnDestroy {
         await this._fetchBalancesFromNetwork(enabledNetworks);
 
         await this._refreshWallets(true);
+        this._syncSubscriptionDhms();
+        this._startSubscriptionCountdown();
         this._changeDetectorRef.detectChanges();
     }
 
@@ -262,6 +300,87 @@ export class HomeComponent implements OnInit, OnDestroy {
     get walletName(): string {
         const w = this.shareables.wallet;
         return (w?.fullTagName || (w?.publicData as any)?.tagName || '') as string;
+    }
+
+    private get _subscriptionWallet(): TagModel | null {
+        const w = this.shareables.wallet;
+        if (!w?.publicData) return null;
+        return w as TagModel;
+    }
+
+    get isPremium(): boolean {
+        return this._subscriptionWallet?.isMainnet === true;
+    }
+
+    get isFreeHold(): boolean {
+        return this._subscriptionWallet?.isHold === true;
+    }
+
+    /** Same day math as `home-banners` (ceil, floor at 0). */
+    get subscriptionDaysRemaining(): number {
+        const exp = this.shareables.wallet?.publicData?.expiresAt;
+        if (!exp) return 0;
+        const expiresAt = new Date(exp);
+        const diffTime = expiresAt.getTime() - Date.now();
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        return Math.max(0, diffDays);
+    }
+
+    get subscriptionZelfIdDisplay(): string {
+        const w = this._subscriptionWallet;
+        if (!w) return this.walletName || "";
+        const local = w.tagName;
+        const domain = w.domain;
+        if (w.isHold) return `${local}.${domain}.hold`;
+        if (w.isMainnet) return `${local}.${domain}`;
+        return w.fullTagName || local || this.walletName;
+    }
+
+    get subscriptionHasExpiry(): boolean {
+        return !!this.shareables.wallet?.publicData?.expiresAt;
+    }
+
+    get subscriptionIsExpired(): boolean {
+        const exp = this.shareables.wallet?.publicData?.expiresAt;
+        if (!exp) return false;
+        return new Date(exp).getTime() <= Date.now();
+    }
+
+    private _syncSubscriptionDhms(): void {
+        const exp = this.shareables.wallet?.publicData?.expiresAt;
+        if (!exp) {
+            this.subscriptionDhms = null;
+            return;
+        }
+        const endMs = new Date(exp).getTime();
+        const diff = endMs - Date.now();
+        if (diff <= 0) {
+            this.subscriptionDhms = null;
+            return;
+        }
+        const totalSec = Math.floor(diff / 1000);
+        this.subscriptionDhms = {
+            days: Math.floor(totalSec / 86400),
+            hours: Math.floor((totalSec % 86400) / 3600),
+        };
+    }
+
+    private _startSubscriptionCountdown(): void {
+        this._stopSubscriptionCountdown();
+        const exp = this.shareables.wallet?.publicData?.expiresAt;
+        if (!exp) return;
+        this._syncSubscriptionDhms();
+        this._subscriptionCountdownInterval = setInterval(() => {
+            this._syncSubscriptionDhms();
+            this._changeDetectorRef.markForCheck();
+        }, 60_000);
+    }
+
+    private _stopSubscriptionCountdown(): void {
+        if (this._subscriptionCountdownInterval) {
+            clearInterval(this._subscriptionCountdownInterval);
+            this._subscriptionCountdownInterval = null;
+        }
     }
 
     toggleName(): void {

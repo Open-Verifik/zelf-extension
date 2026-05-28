@@ -1,9 +1,25 @@
 <div class="zelf-card dashboard" *transloco="let t">
-    <home-header [shareables]="{ wallet: wallet }"></home-header>
+    <home-hub-header
+        [walletName]="walletName"
+        [showName]="showName"
+        (profileClick)="openProfilePanel()"
+        (toggleNameClick)="toggleName()"
+    />
 
     <main class="dashboard__content">
         <router-outlet></router-outlet>
     </main>
 
     <zelf-footer [shareables]="{ wallet: wallet }"></zelf-footer>
+
+    <home-profile-panel
+        *ngIf="showProfilePanel"
+        [wallets]="allWallets"
+        [currentWallet]="wallet"
+        [visible]="showProfilePanel"
+        (closed)="closeProfilePanel()"
+        (walletSelected)="onPanelWalletSelected($event)"
+        (openSettings)="onPanelSettings()"
+        (addAccount)="onPanelAddAccount()"
+    />
 </div>

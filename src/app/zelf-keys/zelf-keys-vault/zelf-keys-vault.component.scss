@@ -5,6 +5,13 @@
     display: flex;
     flex-direction: column;
     gap: calc(16px * var(--zns-space-scale, 1));
+    height: 100%;
+    min-height: 0;          /* allow proper flex + scrolling inside the phone card */
+
+    /* When rendered inside the new hub shell (dashboard + tall card), take all available height */
+    .dashboard & {
+        flex: 1 1 auto;
+    }
 
     &__state {
         text-align: center;
@@ -47,6 +54,15 @@
         display: flex;
         flex-direction: column;
         gap: calc(14px * var(--zns-space-scale, 1));
+        flex: 1 1 auto;
+        min-height: 0;
+    }
+
+    /* Make the actual list the tall scrollable region inside the phone card */
+    &__list {
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow: auto;
     }
 
     &__actions {

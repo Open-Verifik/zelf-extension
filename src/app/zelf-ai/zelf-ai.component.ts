@@ -1,94 +1,208 @@
-import { Component } from "@angular/core";
-import { RouterLink } from "@angular/router";
+import { CommonModule } from "@angular/common";
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { TranslocoModule } from "@jsverse/transloco";
+import { Subject, distinctUntilChanged, filter, map, skip, takeUntil } from "rxjs";
+
+import { ChromeService } from "app/chrome.service";
+import { HomeHubHeaderComponent } from "app/home/home-hub-header/home-hub-header.component";
+import { HomeProfilePanelComponent } from "app/home/home-profile-panel/home-profile-panel.component";
+import { TagModel } from "app/tags.service";
+import { WalletService } from "app/wallet.service";
+import { ZelfFooterComponent } from "app/zelf-footer/zelf-footer.component";
 
 @Component({
     selector: "zelf-ai",
     standalone: true,
-    imports: [TranslocoModule, RouterLink],
+    imports: [
+        CommonModule,
+        TranslocoModule,
+        HomeHubHeaderComponent,
+        HomeProfilePanelComponent,
+        ZelfFooterComponent,
+    ],
     template: `
-        <div class="zelf-card zelf-ai" *transloco="let t">
-            <div class="zelf-ai__header">
-                <button [routerLink]="['/home']" class="zelf-icon-button zelf-icon-button--secondary zelf-icon-button--40">
-                    <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M20.0898 5.8277H4.72478L8.08478 2.4677C8.53978 2.0127 8.53978 1.2777 8.08478 0.822695C7.62978 0.367695 6.89478 0.367695 6.43978 0.822695L1.08478 6.1777C0.62978 6.6327 0.62978 7.3677 1.08478 7.8227L6.43978 13.1777C6.89478 13.6327 7.62978 13.6327 8.08478 13.1777C8.53978 12.7227 8.53978 11.9877 8.08478 11.5327L4.72478 8.16103H20.0898C20.7314 8.16103 21.2564 7.63603 21.2564 6.99436C21.2564 6.3527 20.7314 5.8277 20.0898 5.8277Z"
-                        />
-                    </svg>
-                </button>
-                <p class="zelf-ai__title">{{ t('common.zelf_ai') }}</p>
-                <div class="zelf-ai__spacer"></div>
+        <div class="zelf-card home-hub" *transloco="let t">
+            <home-hub-header
+                [walletName]="walletName"
+                [showName]="showName"
+                (profileClick)="openProfilePanel()"
+                (toggleNameClick)="toggleName()"
+            />
+
+            <div class="home-hub__body">
+                <div class="ai-coming-soon">
+                    <div class="ai-coming-soon__icon">
+                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L14.8 9.2L22 12L14.8 14.8L12 22L9.2 14.8L2 12L9.2 9.2L12 2Z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <h2 class="ai-coming-soon__heading">{{ t("common.coming_soon") }}</h2>
+                    <p class="ai-coming-soon__description">{{ t("common.coming_soon_desc") }}</p>
+                </div>
             </div>
 
-            <div class="zelf-ai__content">
-                <div class="zelf-ai__icon-wrapper">
-                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 2L14.8 9.2L22 12L14.8 14.8L12 22L9.2 14.8L2 12L9.2 9.2L12 2Z" fill="currentColor"/>
-                    </svg>
-                </div>
-                <h2 class="zelf-ai__heading">{{ t("common.coming_soon") }}</h2>
-                <p class="zelf-ai__description">{{ t("common.coming_soon_desc") }}</p>
-            </div>
+            <zelf-footer [shareables]="{ wallet: wallet }"></zelf-footer>
+
+            <home-profile-panel
+                *ngIf="showProfilePanel"
+                [wallets]="allWallets"
+                [currentWallet]="wallet"
+                [visible]="showProfilePanel"
+                (closed)="closeProfilePanel()"
+                (walletSelected)="onPanelWalletSelected($event)"
+                (openSettings)="onPanelSettings()"
+                (addAccount)="onPanelAddAccount()"
+            />
         </div>
     `,
     styles: [`
         @use "../../../styles/variables";
 
-        .zelf-ai {
+        :host {
+            align-items: center;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
-            background: variables.$themeCard;
+            flex-grow: 1;
+            justify-content: center;
+        }
+
+        ::ng-deep .home-hub {
+            overflow: hidden;
+            padding-bottom: calc(94px * var(--zns-space-scale, 1)) !important;
+        }
+
+        .home-hub__body {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: calc(88px * var(--zns-space-scale, 1));
+            bottom: calc(82px * var(--zns-space-scale, 1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 calc(24px * var(--zns-space-scale, 1));
+            overflow: auto;
+        }
+
+        @media screen and (max-width: variables.$medium) {
+            .home-hub__body {
+                top: calc(76px * var(--zns-space-scale, 1));
+                bottom: calc(70px * var(--zns-space-scale, 1));
+                padding: 0 calc(16px * var(--zns-space-scale, 1));
+            }
+        }
+
+        .ai-coming-soon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .ai-coming-soon__icon {
+            margin-bottom: calc(24px * var(--zns-space-scale, 1));
+            color: variables.$primaryColor;
+        }
+
+        .ai-coming-soon__heading {
+            font-size: calc(24px * var(--zns-font-scale, 1));
+            font-weight: 700;
+            margin-bottom: calc(8px * var(--zns-space-scale, 1));
             color: variables.$themeText;
+        }
 
-            &__header {
-                display: flex;
-                align-items: center;
-                padding: calc(16px * var(--zns-space-scale, 1));
-                border-bottom: 1px solid variables.$themeBorder;
-            }
-
-            &__title {
-                flex: 1;
-                text-align: center;
-                font-weight: 600;
-                font-size: calc(16px * var(--zns-font-scale, 1));
-                margin: 0;
-            }
-
-            &__spacer {
-                width: 40px;
-            }
-
-            &__content {
-                flex: 1;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                padding: calc(32px * var(--zns-space-scale, 1));
-                text-align: center;
-            }
-
-            &__icon-wrapper {
-                margin-bottom: calc(24px * var(--zns-space-scale, 1));
-                color: variables.$primaryColor;
-            }
-
-            &__heading {
-                font-size: calc(24px * var(--zns-font-scale, 1));
-                font-weight: 700;
-                margin-bottom: calc(8px * var(--zns-space-scale, 1));
-            }
-
-            &__description {
-                font-size: calc(16px * var(--zns-font-scale, 1));
-                color: variables.$themeTextMuted;
-                max-width: 300px;
-                line-height: 1.5;
-            }
+        .ai-coming-soon__description {
+            font-size: calc(16px * var(--zns-font-scale, 1));
+            color: variables.$themeTextMuted;
+            max-width: 300px;
+            line-height: 1.5;
         }
     `]
 })
-export class ZelfAiComponent {
+export class ZelfAiComponent implements OnInit, OnDestroy {
+    private readonly _destroy$ = new Subject<void>();
+
+    wallet: Partial<TagModel> = {};
+    showProfilePanel = false;
+    allWallets: TagModel[] = [];
+    showName = false;
+
+    constructor(
+        private readonly _changeDetectorRef: ChangeDetectorRef,
+        private readonly _chromeService: ChromeService,
+        private readonly _router: Router,
+        private readonly _walletService: WalletService,
+    ) {}
+
+    async ngOnInit(): Promise<void> {
+        await this._initWallet();
+        this._initSubscriptions();
+    }
+
+    ngOnDestroy(): void {
+        this._destroy$.next();
+        this._destroy$.complete();
+    }
+
+    get walletName(): string {
+        return (this.wallet?.fullTagName || this.wallet?.publicData?.tagName || "") as string;
+    }
+
+    private async _initWallet(): Promise<void> {
+        const { wallet } = await this._walletService.getAllWalletsFromStorage();
+        this.wallet = wallet || ({} as Partial<TagModel>);
+    }
+
+    private _initSubscriptions(): void {
+        this._chromeService.onWalletChanged$
+            .pipe(
+                map((w) => w?.fullTagName ?? ""),
+                distinctUntilChanged(),
+                filter((tag) => !!tag),
+                skip(1),
+                takeUntil(this._destroy$)
+            )
+            .subscribe(() => {
+                void this._refreshWallet();
+            });
+    }
+
+    private async _refreshWallet(): Promise<void> {
+        const { wallet } = await this._walletService.getAllWalletsFromStorage();
+        if (wallet) {
+            this.wallet = wallet;
+            this._changeDetectorRef.detectChanges();
+        }
+    }
+
+    toggleName(): void {
+        this.showName = !this.showName;
+    }
+
+    async openProfilePanel(): Promise<void> {
+        const { wallets } = await this._walletService.getAllWalletsFromStorage();
+        this.allWallets = wallets;
+        this.showProfilePanel = true;
+        this._changeDetectorRef.detectChanges();
+    }
+
+    closeProfilePanel(): void {
+        this.showProfilePanel = false;
+    }
+
+    async onPanelWalletSelected(wallet: TagModel): Promise<void> {
+        this.closeProfilePanel();
+        await this._walletService.switchWallet(wallet);
+    }
+
+    onPanelSettings(): void {
+        this.closeProfilePanel();
+        void this._router.navigate(["/settings"]);
+    }
+
+    onPanelAddAccount(): void {
+        this.closeProfilePanel();
+        void this._router.navigate(["/wallet-manage"]);
+    }
 }

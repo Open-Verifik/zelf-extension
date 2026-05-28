@@ -6,7 +6,7 @@
             <ng-container *ngTemplateOutlet="logo"></ng-container>
         </div>
 
-        <div class="zelf-app__header-language">
+        <div class="zelf-app__header-language" *ngIf="!isSidePanel">
             <zelf-theme></zelf-theme>
             <language></language>
         </div>

@@ -18,113 +18,6 @@
     height: 100%;
     overflow: hidden;
 
-    &__header {
-        width: 100%;
-        padding: calc(8px * var(--zns-space-scale, 1)) 0 calc(16px * var(--zns-space-scale, 1));
-    }
-
-    &__header-left {
-        display: inline-flex;
-        align-items: center;
-        gap: calc(6px * var(--zns-space-scale, 1));
-        min-width: 0;
-    }
-
-    &__avatar-btn {
-        flex-shrink: 0;
-        background: none;
-        border: none;
-        padding: 0;
-        cursor: pointer;
-        border-radius: 50%;
-        line-height: 0;
-        transition: opacity 0.15s variables.$smoothBezier;
-
-        &:hover {
-            opacity: 0.85;
-        }
-    }
-
-    &__avatar {
-        width: calc(40px * var(--zns-space-scale, 1));
-        height: calc(40px * var(--zns-space-scale, 1));
-        border-radius: 50%;
-        background: variables.$themeCard;
-        border: 1px solid variables.$themeBorder;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-    }
-
-    &__avatar-img {
-        width: calc(20px * var(--zns-space-scale, 1));
-        height: calc(20px * var(--zns-space-scale, 1));
-        object-fit: contain;
-        display: block;
-    }
-
-    &__wallet-name {
-        font-family: variables.$themeBodyFamily;
-        font-size: calc(14px * var(--zns-font-scale, 1));
-        font-weight: 600;
-        color: variables.$themeText;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-width: calc(130px * var(--zns-space-scale, 1));
-    }
-
-    &__name-toggle {
-        flex-shrink: 0;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        background: none;
-        border: none;
-        padding: calc(4px * var(--zns-space-scale, 1));
-        cursor: pointer;
-        color: variables.$themeTextSecondary;
-        line-height: 0;
-        transition: color 0.15s variables.$smoothBezier;
-
-        &:hover {
-            color: variables.$themeText;
-        }
-    }
-
-    &__header-icon {
-        width: 20px;
-        height: 20px;
-        object-fit: contain;
-        display: block;
-    }
-
-    &__icon-tile {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: calc(44px * var(--zns-space-scale, 1));
-        height: calc(44px * var(--zns-space-scale, 1));
-        border-radius: 12px;
-        background: #fff0eb;
-        color: variables.$secondaryColor;
-        text-decoration: none;
-        border: none;
-        cursor: pointer;
-        transition: opacity 0.15s variables.$smoothBezier;
-
-        &:hover {
-            opacity: 0.92;
-        }
-
-        &--ghost {
-            background: variables.$themeCard;
-            border: 1px solid variables.$themeBorder;
-            color: variables.$themeText;
-        }
-    }
-
     &__body {
         position: absolute;
         left: 0;
@@ -164,6 +57,89 @@
         background: variables.$themeCard;
     }
 
+    &__subscription-card-top {
+        width: 100%;
+        flex-wrap: nowrap;
+        align-items: center;
+    }
+
+    &__subscription-meta {
+        width: 100%;
+        /* Align with title column (icon 28px + gap 12px, scaled) */
+        padding-left: calc(40px * var(--zns-space-scale, 1));
+        box-sizing: border-box;
+    }
+
+    &__subscription-main {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+
+    &__subscription-copy {
+        min-width: 0;
+    }
+
+    &__subscription-cta {
+        flex: 0 0 auto;
+        white-space: nowrap;
+        padding-left: calc(10px * var(--zns-space-scale, 1)) !important;
+        padding-right: calc(10px * var(--zns-space-scale, 1)) !important;
+    }
+
+    &__cta-accent {
+        --mdc-filled-button-container-color: #{variables.$secondaryColor} !important;
+        --mdc-filled-button-label-text-color: #fff !important;
+        background-color: variables.$secondaryColor !important;
+        color: #fff !important;
+
+        &:hover {
+            --mdc-filled-button-container-color: #{variables.$themeButtonHover} !important;
+            background-color: variables.$themeButtonHover !important;
+        }
+    }
+
+    &__cta-compact {
+        --mdc-filled-button-container-height: 28px;
+        min-height: 28px !important;
+        height: 28px !important;
+        max-height: 28px !important;
+        padding: 0 calc(8px * var(--zns-space-scale, 1)) !important;
+        line-height: 1.15 !important;
+        font-size: calc(11px * var(--zns-font-scale, 1)) !important;
+        font-weight: 600 !important;
+
+        ::ng-deep .mdc-button__label,
+        .mdc-button__label {
+            font-size: inherit !important;
+            line-height: inherit !important;
+        }
+
+        &.mat-mdc-button-base {
+            height: 28px !important;
+            min-height: 28px !important;
+        }
+
+        ::ng-deep .mat-mdc-button-touch-target {
+            height: 28px !important;
+        }
+    }
+
+    @media (max-width: 360px) {
+        &__subscription-card-top {
+            flex-wrap: wrap;
+        }
+
+        &__subscription-cta {
+            width: 100%;
+            justify-content: center;
+            margin-top: calc(8px * var(--zns-space-scale, 1));
+        }
+
+        &__subscription-meta {
+            padding-left: 0;
+        }
+    }
+
     &__subscription-icon {
         display: flex;
         align-items: center;
@@ -173,15 +149,22 @@
 
     &__subscription-title {
         margin: 0;
-        font-weight: 700;
-        font-size: calc(15px * var(--zns-font-scale, 1));
-        color: variables.$themeText;
+        font-family: variables.$themeBodyFamily;
+        font-weight: 500;
+        font-size: calc(16px * var(--zns-font-scale, 1));
+        line-height: calc(22px * var(--zns-font-scale, 1));
+        letter-spacing: 0;
+        color: color-mix(in srgb, variables.$themeText 80%, transparent);
     }
 
     &__subscription-sub {
         margin: 4px 0 0;
-        font-size: calc(13px * var(--zns-font-scale, 1));
-        color: variables.$themeTextSecondary;
+        font-family: variables.$themeBodyFamily;
+        font-weight: 500;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        line-height: calc(20px * var(--zns-font-scale, 1));
+        letter-spacing: 0;
+        color: color-mix(in srgb, variables.$themeText 58%, transparent);
     }
 
     &__countdown {
@@ -189,6 +172,44 @@
         font-size: calc(13px * var(--zns-font-scale, 1));
         color: variables.$themeTextMuted;
         text-align: center;
+
+        &--in-card {
+            margin: 0;
+            text-align: left;
+            line-height: 1.4;
+        }
+
+        &--expired {
+            color: variables.$themeTextSecondary;
+        }
+    }
+
+    &__countdown-dhms {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: calc(6px * var(--zns-space-scale, 1)) calc(10px * var(--zns-space-scale, 1));
+        font-size: calc(12px * var(--zns-font-scale, 1));
+        color: variables.$themeTextSecondary;
+        line-height: 1.35;
+    }
+
+    &__countdown-dhms__segment {
+        white-space: nowrap;
+    }
+
+    &__countdown-dhms__num {
+        font-weight: 700;
+        color: variables.$themeText;
+        font-variant-numeric: tabular-nums;
+    }
+
+    &__countdown-dhms__segment--primary {
+        font-size: calc(13px * var(--zns-font-scale, 1));
+
+        .home-hub__countdown-dhms__num {
+            font-size: calc(15px * var(--zns-font-scale, 1));
+        }
     }
 
     &__start-toggle {
@@ -276,38 +297,96 @@
         color: variables.$themeText;
     }
 
+    &__promo-block {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: calc(10px * var(--zns-space-scale, 1));
+    }
+
     &__promo-card {
         display: flex;
         flex-direction: row;
-        gap: calc(12px * var(--zns-space-scale, 1));
-        padding: calc(16px * var(--zns-space-scale, 1));
+        gap: calc(8px * var(--zns-space-scale, 1));
+        padding: calc(14px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
         border-radius: 20px;
         border: 1px solid variables.$themeBorder;
         background: variables.$themeCard;
         align-items: center;
+        min-height: calc(146px * var(--zns-space-scale, 1));
+        width: 100%;
+        overflow: hidden;
     }
 
     &__promo-copy {
-        flex: 1;
+        flex: 1 1 48%;
+        max-width: 52%;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        gap: calc(12px * var(--zns-space-scale, 1));
     }
 
+    // Promo headline: match Figma (Aloevera Display 500 / 16 / 22 / 80% black). Aloevera is not bundled;
+    // use Poppins 500 (see main.scss @fontsource imports + body family).
     &__promo-title {
         margin: 0;
-        font-weight: 700;
-        font-size: calc(15px * var(--zns-font-scale, 1));
+        font-family: variables.$themeBodyFamily;
+        font-weight: 500;
+        font-size: calc(16px * var(--zns-font-scale, 1));
+        line-height: calc(22px * var(--zns-font-scale, 1));
+        letter-spacing: 0;
+        color: color-mix(in srgb, variables.$themeText 80%, transparent);
     }
 
-    &__promo-body {
-        margin: calc(8px * var(--zns-space-scale, 1)) 0 calc(12px * var(--zns-space-scale, 1));
-        font-size: calc(13px * var(--zns-font-scale, 1));
-        color: variables.$themeTextSecondary;
+    &__promo-cta {
+        flex-shrink: 0;
     }
 
     &__promo-visual {
-        flex: 0 0 88px;
-        height: 100px;
+        flex: 0 1 42%;
+        max-width: 42%;
+        min-width: 0;
+        min-height: 0;
+        max-height: calc(118px * var(--zns-space-scale, 1));
         border-radius: 12px;
-        background: linear-gradient(145deg, rgba(253, 99, 55, 0.12), rgba(98, 154, 244, 0.12));
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        align-self: center;
+    }
+
+    &__promo-image {
+        width: auto;
+        max-width: 100%;
+        height: auto;
+        max-height: 100%;
+        object-fit: contain;
+        object-position: right center;
+        display: block;
+    }
+
+    &__promo-dots {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: calc(6px * var(--zns-space-scale, 1));
+    }
+
+    &__promo-dot {
+        width: calc(22px * var(--zns-space-scale, 1));
+        height: calc(4px * var(--zns-space-scale, 1));
+        border-radius: 999px;
+        background: rgba(255, 87, 33, 0.22);
+
+        &--active {
+            background: variables.$secondaryColor;
+        }
     }
 
     &__signals-head {
@@ -316,12 +395,12 @@
 
     &__signals-title {
         font-weight: 700;
-        font-size: calc(16px * var(--zns-font-scale, 1));
+        font-size: calc(15px * var(--zns-font-scale, 1));
         color: variables.$themeText;
     }
 
     &__signals-link {
-        font-size: calc(14px * var(--zns-font-scale, 1));
+        font-size: calc(13px * var(--zns-font-scale, 1));
         font-weight: 600;
         color: variables.$secondaryColor;
         text-decoration: none;

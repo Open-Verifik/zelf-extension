@@ -27,6 +27,7 @@ export class ZelfAppComponent implements AfterViewInit, OnDestroy {
     wallet: Partial<TagModel> = {};
     wallets: any[] = [];
     backgroundPattern: "gradient-dots" | "falling-pattern" = "falling-pattern";
+    isSidePanel = false;
 
     constructor(
         private _activatedRoute: ActivatedRoute,
@@ -34,13 +35,19 @@ export class ZelfAppComponent implements AfterViewInit, OnDestroy {
         private _router: Router,
         private _vaultService: VaultService,
         private _walletService: WalletService
-    ) {}
+    ) {
+        this.isSidePanel = this._chromeService.isSidePanel;
+    }
 
     async ngAfterViewInit(): Promise<void> {
         await this._setCanGoHome();
 
         this._chromeService.onWalletsChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe(async () => {
             await this._setCanGoHome();
+        });
+
+        this._chromeService.isSidePanel$.pipe(takeUntil(this.unsubscriber$)).subscribe((isSidePanel) => {
+            this.isSidePanel = isSidePanel;
         });
 
         this._router.events.pipe(takeUntil(this.unsubscriber$)).subscribe((event) => {

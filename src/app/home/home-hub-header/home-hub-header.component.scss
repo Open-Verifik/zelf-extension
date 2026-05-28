@@ -1,0 +1,117 @@
+@use "../../../styles/variables";
+
+:host {
+    display: block;
+    width: 100%;
+}
+
+.home-hub__header {
+    width: 100%;
+    padding: calc(8px * var(--zns-space-scale, 1)) 0 calc(16px * var(--zns-space-scale, 1));
+}
+
+.home-hub__header-left {
+    display: inline-flex;
+    align-items: center;
+    gap: calc(6px * var(--zns-space-scale, 1));
+    min-width: 0;
+}
+
+.home-hub__avatar-btn {
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    border-radius: 50%;
+    line-height: 0;
+    transition: opacity 0.15s variables.$smoothBezier;
+
+    &:hover {
+        opacity: 0.85;
+    }
+}
+
+.home-hub__avatar {
+    width: calc(40px * var(--zns-space-scale, 1));
+    height: calc(40px * var(--zns-space-scale, 1));
+    border-radius: 50%;
+    background: variables.$themeCard;
+    border: 1px solid variables.$themeBorder;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.home-hub__avatar-img {
+    width: calc(20px * var(--zns-space-scale, 1));
+    height: calc(20px * var(--zns-space-scale, 1));
+    object-fit: contain;
+    display: block;
+}
+
+.home-hub__wallet-name {
+    font-family: variables.$themeBodyFamily;
+    font-size: calc(14px * var(--zns-font-scale, 1));
+    font-weight: 600;
+    color: variables.$themeText;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: calc(130px * var(--zns-space-scale, 1));
+}
+
+.home-hub__name-toggle {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    padding: calc(4px * var(--zns-space-scale, 1));
+    cursor: pointer;
+    color: variables.$themeTextSecondary;
+    line-height: 0;
+    transition: color 0.15s variables.$smoothBezier;
+
+    &:hover {
+        color: variables.$themeText;
+    }
+}
+
+.home-hub__header-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    display: block;
+
+    &--svg {
+        fill: currentColor;
+    }
+}
+
+.home-hub__icon-tile {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(44px * var(--zns-space-scale, 1));
+    height: calc(44px * var(--zns-space-scale, 1));
+    border-radius: 12px;
+    background: #fff0eb;
+    color: variables.$secondaryColor;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.15s variables.$smoothBezier;
+
+    &:hover {
+        opacity: 0.92;
+    }
+
+    &--ghost {
+        background: variables.$themeCard;
+        border: 1px solid variables.$themeBorder;
+        color: variables.$themeText;
+    }
+}

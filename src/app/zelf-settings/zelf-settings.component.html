@@ -1,6 +1,6 @@
 <div class="zelf-card zelf-settings" [class.zelf-settings--start]="selectedSettings === 'dapps'" *transloco="let t">
     <div class="zelf-settings__header" *ngIf="selectedSettings !== 'dapps'">
-        <div class="zelf-settings__col1">
+        <div class="zelf-settings__header-col1">
             <button
                 [queryParams]="{ edit: '' }"
                 [routerLink]="!selectedSettings ? ['/home'] : ['./']"
@@ -15,55 +15,49 @@
             </button>
         </div>
 
-        <div class="zelf-settings__col2">
+        <div class="zelf-settings__header-col2">
             <p class="zelf-settings__title">{{ t(pageTitle) }}</p>
         </div>
 
-        <div class="zelf-settings__col3"></div>
+        <div class="zelf-settings__header-col3"></div>
     </div>
 
     <ng-container *ngIf="!selectedSettings">
-        <div class="zelf-card__content">
-            <div
-                [queryParams]="settingItem.queryParams"
-                [routerLink]="settingItem.routerLink"
-                *ngFor="let settingItem of settingsItems"
-                class="zelf-settings__item"
-            >
-                <div class="zelf-settings__item-col1">
-                    <div class="zelf-settings__item-col1-icon">
+        <div class="zelf-settings__body">
+            <div class="zelf-settings__list">
+                <a
+                    *ngFor="let settingItem of settingsItems"
+                    class="zelf-settings__row"
+                    [queryParams]="settingItem.queryParams"
+                    [routerLink]="settingItem.routerLink"
+                >
+                    <div class="zelf-settings__icon-tile">
                         <ng-container *ngTemplateOutlet="getTemplateIcon(settingItem)"></ng-container>
                     </div>
+                    <span class="zelf-settings__label">{{ t(settingItem.text) }}</span>
+                    <div class="zelf-settings__chevron" aria-hidden="true">
+                        <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1.70504 0L0.295044 1.41L4.87504 6L0.295044 10.59L1.70504 12L7.70504 6L1.70504 0Z" />
+                        </svg>
+                    </div>
+                </a>
 
-                    <p class="zelf-settings__item-col1-title">{{ t(settingItem.text) }}</p>
-                </div>
-
-                <div class="zelf-settings__item-col2">
-                    <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M1.70504 0L0.295044 1.41L4.87504 6L0.295044 10.59L1.70504 12L7.70504 6L1.70504 0Z" />
-                    </svg>
-                </div>
-            </div>
-
-            <div
-                class="zelf-settings__item"
-                [routerLink]="['/external-link']"
-                [queryParams]="{ externalUrl: link.url }"
-                *ngFor="let link of footerLinks"
-            >
-                <div class="zelf-settings__item-col1">
-                    <div class="zelf-settings__item-col1-icon">
+                <a
+                    *ngFor="let link of footerLinks"
+                    class="zelf-settings__row zelf-settings__row--link"
+                    [routerLink]="['/external-link']"
+                    [queryParams]="{ externalUrl: link.url }"
+                >
+                    <div class="zelf-settings__icon-tile">
                         <ng-container *ngTemplateOutlet="externalLinkIcon"></ng-container>
                     </div>
-
-                    <p class="zelf-settings__item-col1-title">{{ t(link.text) }}</p>
-                </div>
-
-                <div class="zelf-settings__item-col2">
-                    <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M1.70504 0L0.295044 1.41L4.87504 6L0.295044 10.59L1.70504 12L7.70504 6L1.70504 0Z" />
-                    </svg>
-                </div>
+                    <span class="zelf-settings__label">{{ t(link.text) }}</span>
+                    <div class="zelf-settings__chevron" aria-hidden="true">
+                        <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1.70504 0L0.295044 1.41L4.87504 6L0.295044 10.59L1.70504 12L7.70504 6L1.70504 0Z" />
+                        </svg>
+                    </div>
+                </a>
             </div>
         </div>
 

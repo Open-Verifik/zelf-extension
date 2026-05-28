@@ -21,12 +21,7 @@ export class FooterMenuComponent {
 
     openAppsHub(): void {
         const path = this._router.url.split("?")[0];
-        let hubQuickContext: "zelf-keys" | "zelf-authenticator" | undefined;
-        if (path.startsWith("/zelf-keys")) {
-            hubQuickContext = "zelf-keys";
-        } else if (path.startsWith("/zelf-authenticator")) {
-            hubQuickContext = "zelf-authenticator";
-        }
+        const hubQuickContext = path.startsWith("/zelf-authenticator") ? "zelf-authenticator" : undefined;
         void this._router.navigate(["/apps"], {
             state: hubQuickContext ? { hubQuickContext } : {},
         });

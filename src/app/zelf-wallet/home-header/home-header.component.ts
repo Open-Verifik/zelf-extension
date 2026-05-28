@@ -1,5 +1,5 @@
 import { NgIf } from "@angular/common";
-import { AfterViewInit, Component, Input, OnDestroy } from "@angular/core";
+import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, Output } from "@angular/core";
 import { MatBottomSheet, MatBottomSheetModule } from "@angular/material/bottom-sheet";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatIconModule } from "@angular/material/icon";
@@ -119,6 +119,8 @@ import { HomeHeaderAccountsComponent } from "../home-header-accounts/home-header
 })
 export class HomeHeaderComponent implements OnDestroy, AfterViewInit {
     @Input() shareables: { wallet: Partial<TagModel>; view?: string } = { wallet: {} };
+    @Input() accountSwitcherMode: "bottomSheet" | "profilePanel" = "bottomSheet";
+    @Output() profilePanelRequested = new EventEmitter<void>();
 
     private unsubscriber$: Subject<void> = new Subject();
 
@@ -198,6 +200,11 @@ export class HomeHeaderComponent implements OnDestroy, AfterViewInit {
     }
 
     openBottomSheet(): void {
+        if (this.accountSwitcherMode === "profilePanel") {
+            this.profilePanelRequested.emit();
+            return;
+        }
+
         this._bottomSheet.open(HomeHeaderAccountsComponent, {
             backdropClass: "zelf-backdrop",
             panelClass: "zelf-bottom-sheet-seasalt",

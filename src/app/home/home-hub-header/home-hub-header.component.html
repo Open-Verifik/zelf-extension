@@ -1,0 +1,54 @@
+<div class="home-hub__header" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="12px" *transloco="let t">
+    <div class="home-hub__header-left">
+        <button type="button" class="home-hub__avatar-btn" (click)="profileClick.emit()" [attr.aria-label]="t('home_hub.header_profile_aria')">
+            <div class="home-hub__avatar">
+                <img src="assets/icons/profile_icon.svg" alt="" class="home-hub__avatar-img" aria-hidden="true" />
+            </div>
+        </button>
+        <span class="home-hub__wallet-name" *ngIf="showName && walletName">{{ walletName }}</span>
+        <button
+            type="button"
+            class="home-hub__name-toggle"
+            *ngIf="walletName"
+            (click)="toggleNameClick.emit()"
+            [attr.aria-label]="showName ? t('home_hub.header_collapse_aria') : t('home_hub.header_expand_aria')"
+        >
+            <svg width="6" height="10" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path *ngIf="!showName" d="M1 1L7 7L1 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                <path *ngIf="showName" d="M7 1L1 7L7 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+        </button>
+    </div>
+    <div class="home-hub__header-actions" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
+        <a class="home-hub__icon-tile" routerLink="/rewards" [attr.aria-label]="t('home_hub.header_rewards_aria')">
+            <img src="assets/icons/rewards_icon.svg" alt="" class="home-hub__header-icon" aria-hidden="true" />
+        </a>
+        <button type="button" class="home-hub__icon-tile home-hub__icon-tile--ghost" [attr.aria-label]="t('home_hub.header_notifications_aria')">
+            <img src="assets/icons/notifications_icon.svg" alt="" class="home-hub__header-icon" aria-hidden="true" />
+        </button>
+        <button
+            type="button"
+            class="home-hub__icon-tile home-hub__icon-tile--ghost"
+            *ngIf="showOpenSidebar"
+            (click)="openSidePanel()"
+            [attr.aria-label]="t('common.open_in_sidebar')"
+        >
+            <svg class="home-hub__header-icon home-hub__header-icon--svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" aria-hidden="true">
+                <path
+                    d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm440-80h120v-560H640v560Zm-80 0v-560H200v560h360Zm80 0h120-120Z"
+                />
+            </svg>
+        </button>
+        <button
+            type="button"
+            class="home-hub__icon-tile home-hub__icon-tile--ghost"
+            *ngIf="showOpenFullscreen"
+            (click)="openFullScreen()"
+            [attr.aria-label]="t('common.open_fullscreen')"
+        >
+            <svg class="home-hub__header-icon home-hub__header-icon--svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" aria-hidden="true">
+                <path d="M120-120v-200h80v120h120v80H120Zm520 0v-80h120v-120h80v200H640ZM120-640v-200h200v80H200v120h-80Zm640 0v-120H640v-80h200v200h-80Z" />
+            </svg>
+        </button>
+    </div>
+</div>

@@ -1,21 +1,60 @@
 import { Injectable } from "@angular/core";
 import { ChromeService } from "../chrome.service";
 import { ZOTP } from "../models/zotp.model";
+import { TagModel } from "../tags.service";
+import { WalletService } from "../wallet.service";
 import { ZelfKeysService } from "./zelf-keys.service";
 
 @Injectable({
     providedIn: "root",
 })
 export class ZOTPService {
-    private readonly STORAGE_KEY = "zotps"; // Local cache for performance
-    private readonly CACHE_TIMESTAMP_KEY = "zotps_cache_timestamp"; // Cache timestamp
+    /** Per-wallet cache (suffix = normalized fullTagName). */
+    private readonly STORAGE_KEY_PREFIX = "zotps";
+    private readonly CACHE_TIMESTAMP_PREFIX = "zotps_cache_timestamp";
+    /** Pre–per-wallet-cache keys; removed when refreshing so they cannot leak across accounts. */
+    private readonly LEGACY_STORAGE_KEY = "zotps";
+    private readonly LEGACY_CACHE_TIMESTAMP_KEY = "zotps_cache_timestamp";
     private readonly CACHE_TTL = 5 * 60 * 1000; // Cache TTL: 5 minutes
-    private _cache: ZOTP[] | null = null; // In-memory cache
+    private _cache: ZOTP[] | null = null;
+    private _legacyCacheMigrated = false;
 
     constructor(
         private _chromeService: ChromeService,
+        private _walletService: WalletService,
         private _zelfKeysService: ZelfKeysService
     ) {}
+
+    private _walletTagForCache(wallet: Partial<TagModel> | null): string {
+        const raw = wallet?.fullTagName || wallet?.publicData?.tagName || "";
+        const t = String(raw).trim().toLowerCase();
+
+        return t || "_none";
+    }
+
+    private async _getCacheKeys(): Promise<{ storageKey: string; timestampKey: string; ownerTag: string }> {
+        const wallet = await this._walletService.getCurrentWallet();
+        const ownerTag = this._walletTagForCache(wallet);
+
+        return {
+            ownerTag,
+            storageKey: `${this.STORAGE_KEY_PREFIX}:${ownerTag}`,
+            timestampKey: `${this.CACHE_TIMESTAMP_PREFIX}:${ownerTag}`,
+        };
+    }
+
+    private async _removeLegacyGlobalCacheOnce(): Promise<void> {
+        if (this._legacyCacheMigrated) return;
+
+        this._legacyCacheMigrated = true;
+        await this._chromeService.removeItem(this.LEGACY_STORAGE_KEY);
+        await this._chromeService.removeItem(this.LEGACY_CACHE_TIMESTAMP_KEY);
+    }
+
+    private async _persistCache(keys: { storageKey: string }, zotps: ZOTP[]): Promise<void> {
+        this._cache = zotps;
+        await this._chromeService.setItem(keys.storageKey, zotps);
+    }
 
     /**
      * Load ZOTPs from ZelfKeys API using the new /list endpoint with category "zotp"
@@ -24,9 +63,13 @@ export class ZOTPService {
      * @returns Promise with the list of ZOTPs
      */
     async loadZOTPsFromBackend(forceRefresh: boolean = false): Promise<ZOTP[]> {
+        await this._removeLegacyGlobalCacheOnce();
+
+        const keys = await this._getCacheKeys();
+
         // Check cache first (unless force refresh)
         if (!forceRefresh) {
-            const cachedZotps = await this._getCachedZOTPs();
+            const cachedZotps = await this._getCachedZOTPs(keys);
             if (cachedZotps !== null) {
                 this._cache = cachedZotps;
                 return cachedZotps;
@@ -90,10 +133,10 @@ export class ZOTPService {
                 }
             }
 
-            // Update cache with timestamp
+            // Update cache with timestamp (scoped to current wallet)
             this._cache = zotps;
-            await this._chromeService.setItem(this.STORAGE_KEY, zotps);
-            await this._chromeService.setItem(this.CACHE_TIMESTAMP_KEY, Date.now());
+            await this._chromeService.setItem(keys.storageKey, zotps);
+            await this._chromeService.setItem(keys.timestampKey, Date.now());
 
             return zotps;
         } catch (error) {
@@ -108,14 +151,18 @@ export class ZOTPService {
      * Get cached ZOTPs if cache is still valid
      * @returns Cached ZOTPs or null if cache is expired/invalid
      */
-    private async _getCachedZOTPs(): Promise<ZOTP[] | null> {
+    private async _getCachedZOTPs(keys: {
+        storageKey: string;
+        timestampKey: string;
+        ownerTag: string;
+    }): Promise<ZOTP[] | null> {
         try {
-            const cacheTimestamp = await this._chromeService.getItem<number>(this.CACHE_TIMESTAMP_KEY);
+            const cacheTimestamp = await this._chromeService.getItem<number>(keys.timestampKey);
             const now = Date.now();
 
             // Check if cache exists and is still valid
             if (cacheTimestamp && now - cacheTimestamp < this.CACHE_TTL) {
-                const cachedZotps = await this._chromeService.getItem<ZOTP[]>(this.STORAGE_KEY);
+                const cachedZotps = await this._chromeService.getItem<ZOTP[]>(keys.storageKey);
                 if (cachedZotps && Array.isArray(cachedZotps) && cachedZotps.length >= 0) {
                     return cachedZotps;
                 }
@@ -172,9 +219,9 @@ export class ZOTPService {
                 }
             }
 
-            // Update local cache
-            this._cache = zotps;
-            await this._chromeService.setItem(this.STORAGE_KEY, zotps);
+            // Update local cache (scoped)
+            const keys = await this._getCacheKeys();
+            await this._persistCache(keys, zotps);
 
             return zotps;
         } catch (error) {
@@ -336,12 +383,13 @@ export class ZOTPService {
      * Also fixes any ZOTPs that might have the wrong zelfProof by checking stored response data
      */
     async getAllZOTPs(): Promise<ZOTP[]> {
-        if (this._cache) {
+        if (this._cache !== null) {
             return this._cache;
         }
 
-        const zotps = await this._chromeService.getItem<ZOTP[]>(this.STORAGE_KEY);
-        this._cache = zotps || [];
+        const keys = await this._getCacheKeys();
+        const zotps = await this._chromeService.getItem<ZOTP[]>(keys.storageKey);
+        this._cache = zotps && Array.isArray(zotps) ? zotps : [];
 
         // Sync ZOTPs with stored response data (zelfProof, ipfs, Walrus)
         for (const zotp of this._cache) {
@@ -377,8 +425,8 @@ export class ZOTPService {
             });
         }
 
-        this._cache = zotps;
-        await this._chromeService.setItem(this.STORAGE_KEY, zotps);
+        const keys = await this._getCacheKeys();
+        await this._persistCache(keys, zotps);
     }
 
     /**
@@ -398,8 +446,8 @@ export class ZOTPService {
             });
         }
 
-        this._cache = zotps;
-        await this._chromeService.setItem(this.STORAGE_KEY, zotps);
+        const keys = await this._getCacheKeys();
+        await this._persistCache(keys, zotps);
     }
 
     /**
@@ -470,9 +518,9 @@ export class ZOTPService {
     async deleteZOTP(id: string): Promise<void> {
         const zotps = await this.getAllZOTPs();
         const filtered = zotps.filter((z) => z.id !== id);
+        const keys = await this._getCacheKeys();
 
-        this._cache = filtered;
-        await this._chromeService.setItem(this.STORAGE_KEY, filtered);
+        await this._persistCache(keys, filtered);
     }
 
     async searchZOTPs(query: string): Promise<ZOTP[]> {
@@ -504,8 +552,11 @@ export class ZOTPService {
      * Clear cache and force refresh from backend
      */
     async clearCacheAndRefresh(): Promise<ZOTP[]> {
+        const keys = await this._getCacheKeys();
         this._cache = null;
-        await this._chromeService.removeItem(this.CACHE_TIMESTAMP_KEY);
+
+        await this._chromeService.removeItem(keys.timestampKey);
+
         return this.loadZOTPsFromBackend(true);
     }
 

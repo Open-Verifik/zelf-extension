@@ -9,10 +9,14 @@
 
 .password-decryptor {
     position: relative;
-    width: var(--zns-card-width, 375px);
-    height: var(--zns-card-min-height, 600px);
+    width: 100%;
+    height: 100%;
+    min-width: var(--zns-card-width, 375px);
+    min-height: var(--zns-card-min-height, 600px);
     overflow: hidden;
     background: variables.$themeBackground;
+    display: flex;
+    flex-direction: column;
 
     &__header {
         position: absolute;
@@ -20,35 +24,79 @@
         left: 0;
         right: 0;
         z-index: 10;
-        background: linear-gradient(to bottom, variables.$themeBackground 0%, variables.$themeBackgroundSecondary 50%, transparent 100%);
-        backdrop-filter: blur(calc(10px * var(--zns-space-scale, 1)));
-        padding: calc(12px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1)) calc(20px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
+        background: linear-gradient(to bottom, color-mix(in oklab, variables.$themeBackground 95%, transparent) 0%, color-mix(in oklab, variables.$themeBackground 60%, transparent) 70%, transparent 100%);
+        backdrop-filter: blur(calc(14px * var(--zns-space-scale, 1)));
+        padding: calc(14px * var(--zns-space-scale, 1)) calc(56px * var(--zns-space-scale, 1)) calc(22px * var(--zns-space-scale, 1));
         text-align: center;
     }
 
-    &__icon {
-        font-size: calc(24px * var(--zns-font-scale, 1));
-        width: calc(24px * var(--zns-space-scale, 1));
-        height: calc(24px * var(--zns-space-scale, 1));
-        margin-bottom: calc(4px * var(--zns-space-scale, 1));
+    &__back {
+        position: absolute;
+        top: calc(12px * var(--zns-space-scale, 1));
+        left: calc(12px * var(--zns-space-scale, 1));
+        z-index: 12;
         display: inline-flex;
         align-items: center;
         justify-content: center;
+        width: calc(36px * var(--zns-space-scale, 1));
+        height: calc(36px * var(--zns-space-scale, 1));
+        padding: 0;
+        border-radius: 12px;
+        border: 1px solid variables.$themeBorder;
+        background: color-mix(in oklab, variables.$themeCard 85%, transparent);
+        backdrop-filter: blur(10px);
+        color: variables.$themeText;
+        cursor: pointer;
+        box-shadow: 0 6px 16px -10px color-mix(in oklab, variables.$primaryColor 60%, transparent);
+        transition:
+            background-color 0.2s variables.$smoothBezier,
+            transform 0.2s variables.$smoothBezier,
+            border-color 0.2s variables.$smoothBezier;
+
+        .material-symbols-outlined {
+            font-size: calc(20px * var(--zns-font-scale, 1));
+        }
+
+        &:hover:not([disabled]) {
+            background: variables.$themeCard;
+            border-color: variables.$themeBorderHover;
+            transform: translateX(-1px);
+        }
+
+        &:active:not([disabled]) {
+            transform: translateX(-1px) scale(0.97);
+        }
+
+        &[disabled] {
+            cursor: not-allowed;
+            opacity: 0.45;
+        }
+    }
+
+    &__icon {
+        font-size: calc(22px * var(--zns-font-scale, 1));
+        width: calc(22px * var(--zns-space-scale, 1));
+        height: calc(22px * var(--zns-space-scale, 1));
+        margin-bottom: calc(2px * var(--zns-space-scale, 1));
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: variables.$themeText;
     }
 
     &__title {
         margin: 0;
-        font-size: calc(16px * var(--zns-font-scale, 1));
+        font-size: calc(15px * var(--zns-font-scale, 1));
         font-weight: 600;
+        letter-spacing: -0.005em;
         color: variables.$themeText;
     }
 
     &__camera-container {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: var(--zns-card-width, 375px);
-        height: var(--zns-card-min-height, 600px);
+        position: relative;
+        width: 100%;
+        height: 100%;
+        flex: 1;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -77,14 +125,17 @@
         position: relative;
         width: 100%;
         height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     &__webcam-container {
         position: relative;
-        border-radius: calc(8px * var(--zns-space-scale, 1));
         overflow: hidden;
         width: var(--zns-card-width, 375px);
         height: var(--zns-card-min-height, 600px);
+        flex: 0 0 auto;
         background: variables.$themeBackground;
         display: flex;
         align-items: center;
@@ -107,37 +158,73 @@
 
     &__status {
         position: absolute;
-        top: 50%;
+        top: calc(76px * var(--zns-space-scale, 1));
         left: 50%;
-        transform: translate(-50%, -50%);
-        background: variables.$themeBackground;
-        color: variables.$themeText;
-        padding: calc(12px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
-        border-radius: calc(8px * var(--zns-space-scale, 1));
-        text-align: center;
-        z-index: 5;
-        min-width: calc(200px * var(--zns-space-scale, 1));
+        transform: translateX(-50%);
+        z-index: 8;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 14px 8px 8px;
+        border-radius: 18px;
+        background: rgba(24, 24, 24, 0.78);
+        backdrop-filter: blur(14px) saturate(140%);
+        color: #fff;
+        box-shadow:
+            0 18px 38px -22px rgba(0, 0, 0, 0.55),
+            inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+        min-width: calc(220px * var(--zns-space-scale, 1));
+        max-width: min(calc(340px * var(--zns-space-scale, 1)), calc(100% - 24px));
+        width: max-content;
+        animation: password-decryptor-status-pop 0.25s variables.$smoothBezier both;
     }
 
     &__status-icon {
-        font-size: calc(24px * var(--zns-font-scale, 1));
-        margin-bottom: calc(4px * var(--zns-space-scale, 1));
+        flex: 0 0 auto;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: color-mix(in oklab, variables.$secondaryColor 80%, white);
+        color: #fff;
+        font-size: calc(15px * var(--zns-font-scale, 1));
+        font-variation-settings:
+            "FILL" 1,
+            "wght" 500,
+            "GRAD" 0,
+            "opsz" 24;
+    }
 
-        &--error {
-            color: variables.$error;
-        }
+    &__status-content {
+        min-width: 0;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        text-align: left;
+        line-height: 1.2;
     }
 
     &__status-title {
-        margin: 0 0 calc(4px * var(--zns-space-scale, 1)) 0;
-        font-size: calc(14px * var(--zns-font-scale, 1));
+        font-size: calc(13px * var(--zns-font-scale, 1));
         font-weight: 600;
+        letter-spacing: 0.01em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     &__status-subtitle {
-        margin: 0;
-        font-size: calc(12px * var(--zns-font-scale, 1));
-        opacity: 0.9;
+        font-size: calc(11px * var(--zns-font-scale, 1));
+        font-weight: 400;
+        opacity: 0.8;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     &__processing {
@@ -145,50 +232,412 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        background: variables.$themeBackground;
-        color: variables.$themeText;
-        padding: calc(16px * var(--zns-space-scale, 1)) calc(20px * var(--zns-space-scale, 1));
-        border-radius: calc(8px * var(--zns-space-scale, 1));
+        background: rgba(24, 24, 24, 0.85);
+        backdrop-filter: blur(16px) saturate(140%);
+        color: #fff;
+        padding: calc(18px * var(--zns-space-scale, 1)) calc(22px * var(--zns-space-scale, 1));
+        border-radius: 16px;
         text-align: center;
         z-index: 10;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: calc(8px * var(--zns-space-scale, 1));
-    }
+        gap: calc(10px * var(--zns-space-scale, 1));
+        box-shadow:
+            0 20px 40px -22px rgba(0, 0, 0, 0.6),
+            inset 0 0 0 1px rgba(255, 255, 255, 0.08);
 
-    &__actions {
-        position: absolute;
-        bottom: calc(20px * var(--zns-space-scale, 1));
-        left: 50%;
-        transform: translateX(-50%);
-        text-align: center;
-        z-index: 15;
+        p {
+            margin: 0;
+            font-size: calc(13px * var(--zns-font-scale, 1));
+            font-weight: 500;
+        }
+
+        mat-spinner {
+            svg {
+                stroke: #fff !important;
+            }
+
+            circle {
+                stroke: #fff !important;
+            }
+        }
     }
 }
 
-.master-password-form {
+@keyframes password-decryptor-status-pop {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -8px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
+.master-password-sheet {
     position: absolute;
     inset: 0;
-    background: variables.$themeBackground;
     z-index: 100;
-    padding: calc(40px * var(--zns-space-scale, 1)) calc(16px * var(--zns-space-scale, 1));
+    display: flex;
+    flex-direction: column;
+    padding: calc(28px * var(--zns-space-scale, 1)) calc(20px * var(--zns-space-scale, 1)) calc(20px * var(--zns-space-scale, 1));
+    background:
+        radial-gradient(120% 80% at 50% -10%, color-mix(in oklab, variables.$secondaryColor 14%, transparent) 0%, transparent 60%),
+        radial-gradient(80% 60% at 100% 110%, color-mix(in oklab, variables.$primaryColor 10%, transparent) 0%, transparent 70%),
+        variables.$themeBackground;
+    overflow: hidden;
+    isolation: isolate;
 
-    &__overlay {
-        height: 100%;
+    &__aurora {
+        position: absolute;
+        inset: -20%;
+        z-index: 0;
+        pointer-events: none;
+        background:
+            radial-gradient(40% 30% at 30% 20%, color-mix(in oklab, variables.$secondaryColor 18%, transparent), transparent 70%),
+            radial-gradient(35% 25% at 75% 80%, color-mix(in oklab, variables.$primaryColor 12%, transparent), transparent 70%);
+        filter: blur(40px);
+        opacity: 0.85;
+        animation: master-password-sheet-aurora 14s ease-in-out infinite alternate;
+    }
+
+    &__body {
+        position: relative;
+        z-index: 1;
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        gap: calc(16px * var(--zns-space-scale, 1));
+        text-align: center;
+        gap: calc(10px * var(--zns-space-scale, 1));
+        flex: 1;
+        padding-top: calc(8px * var(--zns-space-scale, 1));
     }
 
-    &__buttons {
+    &__badge {
+        position: relative;
+        width: calc(76px * var(--zns-space-scale, 1));
+        height: calc(76px * var(--zns-space-scale, 1));
+        margin-bottom: calc(4px * var(--zns-space-scale, 1));
         display: flex;
-        gap: calc(16px * var(--zns-space-scale, 1));
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__badge-ring {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        border: 1px solid color-mix(in oklab, variables.$secondaryColor 35%, transparent);
+        opacity: 0;
+        animation: master-password-sheet-pulse 2.6s ease-out infinite;
+
+        &--outer {
+            animation-delay: 0.4s;
+        }
+
+        &--inner {
+            inset: 6px;
+        }
+    }
+
+    &__badge-core {
+        position: relative;
+        width: calc(60px * var(--zns-space-scale, 1));
+        height: calc(60px * var(--zns-space-scale, 1));
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background:
+            radial-gradient(120% 120% at 30% 20%, color-mix(in oklab, variables.$themeCard 90%, white) 0%, variables.$themeCard 60%),
+            linear-gradient(135deg, variables.$primaryColor, color-mix(in oklab, variables.$secondaryColor 65%, variables.$primaryColor));
+        box-shadow:
+            0 18px 38px -18px color-mix(in oklab, variables.$primaryColor 50%, transparent),
+            0 6px 16px -10px color-mix(in oklab, variables.$secondaryColor 70%, transparent),
+            inset 0 0 0 1px color-mix(in oklab, variables.$themeBorder 50%, transparent);
+
+        .material-symbols-outlined {
+            color: variables.$themeText;
+            font-size: calc(30px * var(--zns-font-scale, 1));
+            font-variation-settings:
+                "FILL" 0,
+                "wght" 500,
+                "GRAD" 0,
+                "opsz" 24;
+        }
+    }
+
+    &__title {
+        margin: 0;
+        font-family: variables.$themeTitleFamily;
+        font-size: calc(20px * var(--zns-font-scale, 1));
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        color: variables.$themeText;
+    }
+
+    &__subtitle {
+        margin: 0 auto;
+        max-width: 28ch;
+        font-size: calc(13px * var(--zns-font-scale, 1));
+        line-height: 1.45;
+        color: variables.$themeTextSecondary;
+    }
+
+    &__context {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 12px;
+        margin-top: calc(2px * var(--zns-space-scale, 1));
+        max-width: 100%;
+        border-radius: 9999px;
+        background: color-mix(in oklab, variables.$themeBackgroundSecondary 80%, transparent);
+        border: 1px solid color-mix(in oklab, variables.$themeBorder 60%, transparent);
+        font-size: calc(12px * var(--zns-font-scale, 1));
+        color: variables.$themeTextSecondary;
+
+        .material-symbols-outlined {
+            font-size: calc(14px * var(--zns-font-scale, 1));
+            color: variables.$themeTextMuted;
+        }
+    }
+
+    &__context-text {
+        max-width: 220px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &__error {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        border-radius: 12px;
+        background: variables.$errorLight;
+        color: variables.$error;
+        font-size: calc(12px * var(--zns-font-scale, 1));
+        font-weight: 500;
+        width: 100%;
+        text-align: left;
+
+        .material-symbols-outlined {
+            font-size: calc(16px * var(--zns-font-scale, 1));
+        }
+    }
+
+    &__field {
+        position: relative;
+        display: flex;
         align-items: center;
         width: 100%;
+        margin-top: calc(8px * var(--zns-space-scale, 1));
+        padding: 0 calc(8px * var(--zns-space-scale, 1)) 0 calc(14px * var(--zns-space-scale, 1));
+        border-radius: 16px;
+        background: variables.$themeCard;
+        border: 1px solid variables.$themeBorder;
+        box-shadow:
+            0 10px 30px -22px color-mix(in oklab, variables.$primaryColor 60%, transparent),
+            inset 0 0 0 1px color-mix(in oklab, variables.$themeCard 100%, transparent);
+        transition:
+            border-color 0.25s variables.$smoothBezier,
+            box-shadow 0.25s variables.$smoothBezier,
+            transform 0.25s variables.$smoothBezier;
+
+        &:focus-within {
+            border-color: color-mix(in oklab, variables.$secondaryColor 65%, variables.$themeBorder);
+            box-shadow:
+                0 0 0 4px color-mix(in oklab, variables.$secondaryColor 18%, transparent),
+                0 16px 36px -22px color-mix(in oklab, variables.$primaryColor 60%, transparent);
+        }
+
+        &--error {
+            border-color: variables.$error;
+
+            &:focus-within {
+                border-color: variables.$error;
+                box-shadow: 0 0 0 4px color-mix(in oklab, variables.$error 18%, transparent);
+            }
+        }
+    }
+
+    &__field-icon {
+        color: variables.$themeTextMuted;
+        font-size: calc(18px * var(--zns-font-scale, 1));
+        margin-right: 8px;
+    }
+
+    &__input {
+        flex: 1;
+        min-width: 0;
+        height: calc(48px * var(--zns-space-scale, 1));
+        background: transparent;
+        border: none;
+        outline: none;
+        font-family: variables.$themeBodyFamily;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        color: variables.$themeText;
+        letter-spacing: 0.02em;
+
+        &::placeholder {
+            color: variables.$themeTextMuted;
+            font-weight: 400;
+        }
+    }
+
+    &__toggle {
+        flex: 0 0 auto;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 12px;
+        border: none;
+        background: transparent;
+        color: variables.$themeTextMuted;
+        cursor: pointer;
+        transition:
+            background-color 0.2s variables.$smoothBezier,
+            color 0.2s variables.$smoothBezier;
+
+        .material-symbols-outlined {
+            font-size: calc(18px * var(--zns-font-scale, 1));
+        }
+
+        &:hover,
+        &:focus-visible {
+            background: variables.$themeBackgroundSecondary;
+            color: variables.$themeText;
+            outline: none;
+        }
+    }
+
+    &__hint {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: calc(2px * var(--zns-space-scale, 1));
+        font-size: calc(11px * var(--zns-font-scale, 1));
+        font-weight: 500;
+        letter-spacing: 0.01em;
+        color: variables.$themeTextMuted;
+
+        .material-symbols-outlined {
+            font-size: calc(14px * var(--zns-font-scale, 1));
+            color: variables.$correct;
+        }
+    }
+
+    &__actions {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        gap: calc(6px * var(--zns-space-scale, 1));
+        margin-top: calc(20px * var(--zns-space-scale, 1));
+    }
+
+    &__cta {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        height: calc(52px * var(--zns-space-scale, 1));
+        padding: 0 20px;
+        border: none;
+        border-radius: 16px;
+        cursor: pointer;
+        font-family: variables.$themeBodyFamily;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        font-weight: 600;
+        letter-spacing: 0.01em;
+        color: variables.$themeButtonText;
+        background:
+            linear-gradient(135deg, variables.$primaryColor 0%, color-mix(in oklab, variables.$secondaryColor 35%, variables.$primaryColor) 100%);
+        box-shadow:
+            0 14px 30px -16px color-mix(in oklab, variables.$primaryColor 70%, transparent),
+            inset 0 1px 0 color-mix(in oklab, white 18%, transparent);
+        transition:
+            transform 0.2s variables.$smoothBezier,
+            box-shadow 0.25s variables.$smoothBezier,
+            filter 0.25s variables.$smoothBezier;
+
+        .material-symbols-outlined {
+            font-size: calc(18px * var(--zns-font-scale, 1));
+        }
+
+        &:hover:not([disabled]) {
+            transform: translateY(-1px);
+            filter: brightness(1.05);
+            box-shadow:
+                0 18px 36px -16px color-mix(in oklab, variables.$primaryColor 70%, transparent),
+                inset 0 1px 0 color-mix(in oklab, white 22%, transparent);
+        }
+
+        &:active:not([disabled]) {
+            transform: translateY(0);
+            filter: brightness(0.96);
+        }
+
+        &[disabled] {
+            cursor: not-allowed;
+            opacity: 0.5;
+            box-shadow: none;
+        }
+    }
+
+    &__ghost {
+        background: transparent;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        font-family: variables.$themeBodyFamily;
+        font-size: calc(13px * var(--zns-font-scale, 1));
+        font-weight: 500;
+        color: variables.$themeTextSecondary;
+        border-radius: 12px;
+        transition: color 0.2s variables.$smoothBezier, background-color 0.2s variables.$smoothBezier;
+
+        &:hover {
+            color: variables.$themeText;
+            background: variables.$themeBackgroundSecondary;
+        }
+    }
+}
+
+@keyframes master-password-sheet-pulse {
+    0% {
+        opacity: 0.7;
+        transform: scale(0.92);
+    }
+
+    70% {
+        opacity: 0;
+        transform: scale(1.25);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(1.25);
+    }
+}
+
+@keyframes master-password-sheet-aurora {
+    0% {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+
+    100% {
+        transform: translate3d(2%, -3%, 0) scale(1.05);
     }
 }
 

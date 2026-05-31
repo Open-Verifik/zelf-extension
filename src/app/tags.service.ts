@@ -405,7 +405,7 @@ export class TagsService {
 
     // Utility Methods
     generateArNS(tagName: string): string {
-        return `https://${tagName.replace(".", "_")}.arweave.zelf.world`;
+        return `https://${tagName.replace(".", "_")}.arweave.net`;
     }
 
     createTagModelFromSearchResponse(response: TagSearchResponse): TagModel | null {

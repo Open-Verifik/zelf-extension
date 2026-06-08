@@ -581,7 +581,23 @@
         "enter_tag_name_subtitle": "Enter your existing Zelf ID to sign in",
         "enter_with_recovery_phrase": "Enter with Recovery Phrase",
         "found": "Found",
-        "login_to_this_domain": "This Zelf ID was found — continue with your recovery phrase"
+        "login_to_this_domain": "This Zelf ID was found — continue with your recovery phrase",
+        "onboarding": {
+            "reinventing": "Reinventing",
+            "designed_for": "Designed for",
+            "summary_intro": "Reinventing Wallets, Password Managers and 2FAs",
+            "features": {
+                "wallets": "Wallets",
+                "password_managers": "PWD Mgrs",
+                "two_factor": "2FAs",
+                "inheritance": "Inheritance"
+            },
+            "summary": {
+                "self_custodian": "Self-Custodian",
+                "offline_feature": "Offline Feature",
+                "human_authn": "HumanAuthn"
+            }
+        }
     },
     "settings": {
         "networks_label": "Networks",
@@ -854,7 +870,7 @@
         "zelf_authenticator": "zAuth",
         "zelf_keys": "Zelf Keys",
         "zelf_link": "Zelf Link",
-        "zelf_wallet": "Zelf Wallet",
+        "zelf_wallet": "Zelf",
         "subscriptions": "Subscriptions",
         "download_short": "Download",
         "mnemonics": "Mnemonics",

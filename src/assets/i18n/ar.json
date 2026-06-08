@@ -581,7 +581,23 @@
         "enter_tag_name_subtitle": "أدخل معرف Zelf الحالي لتسجيل الدخول",
         "enter_with_recovery_phrase": "الدخول بعبارة الاسترداد",
         "found": "تم العثور عليه",
-        "login_to_this_domain": "تم العثور على معرف Zelf هذا — تابع بعبارة الاسترداد الخاصة بك"
+        "login_to_this_domain": "تم العثور على معرف Zelf هذا — تابع بعبارة الاسترداد الخاصة بك",
+        "onboarding": {
+            "reinventing": "إعادة ابتكار",
+            "designed_for": "مصمم لـ",
+            "summary_intro": "إعادة ابتكار المحافظ وكلمات المرور و2FA",
+            "features": {
+                "wallets": "المحافظ",
+                "password_managers": "كلمات المرور",
+                "two_factor": "2FA",
+                "inheritance": "الإرث"
+            },
+            "summary": {
+                "self_custodian": "حفظ ذاتي",
+                "offline_feature": "ميزة دون اتصال",
+                "human_authn": "HumanAuthn"
+            }
+        }
     },
     "settings": {
         "networks_label": "الشبكات",
@@ -853,7 +869,7 @@
         "zelf_link": "Zelf Link",
         "zelf_signals": "zSignals",
         "zelf_signals_coming_soon": "ستتوفر Zelf Signals قريباً.",
-        "zelf_wallet": "محفظة زيلف"
+        "zelf_wallet": "Zelf"
     },
     "token": {
         "24h_performance": "أداء 24 ساعة",

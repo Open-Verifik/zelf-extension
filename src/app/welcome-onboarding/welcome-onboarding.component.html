@@ -1,5 +1,5 @@
-<div class="zelf-card welcome-onboarding" *transloco="let t">
-    <div class="zelf-card__header">
+<div class="welcome-onboarding" *transloco="let t">
+    <div class="welcome-onboarding__header">
         <div class="welcome-onboarding__header-button">
             <button class="zelf-icon-button zelf-icon-button--40" [routerLink]="['/home']" *ngIf="showHomeButton">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32">
@@ -12,159 +12,98 @@
 
         <div class="carousel">
             <div class="carousel__item-container">
-                <div @swipeLeft class="carousel__item" *ngIf="carouselIndex === 0">
-                    <img class="zelf-card__image" src="assets/images/animation_1.webp" alt="welcome" />
-                    <h2 class="zelf-card__title carousel__title">{{ t("onboarding.step_1") }}</h2>
-                    <p class="zelf-card__subtitle carousel__subtitle">{{ t("onboarding.step_1_description") }}</p>
+                <div class="carousel__item">
+                    <div class="carousel__device" [class.carousel__device--summary]="currentSlide.featureBulletKeys.length">
+                        <div class="carousel__device-bottom-fill"></div>
+                        <div class="carousel__device-glow"></div>
+                        <div class="carousel__device-bottom-glow"></div>
+
+                        <ng-container *ngIf="!currentSlide.featureBulletKeys.length; else summarySlide">
+                            <div class="carousel__stage" [class.carousel__content--hidden]="isTransitioning">
+                                <div class="carousel__eyebrow">{{ t(currentSlide.eyebrowKey) }}</div>
+
+                                <div class="carousel__feature-stack">
+                                    <div
+                                        class="carousel__feature-row"
+                                        *ngFor="let highlight of currentSlide.highlights"
+                                        [class.carousel__feature-row--active]="currentSlide.activeHighlight === highlight.id"
+                                        [class.carousel__feature-row--muted]="currentSlide.activeHighlight !== highlight.id"
+                                    >
+                                        <span class="carousel__feature-icon">
+                                            <ng-container [ngSwitch]="highlight.icon">
+                                                <!-- Wallet: coin/token icon with circle bg -->
+                                                <svg *ngSwitchCase="'wallet'" aria-hidden="true" focusable="false" viewBox="0 0 32 32" fill="none">
+                                                    <rect width="32" height="32" rx="10" fill="currentColor"/>
+                                                    <path d="M9 13C9 11.34 10.34 10 12 10H22C22.55 10 23 10.45 23 11V21C23 22.66 21.66 24 20 24H12C10.34 24 9 22.66 9 21V13Z" fill="white" opacity="0.9"/>
+                                                    <path d="M20 17.5C20 18.33 19.33 19 18.5 19C17.67 19 17 18.33 17 17.5C17 16.67 17.67 16 18.5 16C19.33 16 20 16.67 20 17.5Z" fill="currentColor"/>
+                                                    <path d="M22 14H11C10.45 14 10 13.55 10 13C10 12.45 10.45 12 11 12H21C21.55 12 22 12.45 22 13V14Z" fill="white" opacity="0.45"/>
+                                                </svg>
+                                                <!-- PWD Mgrs: lock icon with circle bg -->
+                                                <svg *ngSwitchCase="'password'" aria-hidden="true" focusable="false" viewBox="0 0 32 32" fill="none">
+                                                    <rect width="32" height="32" rx="10" fill="currentColor"/>
+                                                    <rect x="9" y="16" width="14" height="10" rx="2.5" fill="white" opacity="0.9"/>
+                                                    <path d="M12 16V13C12 10.79 13.79 9 16 9C18.21 9 20 10.79 20 13V16" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.9"/>
+                                                    <circle cx="16" cy="21" r="1.5" fill="currentColor"/>
+                                                </svg>
+                                                <!-- 2FAs: fingerprint icon with circle bg -->
+                                                <svg *ngSwitchCase="'fingerprint'" aria-hidden="true" focusable="false" viewBox="0 0 32 32" fill="none">
+                                                    <rect width="32" height="32" rx="10" fill="currentColor"/>
+                                                    <path d="M16 9C12.69 9 10 11.69 10 15C10 18.87 11.58 22.36 14.15 24.85" stroke="white" stroke-width="1.8" stroke-linecap="round" opacity="0.5"/>
+                                                    <path d="M22 15C22 11.69 19.31 9 16 9" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+                                                    <path d="M13 15C13 13.34 14.34 12 16 12C17.66 12 19 13.34 19 15C19 17.76 17.88 20.24 16.04 22" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+                                                    <path d="M16 15C16 17.21 15.16 19.22 13.77 20.73" stroke="white" stroke-width="1.8" stroke-linecap="round" opacity="0.7"/>
+                                                    <path d="M19 22C20.23 20.47 21 18.32 21 15.9" stroke="white" stroke-width="1.8" stroke-linecap="round" opacity="0.4"/>
+                                                </svg>
+                                                <!-- Inheritance: document/will icon with circle bg -->
+                                                <svg *ngSwitchCase="'inheritance'" aria-hidden="true" focusable="false" viewBox="0 0 32 32" fill="none">
+                                                    <rect width="32" height="32" rx="10" fill="currentColor"/>
+                                                    <path d="M12 8H20.17L24 11.83V24H12V8Z" fill="white" opacity="0.25"/>
+                                                    <path d="M12 8H20.17L24 11.83V24H12V8Z" stroke="white" stroke-width="1.6" stroke-linejoin="round" opacity="0.9"/>
+                                                    <path d="M20 8V12H24" stroke="white" stroke-width="1.6" stroke-linejoin="round" opacity="0.9"/>
+                                                    <path d="M15 17H21M15 20H19" stroke="white" stroke-width="1.6" stroke-linecap="round" opacity="0.9"/>
+                                                    <rect x="8" y="15" width="7" height="6" rx="1" fill="white" opacity="0.9"/>
+                                                    <path d="M10 18H13" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+                                                </svg>
+                                            </ng-container>
+                                        </span>
+                                        <span>{{ t(highlight.labelKey) }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+
+                        <ng-template #summarySlide>
+                            <div class="carousel__summary" [class.carousel__content--hidden]="isTransitioning">
+                                <div class="carousel__intro">
+                                    <div class="carousel__intro-line" *ngFor="let line of currentSlide.introLineKeys; let first = first">
+                                        <span class="carousel__intro-dot" *ngIf="first"></span>
+                                        <span>{{ t(line) }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="carousel__feature-bullets">
+                                    <div class="carousel__feature-bullet" *ngFor="let bullet of currentSlide.featureBulletKeys">
+                                        <span class="carousel__feature-bullet-dot"></span>
+                                        <span>{{ t(bullet) }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+
+                        <div class="carousel__mock-actions">
+                            <button class="carousel__mock-button carousel__mock-button--primary" type="button" (click)="goToEnterAccount()">
+                                <span>{{ t("welcome.enter_with_zelf_id") }}</span>
+                            </button>
+                            <button class="carousel__mock-button carousel__mock-button--secondary" type="button" (click)="goToCreateAccount()">
+                                <span>{{ t("welcome.create_a_zelf_id") }}</span>
+                            </button>
+                            <button class="carousel__mock-link" type="button" (click)="goToImportAccount()">
+                                {{ t("welcome.dont_remember_your_zelf_id") }}
+                            </button>
+                        </div>
+                    </div>
                 </div>
-
-                <div @swipeLeft class="carousel__item" *ngIf="carouselIndex === 1">
-                    <img class="zelf-card__image" src="assets/images/animation_2.webp" alt="welcome" />
-                    <h2 class="zelf-card__title carousel__title">{{ t("onboarding.step_2") }}</h2>
-                    <p class="zelf-card__subtitle carousel__subtitle">{{ t("onboarding.step_2_description") }}</p>
-                </div>
-
-                <div @swipeLeft class="carousel__item" *ngIf="carouselIndex === 2">
-                    <img class="zelf-card__image" src="assets/images/animation_3.webp" alt="welcome" />
-                    <h2 class="zelf-card__title carousel__title">{{ t("onboarding.step_3") }}</h2>
-                    <p class="zelf-card__subtitle carousel__subtitle">{{ t("onboarding.step_3_description") }}</p>
-                </div>
-            </div>
-
-            <div class="carousel__progress">
-                <div class="carousel__progress-bar" [style.width]="carouselProgress + '%'"></div>
             </div>
         </div>
-    </div>
-
-    <!-- Feature badges -->
-    <div class="welcome-onboarding__features">
-        <div class="welcome-onboarding__feature-badge">
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-            >
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                <polyline points="22 4 12 14.01 9 11.01" />
-            </svg>
-            <span>{{ t("welcome.feature_multichain") }}</span>
-        </div>
-        <div class="welcome-onboarding__feature-badge">
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-            >
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                <polyline points="22 4 12 14.01 9 11.01" />
-            </svg>
-            <span>{{ t("welcome.feature_zk") }}</span>
-        </div>
-        <div class="welcome-onboarding__feature-badge">
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-            >
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                <polyline points="22 4 12 14.01 9 11.01" />
-            </svg>
-            <span>{{ t("welcome.feature_selfcustody") }}</span>
-        </div>
-    </div>
-
-    <!-- CTA Buttons (Current Variant) -->
-    <div class="welcome-onboarding__actions" *ngIf="designVariant === 'current'">
-        <button (click)="goToCreateAccount()" class="zelf-button zelf-button--primary zelf-button--wide" mat-flat-button>
-            {{ t("welcome.create_new_account") }}
-        </button>
-
-        <button (click)="goToImportAccount()" class="zelf-button zelf-button--outline zelf-button--wide" mat-stroked-button>
-            {{ t("welcome.import_wallet_title") }}
-        </button>
-
-        <button (click)="goToImportAccount()" class="zelf-button zelf-button--hyperlink" mat-flat-button>
-            {{ t("welcome.dont_remember_zelfname") }}
-        </button>
-    </div>
-
-    <!-- CTA Buttons (Modern Variant) -->
-    <div class="welcome-onboarding__methods" *ngIf="designVariant === 'modern'">
-        <button class="welcome-method-card" type="button" (click)="goToEnterAccount()">
-            <div class="welcome-method-card__icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M3 13H15L11.5 16.5L12.91 17.91L19.83 11L12.91 4.09L11.5 5.5L15 9H3V13Z"
-                        fill="currentColor"
-                    />
-                </svg>
-            </div>
-            <div class="welcome-method-card__content">
-                <span class="welcome-method-card__title">{{ t("welcome.enter_with_zelf_id") || "Enter with your Zelf ID" }}</span>
-            </div>
-            <div class="welcome-method-card__action">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-            </div>
-        </button>
-
-        <button class="welcome-method-card" type="button" (click)="goToCreateAccount()">
-            <div class="welcome-method-card__icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M12 4C12.5523 4 13 4.44772 13 5V11H19C19.5523 11 20 11.4477 20 12C20 12.5523 19.5523 13 19 13H13V19C13 19.5523 12.5523 20 12 20C11.4477 20 11 19.5523 11 19V13H5C4.44772 13 4 12.5523 4 12C4 11.4477 4.44772 11 5 11H11V5C11 4.44772 11.4477 4 12 4Z"
-                        fill="currentColor"
-                    />
-                </svg>
-            </div>
-            <div class="welcome-method-card__content">
-                <span class="welcome-method-card__title">{{ t("welcome.create_a_zelf_id") || "Create a Zelf ID" }}</span>
-            </div>
-            <div class="welcome-method-card__domains">
-                <img class="domain-badge" src="assets/icons/zelf_logo.svg" alt=".zelf" title=".zelf"
-                    onerror="this.style.display='none'" />
-                <img class="domain-badge" src="assets/icons/avax_logo.svg" alt=".avax" title=".avax"
-                    onerror="this.style.display='none'" />
-                <img class="domain-badge" src="assets/icons/bdag_logo.png" alt=".bdag" title=".bdag"
-                    onerror="this.style.display='none'" />
-                <img class="domain-badge" src="assets/icons/sui_logo.svg" alt=".sui" title=".sui"
-                    onerror="this.style.display='none'" />
-                <img class="domain-badge" src="assets/icons/walrus_logo.png" alt=".wal" title=".wal"
-                    onerror="this.style.display='none'" />
-            </div>
-            <div class="welcome-method-card__action">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-            </div>
-        </button>
-
-        <button (click)="goToImportAccount()" class="zelf-button zelf-button--hyperlink welcome-onboarding__recover-link" mat-flat-button>
-            {{ t("welcome.dont_remember_your_zelf_id") || "Don't remember your Zelf ID?" }}
-        </button>
     </div>
 </div>

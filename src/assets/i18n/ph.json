@@ -581,7 +581,23 @@
         "enter_tag_name_subtitle": "Ilagay ang kasalukuyang Zelf ID mo para mag-sign in",
         "enter_with_recovery_phrase": "Mag-sign in gamit ang Recovery Phrase",
         "found": "Nakita",
-        "login_to_this_domain": "Nakita ang Zelf ID na ito — magpatuloy gamit ang recovery phrase mo"
+        "login_to_this_domain": "Nakita ang Zelf ID na ito — magpatuloy gamit ang recovery phrase mo",
+        "onboarding": {
+            "reinventing": "Binabago",
+            "designed_for": "Ginawa para sa",
+            "summary_intro": "Binabago ang wallets, passwords at 2FAs",
+            "features": {
+                "wallets": "Wallets",
+                "password_managers": "Passwords",
+                "two_factor": "2FAs",
+                "inheritance": "Pamana"
+            },
+            "summary": {
+                "self_custodian": "Self-Custodian",
+                "offline_feature": "Offline Feature",
+                "human_authn": "HumanAuthn"
+            }
+        }
     },
     "settings": {
         "networks_label": "Mga Network",
@@ -853,7 +869,7 @@
         "zelf_link": "Zelf Link",
         "zelf_signals": "zSignals",
         "zelf_signals_coming_soon": "Malapit nang mag-available ang Zelf Signals.",
-        "zelf_wallet": "Zelf Proof"
+        "zelf_wallet": "Zelf"
     },
     "token": {
         "24h_performance": "24h na Performance",

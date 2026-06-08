@@ -70,6 +70,7 @@
 }
 
 .network-item {
+    color: inherit;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -81,6 +82,14 @@
     width: 100%;
     box-sizing: border-box;
     cursor: pointer;
+    text-decoration: none;
+
+    &:visited,
+    &:active,
+    &:focus {
+        color: inherit;
+        text-decoration: none;
+    }
 
     &__icon {
         height: calc(40px * var(--zns-action-scale, 1));
@@ -94,6 +103,7 @@
         font-size: 1rem;
         font-weight: 500;
         color: variables.$themeText;
+        text-decoration: none;
     }
 
     &__info {
@@ -149,7 +159,8 @@
         letter-spacing: 0.5px;
         vertical-align: middle;
         margin: 0;
-        color: variables.$themeTextMuted;
+        color: variables.$themeText;
+        text-decoration: none;
     }
 
     &__balance {

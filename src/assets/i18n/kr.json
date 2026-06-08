@@ -581,7 +581,23 @@
         "enter_tag_name_subtitle": "로그인하려면 기존 Zelf ID를 입력하세요",
         "enter_with_recovery_phrase": "복구 문구로 로그인",
         "found": "찾음",
-        "login_to_this_domain": "이 Zelf ID를 찾았습니다 — 복구 문구로 계속하세요"
+        "login_to_this_domain": "이 Zelf ID를 찾았습니다 — 복구 문구로 계속하세요",
+        "onboarding": {
+            "reinventing": "새롭게 만드는",
+            "designed_for": "다음을 위해 설계",
+            "summary_intro": "지갑, 비밀번호, 2FA를 새롭게 만듭니다",
+            "features": {
+                "wallets": "지갑",
+                "password_managers": "비밀번호",
+                "two_factor": "2FA",
+                "inheritance": "상속"
+            },
+            "summary": {
+                "self_custodian": "셀프 커스터디",
+                "offline_feature": "오프라인 기능",
+                "human_authn": "HumanAuthn"
+            }
+        }
     },
     "settings": {
         "networks_label": "네트워크",
@@ -853,7 +869,7 @@
         "zelf_link": "Zelf 링크",
         "zelf_signals": "zSignals",
         "zelf_signals_coming_soon": "Zelf Signals가 곧 제공됩니다.",
-        "zelf_wallet": "Zelf 지갑"
+        "zelf_wallet": "Zelf"
     },
     "token": {
         "24h_performance": "24시간 성과",

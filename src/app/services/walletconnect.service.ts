@@ -260,7 +260,7 @@ export class WalletConnectService {
                 chrome.notifications.create(`wc-request-${payload.id}`, {
                     type: "basic",
                     iconUrl: "assets/icons/icon128.png",
-                    title: "Zelf Wallet",
+                    title: "Zelf",
                     message: `${peerName} requests ${method}`,
                     priority: 2,
                 });

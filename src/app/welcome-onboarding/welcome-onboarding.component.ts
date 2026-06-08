@@ -33,6 +33,78 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
     carouselProgress: number = 0;
     designVariant: "current" | "modern" = "modern";
     showHomeButton: boolean = false;
+    readonly slides = [
+        {
+            eyebrowKey: "welcome.onboarding.reinventing",
+            highlights: [
+                { id: "wallets", labelKey: "welcome.onboarding.features.wallets", icon: "wallet" },
+                { id: "passwordManagers", labelKey: "welcome.onboarding.features.password_managers", icon: "password" },
+                { id: "twoFactor", labelKey: "welcome.onboarding.features.two_factor", icon: "fingerprint" },
+                { id: "inheritance", labelKey: "welcome.onboarding.features.inheritance", icon: "inheritance" },
+            ],
+            activeHighlight: "wallets",
+            introLineKeys: [] as string[],
+            featureBulletKeys: [] as string[],
+        },
+        {
+            eyebrowKey: "welcome.onboarding.reinventing",
+            highlights: [
+                { id: "wallets", labelKey: "welcome.onboarding.features.wallets", icon: "wallet" },
+                { id: "passwordManagers", labelKey: "welcome.onboarding.features.password_managers", icon: "password" },
+                { id: "twoFactor", labelKey: "welcome.onboarding.features.two_factor", icon: "fingerprint" },
+                { id: "inheritance", labelKey: "welcome.onboarding.features.inheritance", icon: "inheritance" },
+            ],
+            activeHighlight: "passwordManagers",
+            introLineKeys: [] as string[],
+            featureBulletKeys: [] as string[],
+        },
+        {
+            eyebrowKey: "welcome.onboarding.reinventing",
+            highlights: [
+                { id: "wallets", labelKey: "welcome.onboarding.features.wallets", icon: "wallet" },
+                { id: "passwordManagers", labelKey: "welcome.onboarding.features.password_managers", icon: "password" },
+                { id: "twoFactor", labelKey: "welcome.onboarding.features.two_factor", icon: "fingerprint" },
+                { id: "inheritance", labelKey: "welcome.onboarding.features.inheritance", icon: "inheritance" },
+            ],
+            activeHighlight: "twoFactor",
+            introLineKeys: [] as string[],
+            featureBulletKeys: [] as string[],
+        },
+        {
+            eyebrowKey: "welcome.onboarding.reinventing",
+            highlights: [
+                { id: "wallets", labelKey: "welcome.onboarding.features.wallets", icon: "wallet" },
+                { id: "passwordManagers", labelKey: "welcome.onboarding.features.password_managers", icon: "password" },
+                { id: "twoFactor", labelKey: "welcome.onboarding.features.two_factor", icon: "fingerprint" },
+                { id: "inheritance", labelKey: "welcome.onboarding.features.inheritance", icon: "inheritance" },
+            ],
+            activeHighlight: "inheritance",
+            introLineKeys: [] as string[],
+            featureBulletKeys: [] as string[],
+        },
+        {
+            eyebrowKey: "welcome.onboarding.designed_for",
+            highlights: [
+                { id: "wallets", labelKey: "welcome.onboarding.features.wallets", icon: "wallet" },
+                { id: "passwordManagers", labelKey: "welcome.onboarding.features.password_managers", icon: "password" },
+                { id: "twoFactor", labelKey: "welcome.onboarding.features.two_factor", icon: "fingerprint" },
+                { id: "inheritance", labelKey: "welcome.onboarding.features.inheritance", icon: "inheritance" },
+            ],
+            activeHighlight: "",
+            introLineKeys: ["welcome.onboarding.summary_intro"],
+            featureBulletKeys: [
+                "welcome.onboarding.summary.self_custodian",
+                "welcome.onboarding.summary.offline_feature",
+                "welcome.onboarding.summary.human_authn",
+            ],
+        },
+    ];
+
+    isTransitioning: boolean = false;
+
+    get currentSlide() {
+        return this.slides[this.carouselIndex] ?? this.slides[0];
+    }
 
     constructor(
         private _chromeService: ChromeService,
@@ -116,21 +188,23 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
     }
 
     private _initCarousel(): void {
+        const slideDelayMs = 5000;
+        const transitionDelayMs = 340;
+
         this.carouselProgress = 0;
 
         this._carouselItemInterval = setInterval(() => {
-            const tempIndex = this.carouselIndex;
-
-            this.carouselIndex = -1;
+            this.isTransitioning = true;
 
             setTimeout(() => {
-                this.carouselIndex = tempIndex === 2 ? 0 : tempIndex + 1;
-                this.carouselProgress = 33 * (this.carouselIndex + 1);
-            }, 500);
-        }, 15000);
+                this.carouselIndex = this.carouselIndex === this.slides.length - 1 ? 0 : this.carouselIndex + 1;
+                this.carouselProgress = ((this.carouselIndex + 1) / this.slides.length) * 100;
+                this.isTransitioning = false;
+            }, transitionDelayMs);
+        }, slideDelayMs);
 
         setTimeout(() => {
-            this.carouselProgress = 33;
+            this.carouselProgress = (1 / this.slides.length) * 100;
         });
     }
 

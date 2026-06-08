@@ -581,7 +581,23 @@
         "enter_tag_name_subtitle": "输入现有 Zelf ID 以登录",
         "enter_with_recovery_phrase": "使用恢复短语登录",
         "found": "已找到",
-        "login_to_this_domain": "已找到此 Zelf ID — 请使用恢复短语继续"
+        "login_to_this_domain": "已找到此 Zelf ID — 请使用恢复短语继续",
+        "onboarding": {
+            "reinventing": "重新定义",
+            "designed_for": "专为",
+            "summary_intro": "重新定义钱包、密码和 2FA",
+            "features": {
+                "wallets": "钱包",
+                "password_managers": "密码",
+                "two_factor": "2FA",
+                "inheritance": "继承"
+            },
+            "summary": {
+                "self_custodian": "自托管",
+                "offline_feature": "离线功能",
+                "human_authn": "HumanAuthn"
+            }
+        }
     },
     "settings": {
         "networks_label": "网络",
@@ -853,7 +869,7 @@
         "zelf_link": "Zelf 链接",
         "zelf_signals": "zSignals",
         "zelf_signals_coming_soon": "Zelf Signals 即将推出。",
-        "zelf_wallet": "Zelf钱包"
+        "zelf_wallet": "Zelf"
     },
     "token": {
         "24h_performance": "24小时表现",

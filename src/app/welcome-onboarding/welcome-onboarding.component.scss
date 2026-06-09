@@ -10,6 +10,8 @@
     --welcome-onboarding-scale: 1;
     --welcome-onboarding-width: 402px;
     --welcome-onboarding-height: 852px;
+    --welcome-onboarding-text: #181818;
+    --welcome-onboarding-text-muted: rgba(24, 24, 24, 0.1);
     --welcome-onboarding-orange: #ff6334;
     --welcome-onboarding-orange-muted: rgba(255, 99, 52, 0.12);
     --welcome-onboarding-font: "Aloevera Display", var(--zns-theme-body-family, "Poppins", Arial, sans-serif);
@@ -206,7 +208,7 @@
 
     &__feature-row {
         align-items: center;
-        color: rgba(24, 24, 24, 0.1);
+        color: var(--welcome-onboarding-text-muted);
         display: flex;
         font-family: var(--welcome-onboarding-font);
         font-size: 32px;
@@ -219,12 +221,12 @@
             transform 0.25s variables.$smoothBezier;
 
         &--active {
-            color: variables.$themeText;
+            color: var(--welcome-onboarding-text);
             transform: translateX(0);
         }
 
         &--muted {
-            color: rgba(24, 24, 24, 0.1);
+            color: var(--welcome-onboarding-text-muted);
         }
     }
 
@@ -258,7 +260,7 @@
 
     &__feature-bullet {
         align-items: center;
-        color: variables.$themeText;
+        color: var(--welcome-onboarding-text);
         display: inline-flex;
         font-family: var(--welcome-onboarding-font);
         font-size: 32px;

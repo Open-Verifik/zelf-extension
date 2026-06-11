@@ -581,7 +581,23 @@
         "enter_tag_name_subtitle": "Saisissez votre Zelf ID existant pour vous connecter",
         "enter_with_recovery_phrase": "Entrer avec la phrase de récupération",
         "found": "Trouvé",
-        "login_to_this_domain": "Ce Zelf ID a été trouvé — continuez avec votre phrase de récupération"
+        "login_to_this_domain": "Ce Zelf ID a été trouvé — continuez avec votre phrase de récupération",
+        "onboarding": {
+            "reinventing": "Réinventer",
+            "designed_for": "Conçu pour",
+            "summary_intro": "Réinventer les portefeuilles, mots de passe et 2FAs",
+            "features": {
+                "wallets": "Portefeuilles",
+                "password_managers": "Mots de passe",
+                "two_factor": "2FAs",
+                "inheritance": "Héritage"
+            },
+            "summary": {
+                "self_custodian": "Auto-garde",
+                "offline_feature": "Fonction hors ligne",
+                "human_authn": "HumanAuthn"
+            }
+        }
     },
     "settings": {
         "networks_label": "Réseaux",
@@ -853,7 +869,7 @@
         "zelf_link": "Lien Zelf",
         "zelf_signals": "zSignals",
         "zelf_signals_coming_soon": "Zelf Signals sera bientôt disponible.",
-        "zelf_wallet": "Portefeuille Zelf"
+        "zelf_wallet": "Zelf"
     },
     "token": {
         "24h_performance": "Performance 24h",

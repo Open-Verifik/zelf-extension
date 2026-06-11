@@ -581,7 +581,23 @@
         "enter_tag_name_subtitle": "साइन इन के लिए अपना मौजूदा Zelf ID दर्ज करें",
         "enter_with_recovery_phrase": "रिकवरी वाक्यांश से प्रवेश करें",
         "found": "मिला",
-        "login_to_this_domain": "यह Zelf ID मिला — अपने रिकवरी वाक्यांश के साथ आगे बढ़ें"
+        "login_to_this_domain": "यह Zelf ID मिला — अपने रिकवरी वाक्यांश के साथ आगे बढ़ें",
+        "onboarding": {
+            "reinventing": "नया रूप",
+            "designed_for": "इसके लिए बनाया गया",
+            "summary_intro": "वॉलेट, पासवर्ड और 2FA को नया रूप देना",
+            "features": {
+                "wallets": "वॉलेट",
+                "password_managers": "पासवर्ड",
+                "two_factor": "2FA",
+                "inheritance": "विरासत"
+            },
+            "summary": {
+                "self_custodian": "स्वयं-कस्टडी",
+                "offline_feature": "ऑफ़लाइन सुविधा",
+                "human_authn": "HumanAuthn"
+            }
+        }
     },
     "settings": {
         "networks_label": "नेटवर्क",
@@ -853,7 +869,7 @@
         "zelf_link": "Zelf Link",
         "zelf_signals": "zSignals",
         "zelf_signals_coming_soon": "Zelf Signals जल्द उपलब्ध होंगे।",
-        "zelf_wallet": "Zelf वॉलेट"
+        "zelf_wallet": "Zelf"
     },
     "token": {
         "24h_performance": "24 घंटे का प्रदर्शन",

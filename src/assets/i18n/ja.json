@@ -581,7 +581,23 @@
         "enter_tag_name_subtitle": "サインインするには既存のZelf IDを入力",
         "enter_with_recovery_phrase": "リカバリーフレーズでログイン",
         "found": "見つかりました",
-        "login_to_this_domain": "このZelf IDが見つかりました — リカバリーフレーズで続行"
+        "login_to_this_domain": "このZelf IDが見つかりました — リカバリーフレーズで続行",
+        "onboarding": {
+            "reinventing": "再定義",
+            "designed_for": "設計対象",
+            "summary_intro": "ウォレット、パスワード、2FAを再定義",
+            "features": {
+                "wallets": "ウォレット",
+                "password_managers": "パスワード",
+                "two_factor": "2FA",
+                "inheritance": "継承"
+            },
+            "summary": {
+                "self_custodian": "自己管理",
+                "offline_feature": "オフライン機能",
+                "human_authn": "HumanAuthn"
+            }
+        }
     },
     "settings": {
         "networks_label": "ネットワーク",
@@ -853,7 +869,7 @@
         "zelf_link": "Zelfリンク",
         "zelf_signals": "zSignals",
         "zelf_signals_coming_soon": "Zelf Signalsは近日公開予定です。",
-        "zelf_wallet": "Zelfウォレット"
+        "zelf_wallet": "Zelf"
     },
     "token": {
         "24h_performance": "24時間のパフォーマンス",

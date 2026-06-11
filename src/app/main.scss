@@ -1691,12 +1691,45 @@ h3 {
     }
 }
 
+.zelf-logo--screen-md {
+    display: none;
+}
+
 svg.zelf-logo {
     display: inline;
     fill: variables.$themeText;
+    transition: fill 0.3s variables.$smoothBezier;
 
     &--screen-md {
         display: none;
+    }
+}
+
+.zelf-logo--wordmark {
+    align-items: center;
+    display: inline-flex;
+    height: 56px;
+    overflow: hidden;
+    width: 124px;
+
+    img {
+        display: block;
+        flex: 0 0 auto;
+        height: 56px;
+        filter: none;
+        max-width: none;
+        transition: filter 0.3s variables.$smoothBezier;
+        width: 343px;
+    }
+}
+
+html.zns-theme-dark {
+    svg.zelf-logo {
+        fill: variables.$white;
+    }
+
+    .zelf-logo--wordmark img {
+        filter: brightness(0) invert(1);
     }
 }
 
@@ -1754,12 +1787,20 @@ svg.zelf-logo {
 
 /* Medium screen devices (768px and above) */
 @media only screen and (min-width: variables.$medium) {
+    .zelf-logo--screen-md {
+        display: inline;
+    }
+
     svg.zelf-logo {
         display: none;
 
         &--screen-md {
             display: inline;
         }
+    }
+
+    .zelf-logo--wordmark {
+        display: inline-flex;
     }
 }
 

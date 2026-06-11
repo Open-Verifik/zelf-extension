@@ -581,7 +581,23 @@
         "enter_tag_name_subtitle": "Введите существующий Zelf ID для входа",
         "enter_with_recovery_phrase": "Войти с помощью фразы восстановления",
         "found": "Найдено",
-        "login_to_this_domain": "Этот Zelf ID найден — продолжите с фразой восстановления"
+        "login_to_this_domain": "Этот Zelf ID найден — продолжите с фразой восстановления",
+        "onboarding": {
+            "reinventing": "Переосмысление",
+            "designed_for": "Создано для",
+            "summary_intro": "Переосмысление кошельков, паролей и 2FA",
+            "features": {
+                "wallets": "Кошельки",
+                "password_managers": "Пароли",
+                "two_factor": "2FA",
+                "inheritance": "Наследование"
+            },
+            "summary": {
+                "self_custodian": "Самохранение",
+                "offline_feature": "Офлайн-функция",
+                "human_authn": "HumanAuthn"
+            }
+        }
     },
     "settings": {
         "networks_label": "Сети",
@@ -853,7 +869,7 @@
         "zelf_link": "Zelf Link",
         "zelf_signals": "zSignals",
         "zelf_signals_coming_soon": "Zelf Signals скоро будут доступны.",
-        "zelf_wallet": "Zelf Кошелек"
+        "zelf_wallet": "Zelf"
     },
     "token": {
         "24h_performance": "Изменение за 24ч",

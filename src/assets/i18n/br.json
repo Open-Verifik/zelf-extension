@@ -581,7 +581,23 @@
         "enter_tag_name_subtitle": "Digite seu Zelf ID existente para entrar",
         "enter_with_recovery_phrase": "Entrar com a frase de recuperação",
         "found": "Encontrado",
-        "login_to_this_domain": "Este Zelf ID foi encontrado — continue com sua frase de recuperação"
+        "login_to_this_domain": "Este Zelf ID foi encontrado — continue com sua frase de recuperação",
+        "onboarding": {
+            "reinventing": "Reinventando",
+            "designed_for": "Projetado para",
+            "summary_intro": "Reinventando carteiras, senhas e 2FAs",
+            "features": {
+                "wallets": "Carteiras",
+                "password_managers": "PWD Mgrs",
+                "two_factor": "2FAs",
+                "inheritance": "Herança"
+            },
+            "summary": {
+                "self_custodian": "Autocustódia",
+                "offline_feature": "Recurso offline",
+                "human_authn": "HumanAuthn"
+            }
+        }
     },
     "settings": {
         "networks_label": "Redes",
@@ -860,7 +876,7 @@
         "zelf_link": "Zelf Link",
         "zelf_signals": "zSignals",
         "zelf_signals_coming_soon": "O Zelf Signals estará disponível em breve.",
-        "zelf_wallet": "Carteira Zelf"
+        "zelf_wallet": "Zelf"
     },
     "token": {
         "24h_performance": "Desempenho 24h",

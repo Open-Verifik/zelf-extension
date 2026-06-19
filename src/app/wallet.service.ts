@@ -8,6 +8,7 @@ import { environment } from "environments/environment";
 import {
     readPublicDataDotAddress,
     readPublicDataKsmAddress,
+    readPublicDataTonAddress,
     tryHealPublicDataXlmToCanonical,
     type PGP,
 } from "@shared/types/tag.types";
@@ -202,6 +203,9 @@ export class WalletService {
                 break;
             case "KSM":
                 assetSrc = "./assets/networks/ksm.svg";
+                break;
+            case "TON":
+                assetSrc = "./assets/networks/ton.svg";
                 break;
             case "ZNS":
                 assetSrc = "./assets/tokens/zns.png";
@@ -1140,6 +1144,8 @@ export class WalletService {
             address = wallet?.publicData?.suiAddress || "";
         } else if (tokenType === "XLM" || tokenType === "STELLAR") {
             address = wallet?.publicData?.xlmAddress || "";
+        } else if (tokenType === "TON") {
+            address = readPublicDataTonAddress(wallet?.publicData as Record<string, unknown> | undefined);
         }
 
         return address;
@@ -1245,6 +1251,16 @@ export class WalletService {
                 image: this.getAssetImage("KSM"),
                 name: "Kusama",
                 symbol: "KSM",
+            });
+        }
+
+        const tonAddr = readPublicDataTonAddress(pdForSubstrate);
+        if (tonAddr) {
+            networks.push({
+                address: tonAddr,
+                image: this.getAssetImage("TON"),
+                name: "TON",
+                symbol: "TON",
             });
         }
 

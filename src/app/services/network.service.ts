@@ -13,6 +13,7 @@ export type NetworkName =
     | "stellar"
     | "polkadot"
     | "kusama"
+    | "ton"
     | "Bitcoin"
     | "bitcoinTestnet";
 export type NetworkSymbol =
@@ -35,6 +36,7 @@ export type NetworkSymbol =
     | "XLM"
     | "DOT"
     | "KSM"
+    | "TON"
     | "BTCTEST";
 
 @Injectable({
@@ -67,6 +69,8 @@ export class NetworkService {
                 return "DOT";
             case "kusama":
                 return "KSM";
+            case "ton":
+                return "TON";
             default:
                 return "";
         }
@@ -100,6 +104,8 @@ export class NetworkService {
                 return "polkadot";
             case "KSM":
                 return "kusama";
+            case "TON":
+                return "ton";
             default:
                 console.warn(`NetworkService: No name mapping for symbol: ${symbol}`);
                 return "";
@@ -134,6 +140,7 @@ export class NetworkService {
                 return 56;
             case "polkadot":
             case "kusama":
+            case "ton":
                 return 0;
             default:
                 return 1;
@@ -175,6 +182,9 @@ export class NetworkService {
             case "kusama":
             case "KSM":
                 return "./assets/networks/ksm.svg";
+            case "ton":
+            case "TON":
+                return "./assets/networks/ton.svg";
             default:
                 return "";
         }

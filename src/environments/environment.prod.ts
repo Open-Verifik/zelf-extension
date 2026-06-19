@@ -40,6 +40,11 @@ export const environment = {
         testnet: "https://fullnode.testnet.sui.io:443",
         devnet: "https://fullnode.devnet.sui.io:443",
     },
+    tonRpc: {
+        mainnet: "https://toncenter.com/api/v2/jsonRPC",
+        testnet: "https://testnet.toncenter.com/api/v2/jsonRPC",
+        apiKey: "",
+    },
     polkadotRelayRpc: "https://rpc.polkadot.io",
     kusamaRelayRpc: "https://kusama-rpc.polkadot.io",
     kusamaAssetHubRpc: "https://kusama-asset-hub-rpc.polkadot.io",

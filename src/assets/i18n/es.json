@@ -869,6 +869,8 @@
         "zelf_link": "Enlace Zelf",
         "zelf_signals": "zSignals",
         "zelf_signals_coming_soon": "Zelf Signals estará disponible pronto.",
+        "notifications": "Notificaciones",
+        "notifications_coming_soon": "Las notificaciones estarán disponibles pronto.",
         "zelf_wallet": "Zelf"
     },
     "token": {

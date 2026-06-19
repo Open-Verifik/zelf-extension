@@ -378,12 +378,33 @@ export class ChromeService {
     }
 
     async openSidePanel(): Promise<void> {
-        if (!this.isExtension) return;
+        if (!this.isExtension || !chrome?.sidePanel) return;
 
-        const [window] = await browser.windows.getAll({ populate: true });
+        // chrome.sidePanel.open() must run while the click's user gesture is still active and
+        // BEFORE we tear down the popup/tab. Closing the popup first destroys this JS context,
+        // and extra awaits drop the gesture, so Chrome rejects the call
+        // ("may only be called in response to a user gesture") and the panel silently fails.
+        let windowId: number | undefined;
 
-        if (!window?.id) return;
+        try {
+            windowId = (await browser.windows.getCurrent())?.id;
+        } catch {
+            const [firstWindow] = await browser.windows.getAll();
 
+            windowId = firstWindow?.id;
+        }
+
+        if (windowId == null) return;
+
+        try {
+            await chrome.sidePanel.open({ windowId });
+        } catch (error) {
+            console.error("Failed to open side panel:", error);
+
+            return;
+        }
+
+        // Close the originating popup/tab only after the side panel is already open.
         if (this.isPopout) {
             const views = browser.extension.getViews({ type: "popup" });
 
@@ -393,10 +414,6 @@ export class ChromeService {
 
             if (tabs.length > 1 && tabs[0].id === this._tabId) await this.closeTab();
         }
-
-        if (!chrome?.sidePanel) return;
-
-        await chrome.sidePanel.open({ windowId: window.id });
     }
 
     async removeItem(key: string): Promise<void> {

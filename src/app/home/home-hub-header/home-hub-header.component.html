@@ -23,9 +23,13 @@
         <a class="home-hub__icon-tile" routerLink="/rewards" [attr.aria-label]="t('home_hub.header_rewards_aria')">
             <img src="assets/icons/rewards_icon.svg" alt="" class="home-hub__header-icon" aria-hidden="true" />
         </a>
-        <button type="button" class="home-hub__icon-tile home-hub__icon-tile--ghost" [attr.aria-label]="t('home_hub.header_notifications_aria')">
+        <a
+            class="home-hub__icon-tile home-hub__icon-tile--ghost"
+            routerLink="/notifications"
+            [attr.aria-label]="t('home_hub.header_notifications_aria')"
+        >
             <img src="assets/icons/notifications_icon.svg" alt="" class="home-hub__header-icon" aria-hidden="true" />
-        </button>
+        </a>
         <button
             type="button"
             class="home-hub__icon-tile home-hub__icon-tile--ghost"

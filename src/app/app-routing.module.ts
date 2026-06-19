@@ -104,6 +104,11 @@ const routes: Routes = [
                 loadComponent: () => import("./shared/feature-coming-soon.component").then((m) => m.FeatureComingSoonComponent),
                 data: { titleKey: "common.zelf_signals", bodyKey: "common.zelf_signals_coming_soon" }
             },
+            {
+                path: "notifications",
+                loadComponent: () => import("./shared/feature-coming-soon.component").then((m) => m.FeatureComingSoonComponent),
+                data: { titleKey: "common.notifications", bodyKey: "common.notifications_coming_soon" }
+            },
             { path: "swap", loadComponent: () => import("./swap/swap.component").then((m) => m.SwapComponent) },
             {
                 path: "transaction/:hash",

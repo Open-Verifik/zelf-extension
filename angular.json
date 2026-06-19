@@ -110,7 +110,11 @@
                             "@polkadot/util-crypto",
                             "@polkadot/wasm-crypto",
                             "@polkadot/wasm-crypto-asmjs",
-                            "@polkadot/wasm-crypto-wasm"
+                            "@polkadot/wasm-crypto-wasm",
+                            "@ton/core",
+                            "@ton/crypto",
+                            "@ton/ton",
+                            "ed25519-hd-key"
                         ]
                     },
                     "configurations": {

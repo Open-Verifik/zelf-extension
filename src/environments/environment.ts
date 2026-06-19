@@ -40,6 +40,12 @@ export const environment = {
         testnet: "https://fullnode.testnet.sui.io:443",
         devnet: "https://fullnode.devnet.sui.io:443",
     },
+    /** TON (The Open Network) JSON-RPC via toncenter. `apiKey` optional (raises rate limits). */
+    tonRpc: {
+        mainnet: "https://toncenter.com/api/v2/jsonRPC",
+        testnet: "https://testnet.toncenter.com/api/v2/jsonRPC",
+        apiKey: "",
+    },
     /** Polkadot / Kusama relay JSON-RPC (HTTP) for @polkadot/api in the extension. */
     polkadotRelayRpc: "https://rpc.polkadot.io",
     kusamaRelayRpc: "https://kusama-rpc.polkadot.io",

@@ -25,9 +25,10 @@ import { NetworkName } from "./network.service";
 import { PolygonService } from "./polygon.service";
 import { StellarService } from "./stellar.service";
 import { SuiService } from "./sui.service";
-import { readPublicDataDotAddress, readPublicDataKsmAddress, readPublicDataXlmAddress } from "@shared/types/tag.types";
+import { readPublicDataDotAddress, readPublicDataKsmAddress, readPublicDataTonAddress, readPublicDataXlmAddress } from "@shared/types/tag.types";
 import { TagModel } from "app/tags.service";
 import { SubstrateRelayService } from "./substrate-relay.service";
+import { TonService } from "./ton.service";
 
 @Injectable({
     providedIn: "root",
@@ -43,7 +44,8 @@ export class BlockchainTransactionsService {
         private _solanaService: SolanaService,
         private _stellarService: StellarService,
         private _suiService: SuiService,
-        private _substrateRelayService: SubstrateRelayService
+        private _substrateRelayService: SubstrateRelayService,
+        private _tonService: TonService
     ) {}
 
     private _getXlmAddress(wallet: Partial<TagModel> | null | undefined): string {
@@ -56,6 +58,10 @@ export class BlockchainTransactionsService {
 
     private _getKsmAddress(wallet: Partial<TagModel> | null | undefined): string {
         return readPublicDataKsmAddress(wallet?.publicData as Record<string, unknown> | undefined);
+    }
+
+    private _getTonAddress(wallet: Partial<TagModel> | null | undefined): string {
+        return readPublicDataTonAddress(wallet?.publicData as Record<string, unknown> | undefined);
     }
 
     private _processTransactions(responses: any): Transaction[] {
@@ -162,6 +168,8 @@ export class BlockchainTransactionsService {
                 case "kusama":
                 case "ksm":
                     return await this._substrateRelayService.calculateTransactionFees("kusama", params.senderAddress || "", receiverAddress, amount, tokenPrice || 0);
+                case "ton":
+                    return await this._tonService.calculateTransactionFees(amount, tokenPrice || 0);
                 case "ethereum":
                 default:
                     return await this._ethereumService.calculateTransactionFees(
@@ -200,6 +208,7 @@ export class BlockchainTransactionsService {
         if (network === "sui") return `https://suiscan.xyz/tx/${hash}`;
         if (network === "polkadot") return `https://polkadot.subscan.io/extrinsic/${hash}`;
         if (network === "kusama") return `https://kusama.subscan.io/extrinsic/${hash}`;
+        if (network === "ton") return `https://tonviewer.com/transaction/${hash}`;
 
         return "";
     }
@@ -211,6 +220,7 @@ export class BlockchainTransactionsService {
         const xlmAddr = this._getXlmAddress(wallet);
         const dotAddr = this._getDotAddress(wallet);
         const ksmAddr = this._getKsmAddress(wallet);
+        const tonAddr = this._getTonAddress(wallet);
 
         return forkJoin({
             ethereum:
@@ -261,6 +271,10 @@ export class BlockchainTransactionsService {
                 isEnabled("kusama") && ksmAddr
                     ? from(this._substrateRelayService.getWalletDetails("kusama", ksmAddr)).pipe(catchError(() => of(null)))
                     : of(null),
+            ton:
+                isEnabled("ton") && tonAddr
+                    ? from(this._tonService.getWalletDetails(tonAddr)).pipe(catchError(() => of(null)))
+                    : of(null),
         }).pipe(
             map((responses) => {
                 return {
@@ -276,6 +290,7 @@ export class BlockchainTransactionsService {
                     sui: responses.sui,
                     polkadot: responses.polkadot,
                     kusama: responses.kusama,
+                    ton: responses.ton,
                     transactions: this._processTransactions(responses),
                 };
             })
@@ -331,6 +346,11 @@ export class BlockchainTransactionsService {
             observable = forkJoin({ kusama: from(this._substrateRelayService.getWalletDetails("kusama", ksmAddress)) });
         }
 
+        const tonAddress = this._getTonAddress(wallet);
+        if (tonAddress && token === "TON") {
+            observable = forkJoin({ ton: from(this._tonService.getWalletDetails(tonAddress)) });
+        }
+
         return observable
             ? observable.pipe(
                   map((responses) => {
@@ -347,6 +367,7 @@ export class BlockchainTransactionsService {
                           sui: responses.sui,
                           polkadot: responses.polkadot,
                           kusama: responses.kusama,
+                          ton: responses.ton,
                           transactions: this._processTransactions(responses),
                       };
                   })
@@ -548,6 +569,8 @@ export class BlockchainTransactionsService {
                 case "kusama":
                 case "ksm":
                     return await this._substrateRelayService.sendTransaction({ ...params, network: "kusama" });
+                case "ton":
+                    return await this._tonService.sendTransaction(params);
                 default:
                     throw new Error(`Unsupported network: ${network}`);
             }

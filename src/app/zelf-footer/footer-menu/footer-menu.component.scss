@@ -5,6 +5,9 @@
 $footer-pill-active-bg: #fff0eb;
 $footer-pill-active-icon: #f06543;
 $footer-pill-muted-icon: #9aa3b2;
+// The active chip stays light (peach) in both themes, so its label must stay dark in both
+// themes too. Using $themeText turned the text white in dark mode → invisible on the peach chip.
+$footer-pill-active-text: #181818;
 // ~20% smaller than the first implementation (tighter pill + strip height).
 $footer-pill-scale: 0.8;
 
@@ -64,7 +67,7 @@ $footer-pill-scale: 0.8;
         &-text {
             font-size: calc(14px * var(--zns-font-scale, 1));
             font-weight: 500;
-            color: variables.$themeText;
+            color: $footer-pill-active-text;
             white-space: nowrap;
             transition: font-weight 0.15s variables.$smoothBezier;
         }

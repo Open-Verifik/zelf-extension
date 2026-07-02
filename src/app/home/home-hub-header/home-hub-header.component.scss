@@ -115,3 +115,12 @@
         color: variables.$themeText;
     }
 }
+
+// Dark mode: the fixed peach accent tile reads as a jarring bright block against the dark UI.
+// Fall back to the neutral card surface — the coral icon keeps enough contrast on the dark tile.
+// NOTE: use :host-context — a plain `html.zns-theme-dark` selector gets the component's
+// content attribute appended under emulated encapsulation and never matches <html>.
+:host-context(html.zns-theme-dark) .home-hub__icon-tile:not(.home-hub__icon-tile--ghost) {
+    background: variables.$themeCard;
+    border: 1px solid variables.$themeBorder;
+}

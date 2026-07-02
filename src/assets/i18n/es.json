@@ -602,12 +602,23 @@
     "settings": {
         "networks_label": "Redes",
         "security_label": "Seguridad",
+        "notifications_label": "Notificaciones",
         "language_label": "Idioma",
         "subscription_label": "Suscripción",
         "networks": {
             "title": "Redes Blockchain",
             "description": "Habilita o deshabilita las redes que deseas usar en tu billetera. Las redes deshabilitadas no aparecerán en tu lista de tokens.",
             "no_networks_available": "No hay redes disponibles para tu licencia. Por favor, actualiza tu plan para acceder a más redes."
+        },
+        "notifications": {
+            "title": "Notificaciones",
+            "description": "Elige qué notificaciones quieres recibir.",
+            "news": "Noticias / Novedades",
+            "news_description": "Novedades y anuncios del producto.",
+            "push": "Notificaciones push",
+            "push_description": "Permitir notificaciones push en este dispositivo.",
+            "send_receive": "Enviar y recibir",
+            "send_receive_description": "Recibe avisos cuando envías o recibes activos."
         },
         "language": {
             "description": "Elige tu idioma preferido para la aplicación."

@@ -1,0 +1,26 @@
+<div class="zelf-settings-notifications" *transloco="let t">
+    <div class="zelf-settings-notifications__header">
+        <p class="zelf-settings-notifications__description">{{ t("settings.notifications.description") }}</p>
+    </div>
+
+    <div class="zelf-settings-notifications__list">
+        <div *ngFor="let row of rows" class="zelf-settings-notifications__item" [class.zelf-settings-notifications__item--disabled]="!notifications[row.key]">
+            <div class="zelf-settings-notifications__item-left">
+                <div class="zelf-settings-notifications__icon-wrapper">
+                    <span class="material-symbols-outlined zelf-settings-notifications__icon">{{ row.icon }}</span>
+                </div>
+                <div class="zelf-settings-notifications__info">
+                    <span class="zelf-settings-notifications__name">{{ t(row.label) }}</span>
+                    <span class="zelf-settings-notifications__hint">{{ t(row.description) }}</span>
+                </div>
+            </div>
+
+            <mat-slide-toggle
+                [checked]="notifications[row.key]"
+                (change)="onToggle(row.key)"
+                color="primary"
+                class="zelf-settings-notifications__toggle"
+            ></mat-slide-toggle>
+        </div>
+    </div>
+</div>

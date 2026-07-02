@@ -1,0 +1,107 @@
+@use "../../../styles/variables";
+
+.zelf-settings-notifications {
+    width: 100%;
+    margin-top: calc(16px * var(--zns-space-scale, 1));
+
+    &__header {
+        margin-bottom: calc(24px * var(--zns-space-scale, 1));
+        text-align: left;
+    }
+
+    &__description {
+        font-family: variables.$themeBodyFamily;
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        line-height: 1.5;
+        color: variables.$themeTextSecondary;
+        margin: 0;
+    }
+
+    &__list {
+        display: flex;
+        flex-direction: column;
+        gap: calc(12px * var(--zns-space-scale, 1));
+    }
+
+    &__item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: calc(12px * var(--zns-space-scale, 1));
+        padding: calc(16px * var(--zns-space-scale, 1));
+        background-color: variables.$themeCard;
+        border: 1px solid variables.$themeCardBorder;
+        border-radius: 12px;
+        transition: all 0.2s variables.$smoothBezier;
+
+        &:hover {
+            border-color: variables.$themeBorderHover;
+        }
+
+        &--disabled {
+            .zelf-settings-notifications__icon {
+                color: variables.$themeTextMuted;
+            }
+        }
+    }
+
+    &__item-left {
+        display: flex;
+        align-items: center;
+        gap: calc(16px * var(--zns-space-scale, 1));
+        min-width: 0;
+    }
+
+    &__icon-wrapper {
+        width: calc(40px * var(--zns-space-scale, 1));
+        height: calc(40px * var(--zns-space-scale, 1));
+        border-radius: 50%;
+        border: 1px solid variables.$themeBorder;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: variables.$themeBackground;
+        flex-shrink: 0;
+    }
+
+    &__icon {
+        font-size: calc(22px * var(--zns-font-scale, 1));
+        color: variables.$secondaryColor;
+    }
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        min-width: 0;
+    }
+
+    &__name {
+        font-family: variables.$themeBodyFamily;
+        font-weight: 600;
+        font-size: calc(15px * var(--zns-font-scale, 1));
+        color: variables.$themeText;
+    }
+
+    &__hint {
+        font-family: variables.$themeBodyFamily;
+        font-size: calc(13px * var(--zns-font-scale, 1));
+        line-height: 1.4;
+        color: variables.$themeTextSecondary;
+    }
+
+    &__toggle {
+        transform: scale(0.9);
+        transform-origin: right center;
+        flex-shrink: 0;
+    }
+}
+
+// Material slide toggle overrides (match the networks settings toggle styling).
+::ng-deep .mat-mdc-slide-toggle {
+    --mdc-switch-selected-track-color: #{variables.$primaryColor};
+    --mdc-switch-selected-handle-color: #{variables.$themeButtonText};
+    --mdc-switch-selected-hover-track-color: #{variables.$primaryColor};
+    --mdc-switch-selected-focus-track-color: #{variables.$primaryColor};
+    --mdc-switch-selected-pressed-track-color: #{variables.$primaryColor};
+}

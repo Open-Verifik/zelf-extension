@@ -3,6 +3,8 @@
 // Floating pill — match marketing mock: white bar, peach active chip, coral icon, muted grid/star.
 // Avoid theme $secondaryColor on the chip (reads as a strong “system” blue/orange on hover).
 $footer-pill-active-bg: #fff0eb;
+// Dark mode: the light peach chip would hide the (now white) label — use a coral-tinted dark chip instead.
+$footer-pill-active-bg-dark: rgba(240, 101, 67, 0.18);
 $footer-pill-active-icon: #f06543;
 $footer-pill-muted-icon: #9aa3b2;
 // ~20% smaller than the first implementation (tighter pill + strip height).
@@ -97,5 +99,16 @@ $footer-pill-scale: 0.8;
             width: 24px;
             height: 24px;
         }
+    }
+}
+
+// Dark mode: swap the light peach active chip for a coral-tinted dark chip so the
+// theme-driven (white) label and coral icon stay readable. Covers hover too.
+// NOTE: use :host-context — a plain `html.zns-theme-dark` selector gets the component's
+// content attribute appended under emulated encapsulation and never matches <html>.
+:host-context(html.zns-theme-dark) {
+    .footer-menu-pill__active,
+    .footer-menu-pill__active:hover {
+        background-color: $footer-pill-active-bg-dark;
     }
 }

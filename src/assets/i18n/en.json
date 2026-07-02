@@ -602,12 +602,23 @@
     "settings": {
         "networks_label": "Networks",
         "security_label": "Security",
+        "notifications_label": "Notifications",
         "language_label": "Language",
         "subscription_label": "Subscription",
         "networks": {
             "title": "Blockchain Networks",
             "description": "Enable or disable the networks you want to use in your wallet. Disabled networks won't appear in your token list.",
             "no_networks_available": "No networks available for your license. Please upgrade your plan to access more networks."
+        },
+        "notifications": {
+            "title": "Notifications",
+            "description": "Choose which notifications you want to receive.",
+            "news": "News / Updates",
+            "news_description": "Product news and announcements.",
+            "push": "Push notifications",
+            "push_description": "Allow push notifications on this device.",
+            "send_receive": "Send and receive",
+            "send_receive_description": "Get alerted when you send or receive assets."
         },
         "language": {
             "description": "Choose your preferred language for the application."

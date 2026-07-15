@@ -887,7 +887,8 @@
         "mnemonics": "Mnemonics",
         "wallet_short": "Wallet",
         "auth_short": "Auth",
-        "coming_soon": "Coming Soon"
+        "coming_soon": "Coming Soon",
+        "ton_address": "TON Address"
     },
     "token": {
         "24h_performance": "24h Performance",

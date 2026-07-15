@@ -94,6 +94,7 @@ export interface TagPublicData {
     solanaAddress: string;
     xlmAddress: string;
     suiAddress: string;
+    tonAddress: string;
     dotAddress: string;
     ksmAddress: string;
     tagName: string;
@@ -124,6 +125,7 @@ export class TagPublicDataModel {
     solanaAddress: string;
     xlmAddress: string;
     suiAddress: string;
+    tonAddress: string;
     dotAddress: string;
     ksmAddress: string;
     tagName: string;
@@ -145,6 +147,7 @@ export class TagPublicDataModel {
         this.solanaAddress = data.solanaAddress || "";
         this.xlmAddress = readPublicDataXlmAddress(data as Record<string, unknown>);
         this.suiAddress = data.suiAddress || "";
+        this.tonAddress = data.tonAddress || "";
         this.dotAddress = readPublicDataDotAddress(data as Record<string, unknown>);
         this.ksmAddress = readPublicDataKsmAddress(data as Record<string, unknown>);
         this.tagName = data.tagName || "";
@@ -284,6 +287,7 @@ export class TagModel {
             registeredAt: data.publicData?.registeredAt || "",
             solanaAddress: data.publicData?.solanaAddress || "",
             suiAddress: data.publicData?.suiAddress || "",
+            tonAddress: data.publicData?.tonAddress || "",
             tagName: rawTagName,
             type: data.publicData?.type || "",
             st: data.publicData?.st || "",
@@ -304,6 +308,10 @@ export class TagModel {
 
     get displaySuiAddress(): string {
         return this._parseAddress(this.publicData?.suiAddress);
+    }
+
+    get displayTonAddress(): string {
+        return this._parseAddress(this.publicData?.tonAddress);
     }
 
     get displayAvalancheAddress(): string {

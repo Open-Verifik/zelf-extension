@@ -410,7 +410,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     onPanelAddAccount(): void {
         this.closeProfilePanel();
-        void this._router.navigate(["/wallet-manage"]);
+        void this._router.navigate(["/manage-domains"]);
     }
 
     openAppsHub(): void {

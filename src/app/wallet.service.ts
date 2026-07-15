@@ -183,6 +183,9 @@ export class WalletService {
             case "SUI":
                 assetSrc = "./assets/networks/sui.svg";
                 break;
+            case "TON":
+                assetSrc = "./assets/networks/ton.png";
+                break;
             case "BNB":
             case "BSC":
                 assetSrc = "./assets/networks/bnb.png";
@@ -1138,6 +1141,8 @@ export class WalletService {
             address = wallet?.publicData?.btcAddress || "";
         } else if (tokenType === "SUI" || tokenType === "SUI_TOKEN") {
             address = wallet?.publicData?.suiAddress || "";
+        } else if (tokenType === "TON" || tokenType === "ton") {
+            address = wallet?.publicData?.tonAddress || "";
         } else if (tokenType === "XLM" || tokenType === "STELLAR") {
             address = wallet?.publicData?.xlmAddress || "";
         }
@@ -1215,6 +1220,15 @@ export class WalletService {
                 image: this.getAssetImage("SUI"),
                 name: "Sui",
                 symbol: "SUI",
+            });
+        }
+
+        if (_wallet?.publicData?.tonAddress) {
+            networks.push({
+                address: _wallet?.publicData?.tonAddress,
+                image: this.getAssetImage("TON"),
+                name: "Ton",
+                symbol: "TON",
             });
         }
 

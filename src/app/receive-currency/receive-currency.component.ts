@@ -163,6 +163,8 @@ export class ReceiveCurrencyComponent extends CopyToClipboardBase implements OnI
                 return "solana";
             case "SUI":
                 return "sui";
+            case "TON":
+                return "ton";
             case "XLM":
                 return "stellar";
             case "DOT":

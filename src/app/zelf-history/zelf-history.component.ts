@@ -124,13 +124,17 @@ export class ZelfHistoryComponent implements OnInit {
         const walletSol = (publicData?.solanaAddress || "").toLowerCase();
         const walletBtc = (publicData?.btcAddress || "").toLowerCase();
         const walletSui = (publicData?.suiAddress || "").toLowerCase();
+        const walletTon = publicData?.tonAddress || "";
         const walletBDAG = (publicData?.blockDAGAddress || "").toLowerCase();
         const walletXlm = publicData?.xlmAddress || "";
 
         const fromAddrLower = fromAddr.toLowerCase();
         const isStellarTx = tx.network === "stellar" || (walletXlm && fromAddr.startsWith("G"));
+        const isTonTx = tx.network === "ton" || (walletTon && (fromAddr.startsWith("EQ") || fromAddr.startsWith("UQ") || fromAddr.startsWith("0:")));
 
         if (isStellarTx && walletXlm && fromAddr === walletXlm) {
+            tx.traffic = "OUT";
+        } else if (isTonTx && walletTon && (fromAddr === walletTon || fromAddrLower === walletTon.toLowerCase())) {
             tx.traffic = "OUT";
         } else if (
             (walletEth && fromAddrLower === walletEth) ||

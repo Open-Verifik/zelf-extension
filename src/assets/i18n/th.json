@@ -853,7 +853,8 @@
         "zelf_link": "Zelf Link",
         "zelf_signals": "zSignals",
         "zelf_signals_coming_soon": "Zelf Signals จะเปิดใช้งานเร็วๆ นี้",
-        "zelf_wallet": "Zelf"
+        "zelf_wallet": "Zelf",
+        "ton_address": "ที่อยู่ TON"
     },
     "token": {
         "24h_performance": "ประสิทธิภาพ 24 ชั่วโมง",

@@ -1,7 +1,7 @@
 import { Subject, takeUntil } from "rxjs";
 
 import { CommonModule } from "@angular/common";
-import { AfterContentInit, Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { Router, RouterLink } from "@angular/router";
 import { TranslocoModule } from "@jsverse/transloco";
@@ -20,7 +20,7 @@ import { environment } from "environments/environment";
     styleUrls: ["./welcome-onboarding.component.scss"],
     templateUrl: "./welcome-onboarding.component.html",
 })
-export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterContentInit {
+export class WelcomeOnboardingComponent implements OnInit, OnDestroy {
     // Static flag to track if this component has been loaded before in this session
     // This persists across component destruction/re-creation but resets on page refresh
     private static _hasLoadedInSession = false;
@@ -118,15 +118,14 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
         this._vaultService.password = "";
         this._vaultService.mnemonic = "";
 
-        this._chromeService.onWalletsChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe(async () => {
-            const wallets = await this._walletService.getWalletsFromStorage();
-
-            if (wallets.length) this.showHomeButton = true;
+        this._chromeService.onWalletsChanged$.pipe(takeUntil(this.unsubscriber$)).subscribe(() => {
+            void this._refreshHomeButtonVisibility();
         });
     }
 
     async ngOnInit(): Promise<void> {
         await this._walletService.setWalletsToColdStorage();
+        await this._refreshHomeButtonVisibility();
 
         this._initCarousel();
 
@@ -139,12 +138,6 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
             // Mark as loaded so next time we know to fetch.
             WelcomeOnboardingComponent._hasLoadedInSession = true;
         }
-    }
-
-    async ngAfterContentInit(): Promise<void> {
-        const wallets = await this._walletService.getWalletsFromStorage();
-
-        if (wallets.length) this.showHomeButton = true;
     }
 
     ngOnDestroy(): void {
@@ -171,6 +164,14 @@ export class WelcomeOnboardingComponent implements OnInit, OnDestroy, AfterConte
         } catch (error) {
             console.error("Error loading public key:", error);
         }
+    }
+
+    private async _refreshHomeButtonVisibility(): Promise<void> {
+        const { wallet, wallets } = await this._walletService.getAllWalletsFromStorage();
+
+        this.showHomeButton = Boolean(
+            wallet?.fullTagName || wallet?.name || wallet?.publicData?.tagName || wallets.length
+        );
     }
 
     private _clearChromeItems(): void {

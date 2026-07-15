@@ -25,6 +25,7 @@ import { NetworkName } from "./network.service";
 import { PolygonService } from "./polygon.service";
 import { StellarService } from "./stellar.service";
 import { SuiService } from "./sui.service";
+import { TonService } from "./ton.service";
 import { readPublicDataDotAddress, readPublicDataKsmAddress, readPublicDataXlmAddress } from "@shared/types/tag.types";
 import { TagModel } from "app/tags.service";
 import { SubstrateRelayService } from "./substrate-relay.service";
@@ -43,6 +44,7 @@ export class BlockchainTransactionsService {
         private _solanaService: SolanaService,
         private _stellarService: StellarService,
         private _suiService: SuiService,
+        private _tonService: TonService,
         private _substrateRelayService: SubstrateRelayService
     ) {}
 
@@ -92,6 +94,14 @@ export class BlockchainTransactionsService {
             );
         }
         if (responses.sui?.data?.transactions) transactions.push(...responses.sui.data.transactions);
+        if (responses.ton?.data?.transactions) {
+            transactions.push(
+                ...responses.ton.data.transactions.map((tx: any) => ({
+                    ...tx,
+                    network: tx.network || "ton",
+                }))
+            );
+        }
 
         return transactions;
     }
@@ -198,6 +208,7 @@ export class BlockchainTransactionsService {
         if (network === "solana") return `https://solscan.io/tx/${hash}`;
         if (network === "stellar") return `https://stellar.expert/explorer/public/tx/${hash}`;
         if (network === "sui") return `https://suiscan.xyz/tx/${hash}`;
+        if (network === "ton") return `https://tonviewer.com/transaction/${hash}`;
         if (network === "polkadot") return `https://polkadot.subscan.io/extrinsic/${hash}`;
         if (network === "kusama") return `https://kusama.subscan.io/extrinsic/${hash}`;
 
@@ -253,6 +264,10 @@ export class BlockchainTransactionsService {
                 isEnabled("sui") && wallet.publicData?.suiAddress
                     ? from(this._suiService.getWalletDetails(wallet.publicData?.suiAddress)).pipe(catchError(() => of(null)))
                     : of(null),
+            ton:
+                isEnabled("ton") && wallet.publicData?.tonAddress
+                    ? from(this._tonService.getWalletDetails(wallet.publicData?.tonAddress)).pipe(catchError(() => of(null)))
+                    : of(null),
             polkadot:
                 isEnabled("polkadot") && dotAddr
                     ? from(this._substrateRelayService.getWalletDetails("polkadot", dotAddr)).pipe(catchError(() => of(null)))
@@ -274,6 +289,7 @@ export class BlockchainTransactionsService {
                     solana: responses.solana,
                     stellar: responses.stellar,
                     sui: responses.sui,
+                    ton: responses.ton,
                     polkadot: responses.polkadot,
                     kusama: responses.kusama,
                     transactions: this._processTransactions(responses),
@@ -313,6 +329,12 @@ export class BlockchainTransactionsService {
             }
         }
 
+        if (wallet.publicData?.tonAddress) {
+            if (token === "TON") {
+                observable = forkJoin({ ton: from(this._tonService.getWalletDetails(wallet.publicData?.tonAddress)) });
+            }
+        }
+
         const xlmAddr = this._getXlmAddress(wallet);
 
         if (xlmAddr) {
@@ -345,6 +367,7 @@ export class BlockchainTransactionsService {
                           solana: responses.solana,
                           stellar: responses.stellar,
                           sui: responses.sui,
+                          ton: responses.ton,
                           polkadot: responses.polkadot,
                           kusama: responses.kusama,
                           transactions: this._processTransactions(responses),
@@ -411,6 +434,10 @@ export class BlockchainTransactionsService {
                 isEnabled("sui") && wallet.publicData?.suiAddress
                     ? from(this._suiService.requestTransactionHistory(wallet.publicData?.suiAddress, pagination)).pipe(catchError(() => of(null)))
                     : of(null),
+            ton:
+                isEnabled("ton") && wallet.publicData?.tonAddress
+                    ? from(this._tonService.requestTransactionHistory(wallet.publicData?.tonAddress, pagination)).pipe(catchError(() => of(null)))
+                    : of(null),
         }).pipe(map((responses) => this._processTransactions(responses)));
     }
 
@@ -461,6 +488,8 @@ export class BlockchainTransactionsService {
                 return new BlockDAGTransactionModel(response.data).toTransaction();
             case "sui":
                 return new SuiTransactionModel(response.data).toTransaction();
+            case "ton":
+                return new TransactionModel({ ...response.data, network: "ton" }) as Transaction;
             case "bitcoin":
                 return new BitcoinTransactionModel(response.data[0]).toTransaction();
             default:
@@ -490,6 +519,9 @@ export class BlockchainTransactionsService {
                     break;
                 case "sui":
                     promise = this._suiService.requestTransactionDetails(hash);
+                    break;
+                case "ton":
+                    promise = this._tonService.requestTransactionDetails(hash);
                     break;
                 case "solana":
                     promise = this._solanaService.requestTransactionDetails(hash);

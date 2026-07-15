@@ -880,7 +880,8 @@
         "zelf_link": "Enlace Zelf",
         "zelf_signals": "zSignals",
         "zelf_signals_coming_soon": "Zelf Signals estará disponible pronto.",
-        "zelf_wallet": "Zelf"
+        "zelf_wallet": "Zelf",
+        "ton_address": "Dirección TON"
     },
     "token": {
         "24h_performance": "Rendimiento 24h",

@@ -1,19 +1,23 @@
 <div class="welcome-onboarding" *transloco="let t">
     <div class="welcome-onboarding__header">
-        <div class="welcome-onboarding__header-button">
-            <button class="zelf-icon-button zelf-icon-button--40" [routerLink]="['/home']" *ngIf="showHomeButton">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32">
-                    <path
-                        d="M16.0003 8.25366L22.667 14.2537V24.667H20.0003V16.667H12.0003V24.667H9.33366V14.2537L16.0003 8.25366ZM16.0003 4.66699L2.66699 16.667H6.66699V27.3337H14.667V19.3337H17.3337V27.3337H25.3337V16.667H29.3337L16.0003 4.66699Z"
-                    />
-                </svg>
-            </button>
-        </div>
-
         <div class="carousel">
             <div class="carousel__item-container">
                 <div class="carousel__item">
                     <div class="carousel__device" [class.carousel__device--summary]="currentSlide.featureBulletKeys.length">
+                        <button
+                            *ngIf="showHomeButton"
+                            class="welcome-onboarding__home-button zelf-icon-button zelf-icon-button--40 zelf-icon-button--secondary"
+                            type="button"
+                            [routerLink]="['/home']"
+                            [attr.aria-label]="t('common.home')"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+                                <path
+                                    d="M16.0003 8.25366L22.667 14.2537V24.667H20.0003V16.667H12.0003V24.667H9.33366V14.2537L16.0003 8.25366ZM16.0003 4.66699L2.66699 16.667H6.66699V27.3337H14.667V19.3337H17.3337V27.3337H25.3337V16.667H29.3337L16.0003 4.66699Z"
+                                />
+                            </svg>
+                        </button>
+
                         <div class="carousel__device-bottom-fill"></div>
                         <div class="carousel__device-glow"></div>
                         <div class="carousel__device-bottom-glow"></div>

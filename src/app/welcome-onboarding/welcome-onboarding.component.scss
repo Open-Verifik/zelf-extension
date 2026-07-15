@@ -21,6 +21,52 @@
     --welcome-onboarding-scale: 1;
 }
 
+@media screen and (max-height: 1032px) {
+    :host-context(.main-div--fullscreen) {
+        --welcome-onboarding-scale: 0.95;
+    }
+}
+@media screen and (max-height: 980px) {
+    :host-context(.main-div--fullscreen) {
+        --welcome-onboarding-scale: 0.90;
+    }
+}
+@media screen and (max-height: 930px) {
+    :host-context(.main-div--fullscreen) {
+        --welcome-onboarding-scale: 0.84;
+    }
+}
+@media screen and (max-height: 880px) {
+    :host-context(.main-div--fullscreen) {
+        --welcome-onboarding-scale: 0.78;
+    }
+}
+@media screen and (max-height: 830px) {
+    :host-context(.main-div--fullscreen) {
+        --welcome-onboarding-scale: 0.72;
+    }
+}
+@media screen and (max-height: 780px) {
+    :host-context(.main-div--fullscreen) {
+        --welcome-onboarding-scale: 0.66;
+    }
+}
+@media screen and (max-height: 730px) {
+    :host-context(.main-div--fullscreen) {
+        --welcome-onboarding-scale: 0.60;
+    }
+}
+@media screen and (max-height: 680px) {
+    :host-context(.main-div--fullscreen) {
+        --welcome-onboarding-scale: 0.55;
+    }
+}
+@media screen and (max-height: 630px) {
+    :host-context(.main-div--fullscreen) {
+        --welcome-onboarding-scale: 0.49;
+    }
+}
+
 :host-context(.main-div--popout) {
     --welcome-onboarding-scale: 0.68;
 }
@@ -32,13 +78,11 @@
     position: relative;
     width: min(100%, calc(var(--welcome-onboarding-width) * var(--welcome-onboarding-scale)));
 
-    &__header-button {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        flex-direction: row;
-        width: 100%;
-        margin-bottom: 10px;
+    &__home-button {
+        left: 18px;
+        position: absolute;
+        top: 18px;
+        z-index: 2;
     }
 
     &__actions {
@@ -72,7 +116,9 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        width: 100%;
+        width: calc(var(--welcome-onboarding-width) * var(--welcome-onboarding-scale));
+        height: calc(var(--welcome-onboarding-height) * var(--welcome-onboarding-scale));
+        position: relative;
     }
 
     &__device {
@@ -85,14 +131,16 @@
         display: flex;
         flex-direction: column;
         gap: 0;
-        height: 852px;
-        min-height: 852px;
+        height: var(--welcome-onboarding-height);
+        min-height: var(--welcome-onboarding-height);
         overflow: hidden;
         padding: 46px 30px 26px;
-        position: relative;
-        transform: scale(var(--welcome-onboarding-scale));
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(var(--welcome-onboarding-scale));
         transform-origin: center;
-        width: 402px;
+        width: var(--welcome-onboarding-width);
     }
 
     &__stage,

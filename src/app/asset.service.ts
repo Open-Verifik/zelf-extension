@@ -23,6 +23,7 @@ export interface NetworkPermissions {
     POL?: boolean;
     SOL?: boolean;
     SUI?: boolean;
+    TON?: boolean;
     XLM?: boolean;
 }
 
@@ -75,6 +76,7 @@ export class AssetService {
             POL: true,
             SOL: true,
             SUI: true,
+            TON: false,
             XLM: true,
         };
     }
@@ -91,6 +93,7 @@ export class AssetService {
             POL: true,
             SOL: true,
             SUI: true,
+            TON: false,
             XLM: true,
         };
     }
@@ -141,6 +144,8 @@ export class AssetService {
                     return "BTC";
                 case "Sui":
                     return "SUI";
+                case "Ton":
+                    return "TON";
                 case "Binance":
                     return "BNB";
                 case "Polygon":
@@ -168,6 +173,8 @@ export class AssetService {
                 return "SPL";
             case "Sui":
                 return "SUI-TOKEN";
+            case "Ton":
+                return "JETTON";
             case "Bitcoin":
                 return "BTC-TOKEN";
             default:
@@ -185,6 +192,7 @@ export class AssetService {
             Solana: ["SOL", "SOLANA"],
             Stellar: ["XLM", "STELLAR"],
             Sui: ["SUI", "SUI-TOKEN"],
+            Ton: ["TON", "TONCOIN"],
             Polkadot: ["DOT", "POLKADOT"],
             Kusama: ["KSM", "KUSAMA"],
         };
@@ -314,6 +322,7 @@ export class AssetService {
                     (network === "Avalanche" && !permissions.AVAX) ||
                     (network === "BlockDAG" && !permissions.BDAG) ||
                     (network === "Sui" && !permissions.SUI) ||
+                    (network === "Ton" && !permissions.TON) ||
                     (network === "Binance" && !permissions.BNB) ||
                     (network === "Polygon" && !permissions.POL) ||
                     (network === "Stellar" && !permissions.XLM) ||
@@ -381,6 +390,10 @@ export class AssetService {
 
         if (response?.sui?.data?.tokenHoldings?.tokens && (!permissions || permissions.SUI)) {
             tokens = this.processTokens("Sui", response.sui.data.tokenHoldings.tokens, tokens, permissions);
+        }
+
+        if (response?.ton?.data?.tokenHoldings?.tokens && (!permissions || permissions.TON)) {
+            tokens = this.processTokens("Ton", response.ton.data.tokenHoldings.tokens, tokens, permissions);
         }
 
         if (response?.polkadot?.data?.tokenHoldings?.tokens && (!permissions || permissions.DOT)) {

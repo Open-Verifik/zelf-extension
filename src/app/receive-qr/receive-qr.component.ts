@@ -187,6 +187,10 @@ export class ReceiveQrComponent extends CopyToClipboardBase implements OnInit, O
             this.address = this.wallet.publicData?.suiAddress || "";
             this.name = "Sui";
             this.symbol = "SUI";
+        } else if (network === "ton") {
+            this.address = this.wallet.publicData?.tonAddress || "";
+            this.name = "Ton";
+            this.symbol = "TON";
         } else if (network === "solana") {
             this.address = this.wallet.publicData?.solanaAddress || "";
             this.name = "Solana";

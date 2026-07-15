@@ -4,6 +4,7 @@ import { ChromeService } from "app/chrome.service";
 export type NetworkName =
     | "ethereum"
     | "sui"
+    | "ton"
     | "avalanche"
     | "solana"
     | "bitcoin"
@@ -20,6 +21,7 @@ export type NetworkSymbol =
     | "sol"
     | "avax"
     | "sui"
+    | "ton"
     | "btc"
     | "bdag"
     | "bnb"
@@ -28,6 +30,7 @@ export type NetworkSymbol =
     | "SOL"
     | "AVAX"
     | "SUI"
+    | "TON"
     | "BTC"
     | "BDAG"
     | "BNB"
@@ -49,6 +52,8 @@ export class NetworkService {
                 return "ETH";
             case "sui":
                 return "SUI";
+            case "ton":
+                return "TON";
             case "polygon":
                 return "POL";
             case "avalanche":
@@ -86,6 +91,8 @@ export class NetworkService {
                 return "avalanche";
             case "SUI":
                 return "sui";
+            case "TON":
+                return "ton";
             case "BTC":
                 return "bitcoin";
             case "BDAG":
@@ -148,6 +155,9 @@ export class NetworkService {
             case "sui":
             case "SUI":
                 return "./assets/networks/sui.svg";
+            case "ton":
+            case "TON":
+                return "./assets/networks/ton.png";
             case "avalanche":
             case "AVAX":
                 return "./assets/networks/avax.png";

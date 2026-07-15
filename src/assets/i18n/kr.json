@@ -869,7 +869,8 @@
         "zelf_link": "Zelf 링크",
         "zelf_signals": "zSignals",
         "zelf_signals_coming_soon": "Zelf Signals가 곧 제공됩니다.",
-        "zelf_wallet": "Zelf"
+        "zelf_wallet": "Zelf",
+        "ton_address": "TON 주소"
     },
     "token": {
         "24h_performance": "24시간 성과",

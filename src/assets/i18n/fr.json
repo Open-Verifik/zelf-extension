@@ -575,7 +575,7 @@
         "feature_multichain": "Multichaîne",
         "feature_zk": "HumanAuthn",
         "feature_selfcustody": "Auto-dépositaire",
-        "enter_with_zelf_id": "Entrer avec votre Zelf ID",
+        "enter_with_zelf_id": "Continuer avec Zelf ID",
         "create_a_zelf_id": "Créer un Zelf ID",
         "dont_remember_your_zelf_id": "Vous ne vous souvenez pas de votre Zelf ID ?",
         "enter_tag_name_subtitle": "Saisissez votre Zelf ID existant pour vous connecter",

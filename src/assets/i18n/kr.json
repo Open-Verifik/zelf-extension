@@ -575,7 +575,7 @@
         "feature_multichain": "멀티체인",
         "feature_zk": "HumanAuthn",
         "feature_selfcustody": "셀프 커스터디",
-        "enter_with_zelf_id": "Zelf ID로 로그인",
+        "enter_with_zelf_id": "Zelf ID로 계속",
         "create_a_zelf_id": "Zelf ID 만들기",
         "dont_remember_your_zelf_id": "Zelf ID가 기억나지 않나요?",
         "enter_tag_name_subtitle": "로그인하려면 기존 Zelf ID를 입력하세요",

@@ -575,7 +575,7 @@
         "feature_multichain": "Multichain",
         "feature_zk": "HumanAuthn",
         "feature_selfcustody": "Self-custody",
-        "enter_with_zelf_id": "Mag-sign in gamit ang Zelf ID mo",
+        "enter_with_zelf_id": "Magpatuloy gamit ang Zelf ID",
         "create_a_zelf_id": "Gumawa ng Zelf ID",
         "dont_remember_your_zelf_id": "Hindi maalala ang Zelf ID mo?",
         "enter_tag_name_subtitle": "Ilagay ang kasalukuyang Zelf ID mo para mag-sign in",

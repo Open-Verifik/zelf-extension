@@ -575,7 +575,7 @@
         "feature_multichain": "มัลติเชน",
         "feature_zk": "HumanAuthn",
         "feature_selfcustody": "ดูแลตนเอง",
-        "enter_with_zelf_id": "เข้าสู่ระบบด้วย Zelf ID ของคุณ",
+        "enter_with_zelf_id": "ดำเนินการต่อด้วย Zelf ID",
         "create_a_zelf_id": "สร้าง Zelf ID",
         "dont_remember_your_zelf_id": "จำ Zelf ID ไม่ได้?",
         "enter_tag_name_subtitle": "ใส่ Zelf ID ที่มีอยู่เพื่อเข้าสู่ระบบ",

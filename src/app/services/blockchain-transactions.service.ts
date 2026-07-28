@@ -172,6 +172,8 @@ export class BlockchainTransactionsService {
                 case "kusama":
                 case "ksm":
                     return await this._substrateRelayService.calculateTransactionFees("kusama", params.senderAddress || "", receiverAddress, amount, tokenPrice || 0);
+                case "ton":
+                    return await this._tonService.calculateTransactionFees(amount, tokenPrice || 0);
                 case "ethereum":
                 default:
                     return await this._ethereumService.calculateTransactionFees(
@@ -580,6 +582,8 @@ export class BlockchainTransactionsService {
                 case "kusama":
                 case "ksm":
                     return await this._substrateRelayService.sendTransaction({ ...params, network: "kusama" });
+                case "ton":
+                    return await this._tonService.sendTransaction(params);
                 default:
                     throw new Error(`Unsupported network: ${network}`);
             }

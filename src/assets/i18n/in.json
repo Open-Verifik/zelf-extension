@@ -870,7 +870,8 @@
         "zelf_signals": "zSignals",
         "zelf_signals_coming_soon": "Zelf Signals जल्द उपलब्ध होंगे।",
         "zelf_wallet": "Zelf",
-        "ton_address": "TON पता"
+        "ton_address": "TON पता",
+        "aptos_address": "Aptos पता"
     },
     "token": {
         "24h_performance": "24 घंटे का प्रदर्शन",

@@ -46,6 +46,10 @@ export const environment = {
         testnet: "https://testnet.toncenter.com/api/v2/jsonRPC",
         apiKey: "",
     },
+    /** Public Fullnode used only for locally signed native APT submission. Reads and estimates go through the backend. */
+    aptosRpc: {
+        mainnet: "https://api.mainnet.aptoslabs.com/v1",
+    },
     /** Polkadot / Kusama relay JSON-RPC (HTTP) for @polkadot/api in the extension. */
     polkadotRelayRpc: "https://rpc.polkadot.io",
     kusamaRelayRpc: "https://kusama-rpc.polkadot.io",

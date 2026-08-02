@@ -45,6 +45,9 @@ export const environment = {
         testnet: "https://testnet.toncenter.com/api/v2/jsonRPC",
         apiKey: "",
     },
+    aptosRpc: {
+        mainnet: "https://api.mainnet.aptoslabs.com/v1",
+    },
     polkadotRelayRpc: "https://rpc.polkadot.io",
     kusamaRelayRpc: "https://kusama-rpc.polkadot.io",
     kusamaAssetHubRpc: "https://kusama-asset-hub-rpc.polkadot.io",

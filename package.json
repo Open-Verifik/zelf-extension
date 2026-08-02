@@ -44,6 +44,7 @@
         "@angular/platform-browser": "^19.2.20",
         "@angular/platform-browser-dynamic": "^19.2.20",
         "@angular/router": "^19.2.20",
+        "@aptos-labs/ts-sdk": "6.3.1",
         "@babel/runtime": "^7.26.0",
         "@bitcoinerlab/secp256k1": "^1.2.0",
         "@coral-xyz/anchor": "^0.32.1",

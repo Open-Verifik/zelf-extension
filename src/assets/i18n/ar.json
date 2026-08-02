@@ -870,7 +870,8 @@
         "zelf_signals": "zSignals",
         "zelf_signals_coming_soon": "ستتوفر Zelf Signals قريباً.",
         "zelf_wallet": "Zelf",
-        "ton_address": "عنوان TON"
+        "ton_address": "عنوان TON",
+        "aptos_address": "عنوان Aptos"
     },
     "token": {
         "24h_performance": "أداء 24 ساعة",

@@ -125,6 +125,7 @@ export class ZelfHistoryComponent implements OnInit {
         const walletBtc = (publicData?.btcAddress || "").toLowerCase();
         const walletSui = (publicData?.suiAddress || "").toLowerCase();
         const walletTon = publicData?.tonAddress || "";
+        const walletAptos = (publicData?.aptosAddress || "").toLowerCase();
         const walletBDAG = (publicData?.blockDAGAddress || "").toLowerCase();
         const walletXlm = publicData?.xlmAddress || "";
 
@@ -141,6 +142,7 @@ export class ZelfHistoryComponent implements OnInit {
             (walletSol && fromAddrLower === walletSol) ||
             (walletBtc && fromAddrLower === walletBtc) ||
             (walletSui && fromAddrLower === walletSui) ||
+            (walletAptos && fromAddrLower === walletAptos) ||
             (walletBDAG && fromAddrLower === walletBDAG)
         ) {
             tx.traffic = "OUT";

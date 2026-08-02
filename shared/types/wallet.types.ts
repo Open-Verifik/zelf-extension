@@ -1059,6 +1059,10 @@ export class TransactionData implements TransactionData {
         return this.tokenType === "SUI" || this.tokenType === "SUI_TOKEN";
     }
 
+    get isAptToken(): boolean {
+        return this.tokenType === "APT" && this.network === "aptos";
+    }
+
     get isXlmToken(): boolean {
         return this.tokenType === "XLM" && this.network === "stellar";
     }

@@ -854,7 +854,8 @@
         "zelf_signals": "zSignals",
         "zelf_signals_coming_soon": "Zelf Signals جلد دستیاب ہوں گے۔",
         "zelf_wallet": "Zelf",
-        "ton_address": "TON پتہ"
+        "ton_address": "TON پتہ",
+        "aptos_address": "Aptos پتہ"
     },
     "token": {
         "24h_performance": "24 گھنٹے کی کارکردگی",

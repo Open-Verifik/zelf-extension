@@ -870,7 +870,8 @@
         "zelf_signals": "zSignals",
         "zelf_signals_coming_soon": "Zelf Signals 即将推出。",
         "zelf_wallet": "Zelf",
-        "ton_address": "TON地址"
+        "ton_address": "TON地址",
+        "aptos_address": "Aptos地址"
     },
     "token": {
         "24h_performance": "24小时表现",

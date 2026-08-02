@@ -608,7 +608,9 @@
         "networks": {
             "title": "Blockchain Networks",
             "description": "Enable or disable the networks you want to use in your wallet. Disabled networks won't appear in your token list.",
-            "no_networks_available": "No networks available for your license. Please upgrade your plan to access more networks."
+            "no_networks_available": "No networks available for your license. Please upgrade your plan to access more networks.",
+            "backend_required": "Backend setup required",
+            "canton_backend_required": "Requires validator and party setup"
         },
         "notifications": {
             "title": "Notifications",

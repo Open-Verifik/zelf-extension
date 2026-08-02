@@ -3,6 +3,12 @@ export interface NetworkConfig {
     name: string;
     symbol: string;
     enabled: boolean;
+    /**
+     * False when the network is visible for product/QA tracking but cannot be
+     * enabled safely with the currently deployed backend capabilities.
+     */
+    available?: boolean;
+    availabilityReasonKey?: string;
 }
 
 export interface NotificationSettings {

@@ -19,11 +19,15 @@
                     <div class="zelf-settings-networks__info">
                         <span class="zelf-settings-networks__name">{{ network.name }}</span>
                         <span class="zelf-settings-networks__symbol">{{ network.symbol }}</span>
+                        <span *ngIf="network.available === false" class="zelf-settings-networks__availability">
+                            {{ t(network.availabilityReasonKey || "settings.networks.backend_required") }}
+                        </span>
                     </div>
                 </div>
 
                 <mat-slide-toggle
                     [checked]="network.enabled"
+                    [disabled]="network.available === false"
                     (change)="onNetworkToggle(network)"
                     color="primary"
                     class="zelf-settings-networks__toggle"

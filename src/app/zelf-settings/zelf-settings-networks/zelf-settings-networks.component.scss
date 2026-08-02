@@ -103,6 +103,15 @@
         font-weight: 500;
     }
 
+    &__availability {
+        margin-top: calc(3px * var(--zns-space-scale, 1));
+        color: variables.$primaryColor;
+        font-family: variables.$themeBodyFamily;
+        font-size: calc(11px * var(--zns-font-scale, 1));
+        font-weight: 600;
+        line-height: 1.35;
+    }
+
     &__toggle {
         transform: scale(0.9);
         transform-origin: right center;

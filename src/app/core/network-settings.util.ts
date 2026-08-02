@@ -14,13 +14,21 @@ export const DEFAULT_NETWORK_CONFIGS: NetworkConfig[] = [
     { id: "ton", name: "Ton", symbol: "TON", enabled: true },
     { id: "polkadot", name: "Polkadot", symbol: "DOT", enabled: true },
     { id: "kusama", name: "Kusama", symbol: "KSM", enabled: true },
+    {
+        id: "canton",
+        name: "Canton",
+        symbol: "CC",
+        enabled: false,
+        available: false,
+        availabilityReasonKey: "settings.networks.canton_backend_required",
+    },
 ];
 
 /**
  * Chain ids the app supports but `tags.wallet.networks` on the domain license may omit.
  * Merge these into the license allowlist so Manage Networks matches {@link DEFAULT_NETWORK_CONFIGS}.
  */
-export const NETWORK_IDS_ENSURED_FROM_LICENSE_GAP: readonly string[] = ["stellar", "bitcoin", "sui", "ton", "polkadot", "kusama"];
+export const NETWORK_IDS_ENSURED_FROM_LICENSE_GAP: readonly string[] = ["stellar", "bitcoin", "sui", "ton", "polkadot", "kusama", "canton"];
 
 /**
  * Merge saved toggles into defaults so new chains (e.g. stellar) appear enabled
@@ -34,7 +42,15 @@ export function mergeNetworkSettings(saved: NetworkConfig[] | undefined | null):
     return DEFAULT_NETWORK_CONFIGS.map((def) => {
         const existing = saved.find((s) => s.id === def.id);
 
-        return existing ? { ...def, ...existing } : { ...def };
+        if (!existing) return { ...def };
+
+        const merged = { ...def, ...existing };
+
+        // Persisted settings from a future/experimental build must never turn
+        // Canton on before party ownership and validator configuration exist.
+        if (def.available === false) merged.enabled = false;
+
+        return merged;
     });
 }
 

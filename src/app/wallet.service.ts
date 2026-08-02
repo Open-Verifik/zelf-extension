@@ -206,6 +206,9 @@ export class WalletService {
             case "KSM":
                 assetSrc = "./assets/networks/ksm.svg";
                 break;
+            case "CC":
+                assetSrc = "./assets/networks/canton.svg";
+                break;
             case "ZNS":
                 assetSrc = "./assets/tokens/zns.png";
                 break;

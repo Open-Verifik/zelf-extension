@@ -4,7 +4,7 @@ import { FormsModule } from "@angular/forms";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { TranslocoModule } from "@jsverse/transloco";
 import { DomainLicense, DomainWallet } from "app/core/models/domain.type";
-import { DEFAULT_NETWORK_CONFIGS, NETWORK_IDS_ENSURED_FROM_LICENSE_GAP } from "app/core/network-settings.util";
+import { DEFAULT_NETWORK_CONFIGS, mergeNetworkSettings, NETWORK_IDS_ENSURED_FROM_LICENSE_GAP } from "app/core/network-settings.util";
 import { DomainService } from "app/domain.service";
 import { NetworkConfig, Settings } from "app/models/settings.model";
 import { SettingsService } from "app/services/settings.service";
@@ -114,8 +114,10 @@ export class ZelfSettingsNetworksComponent implements OnInit, OnDestroy {
 
         // If networks are already saved in settings, use them (but only those allowed by license)
         if (this.settings.networks && this.settings.networks.length > 0) {
+            const mergedSettings = mergeNetworkSettings(this.settings.networks);
+
             this.networks = availableNetworks.map((defaultNetwork) => {
-                const savedNetwork = this.settings.networks?.find((n) => n.id === defaultNetwork.id);
+                const savedNetwork = mergedSettings.find((n) => n.id === defaultNetwork.id);
                 return savedNetwork || defaultNetwork;
             });
         } else {
@@ -125,6 +127,8 @@ export class ZelfSettingsNetworksComponent implements OnInit, OnDestroy {
     }
 
     onNetworkToggle(network: NetworkConfig): void {
+        if (network.available === false) return;
+
         network.enabled = !network.enabled;
         this._saveNetworks();
     }

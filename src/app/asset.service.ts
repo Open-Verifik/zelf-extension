@@ -93,7 +93,7 @@ export class AssetService {
             POL: true,
             SOL: true,
             SUI: true,
-            TON: false,
+            TON: true,
             XLM: true,
         };
     }

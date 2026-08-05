@@ -156,6 +156,39 @@ export class VaultService {
         }
     }
 
+    /**
+     * Ephemeral transport keypair for ZelfKeys retrieve (no passphrase; private key stays in memory).
+     */
+    async generateEphemeralKeyPair(): Promise<{ publicKey: string; privateKey: string }> {
+        const { privateKey, publicKey } = await openpgp.generateKey({
+            type: "ecc",
+            curve: "curve25519",
+            userIDs: [{ name: "Zelf Transport", email: "transport@zelf.world" }],
+        });
+
+        return { publicKey, privateKey };
+    }
+
+    /**
+     * Decrypt a message with an unencrypted (no-passphrase) private key.
+     */
+    async decryptWithPrivateKey(encryptedMessage: string, privateKeyArmoured: string): Promise<string> {
+        const privateKey = await openpgp.readPrivateKey({
+            armoredKey: privateKeyArmoured,
+        });
+
+        const message = await openpgp.readMessage({
+            armoredMessage: encryptedMessage,
+        });
+
+        const { data: decrypted } = await openpgp.decrypt({
+            message,
+            decryptionKeys: privateKey,
+        });
+
+        return decrypted as string;
+    }
+
     async getWallet(): Promise<any> {
         if (!this.password) throw new Error("Password not set");
 

@@ -1,8 +1,6 @@
-import { animate, style, transition, trigger } from "@angular/animations";
 import { CommonModule } from "@angular/common";
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from "@angular/core";
 import { FlexLayoutModule } from "@angular/flex-layout";
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
@@ -33,27 +31,16 @@ export interface BiometricData {
     imports: [
         CommonModule,
         FlexLayoutModule,
-        FormsModule,
         MatButtonModule,
         MatProgressBarModule,
         MatProgressSpinnerModule,
         RouterModule,
         TranslocoModule,
-        ReactiveFormsModule,
         WebcamModule,
     ],
     selector: "popout-decryptor",
     styleUrls: ["./popout-decryptor.component.scss"],
     templateUrl: "./popout-decryptor.component.html",
-    animations: [
-        trigger("slideOutUp", [
-            transition(":enter", [
-                style({ transform: "translateY(-100%)", opacity: 0 }),
-                animate("300ms ease-out", style({ transform: "translateY(0)", opacity: 1 })),
-            ]),
-            transition(":leave", [animate("300ms ease-in", style({ transform: "translateY(-100%)", opacity: 0 }))]),
-        ]),
-    ],
 })
 export class PopoutDecryptorComponent implements OnInit, OnDestroy {
     @ViewChild("maskResult", { static: false }) public maskResultCanvasRef: ElementRef | undefined;
@@ -99,14 +86,6 @@ export class PopoutDecryptorComponent implements OnInit, OnDestroy {
     };
 
     lastFace: any;
-    masterPassword = "";
-
-    masterPasswordForm = new FormGroup({
-        masterPassword: new FormControl("", [Validators.required]),
-    });
-
-    masterPasswordFormSubmitted = false;
-    showMasterPassword = false;
     record: any = {};
 
     response = {
@@ -452,13 +431,7 @@ export class PopoutDecryptorComponent implements OnInit, OnDestroy {
         this.error = translatedMessage;
         this.errorFace = null;
 
-        this.masterPassword = "";
-        this.masterPasswordForm.reset();
-        this.masterPasswordFormSubmitted = false;
-        this.showMasterPassword = false;
-
-        this._stopBiometricDetection();
-
+        this._resetBiometricSession();
         this._changeDetectorRef.detectChanges();
     }
 
@@ -537,11 +510,13 @@ export class PopoutDecryptorComponent implements OnInit, OnDestroy {
             if (!this.record.zelfProof) throw new Error("missing_zelf_proof");
 
             const base64Data = faceBase64.includes(",") ? faceBase64.split(",")[1] : faceBase64;
+            const { publicKey: clientPublicKey, privateKey: clientPrivateKey } = await this._vaultService.generateEphemeralKeyPair();
 
             const payload = {
                 faceBase64: await this._httpWrapperService.encryptMessage(base64Data),
                 type: this.record.type,
                 zelfProof: this.record.zelfProof,
+                clientPublicKey,
             };
 
             const response = await this._zelfKeysService.retrieve(payload);
@@ -549,21 +524,16 @@ export class PopoutDecryptorComponent implements OnInit, OnDestroy {
             await this._vaultService.setLastVerified();
 
             const encryptedMessage = response?.data?.pgp?.encryptedMessage;
-            const privateKeyArmoured = response?.data?.pgp?.privateKey;
             const { publicData } = response.data;
 
-            let jsonData = "";
+            let decryptedData: any = response?.data?.metadata || {};
 
-            if (response?.data?.pgp) {
-                jsonData = await this._vaultService.oneTimeDecryptMessage(encryptedMessage, privateKeyArmoured, this.masterPassword);
+            if (encryptedMessage) {
+                const jsonData = await this._vaultService.decryptWithPrivateKey(encryptedMessage, clientPrivateKey);
 
-                this.masterPassword = "";
-                this.masterPasswordForm.reset();
-
+                decryptedData = JSON.parse(jsonData);
                 delete response?.data?.pgp;
             }
-
-            const decryptedData = JSON.parse(jsonData);
 
             if (!decryptedData) throw new Error("missing_decrypted_data");
 
@@ -798,13 +768,6 @@ export class PopoutDecryptorComponent implements OnInit, OnDestroy {
         this._changeDetectorRef.markForCheck();
     }
 
-    private _stopBiometricDetection(): void {
-        if (this._intervals.detectFace) {
-            clearInterval(this._intervals.detectFace);
-            this._intervals.detectFace = null;
-        }
-    }
-
     private _startFaceDetectionInterval(): void {
         if (this._intervals.detectFace) {
             clearInterval(this._intervals.detectFace);
@@ -849,8 +812,6 @@ export class PopoutDecryptorComponent implements OnInit, OnDestroy {
     }
 
     private _takePictureLiveness(img: HTMLImageElement): void {
-        if (!this.masterPasswordFormSubmitted) return;
-
         const maskResultCanvas = this.maskResultCanvasRef?.nativeElement;
         const toSendCanvas = this.ToSendCanvasRef?.nativeElement;
 
@@ -886,22 +847,6 @@ export class PopoutDecryptorComponent implements OnInit, OnDestroy {
         this._handleError(error);
     }
 
-    onBack(): void {
-        this.masterPassword = "";
-        this.masterPasswordForm.reset();
-        this.masterPasswordFormSubmitted = false;
-        this.showMasterPassword = false;
-
-        this.error = null;
-
-        this._stopBiometricDetection();
-        this.response.base64Image = "";
-        this.response.isLoading = false;
-        this.errorFace = null;
-        this.face.successPosition = 0;
-        this.lastFace = null;
-    }
-
     onBiometricsCancel(): void {
         this._handleError({ message: "User cancelled decryption" });
     }
@@ -910,8 +855,9 @@ export class PopoutDecryptorComponent implements OnInit, OnDestroy {
         this.onBiometricsCancel();
     }
 
-    toggleMasterPasswordVisibility(): void {
-        this.showMasterPassword = !this.showMasterPassword;
+    onRetry(): void {
+        this.error = null;
+        this._resetBiometricSession();
     }
 
     processImage(webcamImage: WebcamImage): void {
@@ -930,23 +876,5 @@ export class PopoutDecryptorComponent implements OnInit, OnDestroy {
 
             this._takePictureLiveness(img);
         };
-    }
-
-    submitMasterPassword(): void {
-        if (this.masterPasswordForm.invalid) return;
-
-        this.record = this._normalizeDecryptionRecord(this.record);
-
-        if (!this.record.zelfProof) {
-            this.error = this._errorService.translateErrorMessage("missing_zelf_proof");
-            return;
-        }
-
-        this.masterPassword = this.masterPasswordForm.value.masterPassword as string;
-        this.masterPasswordFormSubmitted = true;
-        this.error = null;
-
-        this._changeDetectorRef.detectChanges();
-        this._resetBiometricSession();
     }
 }

@@ -210,7 +210,7 @@ class AutofillContentScript {
     }
 
     private shouldShowIconForField(field: FormField): boolean {
-        return ["password", "username", "email"].includes(field.type);
+        return ["password", "username", "email", "phone"].includes(field.type);
     }
 
     private handleIconRecovery(currentForms: DetectedForm[], currentFormCount: number, currentIconCount: number): void {

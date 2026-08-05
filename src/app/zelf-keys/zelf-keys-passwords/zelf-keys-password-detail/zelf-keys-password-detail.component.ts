@@ -9,7 +9,6 @@ import { CopyToClipboardBase } from "app/base/copy-to-clipboard/copy-to-clipboar
 import { ZelfKeysService } from "app/services/zelf-keys.service";
 import { ChromeService } from "../../../chrome.service";
 import { PopoutDecryptorComponent } from "../../../popout-decryptor/popout-decryptor.component";
-import { AutofillIntegrationService } from "../../../services/autofill-integration.service";
 import { PasswordDataService } from "../../../services/password-data.service";
 import { PopoutCommunicationService, PopoutDecryptionResult } from "../../../services/popout-communication.service";
 import { ScrollToSectionService } from "../../../services/scroll-to-section.service";
@@ -59,7 +58,6 @@ export class ZelfKeysPasswordDetailComponent extends CopyToClipboardBase impleme
     zelfKeyPasswordRecord: ZelfKeyPasswordRecord | null = null;
 
     constructor(
-        private _autofillIntegrationService: AutofillIntegrationService,
         private _changeDetectorRef: ChangeDetectorRef,
         private _passwordDataService: PasswordDataService,
         private _popoutCommunicationService: PopoutCommunicationService,
@@ -99,6 +97,7 @@ export class ZelfKeysPasswordDetailComponent extends CopyToClipboardBase impleme
             zelfProof: this.zelfKeyPasswordRecord.zelfProof || "",
             publicData: {
                 title: this.zelfKeyPasswordRecord.publicData?.website || "Password",
+                username: this.zelfKeyPasswordRecord.publicData?.username || "",
                 website: this.zelfKeyPasswordRecord.publicData?.website || "",
             },
         };
@@ -154,14 +153,9 @@ export class ZelfKeysPasswordDetailComponent extends CopyToClipboardBase impleme
         this._popoutCommunicationService.setDecryptionData(this.decryptionPayload);
     }
 
-    async onDecryptClick(prefill: boolean = false): Promise<void> {
+    async onDecryptClick(): Promise<void> {
         if (this.decryptedData) {
-            if (prefill) {
-                this.prefillWebsite();
-            } else {
-                this._scrollToSectionService.scrollToSection("password-decrypted-content", "password");
-            }
-
+            this._scrollToSectionService.scrollToSection("password-decrypted-content", "password");
             return;
         }
 
@@ -188,14 +182,17 @@ export class ZelfKeysPasswordDetailComponent extends CopyToClipboardBase impleme
     handleDecryptionResult(data: any): void {
         if (!data || !this.zelfKeyPasswordRecord) return;
 
+        // Embedded popout-decryptor emits { success, data }; external paths pass inner data.
+        const payload = data?.success && data?.data ? data.data : data?.data && data.password === undefined ? data.data : data;
+
         this.decryptedData = {
             category: this.zelfKeyPasswordRecord.publicData?.category,
-            difficulty: data.difficulty || "",
-            password: data.password || "",
+            difficulty: payload.difficulty || "",
+            password: payload.password || "",
             timestamp: this.zelfKeyPasswordRecord.publicData?.timestamp,
             type: "password",
-            username: data.username || "",
-            website: data.website || "",
+            username: payload.username || this.zelfKeyPasswordRecord.publicData?.username || "",
+            website: payload.website || this.zelfKeyPasswordRecord.publicData?.website || "",
             zelfName: this.zelfKeyPasswordRecord.publicData?.zelfName,
         };
 
@@ -204,6 +201,10 @@ export class ZelfKeysPasswordDetailComponent extends CopyToClipboardBase impleme
         setTimeout(() => {
             this._scrollToSectionService.scrollToSection("password-decrypted-content", "password");
         }, 500);
+    }
+
+    onPopoutDecryptorClose(): void {
+        this.showPopoutDecryptor = false;
     }
 
     onBackToList(): void {
@@ -304,25 +305,18 @@ export class ZelfKeysPasswordDetailComponent extends CopyToClipboardBase impleme
         return `${full.slice(0, maxLength)}…`;
     }
 
-    async prefillWebsite(): Promise<void> {
-        if (!this.zelfKeyPasswordRecord?.publicData?.website || !this.decryptedData) {
-            console.warn("Cannot prefill: missing website or decrypted data");
+    async onOpenSite(): Promise<void> {
+        const website = this.zelfKeyPasswordRecord?.publicData?.website;
+
+        if (!website) {
+            console.warn("Cannot open site: missing website");
             return;
         }
 
         try {
-            const newTab = await browser.tabs.create({ url: this.zelfKeyPasswordRecord.publicData.website });
-
-            if (!newTab?.id) return;
-
-            await this._autofillIntegrationService.waitForFormAndFill(newTab.id, {
-                username: this.decryptedData.username,
-                password: this.decryptedData.password,
-                tabId: newTab.id,
-                website: this.zelfKeyPasswordRecord.publicData.website,
-            });
+            await browser.tabs.create({ url: website });
         } catch (error) {
-            console.error("Error prefilling website:", error);
+            console.error("Error opening website:", error);
         }
     }
 }

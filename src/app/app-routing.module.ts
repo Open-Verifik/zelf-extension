@@ -18,7 +18,6 @@ import { ZelfKeysStartGuard } from "./guards/zelf-keys-start.guard";
 import { ZelfNameGuard } from "./guards/zelf-name.guard";
 import { ZelfWalletGuard } from "./guards/zelf-wallet.guard";
 import { JWTResolver } from "./resolvers/jwt.resolver";
-import { ZelfKeysDataResolver } from "./resolvers/zelf-keys-data.resolver";
 import { SecurityBiometricsComponent } from "./security-biometrics/security-biometrics.component";
 
 const routes: Routes = [
@@ -172,11 +171,9 @@ const routes: Routes = [
             {
                 path: "zelf-keys",
                 loadComponent: () => import("./zelf-keys/zelf-keys-dashboard.component").then((m) => m.ZelfKeysDashboardComponent),
-                resolve: {
-                    zelfKeysData: ZelfKeysDataResolver,
-                },
                 children: [
-                    { path: "", redirectTo: "start", pathMatch: "full" },
+                    // Open vault immediately (shows in-screen loading). Empty vault syncs to /start after data loads.
+                    { path: "", redirectTo: "vault", pathMatch: "full" },
                     {
                         path: "start",
                         loadComponent: () => import("./zelf-keys/zelf-keys-start/zelf-keys-start.component").then((m) => m.ZelfKeysStartComponent),

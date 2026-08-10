@@ -3,11 +3,12 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { NavigationEnd, Router, RouterModule } from "@angular/router";
 import { TranslocoModule } from "@jsverse/transloco";
-import { Subject, distinctUntilChanged, filter, map, skip, takeUntil } from "rxjs";
+import { Observable, Subject, distinctUntilChanged, filter, map, skip, takeUntil } from "rxjs";
 
 import { ChromeService } from "app/chrome.service";
 import { HomeHubHeaderComponent } from "app/home/home-hub-header/home-hub-header.component";
 import { HomeProfilePanelComponent } from "app/home/home-profile-panel/home-profile-panel.component";
+import { ShellLayoutService } from "app/services/shell-layout.service";
 import { TagModel } from "app/tags.service";
 import { ScrollToSectionService } from "../services/scroll-to-section.service";
 import { WalletService } from "../wallet.service";
@@ -31,6 +32,7 @@ import { ZelfKeysData, ZelfKeysDataService } from "../services/zelf-keys-data.se
 export class ZelfKeysDashboardComponent implements OnInit, OnDestroy {
     private unsubscriber$: Subject<void> = new Subject<void>();
 
+    isDeepShell$: Observable<boolean>;
     loaded: boolean = false;
     wallet: Partial<TagModel> = {};
     showProfilePanel: boolean = false;
@@ -42,9 +44,11 @@ export class ZelfKeysDashboardComponent implements OnInit, OnDestroy {
         private _changeDetectionRef: ChangeDetectorRef,
         private _router: Router,
         private _scrollToSectionService: ScrollToSectionService,
+        private _shellLayout: ShellLayoutService,
         private _walletService: WalletService,
         private _zelfKeysDataService: ZelfKeysDataService
     ) {
+        this.isDeepShell$ = this._shellLayout.isDeepShell$;
         this.unsubscriber$ = new Subject();
 
         this._initSubscriptions();
@@ -117,19 +121,25 @@ export class ZelfKeysDashboardComponent implements OnInit, OnDestroy {
             headerWallet: this.wallet?.fullTagName ?? null,
         });
 
-        const data = await this._zelfKeysDataService.ensureLoadedForCurrentWallet({
-            forceRefresh: false,
-            reason: "dashboard-enter",
-        });
+        // Fire-and-forget: shell is already visible; vault shows its own loading state.
+        void this._zelfKeysDataService
+            .ensureLoadedForCurrentWallet({
+                forceRefresh: false,
+                reason: "dashboard-enter",
+            })
+            .then((data) => {
+                console.log("[Zelf Keys] dashboard list ready", {
+                    storageWallet: wallet?.fullTagName ?? null,
+                    passwordCount: data.passwords.length,
+                    notesCount: data.notes.length,
+                    paymentCardCount: data.paymentCards.length,
+                });
 
-        console.log("[Zelf Keys] dashboard list ready", {
-            storageWallet: wallet?.fullTagName ?? null,
-            passwordCount: data.passwords.length,
-            notesCount: data.notes.length,
-            paymentCardCount: data.paymentCards.length,
-        });
-
-        this._syncRouteForWalletData(data);
+                this._syncRouteForWalletData(data);
+            })
+            .catch((error) => {
+                console.error("[Zelf Keys] dashboard enter load failed:", error);
+            });
     }
 
     private async _reloadZelfKeysForWalletSwitch(fullTagName: string): Promise<void> {

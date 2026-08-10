@@ -2,14 +2,13 @@
     <!-- Compact Header -->
     <div class="password-decryptor__header">
         <button
-            *ngIf="masterPasswordFormSubmitted"
             type="button"
             class="password-decryptor__back"
-            (click)="onBack()"
+            (click)="onCancel()"
             [disabled]="response.isLoading"
-            [attr.aria-label]="t('zelf_keys.popout_decryptor.back')"
+            [attr.aria-label]="t('zelf_keys.popout_decryptor.cancel')"
         >
-            <span class="material-symbols-outlined">arrow_back</span>
+            <span class="material-symbols-outlined">close</span>
         </button>
         <span class="material-symbols-outlined password-decryptor__icon">{{ dataTypeIcon }}</span>
         <h3 class="password-decryptor__title">
@@ -40,94 +39,19 @@
             <button mat-raised-button color="primary" (click)="ngOnInit()">{{ t("zelf_keys.popout_decryptor.retry") }}</button>
         </div>
 
-        <form
-            (ngSubmit)="submitMasterPassword()"
-            [@slideOutUp]
-            [formGroup]="masterPasswordForm"
-            *ngIf="!masterPasswordFormSubmitted"
-            class="master-password-sheet"
-            autocomplete="off"
-        >
-            <div class="master-password-sheet__aurora" aria-hidden="true"></div>
-
-            <div class="master-password-sheet__body">
-                <div class="master-password-sheet__badge" aria-hidden="true">
-                    <span class="master-password-sheet__badge-ring master-password-sheet__badge-ring--outer"></span>
-                    <span class="master-password-sheet__badge-ring master-password-sheet__badge-ring--inner"></span>
-                    <span class="master-password-sheet__badge-core">
-                        <span class="material-symbols-outlined">{{ dataTypeIcon }}</span>
-                    </span>
-                </div>
-
-                <h2 class="master-password-sheet__title">
-                    {{ t("zelf_keys.popout_decryptor.master_password_title") }}
-                </h2>
-                <p class="master-password-sheet__subtitle">
-                    {{ t("zelf_keys.popout_decryptor.master_password_subtitle", { type: t("zelf_keys.popout_decryptor.types." + recordType) }) }}
-                </p>
-
-                <div
-                    *ngIf="record?.publicData?.title || record?.publicData?.website"
-                    class="master-password-sheet__context"
-                    [title]="record?.publicData?.website || record?.publicData?.title"
-                >
-                    <span class="material-symbols-outlined master-password-sheet__context-icon">{{ dataTypeIcon }}</span>
-                    <span class="master-password-sheet__context-text">
-                        {{ record?.publicData?.title || record?.publicData?.website }}
-                    </span>
-                </div>
-
-                <div *ngIf="error" class="master-password-sheet__error" role="alert">
-                    <span class="material-symbols-outlined">error</span>
-                    <span>{{ error }}</span>
-                </div>
-
-                <label class="master-password-sheet__field" [class.master-password-sheet__field--error]="error">
-                    <span class="material-symbols-outlined master-password-sheet__field-icon">lock</span>
-                    <input
-                        [placeholder]="t('zelf_keys.popout_decryptor.master_password_placeholder')"
-                        [type]="showMasterPassword ? 'text' : 'password'"
-                        class="master-password-sheet__input"
-                        formControlName="masterPassword"
-                        id="masterPassword"
-                        autocomplete="current-password"
-                        required
-                    />
-                    <button
-                        type="button"
-                        class="master-password-sheet__toggle"
-                        (click)="toggleMasterPasswordVisibility()"
-                        [attr.aria-label]="
-                            t(showMasterPassword ? 'zelf_keys.popout_decryptor.hide_password' : 'zelf_keys.popout_decryptor.show_password')
-                        "
-                    >
-                        <span class="material-symbols-outlined">{{ showMasterPassword ? "visibility_off" : "visibility" }}</span>
-                    </button>
-                </label>
-
-                <div class="master-password-sheet__hint">
-                    <span class="material-symbols-outlined">verified_user</span>
-                    <span>{{ t("zelf_keys.popout_decryptor.security_note") }}</span>
-                </div>
-            </div>
-
-            <div class="master-password-sheet__actions">
-                <button
-                    type="submit"
-                    class="master-password-sheet__cta"
-                    [disabled]="masterPasswordForm.invalid"
-                >
-                    <span>{{ t("zelf_keys.popout_decryptor.unlock") }}</span>
-                    <span class="material-symbols-outlined">arrow_forward</span>
-                </button>
-                <button type="button" class="master-password-sheet__ghost" (click)="onCancel()">
-                    {{ t("zelf_keys.popout_decryptor.cancel") }}
-                </button>
-            </div>
-        </form>
+        <div *ngIf="error" class="password-decryptor__error" role="alert">
+            <span class="material-symbols-outlined password-decryptor__error-icon">error</span>
+            <h4>{{ error }}</h4>
+            <button mat-raised-button color="primary" (click)="onRetry()">
+                {{ t("zelf_keys.popout_decryptor.retry") }}
+            </button>
+        </div>
 
         <!-- Camera View -->
-        <div *ngIf="!camera.isLoading && camera.hasPermissions && !camera.isLowQuality" class="password-decryptor__camera">
+        <div
+            *ngIf="!camera.isLoading && camera.hasPermissions && !camera.isLowQuality && !error"
+            class="password-decryptor__camera"
+        >
             <!-- Webcam Component -->
             <div class="password-decryptor__webcam-container">
                 <webcam

@@ -104,7 +104,7 @@ export interface UrlInfo {
 
 export interface FormField {
     element: HTMLInputElement;
-    type: "username" | "email" | "password";
+    type: "username" | "email" | "phone" | "password";
     name?: string;
     id?: string;
     placeholder?: string;
@@ -112,7 +112,7 @@ export interface FormField {
 
 export interface DetectedForm {
     fields: FormField[];
-    form: HTMLFormElement;
+    form: HTMLFormElement | null;
     website: string;
 }
 
@@ -145,7 +145,7 @@ export interface DecryptionRequest {
         website: string;
     };
     fieldId?: string;
-    fieldType?: "username" | "email" | "password";
+    fieldType?: "username" | "email" | "phone" | "password";
 }
 
 export interface DecryptionResult {

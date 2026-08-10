@@ -1502,7 +1502,8 @@
                 "decrypt": {
                     "button": "Descriptografar senha",
                     "decrypting": "Descriptografando...",
-                    "launch_fill": "Abrir e preencher"
+                    "launch_fill": "Abrir e preencher",
+                    "open_site": "Abrir site"
                 },
                 "info": {
                     "title": "Informações da Senha",

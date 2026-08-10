@@ -100,6 +100,51 @@ $footer-pill-scale: 0.8;
             height: 24px;
         }
     }
+
+    &__add {
+        display: flex;
+        align-items: center;
+        gap: calc(6px * $footer-pill-scale * var(--zns-space-scale, 1));
+        padding: calc(6px * $footer-pill-scale * var(--zns-space-scale, 1)) calc(12px * $footer-pill-scale * var(--zns-space-scale, 1))
+            calc(6px * $footer-pill-scale * var(--zns-space-scale, 1)) calc(8px * $footer-pill-scale * var(--zns-space-scale, 1));
+        border: none;
+        border-radius: 100px;
+        background-color: $footer-pill-active-bg;
+        color: variables.$themeText;
+        cursor: pointer;
+        flex-shrink: 0;
+        transition: background-color 0.2s variables.$smoothBezier;
+
+        &:hover {
+            background-color: rgba(240, 101, 67, 0.16);
+        }
+
+        &:focus-visible {
+            outline: 2px solid $footer-pill-active-icon;
+            outline-offset: 2px;
+        }
+    }
+
+    &__add-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: calc(28px * $footer-pill-scale);
+        height: calc(28px * $footer-pill-scale);
+        border-radius: 50%;
+        background-color: rgba(240, 101, 67, 0.2);
+        color: $footer-pill-active-icon;
+        font-size: calc(20px * var(--zns-font-scale, 1));
+        font-weight: 600;
+        line-height: 1;
+    }
+
+    &__add-label {
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        font-weight: 600;
+        white-space: nowrap;
+        color: variables.$themeText;
+    }
 }
 
 // Dark mode: swap the light peach active chip for a coral-tinted dark chip so the
@@ -109,6 +154,11 @@ $footer-pill-scale: 0.8;
 :host-context(html.zns-theme-dark) {
     .footer-menu-pill__active,
     .footer-menu-pill__active:hover {
+        background-color: $footer-pill-active-bg-dark;
+    }
+
+    .footer-menu-pill__add,
+    .footer-menu-pill__add:hover {
         background-color: $footer-pill-active-bg-dark;
     }
 }

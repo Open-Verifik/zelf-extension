@@ -1495,7 +1495,8 @@
                 "decrypt": {
                     "button": "Décrypter le mot de passe",
                     "decrypting": "Décryptage...",
-                    "launch_fill": "Ouvrir et remplir"
+                    "launch_fill": "Ouvrir et remplir",
+                    "open_site": "Ouvrir le site"
                 },
                 "info": {
                     "title": "Informations du mot de passe",

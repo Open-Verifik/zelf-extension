@@ -87,13 +87,15 @@ export class PasswordFormComponent implements OnInit {
     }
 
     private _initializeForm(): void {
+        const useSampleDefaults = !environment.production;
+
         this.passwordForm = this._formBuilder.group({
-            email: ["a@a.com", [Validators.required]],
+            email: [useSampleDefaults ? "a@a.com" : "", [Validators.required]],
             folder: [""],
             masterPassword: [""],
             insideFolder: [false],
-            password: ["password_field", [Validators.required]],
-            url: ["https://www.google.com", [Validators.required]],
+            password: [useSampleDefaults ? "password_field" : "", [Validators.required]],
+            url: [useSampleDefaults ? "https://www.google.com" : "", [Validators.required]],
         });
 
         this.passwordForm.valueChanges.subscribe(() => {

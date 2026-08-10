@@ -148,24 +148,27 @@ export class BiometricsBottomSheetComponent implements OnInit {
         return response;
     }
 
-    private async _retrieveDataByCategory(faceBase64: string, password: string): Promise<any> {
+    private async _retrieveDataByCategory(faceBase64: string): Promise<any> {
         if (!this.itemData?.zelfProof) throw new Error(`No zelfProof available for ${this.itemType}. Cannot proceed with retrieval.`);
+
+        const { publicKey: clientPublicKey, privateKey: clientPrivateKey } = await this._vaultService.generateEphemeralKeyPair();
 
         const payload = {
             zelfProof: this.itemData.zelfProof,
             faceBase64: faceBase64,
             type: this.itemType,
+            clientPublicKey,
         };
 
         const response = await this._zelfKeysService.retrieve(payload);
 
-        if (response?.data?.pgp) {
-            const encryptedMessage = response?.data?.pgp?.encryptedMessage;
-            const privateKeyArmoured = response?.data?.pgp?.privateKey;
+        const encryptedMessage = response?.data?.pgp?.encryptedMessage;
 
-            const jsonData = await this._vaultService.decryptMessage(encryptedMessage, privateKeyArmoured, password);
+        if (encryptedMessage) {
+            const jsonData = await this._vaultService.decryptWithPrivateKey(encryptedMessage, clientPrivateKey);
 
             response.data.metadata = JSON.parse(jsonData);
+            delete response.data.pgp;
         }
 
         return response;
@@ -246,7 +249,7 @@ export class BiometricsBottomSheetComponent implements OnInit {
                 this.errorMessage = "";
                 this._changeDetectorRef.detectChanges();
 
-                const retrievedData = await this._retrieveDataByCategory(biometricData.faceBase64, biometricData.password);
+                const retrievedData = await this._retrieveDataByCategory(biometricData.faceBase64);
 
                 this._bottomSheetRef.dismiss({
                     ...biometricData,

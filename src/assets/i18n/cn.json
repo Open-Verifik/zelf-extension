@@ -1495,7 +1495,8 @@
                 "decrypt": {
                     "button": "解密密码",
                     "decrypting": "正在解密...",
-                    "launch_fill": "启动并填充"
+                    "launch_fill": "启动并填充",
+                    "open_site": "打开网站"
                 },
                 "info": {
                     "title": "密码信息",

@@ -167,6 +167,7 @@ export class AutofillIntegrationService {
                         payload: { tabId, fillData },
                     });
 
+                    this.pendingFillData.delete(tabId);
                     return;
                 } catch (error) {
                     attempts++;
@@ -177,6 +178,7 @@ export class AutofillIntegrationService {
                 }
             }
         } catch (error) {
+            this.pendingFillData.delete(tabId);
             console.error("Error waiting for form and filling:", error);
 
             throw error;

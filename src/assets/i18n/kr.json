@@ -1495,7 +1495,8 @@
                 "decrypt": {
                     "button": "결제 카드 복호화",
                     "decrypting": "복호화 중...",
-                    "launch_fill": "실행 및 자동 채우기"
+                    "launch_fill": "실행 및 자동 채우기",
+                    "open_site": "사이트 열기"
                 },
                 "info": {
                     "title": "결제 카드 정보",

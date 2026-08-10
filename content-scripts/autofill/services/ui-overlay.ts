@@ -8,7 +8,7 @@ export class UIOverlay {
     private resizeHandler: (() => void) | null = null;
 
     private currentField: FormField | null = null;
-    private currentFieldType: "username" | "email" | "password" | null = null;
+    private currentFieldType: "username" | "email" | "phone" | "password" | null = null;
     private currentMenu: HTMLElement | null = null;
     private icons: Map<HTMLInputElement, ZelfKeyIcon> = new Map();
     private isFetchingPasswords: boolean = false;
@@ -829,7 +829,7 @@ export class UIOverlay {
     private _fillField(field: FormField, data: DecryptedPasswordData): void {
         // Fill the specific field that was clicked based on its type (if visible)
         if (this._isFieldVisibleAndFocusable(field.element)) {
-            if (field.type === "username" || field.type === "email") {
+            if (field.type === "username" || field.type === "email" || field.type === "phone") {
                 if (data.username) {
                     this._setFieldValue(field.element, data.username);
                 }
@@ -854,8 +854,8 @@ export class UIOverlay {
             }
         }
 
-        // Find and fill password field if current field is username/email
-        else if ((field.type === "username" || field.type === "email") && data.password) {
+        // Find and fill password field if current field is identity
+        else if ((field.type === "username" || field.type === "email" || field.type === "phone") && data.password) {
             const passwordField = form.querySelector('input[type="password"]') as HTMLInputElement;
 
             if (passwordField && passwordField !== field.element && this._isFieldVisibleAndFocusable(passwordField)) {
@@ -895,11 +895,14 @@ export class UIOverlay {
     private _findUsernameFieldInForm(form: HTMLFormElement): HTMLInputElement | null {
         const selectors = [
             'input[type="email"]',
+            'input[type="tel"]',
             'input[type="text"]',
             'input[name*="username" i]',
             'input[name*="email" i]',
+            'input[name*="phone" i]',
             'input[id*="username" i]',
             'input[id*="email" i]',
+            'input[id*="phone" i]',
         ];
 
         for (const selector of selectors) {
@@ -912,11 +915,15 @@ export class UIOverlay {
     }
 
     private _setFieldValue(field: HTMLInputElement, value: string): void {
-        // Create and dispatch input events to ensure proper form handling
         field.focus();
-        field.value = value;
 
-        // Dispatch events
+        const nativeValueSetter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")?.set;
+        if (nativeValueSetter) {
+            nativeValueSetter.call(field, value);
+        } else {
+            field.value = value;
+        }
+
         field.dispatchEvent(new Event("input", { bubbles: true }));
         field.dispatchEvent(new Event("change", { bubbles: true }));
         field.dispatchEvent(new Event("blur", { bubbles: true }));

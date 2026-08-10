@@ -8,7 +8,7 @@
  */
 
 import { Core } from "@walletconnect/core";
-import { Web3Wallet, IWeb3Wallet } from "@walletconnect/web3wallet";
+import { WalletKit, IWalletKit } from "@reown/walletkit";
 import { buildApprovedNamespaces, getSdkError } from "@walletconnect/utils";
 
 const WC_PROJECT_ID = "YOUR_WALLETCONNECT_PROJECT_ID"; // Replace with actual project ID from cloud.walletconnect.com
@@ -27,11 +27,11 @@ const SUPPORTED_METHODS = [
 ];
 const SUPPORTED_EVENTS = ["chainChanged", "accountsChanged"];
 
-let web3wallet: IWeb3Wallet | null = null;
+let walletKit: IWalletKit | null = null;
 let isInitializing = false;
 
 async function initializeWalletConnect(): Promise<void> {
-    if (web3wallet || isInitializing) return;
+    if (walletKit || isInitializing) return;
 
     isInitializing = true;
 
@@ -40,7 +40,7 @@ async function initializeWalletConnect(): Promise<void> {
             projectId: WC_PROJECT_ID,
         });
 
-        web3wallet = await Web3Wallet.init({
+        walletKit = await WalletKit.init({
             core,
             metadata: {
                 name: "Zelf Wallet",
@@ -63,9 +63,9 @@ async function initializeWalletConnect(): Promise<void> {
 }
 
 function setupEventListeners(): void {
-    if (!web3wallet) return;
+    if (!walletKit) return;
 
-    web3wallet.on("session_proposal", async (proposal) => {
+    walletKit.on("session_proposal", async (proposal) => {
         const verifyContext = (proposal as any).verifyContext || null;
 
         chrome.runtime.sendMessage({
@@ -80,11 +80,11 @@ function setupEventListeners(): void {
         persistSessions();
     });
 
-    web3wallet.on("session_request", async (event) => {
+    walletKit.on("session_request", async (event) => {
         const { id, topic, params } = event;
         const verifyContext = (event as any).verifyContext || null;
 
-        const session = web3wallet!.engine.signClient.session.get(topic);
+        const session = walletKit!.engine.signClient.session.get(topic);
 
         chrome.runtime.sendMessage({
             type: "WC_SESSION_REQUEST",
@@ -98,7 +98,7 @@ function setupEventListeners(): void {
         });
     });
 
-    web3wallet.on("session_delete", async (event) => {
+    walletKit.on("session_delete", async (event) => {
         chrome.runtime.sendMessage({
             type: "WC_SESSION_DELETE",
             payload: { topic: event.topic },
@@ -109,11 +109,11 @@ function setupEventListeners(): void {
 }
 
 async function persistSessions(): Promise<void> {
-    if (!web3wallet) return;
+    if (!walletKit) return;
 
     try {
-        const sessions = web3wallet.getActiveSessions();
-        const pairings = web3wallet.core.pairing.getPairings();
+        const sessions = walletKit.getActiveSessions();
+        const pairings = walletKit.core.pairing.getPairings();
 
         await chrome.storage.local.set({
             wc_sessions: JSON.stringify(sessions),
@@ -125,11 +125,11 @@ async function persistSessions(): Promise<void> {
 }
 
 async function restoreSessions(): Promise<void> {
-    // Web3Wallet SDK handles session restoration internally via its storage
+    // WalletKit SDK handles session restoration internally via its storage
     // Just ensure the relayer is connected
     try {
-        if (web3wallet?.core?.relayer) {
-            await web3wallet.core.relayer.connect();
+        if (walletKit?.core?.relayer) {
+            await walletKit.core.relayer.connect();
         }
     } catch (error) {
         console.error("Failed to restore WC sessions:", error);
@@ -137,12 +137,12 @@ async function restoreSessions(): Promise<void> {
 }
 
 async function handlePair(uri: string): Promise<void> {
-    if (!web3wallet) {
+    if (!walletKit) {
         await initializeWalletConnect();
     }
 
     try {
-        await web3wallet!.pair({ uri });
+        await walletKit!.pair({ uri });
     } catch (error) {
         console.error("WC pairing failed:", error);
         throw error;
@@ -150,9 +150,9 @@ async function handlePair(uri: string): Promise<void> {
 }
 
 async function handleApproveSession(proposalId: number, accounts: string[]): Promise<any> {
-    if (!web3wallet) throw new Error("WalletConnect not initialized");
+    if (!walletKit) throw new Error("WalletConnect not initialized");
 
-    const proposal = web3wallet.engine.signClient.proposal.get(proposalId);
+    const proposal = walletKit.engine.signClient.proposal.get(proposalId);
 
     const namespaces = buildApprovedNamespaces({
         proposal: proposal,
@@ -166,7 +166,7 @@ async function handleApproveSession(proposalId: number, accounts: string[]): Pro
         },
     });
 
-    const session = await web3wallet.approveSession({
+    const session = await walletKit.approveSession({
         id: proposalId,
         namespaces,
     });
@@ -177,18 +177,18 @@ async function handleApproveSession(proposalId: number, accounts: string[]): Pro
 }
 
 async function handleRejectSession(proposalId: number): Promise<void> {
-    if (!web3wallet) return;
+    if (!walletKit) return;
 
-    await web3wallet.rejectSession({
+    await walletKit.rejectSession({
         id: proposalId,
         reason: getSdkError("USER_REJECTED"),
     });
 }
 
 async function handleApproveRequest(topic: string, requestId: number, result: any): Promise<void> {
-    if (!web3wallet) return;
+    if (!walletKit) return;
 
-    await web3wallet.respondSessionRequest({
+    await walletKit.respondSessionRequest({
         topic,
         response: {
             id: requestId,
@@ -199,9 +199,9 @@ async function handleApproveRequest(topic: string, requestId: number, result: an
 }
 
 async function handleRejectRequest(topic: string, requestId: number): Promise<void> {
-    if (!web3wallet) return;
+    if (!walletKit) return;
 
-    await web3wallet.respondSessionRequest({
+    await walletKit.respondSessionRequest({
         topic,
         response: {
             id: requestId,
@@ -212,9 +212,9 @@ async function handleRejectRequest(topic: string, requestId: number): Promise<vo
 }
 
 async function handleDisconnect(topic: string): Promise<void> {
-    if (!web3wallet) return;
+    if (!walletKit) return;
 
-    await web3wallet.disconnectSession({
+    await walletKit.disconnectSession({
         topic,
         reason: getSdkError("USER_DISCONNECTED"),
     });
@@ -223,14 +223,14 @@ async function handleDisconnect(topic: string): Promise<void> {
 }
 
 function getActiveSessions(): any {
-    if (!web3wallet) return {};
-    return web3wallet.getActiveSessions();
+    if (!walletKit) return {};
+    return walletKit.getActiveSessions();
 }
 
 async function emitSessionEvent(topic: string, event: string, data: any, chainId: string): Promise<void> {
-    if (!web3wallet) return;
+    if (!walletKit) return;
 
-    await web3wallet.emitSessionEvent({
+    await walletKit.emitSessionEvent({
         topic,
         event: { name: event, data },
         chainId,

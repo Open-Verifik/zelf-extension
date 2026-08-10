@@ -1,5 +1,6 @@
-<div class="zelf-card dashboard" *transloco="let t">
+<div class="zelf-card dashboard" *transloco="let t" [class.dashboard--deep]="isDeepShell$ | async">
     <home-hub-header
+        *ngIf="!(isDeepShell$ | async)"
         [walletName]="walletName"
         [showName]="showName"
         (profileClick)="openProfilePanel()"

@@ -1495,7 +1495,8 @@
                 "decrypt": {
                     "button": "支払いカードを復号",
                     "decrypting": "復号しています...",
-                    "launch_fill": "サイトを開いて自動入力"
+                    "launch_fill": "サイトを開いて自動入力",
+                    "open_site": "サイトを開く"
                 },
                 "info": {
                     "title": "支払いカード情報",

@@ -1495,7 +1495,8 @@
                 "decrypt": {
                     "button": "I-decrypt ang Payment Card",
                     "decrypting": "Dine-decrypt...",
-                    "launch_fill": "Ilunsad at i-fill"
+                    "launch_fill": "Ilunsad at i-fill",
+                    "open_site": "Buksan ang site"
                 },
                 "info": {
                     "title": "Impormasyon ng Payment Card",

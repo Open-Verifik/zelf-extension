@@ -17,10 +17,24 @@
         </svg>
     </button>
 
-    <!-- Star / AI Icon -->
-    <button class="footer-menu-pill__icon-btn" [routerLink]="['/zelf-ai']" aria-label="Zelf AI">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2L14.8 9.2L22 12L14.8 14.8L12 22L9.2 14.8L2 12L9.2 9.2L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-        </svg>
-    </button>
+    <!-- Hub: AI star | Deep: + Add -->
+    <ng-container *ngIf="isDeepShell$ | async; else hubAiSlot">
+        <button
+            type="button"
+            class="footer-menu-pill__add"
+            (click)="onDeepAdd()"
+            [attr.aria-label]="t('common.add')"
+        >
+            <span class="footer-menu-pill__add-icon" aria-hidden="true">+</span>
+            <span class="footer-menu-pill__add-label">{{ t("common.add") }}</span>
+        </button>
+    </ng-container>
+
+    <ng-template #hubAiSlot>
+        <button class="footer-menu-pill__icon-btn" [routerLink]="['/zelf-ai']" aria-label="Zelf AI">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L14.8 9.2L22 12L14.8 14.8L12 22L9.2 14.8L2 12L9.2 9.2L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+            </svg>
+        </button>
+    </ng-template>
 </div>

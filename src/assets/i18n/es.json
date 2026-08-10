@@ -1544,7 +1544,8 @@
                 "decrypt": {
                     "button": "Descifrar contraseña",
                     "decrypting": "Descifrando...",
-                    "launch_fill": "Abrir y rellenar"
+                    "launch_fill": "Abrir y rellenar",
+                    "open_site": "Abrir sitio"
                 },
                 "info": {
                     "title": "Información de la contraseña",

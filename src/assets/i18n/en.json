@@ -750,6 +750,7 @@
         "zelf_ai": "zAI",
         "zelf_chat_coming_soon": "Zelf Chat will be available soon.",
         "zelf_signals_coming_soon": "Zelf Signals will be available soon.",
+        "add": "Add",
         "back": "Back",
         "optional": "Optional",
         "no_results_found": "No results found",
@@ -1548,7 +1549,8 @@
                 "decrypt": {
                     "button": "Decrypt password",
                     "decrypting": "Decrypting...",
-                    "launch_fill": "Launch and fill"
+                    "launch_fill": "Open site",
+                    "open_site": "Open site"
                 },
                 "info": {
                     "title": "Password Information",
@@ -1619,7 +1621,7 @@
                 "zns_cost": {
                     "insufficient_balance": "Insufficient ZNS balance. You need at least 10 ZNS to save a password.",
                     "strip": {
-                        "eyebrow": "Cost to save",
+                        "eyebrow": "Cost to Save",
                         "rate": "1 ZNS = $0.05 USD · fixed price",
                         "details": "Details"
                     },

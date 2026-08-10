@@ -1,6 +1,8 @@
 import { FormField, DetectedForm } from "@shared/types/autofill.types";
 import { Logger } from "@extension-scripts/logger/logger.class";
 
+type IdentityFieldType = "username" | "email" | "phone" | "password";
+
 export class FormDetector {
     private observedFields: Set<HTMLInputElement> = new Set();
     private observer: MutationObserver;
@@ -64,46 +66,22 @@ export class FormDetector {
     }
 
     public scanForForms(): void {
-        const passwordFields = this.findPasswordFields();
-        const usernameFields = this.findUsernameFields();
-        const emailFields = this.findEmailFields();
+        const detectedForms = this.getCurrentForms();
 
-        // Group fields by their parent form
-        const formGroups = new Map<HTMLFormElement, FormField[]>();
+        const fieldCount = detectedForms.reduce((sum, form) => sum + form.fields.length, 0);
 
-        [...passwordFields, ...usernameFields, ...emailFields].forEach((field) => {
-            const form = field.element.closest("form");
-            if (form) {
-                if (!formGroups.has(form)) {
-                    formGroups.set(form, []);
-                }
-                formGroups.get(form)!.push(field);
-            }
-        });
+        Logger.log(`Form detection: Found ${detectedForms.length} forms with ${fieldCount} total fields`);
 
-        // Convert to DetectedForm objects
-        const detectedForms: DetectedForm[] = Array.from(formGroups.entries()).map(([form, fields]) => ({
-            form,
-            fields,
-            website: this.getWebsiteFromUrl(window.location.href),
-        }));
-
-        // Log form detection results
-        Logger.log(
-            `Form detection: Found ${detectedForms.length} forms with ${passwordFields.length + usernameFields.length + emailFields.length} total fields`
-        );
-
-        // Emit event for detected forms
         this.emitFormsDetected(detectedForms);
     }
 
-    private findPasswordFields(): FormField[] {
+    private findPasswordFields(trackObserved = true): FormField[] {
         const selectors = ['input[type="password"]', 'input[name*="password" i]', 'input[id*="password" i]', 'input[placeholder*="password" i]'];
 
-        return this.findFieldsBySelectors(selectors, "password");
+        return this.findFieldsBySelectors(selectors, "password", trackObserved);
     }
 
-    private findUsernameFields(): FormField[] {
+    private findUsernameFields(trackObserved = true): FormField[] {
         const selectors = [
             'input[name*="username" i]',
             'input[id*="username" i]',
@@ -114,12 +92,13 @@ export class FormDetector {
             'input[id*="login" i]',
             'input[name*="account" i]',
             'input[id*="account" i]',
+            'input[autocomplete="username"]',
         ];
 
-        return this.findFieldsBySelectors(selectors, "username");
+        return this.findFieldsBySelectors(selectors, "username", trackObserved);
     }
 
-    private findEmailFields(): FormField[] {
+    private findEmailFields(trackObserved = true): FormField[] {
         const selectors = [
             'input[type="email"]',
             'input[name*="email" i]',
@@ -127,21 +106,45 @@ export class FormDetector {
             'input[placeholder*="email" i]',
             'input[name*="mail" i]',
             'input[id*="mail" i]',
+            'input[autocomplete="email"]',
         ];
 
-        return this.findFieldsBySelectors(selectors, "email");
+        return this.findFieldsBySelectors(selectors, "email", trackObserved);
     }
 
-    private findFieldsBySelectors(selectors: string[], type: "username" | "email" | "password"): FormField[] {
+    private findPhoneFields(trackObserved = true): FormField[] {
+        const selectors = [
+            'input[type="tel"]',
+            'input[name*="phone" i]',
+            'input[id*="phone" i]',
+            'input[placeholder*="phone" i]',
+            'input[name*="mobile" i]',
+            'input[id*="mobile" i]',
+            'input[placeholder*="mobile" i]',
+            'input[name*="tel" i]',
+            'input[id*="tel" i]',
+            'input[placeholder*="tel" i]',
+            'input[autocomplete="tel"]',
+            'input[autocomplete="tel-national"]',
+        ];
+
+        return this.findFieldsBySelectors(selectors, "phone", trackObserved);
+    }
+
+    private findFieldsBySelectors(selectors: string[], type: IdentityFieldType, trackObserved = true): FormField[] {
         const fields: FormField[] = [];
+        const seen = new Set<HTMLInputElement>();
 
         selectors.forEach((selector) => {
             const elements = document.querySelectorAll(selector) as NodeListOf<HTMLInputElement>;
             elements.forEach((element) => {
-                if (this.isElementVisibleAndFocusable(element) && !this.observedFields.has(element)) {
-                    this.observedFields.add(element);
-                    fields.push(this.createFormField(element, type));
-                }
+                if (seen.has(element)) return;
+                if (!this.isElementVisibleAndFocusable(element)) return;
+                if (trackObserved && this.observedFields.has(element)) return;
+
+                seen.add(element);
+                if (trackObserved) this.observedFields.add(element);
+                fields.push(this.createFormField(element, type));
             });
         });
 
@@ -178,15 +181,20 @@ export class FormDetector {
     }
 
     public getCurrentForms(): DetectedForm[] {
-        const passwordFields = this.findPasswordFields();
-        const usernameFields = this.findUsernameFields();
-        const emailFields = this.findEmailFields();
-        const allFields = [...passwordFields, ...usernameFields, ...emailFields];
+        // Fresh scan for fill paths; do not skip via observedFields.
+        const passwordFields = this.findPasswordFields(false);
+        const usernameFields = this.findUsernameFields(false);
+        const emailFields = this.findEmailFields(false);
+        const phoneFields = this.findPhoneFields(false);
+        const allFields = [...passwordFields, ...usernameFields, ...emailFields, ...phoneFields];
+
+        // Keep icon tracking in sync for newly seen fields.
+        allFields.forEach((field) => this.observedFields.add(field.element));
 
         return this.groupFieldsByForm(allFields);
     }
 
-    private createFormField(element: HTMLInputElement, type: "username" | "email" | "password"): FormField {
+    private createFormField(element: HTMLInputElement, type: IdentityFieldType): FormField {
         return {
             element,
             type,
@@ -198,6 +206,7 @@ export class FormDetector {
 
     private groupFieldsByForm(fields: FormField[]): DetectedForm[] {
         const formGroups = new Map<HTMLFormElement, FormField[]>();
+        const orphanFields: FormField[] = [];
 
         fields.forEach((field) => {
             const form = field.element.closest("form");
@@ -206,13 +215,25 @@ export class FormDetector {
                     formGroups.set(form, []);
                 }
                 formGroups.get(form)!.push(field);
+            } else {
+                orphanFields.push(field);
             }
         });
 
-        return Array.from(formGroups.entries()).map(([form, fields]) => ({
+        const detected: DetectedForm[] = Array.from(formGroups.entries()).map(([form, formFields]) => ({
             form,
-            fields,
+            fields: formFields,
             website: this.getWebsiteFromUrl(window.location.href),
         }));
+
+        if (orphanFields.length > 0) {
+            detected.push({
+                form: null,
+                fields: orphanFields,
+                website: this.getWebsiteFromUrl(window.location.href),
+            });
+        }
+
+        return detected;
     }
 }

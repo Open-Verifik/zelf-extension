@@ -29,73 +29,40 @@ export class AutofillEngine {
     }
 
     private setFieldValue(field: HTMLInputElement, value: string): void {
-        // Store the original value for comparison
         const originalValue = field.value;
 
-        // Focus the field first
         field.focus();
 
-        // Set the value
-        field.value = value;
+        const nativeValueSetter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")?.set;
+        if (nativeValueSetter) {
+            nativeValueSetter.call(field, value);
+        } else {
+            field.value = value;
+        }
 
-        // Dispatch input events to ensure proper form handling
-        // This is important for React, Vue, and other frameworks that rely on input events
-        const inputEvent = new Event("input", {
-            bubbles: true,
-            cancelable: true,
-        });
-
-        const changeEvent = new Event("change", {
-            bubbles: true,
-            cancelable: true,
-        });
-
-        // Dispatch the events
-        field.dispatchEvent(inputEvent);
-        field.dispatchEvent(changeEvent);
-
-        // Some frameworks might need additional events
-        const keydownEvent = new KeyboardEvent("keydown", {
-            bubbles: true,
-            cancelable: true,
-            key: "Backspace",
-        });
-
-        const keyupEvent = new KeyboardEvent("keyup", {
-            bubbles: true,
-            cancelable: true,
-            key: "Backspace",
-        });
-
-        field.dispatchEvent(keydownEvent);
-        field.dispatchEvent(keyupEvent);
-
-        // Trigger any custom events that might be needed
-        const customEvent = new CustomEvent("zelfkey:autofill", {
-            detail: {
-                field: field,
-                value: value,
-                originalValue: originalValue,
-            },
-            bubbles: true,
-        });
-
-        field.dispatchEvent(customEvent);
-
-        // Blur the field to trigger any validation
+        field.dispatchEvent(new Event("input", { bubbles: true, cancelable: true }));
+        field.dispatchEvent(new Event("change", { bubbles: true, cancelable: true }));
+        field.dispatchEvent(new KeyboardEvent("keydown", { bubbles: true, cancelable: true, key: "Backspace" }));
+        field.dispatchEvent(new KeyboardEvent("keyup", { bubbles: true, cancelable: true, key: "Backspace" }));
+        field.dispatchEvent(
+            new CustomEvent("zelfkey:autofill", {
+                detail: { field, value, originalValue },
+                bubbles: true,
+            })
+        );
         field.dispatchEvent(new Event("blur", { bubbles: true }));
     }
 
     private findUsernameField(fields: FormField[]): FormField | null {
-        // Look for email fields first
         const emailField = fields.find((field) => field.type === "email");
         if (emailField) return emailField;
 
-        // Then look for username fields
         const usernameField = fields.find((field) => field.type === "username");
         if (usernameField) return usernameField;
 
-        // Fallback to any text field that's not a password
+        const phoneField = fields.find((field) => field.type === "phone");
+        if (phoneField) return phoneField;
+
         return fields.find((field) => field.type !== "password") || null;
     }
 
@@ -105,7 +72,7 @@ export class AutofillEngine {
 
     public detectFormType(form: DetectedForm): "login" | "register" | "unknown" {
         const passwordFields = form.fields.filter((field) => field.type === "password");
-        const usernameFields = form.fields.filter((field) => field.type === "username" || field.type === "email");
+        const usernameFields = form.fields.filter((field) => field.type === "username" || field.type === "email" || field.type === "phone");
 
         // Check for common registration indicators
         const registrationIndicators = [
@@ -144,7 +111,7 @@ export class AutofillEngine {
         }
 
         const passwordFields = form.fields.filter((field) => field.type === "password");
-        const usernameFields = form.fields.filter((field) => field.type === "username" || field.type === "email");
+        const usernameFields = form.fields.filter((field) => field.type === "username" || field.type === "email" || field.type === "phone");
 
         // For multi-step forms, allow forms with just username fields (password may appear later)
         if (usernameFields.length === 0 && passwordFields.length === 0) {

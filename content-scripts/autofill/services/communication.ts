@@ -1,5 +1,6 @@
 import { AutofillMessage, AutofillResponse, DecryptedPasswordData, DetectedForm, PasswordEntry } from "@shared/types/autofill.types";
 import { Logger } from "@extension-scripts/logger/logger.class";
+import { AutofillEngine } from "./autofill-engine";
 import { FormDetector } from "./form-detector";
 
 // Chrome extension API declaration
@@ -205,45 +206,34 @@ export class CommunicationService {
     private _fillFormFields(data: { username: string; password: string }, currentForms: DetectedForm[]): void {
         Logger.log("Attempting to fill form fields with:", { username: data.username, password: "***" });
 
-        const fillField = (field: HTMLInputElement, value: string) => {
-            field.value = value;
-            field.dispatchEvent(new Event("input", { bubbles: true }));
-            field.dispatchEvent(new Event("change", { bubbles: true }));
-        };
-
         if (currentForms.length === 0) {
             Logger.warn("No forms detected");
             return;
         }
 
-        let usernameField: HTMLInputElement | null = null;
-        let passwordField: HTMLInputElement | null = null;
+        if (!data?.username && !data?.password) {
+            Logger.warn("No fill data provided");
+            return;
+        }
+
+        const engine = new AutofillEngine();
+        let filledIdentity = false;
+        let filledPassword = false;
 
         for (const form of currentForms) {
-            for (const field of form.fields) {
-                if (!usernameField && (field.type === "username" || field.type === "email")) {
-                    usernameField = field.element;
-                }
-                if (!passwordField && field.type === "password") {
-                    passwordField = field.element;
-                }
-                if (usernameField && passwordField) break;
-            }
-            if (usernameField && passwordField) break;
+            const hasIdentity = form.fields.some((field) => field.type === "username" || field.type === "email" || field.type === "phone");
+            const hasPassword = form.fields.some((field) => field.type === "password");
+
+            if (!hasIdentity && !hasPassword) continue;
+
+            engine.fillForm(form, data.username || "", data.password || "");
+            filledIdentity = filledIdentity || hasIdentity;
+            filledPassword = filledPassword || hasPassword;
+
+            if (filledIdentity && filledPassword) break;
         }
 
-        if (usernameField) {
-            Logger.log("Found username field:", usernameField);
-            fillField(usernameField, data.username);
-        } else {
-            Logger.warn("No username field found");
-        }
-
-        if (passwordField) {
-            Logger.log("Found password field:", passwordField);
-            fillField(passwordField, data.password);
-        } else {
-            Logger.warn("No password field found");
-        }
+        if (!filledIdentity) Logger.warn("No username/email/phone field found");
+        if (!filledPassword) Logger.warn("No password field found");
     }
 }

@@ -36,7 +36,9 @@ export interface StoreZOTPRequest {
 export interface RetrieveRequest {
     zelfProof: string; // Wallet zelfProof
     faceBase64: string; // Encrypted face image from biometrics
-    password?: string; // Optional password for additional security
+    clientPublicKey: string; // Ephemeral client public key for transport encryption
+    type?: string;
+    password?: string; // Optional ZelfProof password
 }
 
 /**

@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { ChromeService } from "../chrome.service";
+import { VaultService } from "../vault.service";
 import { ZOTP } from "../models/zotp.model";
 import { TagModel } from "../tags.service";
 import { WalletService } from "../wallet.service";
@@ -21,6 +22,7 @@ export class ZOTPService {
 
     constructor(
         private _chromeService: ChromeService,
+        private _vaultService: VaultService,
         private _walletService: WalletService,
         private _zelfKeysService: ZelfKeysService
     ) {}
@@ -301,10 +303,13 @@ export class ZOTPService {
         }
 
         try {
+            const { publicKey: clientPublicKey } = await this._vaultService.generateEphemeralKeyPair();
+
             const response = await this._zelfKeysService.retrieve({
                 zelfProof: zotp.zelfProof,
                 faceBase64: faceBase64,
-                // password is optional for retrieve endpoint
+                type: "zotp",
+                clientPublicKey,
             });
 
             // Response structure: { data: { success, data: { metadata, publicData, ipfs } } }
@@ -351,9 +356,13 @@ export class ZOTPService {
         }
 
         try {
+            const { publicKey: clientPublicKey } = await this._vaultService.generateEphemeralKeyPair();
+
             const response = await this._zelfKeysService.retrieve({
                 zelfProof: zotp.zelfProof,
                 faceBase64: faceBase64,
+                type: "zotp",
+                clientPublicKey,
             });
 
             // Response structure: { data: { success, data: { metadata, publicData, ipfs } } }

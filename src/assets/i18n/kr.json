@@ -585,17 +585,17 @@
         "onboarding": {
             "reinventing": "새롭게 만드는",
             "designed_for": "다음을 위해 설계",
-            "summary_intro": "지갑, 비밀번호, 2FA를 새롭게 만듭니다",
+            "summary_intro": "지갑, 비밀번호, 2단계 인증을 새롭게 만듭니다",
             "features": {
                 "wallets": "지갑",
                 "password_managers": "비밀번호",
-                "two_factor": "2FA",
+                "two_factor": "2단계 인증",
                 "inheritance": "상속"
             },
             "summary": {
                 "self_custodian": "셀프 커스터디",
                 "offline_feature": "오프라인 기능",
-                "human_authn": "HumanAuthn"
+                "human_authn": "인간 인증"
             }
         }
     },

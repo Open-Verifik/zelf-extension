@@ -575,7 +575,7 @@
         "feature_multichain": "マルチチェーン",
         "feature_zk": "HumanAuthn",
         "feature_selfcustody": "自己保管",
-        "enter_with_zelf_id": "Zelf IDでログイン",
+        "enter_with_zelf_id": "Zelf IDで続行",
         "create_a_zelf_id": "Zelf IDを作成",
         "dont_remember_your_zelf_id": "Zelf IDをお忘れですか？",
         "enter_tag_name_subtitle": "サインインするには既存のZelf IDを入力",

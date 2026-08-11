@@ -575,7 +575,7 @@
         "feature_multichain": "멀티체인",
         "feature_zk": "HumanAuthn",
         "feature_selfcustody": "셀프 커스터디",
-        "enter_with_zelf_id": "Zelf ID로 로그인",
+        "enter_with_zelf_id": "Zelf ID로 계속",
         "create_a_zelf_id": "Zelf ID 만들기",
         "dont_remember_your_zelf_id": "Zelf ID가 기억나지 않나요?",
         "enter_tag_name_subtitle": "로그인하려면 기존 Zelf ID를 입력하세요",
@@ -585,17 +585,17 @@
         "onboarding": {
             "reinventing": "새롭게 만드는",
             "designed_for": "다음을 위해 설계",
-            "summary_intro": "지갑, 비밀번호, 2FA를 새롭게 만듭니다",
+            "summary_intro": "지갑, 비밀번호, 2단계 인증을 새롭게 만듭니다",
             "features": {
                 "wallets": "지갑",
                 "password_managers": "비밀번호",
-                "two_factor": "2FA",
+                "two_factor": "2단계 인증",
                 "inheritance": "상속"
             },
             "summary": {
                 "self_custodian": "셀프 커스터디",
                 "offline_feature": "오프라인 기능",
-                "human_authn": "HumanAuthn"
+                "human_authn": "인간 인증"
             }
         }
     },

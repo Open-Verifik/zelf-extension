@@ -19,13 +19,11 @@ export class LanguageComponent implements OnInit, OnDestroy {
     activeLang: string = "";
     availableLangs: LangDefinition[] = [];
     flagCodes: any;
-    languageTranslations: any;
 
     constructor(private _languageService: LanguageService, private _translocoService: TranslocoService, private _chromeService: ChromeService) {
         this.activeLang = this._languageService.getAppLanguage();
         this.availableLangs = this._languageService.getAvailableLanguages();
         this.flagCodes = this._languageService.flagCodes;
-        this.languageTranslations = this._languageService.languageTranslations;
 
         this._translocoService.langChanges$.pipe(takeUntil(this.unsubscriber$)).subscribe((activeLang) => {
             this.activeLang = activeLang;
@@ -43,5 +41,9 @@ export class LanguageComponent implements OnInit, OnDestroy {
         this._translocoService.setActiveLang(lang);
 
         await this._chromeService.setItem("currentLanguage", lang);
+    }
+
+    getLanguageName(lang: string): string {
+        return this._languageService.getLanguageName(lang);
     }
 }

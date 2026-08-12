@@ -3,7 +3,7 @@
         <div class="language__button-content">
             <ng-container *ngTemplateOutlet="flagImage; context: { $implicit: activeLang }"></ng-container>
 
-            <span class="zelf-button__text zelf-button__text--margin-right language__text">{{ languageTranslations[activeLang] }}</span>
+            <span class="zelf-button__text zelf-button__text--margin-right language__text">{{ getLanguageName(activeLang) }}</span>
 
             <ng-container *ngTemplateOutlet="arrow"></ng-container>
         </div>
@@ -15,7 +15,7 @@
                 <div class="language__button-content">
                     <ng-container *ngTemplateOutlet="flagImage; context: { $implicit: lang.id }"></ng-container>
 
-                    <span>{{ lang.label }}</span>
+                    <span>{{ getLanguageName(lang.id) }}</span>
                 </div>
             </button>
         </ng-container>

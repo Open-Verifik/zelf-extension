@@ -15,10 +15,7 @@
                     <ng-container *ngTemplateOutlet="flagImage; context: { $implicit: lang.id }"></ng-container>
                 </div>
                 <div class="zelf-settings-language__info">
-                    <span class="zelf-settings-language__name">{{ lang.label }}</span>
-                    <span class="zelf-settings-language__native-name" *ngIf="languageTranslations[lang.id] !== lang.label">
-                        {{ languageTranslations[lang.id] }}
-                    </span>
+                    <span class="zelf-settings-language__name">{{ getLanguageName(lang.id) }}</span>
                 </div>
             </div>
 

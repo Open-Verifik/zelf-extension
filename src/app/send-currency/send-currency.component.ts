@@ -133,6 +133,7 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
         if (token.network === "Stellar" && this.CAN_SEND.XLM && token.tokenType === "XLM" && token.price) return true;
         if (token.network === "Polkadot" && this.CAN_SEND.DOT && token.tokenType === "DOT" && token.price) return true;
         if (token.network === "Kusama" && this.CAN_SEND.KSM && token.tokenType === "KSM" && token.price) return true;
+        if (token.network === "Aptos" && this.CAN_SEND.APT && token.tokenType === "APT") return true;
 
         return false;
     }
@@ -149,6 +150,7 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
                 Boolean(pd["btcAddress"]) ||
                 Boolean(pd["solanaAddress"]) ||
                 Boolean(pd["suiAddress"]) ||
+                Boolean(pd["aptosAddress"]) ||
                 Boolean(pd["xlmAddress"]);
             if (!hasAnySendPath) return;
 
@@ -226,6 +228,8 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
             address = this.wallet?.publicData?.btcAddress || "";
         } else if (token.tokenType === "SUI" || token.tokenType === "SUI_TOKEN") {
             address = this.wallet?.publicData?.suiAddress || "";
+        } else if (token.tokenType === "APT" && token.network === "Aptos") {
+            address = this.wallet?.publicData?.aptosAddress || "";
         } else if (token.tokenType === "XLM" || (token.network === "Stellar" && token.symbol === "XLM")) {
             address = this.wallet?.publicData?.xlmAddress || "";
             tokenType = "XLM";

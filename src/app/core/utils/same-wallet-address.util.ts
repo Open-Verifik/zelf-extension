@@ -37,7 +37,7 @@ export function areSendAddressesSame(
     receiverAddress: string | undefined | null,
     transactionData: Pick<
         TransactionData,
-        "isEthToken" | "isPolToken" | "isBscToken" | "isAvaxToken" | "isBDAGToken" | "isDotToken" | "isKsmToken"
+        "isEthToken" | "isPolToken" | "isBscToken" | "isAvaxToken" | "isBDAGToken" | "isDotToken" | "isKsmToken" | "isAptToken"
     >
 ): boolean {
     if (!senderAddress || !receiverAddress) return false;
@@ -62,6 +62,8 @@ export function areSendAddressesSame(
             return false;
         }
     }
+
+    if (transactionData.isAptToken) return sender.toLowerCase() === receiver.toLowerCase();
 
     return sender === receiver;
 }

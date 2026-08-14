@@ -877,7 +877,8 @@
         "zelf_signals": "zSignals",
         "zelf_signals_coming_soon": "O Zelf Signals estará disponível em breve.",
         "zelf_wallet": "Zelf",
-        "ton_address": "Endereço TON"
+        "ton_address": "Endereço TON",
+        "aptos_address": "Endereço Aptos"
     },
     "token": {
         "24h_performance": "Desempenho 24h",

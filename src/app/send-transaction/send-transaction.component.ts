@@ -13,6 +13,7 @@ import { FormsModule } from "@angular/forms";
 import { TranslocoModule, TranslocoService } from "@jsverse/transloco";
 
 import { AssetService } from "app/asset.service";
+import { AptosService } from "app/services/aptos.service";
 import { areSendAddressesSame } from "app/core/utils/same-wallet-address.util";
 import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
 import { BitcoinService } from "app/services/bitcoin.service";
@@ -66,6 +67,7 @@ export class SendTransactionComponent implements OnDestroy {
     constructor(
         private _activatedRoute: ActivatedRoute,
         private _assetService: AssetService,
+        private _aptosService: AptosService,
         private _bitcoinService: BitcoinService,
         private _blockDAGService: BlockDAGService,
         private _changeDetectionRef: ChangeDetectorRef,
@@ -120,7 +122,16 @@ export class SendTransactionComponent implements OnDestroy {
         this.unsubscriber$.complete();
     }
 
-    get addressKey(): "ethAddress" | "solanaAddress" | "btcAddress" | "suiAddress" | "blockDAGAddress" | "xlmAddress" | "dotAddress" | "ksmAddress" {
+    get addressKey():
+        | "ethAddress"
+        | "solanaAddress"
+        | "btcAddress"
+        | "suiAddress"
+        | "blockDAGAddress"
+        | "xlmAddress"
+        | "dotAddress"
+        | "ksmAddress"
+        | "aptosAddress" {
         if (this.transactionData.isBscToken) return "ethAddress";
         if (this.transactionData.isBDAGToken) return "ethAddress";
         if (this.transactionData.isBtcToken) return "btcAddress";
@@ -131,6 +142,7 @@ export class SendTransactionComponent implements OnDestroy {
         if (this.transactionData.isXlmToken) return "xlmAddress";
         if (this.transactionData.isDotToken) return "dotAddress";
         if (this.transactionData.isKsmToken) return "ksmAddress";
+        if (this.transactionData.isAptToken) return "aptosAddress";
 
         throw new Error("Network address key unavailable");
     }
@@ -275,6 +287,10 @@ export class SendTransactionComponent implements OnDestroy {
                 return { invalidFormat: true };
             }
 
+            if (this.transactionData.isAptToken && !this._aptosService.isValidAddress(value)) {
+                return { invalidFormat: true };
+            }
+
             if (this.transactionData.isBtcToken && !this._bitcoinService.isValidBTCAddress(value)) {
                 return { invalidBTC: true };
             }
@@ -321,6 +337,7 @@ export class SendTransactionComponent implements OnDestroy {
         if (this.transactionData.isSuiToken) return 9;
         if (this.transactionData.isSolToken) return 9;
         if (this.transactionData.isXlmToken) return 7;
+        if (this.transactionData.isAptToken) return 8;
         if (this.transactionData.isDotToken || this.transactionData.isKsmToken) return 10;
         if (this.transactionData.isBtcToken) return 8;
         if (
@@ -407,6 +424,7 @@ export class SendTransactionComponent implements OnDestroy {
         if (this.transactionData.isBtcToken) pattern = this._walletService.BTCRegex;
         if (this.transactionData.isSuiToken) pattern = this._walletService.SUIRegex;
         if (this.transactionData.isXlmToken) pattern = /^G[A-Z2-7]{54}$/;
+        if (this.transactionData.isAptToken) pattern = /^0x[0-9a-fA-F]{1,64}$/;
         if (this.transactionData.isDotToken || this.transactionData.isKsmToken) pattern = /^[1-9A-HJ-NP-Za-km-z]{30,100}$/;
 
         return pattern;
@@ -472,6 +490,10 @@ export class SendTransactionComponent implements OnDestroy {
                     await this._searchTag("xlmAddress", text);
 
                     if (!this.foundAddress) this._setRawAddressToFoundAddress(text, "xlmAddress");
+                } else if (this.transactionData.isAptToken && this._aptosService.isValidAddress(text)) {
+                    await this._searchTag("aptosAddress", text);
+
+                    if (!this.foundAddress) this._setRawAddressToFoundAddress(text, "aptosAddress");
                 } else if (this.transactionData.isBtcToken && this._bitcoinService.isValidBTCAddress(text)) {
                     await this._searchTag("btcAddress", text);
 
@@ -499,6 +521,8 @@ export class SendTransactionComponent implements OnDestroy {
                 this._setRawAddressToFoundAddress(text, "solanaAddress");
             } else if (this.transactionData.isXlmToken && this._stellarService.isValidStellarAddress(text)) {
                 this._setRawAddressToFoundAddress(text, "xlmAddress");
+            } else if (this.transactionData.isAptToken && this._aptosService.isValidAddress(text)) {
+                this._setRawAddressToFoundAddress(text, "aptosAddress");
             } else if (this.transactionData.isBtcToken && this._bitcoinService.isValidBTCAddress(text)) {
                 this._setRawAddressToFoundAddress(text, "btcAddress");
             } else if (this.transactionData.isDotToken && this._substrateRelayService.isValidAddress(text)) {
@@ -726,6 +750,8 @@ export class SendTransactionComponent implements OnDestroy {
             }
         } else if (this.transactionData.isXlmToken && this._stellarService.isValidStellarAddress(address)) {
             this._setRawAddressToFoundAddress(address, "xlmAddress");
+        } else if (this.transactionData.isAptToken && this._aptosService.isValidAddress(address)) {
+            this._setRawAddressToFoundAddress(address, "aptosAddress");
         }
 
         await this._setToCurrentTransactionData();
@@ -762,6 +788,8 @@ export class SendTransactionComponent implements OnDestroy {
                 this._setRawAddressToFoundAddress(address, "btcAddress");
             } else if (this.transactionData.isXlmToken && this._stellarService.isValidStellarAddress(address)) {
                 this._setRawAddressToFoundAddress(address, "xlmAddress");
+            } else if (this.transactionData.isAptToken && this._aptosService.isValidAddress(address)) {
+                this._setRawAddressToFoundAddress(address, "aptosAddress");
             }
         }
 

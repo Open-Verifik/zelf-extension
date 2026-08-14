@@ -870,7 +870,8 @@
         "zelf_signals": "zSignals",
         "zelf_signals_coming_soon": "Malapit nang mag-available ang Zelf Signals.",
         "zelf_wallet": "Zelf",
-        "ton_address": "TON Address"
+        "ton_address": "TON Address",
+        "aptos_address": "Aptos Address"
     },
     "token": {
         "24h_performance": "24h na Performance",

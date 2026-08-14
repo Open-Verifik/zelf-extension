@@ -186,6 +186,9 @@ export class WalletService {
             case "TON":
                 assetSrc = "./assets/networks/ton.png";
                 break;
+            case "APT":
+                assetSrc = "./assets/networks/aptos.svg";
+                break;
             case "BNB":
             case "BSC":
                 assetSrc = "./assets/networks/bnb.png";
@@ -1143,6 +1146,8 @@ export class WalletService {
             address = wallet?.publicData?.suiAddress || "";
         } else if (tokenType === "TON" || tokenType === "ton") {
             address = wallet?.publicData?.tonAddress || "";
+        } else if (tokenType === "APT" || tokenType === "apt") {
+            address = wallet?.publicData?.aptosAddress || "";
         } else if (tokenType === "XLM" || tokenType === "STELLAR") {
             address = wallet?.publicData?.xlmAddress || "";
         }
@@ -1229,6 +1234,15 @@ export class WalletService {
                 image: this.getAssetImage("TON"),
                 name: "Ton",
                 symbol: "TON",
+            });
+        }
+
+        if (_wallet?.publicData?.aptosAddress) {
+            networks.push({
+                address: _wallet?.publicData?.aptosAddress,
+                image: this.getAssetImage("APT"),
+                name: "Aptos",
+                symbol: "APT",
             });
         }
 

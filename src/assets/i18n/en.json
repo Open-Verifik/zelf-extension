@@ -889,7 +889,8 @@
         "wallet_short": "Wallet",
         "auth_short": "Auth",
         "coming_soon": "Coming Soon",
-        "ton_address": "TON Address"
+        "ton_address": "TON Address",
+        "aptos_address": "Aptos Address"
     },
     "token": {
         "24h_performance": "24h Performance",

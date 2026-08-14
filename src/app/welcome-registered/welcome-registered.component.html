@@ -131,6 +131,20 @@
                             addressRow;
                             context: {
                                 $implicit: {
+                                    address: tagModel?.publicData?.aptosAddress,
+                                    label: t('common.aptos_address'),
+                                    logo: 'assets/networks/aptos.svg',
+                                    value: tagModel?.displayAptosAddress,
+                                },
+                            }
+                        "
+                    ></ng-container>
+
+                    <ng-container
+                        *ngTemplateOutlet="
+                            addressRow;
+                            context: {
+                                $implicit: {
                                     address: tagModel?.publicData?.ethAddress,
                                     label: t('common.avax_address'),
                                     logo: 'assets/networks/avax.png',

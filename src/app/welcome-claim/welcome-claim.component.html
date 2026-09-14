@@ -70,6 +70,8 @@
                 </div>
             </div>
 
+            <p *ngIf="searchFailed" role="alert">{{ t("errors.generic_title") }}</p>
+
             <form [formGroup]="form" class="welcome-claim__form" (ngSubmit)="searchZelfName($event)">
                 <div
                     class="zelf-input welcome-claim__input"

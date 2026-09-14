@@ -68,31 +68,26 @@ export class WelcomeFindComponent implements OnInit, OnDestroy {
         clearTimeout(this._invalidTimeout);
     }
 
-    private _decodeQRCode(base64: string): void {
+    private async _decodeQRCode(base64: string): Promise<void> {
         const img = new Image();
-
-        img.src = base64;
-
-        img.onload = () => {
-            const canvas = document.createElement("canvas");
-            const context = canvas.getContext("2d");
-
-            if (!context) return;
-
-            canvas.width = img.width;
-            canvas.height = img.height;
-
-            context.drawImage(img, 0, 0, img.width, img.height);
-
-            const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-            const extractedQRData = jsQR(imageData.data, imageData.width, imageData.height, { inversionAttempts: "attemptBoth" });
-
-            if (extractedQRData && extractedQRData.binaryData) {
-                this._extractBinaryData(extractedQRData);
-            } else {
-                this._previewZelfIdQrBackend(base64);
-            }
-        };
+        await new Promise<void>((resolve, reject) => {
+            img.onload = () => resolve();
+            img.onerror = () => reject(new Error("Unreadable QR image"));
+            img.src = base64;
+        });
+        const canvas = document.createElement("canvas");
+        const context = canvas.getContext("2d");
+        if (!context) throw new Error("Unable to read QR image");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        context.drawImage(img, 0, 0);
+        const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+        const extracted = jsQR(imageData.data, imageData.width, imageData.height, { inversionAttempts: "attemptBoth" });
+        if (extracted?.binaryData?.length) {
+            await this._extractBinaryData(extracted);
+        } else {
+            await this._previewZelfIdQrBackend(base64);
+        }
     }
 
     private async _extractBinaryData(extractedQRData: any): Promise<any> {
@@ -123,16 +118,28 @@ export class WelcomeFindComponent implements OnInit, OnDestroy {
     }
 
     private _handleFile(file: File): void {
+        this.loading = true;
+        this.errorTitle = "";
+        this.errorMessage = "";
         const reader = new FileReader();
-
-        reader.onload = () => {
-            this.fileBase64 = reader.result as string;
-
-            if (typeof this.fileBase64 !== "string") return;
-
-            this._decodeQRCode(this.fileBase64);
+        const fail = () => {
+            this.errorTitle = this._translocoService.translate("errors.incorrect_zelf_proof_title");
+            this.errorMessage = this._translocoService.translate("errors.incorrect_zelf_proof_message");
+            this.loading = false;
         };
-
+        reader.onerror = fail;
+        reader.onabort = fail;
+        reader.onload = async () => {
+            try {
+                if (typeof reader.result !== "string") throw new Error("Invalid QR file");
+                this.fileBase64 = reader.result;
+                await this._decodeQRCode(this.fileBase64);
+            } catch {
+                fail();
+            } finally {
+                this.loading = false;
+            }
+        };
         reader.readAsDataURL(file);
     }
 
@@ -205,34 +212,26 @@ export class WelcomeFindComponent implements OnInit, OnDestroy {
     }
 
     private async _processPreviewData(previewData: any): Promise<void> {
-        const preview = previewData.preview;
-        const tagName = previewData.tagName;
-        const domain = previewData.domain;
+        const preview = previewData?.preview;
+        if (!preview?.publicData) throw new Error("Missing ZelfProof preview");
 
-        this.ethAddress = preview.publicData.ethAddress;
+        const previewModel = new TagModel({ ...preview, zelfProof: this.zelfProof });
+        const tagName = previewData.tagName || previewModel.tagName;
+        const domain = previewData.domain || previewModel.domain;
+        if (!tagName || !domain || !previewModel.displayEthAddress) throw new Error("Incomplete ZelfProof preview");
 
+        this.ethAddress = previewModel.displayEthAddress;
         this.form.patchValue({ publicAddress: this.ethAddress });
 
-        preview.publicData.zelfName = `${preview.publicData.zelfName}`.toLowerCase();
-
-        this._tagsService.setTagName(preview.publicData.zelfName);
-
-        this._tagsService.setZelfProof(this.zelfProof);
-
-        const currentZelfNameObject = await this._queryForZelfObjectByZelfName({ tagKey: "tagName", tagName, domain });
-
-        if (currentZelfNameObject?.available) {
-            const newTagNameObject = new TagModel(previewData.preview);
-
-            this._tagsService.setTagNameObject(newTagNameObject);
-        } else {
-            this._tagsService.setTagNameObject(currentZelfNameObject);
-        }
-
-        this._tagsService.setDomain(domain);
-        this._tagsService.setTagName(tagName);
-
-        await this._redirectAfterZelfProofSearch(currentZelfNameObject);
+        const currentTag = await this._queryForZelfObjectByZelfName({ tagKey: "tagName", tagName, domain });
+        // A failed lookup is not evidence that a name is available or owned by somebody else.
+        if (!currentTag) throw new Error("Tag lookup failed");
+        const tagObject = currentTag.available ? new TagModel({ ...preview, zelfProof: this.zelfProof, available: true }) : currentTag;
+        await this._tagsService.setTagNameObject(tagObject);
+        await this._tagsService.setZelfProof(this.zelfProof);
+        await this._tagsService.setDomain(domain);
+        await this._tagsService.setTagName(tagName);
+        await this._redirectAfterZelfProofSearch(tagObject, previewModel);
     }
 
     private async _queryForZelfObjectByZelfName(params: { tagKey: string; tagName: string; domain: string }): Promise<any> {
@@ -272,13 +271,14 @@ export class WelcomeFindComponent implements OnInit, OnDestroy {
     async _queryZNS(key: string, value: string, domain: string): Promise<any> {
         try {
             const response = await this._tagsService.searchTag(
-                key === "tagName" ? { tagName: value, domain, os: "DESKTOP" } : { [key]: value, domain, os: "DESKTOP" }
+                key === "tagName" ? { tagName: value, domain, os: "DESKTOP" } : { key, value, domain, os: "DESKTOP" }
             );
 
             if (!response.data) return null;
 
             if (response.data?.available) return response.data;
 
+            if (!response.data.tagObject) return null;
             const zelfNameObject = new TagModel(response.data.tagObject);
 
             this.loading = false;
@@ -301,6 +301,11 @@ export class WelcomeFindComponent implements OnInit, OnDestroy {
             return;
         }
 
+        await this._tagsService.setTagNameObject(zelfNameObject);
+        await this._tagsService.setZelfProof(zelfNameObject.zelfProof);
+        await this._tagsService.setDomain(zelfNameObject.domain);
+        await this._tagsService.setTagName(zelfNameObject.tagName);
+
         // Set tagResponse before redirecting to welcome-grace
         if (zelfNameObject && (zelfNameObject.publicData?.isInGracePeriod || zelfNameObject.publicData?.isExpired)) {
             const tagResponse: TagSearchResponse = {
@@ -321,8 +326,14 @@ export class WelcomeFindComponent implements OnInit, OnDestroy {
     }
 
     // In this flow, we know who owns a zelfproof to the name, but it may have been taken if they let the grace period expire
-    private async _redirectAfterZelfProofSearch(tagObject: TagModel | any): Promise<void> {
-        const ownedByThisUser = tagObject.ethAddress === this.ethAddress;
+    private async _redirectAfterZelfProofSearch(tagObject: TagModel | any, uploadedTag?: TagModel): Promise<void> {
+        if (!tagObject) throw new Error("Missing tag result");
+        if (tagObject.available) {
+            await this._tagsService.setFlow("recover");
+            await this._router.navigate(["/welcome/recover"]);
+            return;
+        }
+        const ownedByThisUser = new TagModel(tagObject).displayEthAddress.toLowerCase() === this.ethAddress.toLowerCase();
 
         if (ownedByThisUser && (tagObject.publicData?.isInGracePeriod || tagObject.publicData?.isExpired)) {
             // Set tagResponse before redirecting to welcome-grace
@@ -340,23 +351,14 @@ export class WelcomeFindComponent implements OnInit, OnDestroy {
             }
             this._router.navigate(["/welcome/grace"]);
         } else if (!ownedByThisUser) {
-            this._tagsService.setTagNameObject(tagObject);
-
-            this._tagsService.setDomain(tagObject.domain);
-
-            this._tagsService.setTagName(tagObject.tagName);
-
-            this._tagsService.setZelfProof(tagObject.zelfProof);
-
-            this._tagsService.setTagResponse({
-                ipfs: [],
-                arweave: [],
-                available: false,
-                tagName: tagObject.tagName,
-                tagObject: tagObject as TagModel,
-            });
-
-            this._router.navigate(["/welcome/recover"]);
+            // Recovery must use the uploaded proof, never the new owner's proof.
+            const recoveryTag = uploadedTag || tagObject;
+            await this._tagsService.setTagNameObject(recoveryTag);
+            await this._tagsService.setDomain(recoveryTag.domain);
+            await this._tagsService.setTagName(recoveryTag.tagName);
+            await this._tagsService.setZelfProof(this.zelfProof);
+            await this._tagsService.setFlow("recover");
+            await this._router.navigate(["/welcome/recover"]);
         } else {
             this._router.navigate(["/welcome/registered"]);
         }
@@ -407,8 +409,9 @@ export class WelcomeFindComponent implements OnInit, OnDestroy {
 
         if (!files?.length) return;
 
+        if (this.loading || this.searching) return;
         const file = files[0];
-
+        (event.target as HTMLInputElement).value = "";
         this._handleFile(file);
     }
     async pastedAddress(event: ClipboardEvent): Promise<void> {

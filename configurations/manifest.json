@@ -1,10 +1,10 @@
 {
-    "description": "We solved the unsolvable, now you can never lose access to your crypto",
+    "description": "Self-custody ecosystem linked to you: identity, passwords, 2FA and crypto wallet",
     "host_permissions": [
         "*://*/*"
     ],
     "manifest_version": 3,
-    "name": "Zelf Name Service",
+    "name": "Zelf",
     "orientation": "portrait",
     "permissions": [
         "activeTab",
@@ -16,7 +16,7 @@
         "offscreen",
         "notifications"
     ],
-    "version": "2.1.23",
+    "version": "2.1.24",
     "action": {
         "default_popup": "index.html",
         "default_icon": "assets/icons/icon256.png"

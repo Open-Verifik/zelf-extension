@@ -1580,6 +1580,9 @@
             },
             "form": {
                 "title": "Información del formulario",
+                "alias": {
+                    "label": "Alias"
+                },
                 "website": {
                     "label": "Sitio web *"
                 },

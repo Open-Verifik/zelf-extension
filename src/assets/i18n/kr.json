@@ -1532,8 +1532,11 @@
             },
             "form": {
                 "title": "결제 카드 정보",
+                "alias": {
+                    "label": "별칭"
+                },
                 "website": {
-                    "label": "은행명 *"
+                    "label": "웹사이트 URL *"
                 },
                 "title_field": {
                     "label": "은행명 *",

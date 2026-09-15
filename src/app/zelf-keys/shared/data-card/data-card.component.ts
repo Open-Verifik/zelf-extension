@@ -77,6 +77,9 @@ export class DataCardComponent {
     }
 
     getTitle(): string {
+        // Si la credencial tiene alias, es lo que la persona eligio para reconocerla.
+        if (this.item.publicData?.alias) return this.item.publicData.alias;
+
         if (this.item.publicData?.website) {
             try {
                 const url = new URL(this.item.publicData.website);

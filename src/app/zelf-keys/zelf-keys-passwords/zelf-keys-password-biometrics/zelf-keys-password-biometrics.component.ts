@@ -452,6 +452,7 @@ export class ZelfKeysPasswordBiometricsComponent implements OnInit, OnDestroy {
             } else {
                 // In create mode, store the new password
                 const payload = {
+                    alias: this.passwordData.alias,
                     website: this.passwordData.url,
                     username: this.passwordData.email,
                     password: this.passwordData.password,

@@ -23,6 +23,7 @@ export interface NotePublicData extends ZelfKeyPublicData {
 
 export interface PasswordPublicData extends ZelfKeyPublicData {
     type: "website_password";
+    alias?: string;
     website: string;
     username: string;
 }

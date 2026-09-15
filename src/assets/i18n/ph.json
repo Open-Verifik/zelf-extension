@@ -1532,8 +1532,11 @@
             },
             "form": {
                 "title": "Impormasyon ng Payment Card",
+                "alias": {
+                    "label": "Alias"
+                },
                 "website": {
-                    "label": "Pangalan ng Bangko *"
+                    "label": "URL ng Website *"
                 },
                 "title_field": {
                     "label": "Pangalan ng Bangko *",

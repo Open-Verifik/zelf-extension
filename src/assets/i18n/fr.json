@@ -1532,8 +1532,11 @@
             },
             "form": {
                 "title": "Ajouter un mot de passe",
+                "alias": {
+                    "label": "Alias"
+                },
                 "website": {
-                    "label": "Nom de la Banque *"
+                    "label": "URL du site *"
                 },
                 "title_field": {
                     "label": "Nom de la Banque *",

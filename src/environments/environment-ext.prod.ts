@@ -1,5 +1,5 @@
 export const environment = {
-    apiUrl: "https://v3.zelf.world",
+    apiUrl: "https://v4.zelf.world",
     appUrl: "https://zelf.world",
     baseUrl: "/",
     captchaKey: "",

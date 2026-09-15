@@ -38,23 +38,94 @@
                 <h4 class="qr-code__name">{{ wallet.fullTagName | uppercase }}</h4>
             </div>
 
-            <div class="manage-domain__details">
-                <div class="manage-domain__detail mb-2" *ngIf="wallet.publicData?.registeredAt">
-                    <p class="manage-domain__detail-title">{{ t("manage_domain.registered_since") }}</p>
-
-                    <p class="manage-domain__detail-value">{{ wallet.publicData?.registeredAt | date: "dd MMM, yyyy, hh:mm aa" }}</p>
+            <div class="manage-domain__quick-actions">
+                <div class="zelf-action-button">
+                    <div class="zelf-action-button__icon" role="button" tabindex="0" (click)="downloadQRCode()" (keydown.enter)="downloadQRCode()">
+                        <div class="zelf-action-button__icon-box">
+                            <span class="material-symbols-outlined" aria-hidden="true">download</span>
+                        </div>
+                        <div class="zelf-action-button__text">{{ t("common.download_qr") }}</div>
+                    </div>
                 </div>
 
-                <div class="manage-domain__detail" *ngIf="wallet.publicData?.type === 'hold'">
-                    <p class="manage-domain__detail-title">{{ t("manage_domain.hold_until") }}</p>
-
-                    <p class="manage-domain__detail-value">{{ wallet.publicData?.expiresAt | date: "dd MMM, yyyy" }}</p>
+                <div class="zelf-action-button" *ngIf="isCurrentWallet">
+                    <div class="zelf-action-button__icon" role="button" tabindex="0" (click)="openSeedPhraseSheet()" (keydown.enter)="openSeedPhraseSheet()">
+                        <div class="zelf-action-button__icon-box">
+                            <span class="material-symbols-outlined" aria-hidden="true">key</span>
+                        </div>
+                        <div class="zelf-action-button__text">{{ t("common.seed_phrase") }}</div>
+                    </div>
                 </div>
 
-                <div class="manage-domain__detail" *ngIf="wallet && wallet.publicData && wallet.publicData?.type === 'mainnet'">
-                    <p class="manage-domain__detail-title">{{ t("manage_domain.registered_until") }}</p>
+                <div class="zelf-action-button" *ngIf="isCurrentWallet">
+                    <div class="zelf-action-button__icon" role="button" tabindex="0" (click)="openZelfLinkSheet()" (keydown.enter)="openZelfLinkSheet()">
+                        <div class="zelf-action-button__icon-box">
+                            <span class="material-symbols-outlined" aria-hidden="true">public</span>
+                        </div>
+                        <div class="zelf-action-button__text">{{ t("common.zelf_link") }}</div>
+                    </div>
+                </div>
+            </div>
 
-                    <p class="manage-domain__detail-value">{{ wallet.publicData.expiresAt | date: "dd MMM, yyyy, hh:mm aa" }}</p>
+            <div class="manage-domain__tabs">
+                <div class="animated-tabs">
+                    <div
+                        class="animated-tabs__switch"
+                        [ngClass]="{
+                            'animated-tabs__switch--left': selectedTab === 'addresses',
+                            'animated-tabs__switch--right': selectedTab === 'info',
+                        }"
+                    >
+                        <div (click)="selectTab('addresses')" [ngClass]="{ 'animated-tab--active': selectedTab === 'addresses' }" class="animated-tab">
+                            <div class="animated-tab__text">{{ t("wallet.addresses") }}</div>
+                        </div>
+
+                        <div (click)="selectTab('info')" [ngClass]="{ 'animated-tab--active': selectedTab === 'info' }" class="animated-tab">
+                            <div class="animated-tab__text">{{ t("wallet.info") }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="manage-domain__tab-content" *ngIf="selectedTab === 'addresses'">
+                <div class="manage-domain__addresses-scroll">
+                    <div class="manage-domain__addresses">
+                        <div class="crypto-address" *ngFor="let network of networks">
+                            <div class="crypto-address__col">
+                                <p class="crypto-address__text">{{ network.name }}</p>
+                                <p class="crypto-address__address-text">{{ network.address | addressMask }}</p>
+                            </div>
+                            <button
+                                class="zelf-icon-button zelf-icon-button--40 zelf-icon-button--secondary zelf-icon-button--border-soft"
+                                type="button"
+                                (click)="copyAddress($event, network)"
+                            >
+                                <span class="material-symbols-outlined" aria-hidden="true">{{ copiedAddress === network.address ? "check" : "content_copy" }}</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="manage-domain__tab-content" *ngIf="selectedTab === 'info'">
+                <div class="manage-domain__details">
+                    <div class="manage-domain__detail mb-2" *ngIf="wallet.publicData?.registeredAt">
+                        <p class="manage-domain__detail-title">{{ t("manage_domain.registered_since") }}</p>
+
+                        <p class="manage-domain__detail-value">{{ wallet.publicData?.registeredAt | date: "dd MMM, yyyy, hh:mm aa" }}</p>
+                    </div>
+
+                    <div class="manage-domain__detail" *ngIf="wallet.publicData?.type === 'hold'">
+                        <p class="manage-domain__detail-title">{{ t("manage_domain.hold_until") }}</p>
+
+                        <p class="manage-domain__detail-value">{{ wallet.publicData?.expiresAt | date: "dd MMM, yyyy" }}</p>
+                    </div>
+
+                    <div class="manage-domain__detail" *ngIf="wallet && wallet.publicData && wallet.publicData?.type === 'mainnet'">
+                        <p class="manage-domain__detail-title">{{ t("manage_domain.registered_until") }}</p>
+
+                        <p class="manage-domain__detail-value">{{ wallet.publicData.expiresAt | date: "dd MMM, yyyy, hh:mm aa" }}</p>
+                    </div>
                 </div>
             </div>
         </ng-container>

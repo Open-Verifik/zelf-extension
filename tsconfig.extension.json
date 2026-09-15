@@ -12,7 +12,7 @@
         "module": "ES2020",
         "moduleResolution": "node",
         "resolveJsonModule": true,
-        "rootDirs": ["background-scripts", "content-scripts", "shared", "extension-scripts"],
+        "rootDirs": ["background-scripts", "content-scripts", "shared", "extension-scripts", "offscreen"],
         "skipLibCheck": true,
         "strict": true,
         "target": "ES2020",

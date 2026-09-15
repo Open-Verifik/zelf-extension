@@ -14,6 +14,9 @@ module.exports = (env, argv) => {
             background: "./background-scripts/background.ts",
             "zelf-inpage": "./content-scripts/provider/zelf-inpage.ts",
             "zelf-provider-bridge": "./content-scripts/provider/zelf-provider-bridge.ts",
+            // Documento offscreen de WalletConnect. Queda en offscreen/walletconnect-offscreen.js,
+            // que es el script que carga offscreen/walletconnect-offscreen.html.
+            "offscreen/walletconnect-offscreen": "./offscreen/walletconnect-offscreen.ts",
         },
         output: {
             path: outputPath,
@@ -38,6 +41,9 @@ module.exports = (env, argv) => {
         resolve: {
             extensions: [".ts", ".js"],
             alias: {
+                // @walletconnect/pay es un modulo ES e importa "brotli/decompress" sin extension;
+                // webpack 5 exige ruta completa en esos paquetes y no lo encuentra.
+                "brotli/decompress$": path.resolve(__dirname, "node_modules/brotli/decompress.js"),
                 "@extension-scripts": path.resolve(__dirname, "extension-scripts"),
                 "@shared": path.resolve(__dirname, "shared"),
             },

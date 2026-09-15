@@ -1532,6 +1532,9 @@
             },
             "form": {
                 "title": "密码表单",
+                "alias": {
+                    "label": "别名"
+                },
                 "website": {
                     "label": "网站 *"
                 },

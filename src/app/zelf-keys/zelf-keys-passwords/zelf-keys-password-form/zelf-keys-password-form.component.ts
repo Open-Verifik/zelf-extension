@@ -90,6 +90,7 @@ export class PasswordFormComponent implements OnInit {
         const useSampleDefaults = !environment.production;
 
         this.passwordForm = this._formBuilder.group({
+            alias: [""],
             email: [useSampleDefaults ? "a@a.com" : "", [Validators.required]],
             folder: [""],
             masterPassword: [""],
@@ -280,6 +281,7 @@ export class PasswordFormComponent implements OnInit {
         const formValue = this.passwordForm.value;
 
         this.transformedPasswordData = {
+            alias: formValue.alias?.trim() || undefined,
             email: formValue.email,
             folder: formValue.folder,
             insideFolder: formValue.insideFolder,

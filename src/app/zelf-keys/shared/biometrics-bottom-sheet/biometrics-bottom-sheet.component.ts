@@ -110,6 +110,7 @@ export class BiometricsBottomSheetComponent implements OnInit {
                 break;
             case "password":
                 const passwordPayload = {
+                    alias: this.itemData.alias,
                     faceBase64: faceBase64,
                     folder: this.itemData.folder,
                     insideFolder: this.itemData.insideFolder,

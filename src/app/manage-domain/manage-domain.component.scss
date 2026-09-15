@@ -1,5 +1,6 @@
 @use "../../styles/variables";
 @use "../../styles/buttons";
+@use "../../styles/animations";
 
 :host {
     align-items: center;
@@ -175,5 +176,89 @@
     &__status {
         color: variables.$themeTextSecondary;
         margin: calc(8px * var(--zns-space-scale, 1)) 0 0;
+    }
+}
+
+// Paridad con iOS y Android (#509): mismos estilos que la pantalla de la wallet.
+.manage-domain {
+    &__quick-actions {
+        display: flex;
+        width: 100%;
+        margin-top: calc(12px * var(--zns-space-scale, 1));
+        padding-top: calc(4px * var(--zns-space-scale, 1));
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: calc(16px * var(--zns-space-scale, 1));
+    }
+
+    &__tabs {
+        margin-top: calc(16px * var(--zns-space-scale, 1));
+        margin-bottom: calc(8px * var(--zns-space-scale, 1));
+        width: 100%;
+        padding: 0 calc(4px * var(--zns-space-scale, 1));
+    }
+
+    &__tab-content {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__addresses-scroll {
+        width: 100%;
+        height: calc(280px * var(--zns-space-scale, 1));
+        overflow-y: auto;
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    &__addresses {
+        display: flex;
+        flex-direction: column;
+        gap: calc(12px * var(--zns-space-scale, 1));
+        width: 100%;
+        margin-top: calc(16px * var(--zns-space-scale, 1));
+    }
+}
+
+.crypto-address {
+    display: flex;
+    flex-direction: row;
+    gap: calc(16px * var(--zns-space-scale, 1));
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: variables.$themeCard;
+    border: 1px solid variables.$themeCardBorder;
+    border-radius: 16px;
+    padding: calc(16px * var(--zns-space-scale, 1)) calc(8px * var(--zns-space-scale, 1));
+    box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.04);
+
+    &__col {
+        display: flex;
+        flex-direction: column;
+        gap: calc(2px * var(--zns-space-scale, 1));
+        justify-content: center;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    &__text {
+        font-size: calc(14px * var(--zns-font-scale, 1));
+        font-weight: 600;
+        font-family: variables.$themeBodyFamily;
+        color: variables.$themeText;
+        margin: 0;
+    }
+
+    &__address-text {
+        font-size: calc(11px * var(--zns-font-scale, 1));
+        font-weight: 500;
+        font-family: monospace;
+        color: variables.$themeText;
+        word-break: break-all;
+        margin: 0;
     }
 }

@@ -1539,6 +1539,9 @@
             },
             "form": {
                 "title": "Adicionar Senha",
+                "alias": {
+                    "label": "Apelido"
+                },
                 "website": {
                     "label": "URL do Site *"
                 },

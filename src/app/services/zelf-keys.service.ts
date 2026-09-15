@@ -7,6 +7,7 @@ import { AuthService } from "./auth.service";
  * Interface for storing a password via ZelfKeys API
  */
 export interface StorePasswordRequest {
+    alias?: string; // Nombre opcional para reconocer la credencial (#507)
     website: string; // Website name (e.g., "Stripe")
     username: string; // Account name (e.g., "miguel@verifik.co")
     password: string; // Password

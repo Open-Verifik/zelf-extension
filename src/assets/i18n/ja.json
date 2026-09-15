@@ -1532,8 +1532,11 @@
             },
             "form": {
                 "title": "支払いカード情報",
+                "alias": {
+                    "label": "エイリアス"
+                },
                 "website": {
-                    "label": "銀行名 *"
+                    "label": "ウェブサイトURL *"
                 },
                 "title_field": {
                     "label": "銀行名 *",

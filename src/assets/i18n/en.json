@@ -1585,6 +1585,9 @@
             },
             "form": {
                 "title": "Add Password",
+                "alias": {
+                    "label": "Alias"
+                },
                 "website": {
                     "label": "Website URL *"
                 },

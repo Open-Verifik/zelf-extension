@@ -1,18 +1,22 @@
 import { CommonModule, NgIf } from "@angular/common";
 import { Component, OnDestroy, OnInit } from "@angular/core";
+import { MatBottomSheet } from "@angular/material/bottom-sheet";
 import { MatButtonModule } from "@angular/material/button";
 import { ActivatedRoute, Router, RouterLink, RouterModule } from "@angular/router";
 import { TranslocoModule } from "@jsverse/transloco";
 import { Subject, takeUntil } from "rxjs";
 
+import { MyArNSComponent } from "app/my-arns/my-arns.component";
+import { AddressMaskPipe } from "app/pipes/address-mask.pipe";
 import { TagModel, TagsService } from "app/tags.service";
-import { WalletService } from "app/wallet.service";
+import { WalletSeedPhraseSheetComponent } from "app/wallet/wallet-seed-phrase-sheet/wallet-seed-phrase-sheet.component";
+import { Network, WalletService } from "app/wallet.service";
 import { ZelfLoaderComponent } from "app/zelf-loader/zelf-loader.component";
 import { environment } from "environments/environment";
 
 @Component({
     selector: "manage-domain",
-    imports: [CommonModule, NgIf, MatButtonModule, TranslocoModule, RouterLink, RouterModule, ZelfLoaderComponent],
+    imports: [CommonModule, NgIf, MatButtonModule, TranslocoModule, RouterLink, RouterModule, ZelfLoaderComponent, AddressMaskPipe],
     templateUrl: "./manage-domain.component.html",
     styleUrls: ["./manage-domain.component.scss"],
 })
@@ -24,11 +28,18 @@ export class ManageDomainComponent implements OnInit, OnDestroy {
     wallet: Partial<TagModel> = {};
     wallets: TagModel[] = [];
 
+    // Paridad con iOS y Android (#509): acciones, direcciones e informacion del Zelf ID.
+    networks: Network[] = [];
+    selectedTab: "addresses" | "info" = "addresses";
+    isCurrentWallet: boolean = false;
+    copiedAddress: string = "";
+
     constructor(
         private _activatedRoute: ActivatedRoute,
         private _router: Router,
         private _tagsService: TagsService,
         private _walletService: WalletService,
+        private _bottomSheet: MatBottomSheet,
     ) {
         this._selectedZelfName = this._activatedRoute.snapshot.queryParams.zelfName;
 
@@ -40,6 +51,8 @@ export class ManageDomainComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this._setWallets().then(() => {
             this.loading = false;
+
+            void this._loadWalletExtras();
 
             this._updateWallet();
         });
@@ -76,6 +89,71 @@ export class ManageDomainComponent implements OnInit, OnDestroy {
         this.wallet = updatedWallet;
 
         this._walletService.updateWallet(this.wallet as TagModel);
+
+        void this._loadWalletExtras();
+    }
+
+    private async _loadWalletExtras(): Promise<void> {
+        // Las direcciones salen del Zelf ID que se esta viendo, no de la wallet activa.
+        this.networks = await this._walletService.getAvailableWalletNetworks(this.wallet);
+
+        const current = await this._walletService.getCurrentWallet();
+
+        // La frase semilla y el Zelf Link resuelven la wallet activa por dentro. Solo se
+        // ofrecen cuando el Zelf ID que se esta viendo es justamente esa, para no mostrar
+        // datos de otra cuenta.
+        this.isCurrentWallet = !!current && !!this.wallet?.tagName && this._walletService.walletIdentityEquals(current, this.wallet);
+    }
+
+    selectTab(tab: "addresses" | "info"): void {
+        this.selectedTab = tab;
+    }
+
+    downloadQRCode(): void {
+        if (!this.wallet?.image) return;
+
+        const link = document.createElement("a");
+
+        link.href = this.wallet.image as string;
+
+        link.download = `zelfproof_${this.wallet?.fullTagName}.png`;
+
+        link.click();
+    }
+
+    openSeedPhraseSheet(): void {
+        if (!this.isCurrentWallet) return;
+
+        this._bottomSheet.open(WalletSeedPhraseSheetComponent, {
+            backdropClass: "zelf-backdrop",
+            panelClass: "zelf-bottom-sheet",
+            data: { wallet: this.wallet },
+        });
+    }
+
+    openZelfLinkSheet(): void {
+        if (!this.isCurrentWallet) return;
+
+        this._bottomSheet.open(MyArNSComponent, {
+            backdropClass: "zelf-backdrop",
+            panelClass: "zelf-bottom-sheet",
+            data: { wallet: this.wallet },
+        });
+    }
+
+    async copyAddress(event: Event, network: Network): Promise<void> {
+        event.preventDefault();
+        event.stopPropagation();
+
+        if (!network?.address) return;
+
+        await navigator.clipboard.writeText(network.address);
+
+        this.copiedAddress = network.address;
+
+        setTimeout(() => {
+            if (this.copiedAddress === network.address) this.copiedAddress = "";
+        }, 1500);
     }
 
     async extendRegistration(): Promise<void> {

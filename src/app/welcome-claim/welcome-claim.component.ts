@@ -46,6 +46,7 @@ export class WelcomeClaimComponent implements OnInit, OnDestroy, AfterContentIni
     domainHover: boolean = false;
     form!: UntypedFormGroup;
     loading: boolean = false;
+    searchFailed: boolean = false;
 
     // Availability state
     availabilityChecked: boolean = false;
@@ -110,7 +111,7 @@ export class WelcomeClaimComponent implements OnInit, OnDestroy, AfterContentIni
     }
 
     private async _loadDomains(): Promise<void> {
-        this.domain = await this._chromeService.getItem<string>("domain");
+        this.domain = (await this._chromeService.getItem<string>("domain")) || "zelf";
 
         try {
             await this._domainService.getDomains();
@@ -120,6 +121,7 @@ export class WelcomeClaimComponent implements OnInit, OnDestroy, AfterContentIni
         this.availableDomains = await this._domainService.loadDomainsFromStorage();
 
         this.form.patchValue({ domain: this.domain }, { emitEvent: false });
+        this._updateTagNameValidators(this.domain);
     }
 
     private _initForm(): void {
@@ -207,12 +209,13 @@ export class WelcomeClaimComponent implements OnInit, OnDestroy, AfterContentIni
         return this.currentDomainConfig?.tags?.minLength || 1;
     }
 
-    private async _existingTagName(responseData: any): Promise<void> {
+    private async _existingTagName(responseData: any): Promise<boolean> {
         const tagModel = this._tagsService.createTagModelFromSearchResponse(responseData);
 
-        if (!tagModel) {
+        if (!tagModel?.zelfProof) {
             this.loading = false;
-            return;
+            this.searchFailed = true;
+            return false;
         }
 
         const tagName = tagModel.publicData.tagName || tagModel.name;
@@ -230,6 +233,7 @@ export class WelcomeClaimComponent implements OnInit, OnDestroy, AfterContentIni
         this.isAvailable = false;
 
         this.loading = false;
+        return true;
     }
 
     async searchZelfName(event: any): Promise<any> {
@@ -244,6 +248,7 @@ export class WelcomeClaimComponent implements OnInit, OnDestroy, AfterContentIni
         event.preventDefault();
 
         this.loading = true;
+        this.searchFailed = false;
 
         const domain: string = this.form.value.domain || "zelf";
         const tagName = `${this.form.value.tagName}`.toLowerCase();
@@ -260,15 +265,16 @@ export class WelcomeClaimComponent implements OnInit, OnDestroy, AfterContentIni
             }
         }
 
-        this._tagsService
-            .searchTag({ tagName, domain: domain, captchaToken: captchaToken })
+        return this._tagsService
+            .searchTag({ tagName, domain, captchaToken, os: "DESKTOP" })
             .then(async (response) => {
-                const isTaken = !response?.data.available;
+                if (!response?.data) throw new Error("Missing tag search result");
+                const isTaken = !response.data.available;
 
                 if (this.isEnterMode) {
                     if (isTaken) {
                         // Enter Mode & Found -> set tag data and go straight to registered/login flow
-                        await this._existingTagName(response?.data);
+                        if (!(await this._existingTagName(response.data))) return;
                         this.loading = false;
                         await this.goToRegistered();
                         return;
@@ -360,8 +366,7 @@ export class WelcomeClaimComponent implements OnInit, OnDestroy, AfterContentIni
                 }, 800);
             })
             .catch((exception) => {
-                console.error({ exception });
-
+                this.searchFailed = true;
                 this.loading = false;
             });
     }

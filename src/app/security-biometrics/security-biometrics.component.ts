@@ -142,7 +142,7 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
     async _createTag(payload: any): Promise<void> {
         const mnemonicCount = (await this._tagsService.getMnemonicCount()) || 12;
 
-        this._tagsService
+        return this._tagsService
             .leaseTag({
                 ...payload,
                 type: "create",
@@ -167,7 +167,7 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
         const zelfProof = await this._tagsService.getZelfProof();
         const userFingerprint = this._walletService.getUserFingerprint();
 
-        this._tagsService
+        return this._tagsService
             .decryptTag({
                 ...payload,
                 zelfProof,
@@ -186,7 +186,7 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
     }
 
     private async _importTag(payload: any): Promise<void> {
-        this._tagsService
+        return this._tagsService
             .leaseTag({
                 ...payload,
                 mnemonic: await this._httpWrapperService.encryptMessage(this._vaultService.mnemonic),
@@ -210,7 +210,7 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
     }
 
     private async _tagLeaseRecovery(payload: any): Promise<void> {
-        this._tagsService
+        return this._tagsService
             .leaseRecovery({
                 ...payload,
                 zelfProof: this.zelfProof,
@@ -291,31 +291,37 @@ export class SecurityBiometricsComponent implements OnInit, OnDestroy {
         this.apiLoading = true;
         this.apiSuccess = false;
 
-        const referralTagName = await this._tagsService.getReferral();
+        try {
+            const referralTagName = await this._tagsService.getReferral();
 
-        const domain = await this._tagsService.getDomain();
+            const domain = await this._tagsService.getDomain();
 
-        const tagName =
-            this.flow === "create" || this.flow === "import" ? await this._tagsService.getNewTagName() : await this._tagsService.getTagName();
+            const tagName =
+                this.flow === "create" || this.flow === "import" ? await this._tagsService.getNewTagName() : await this._tagsService.getTagName();
 
-        const payload: any = {
-            faceBase64: encryptedImage,
-            os: "DESKTOP",
-            password: await this._httpWrapperService.encryptMessage(this._vaultService.password),
-            securityType: this._vaultService.securityType,
-            referralTagName,
-            domain,
-            tagName,
-        };
+            const payload: any = {
+                faceBase64: encryptedImage,
+                os: "DESKTOP",
+                ...(this._vaultService.securityType === "withoutPassword"
+                    ? {}
+                    : { password: await this._httpWrapperService.encryptMessage(this._vaultService.password) }),
+                securityType: this._vaultService.securityType,
+                referralTagName,
+                domain,
+                tagName,
+            };
 
-        if (this.flow === "create") {
-            this._createTag(payload);
-        } else if (this.flow === "import") {
-            this._importTag(payload);
-        } else if (this.flow === "recover") {
-            this._tagLeaseRecovery(payload);
-        } else {
-            this._decryptTag(payload);
+            if (this.flow === "create") {
+                await this._createTag(payload);
+            } else if (this.flow === "import") {
+                await this._importTag(payload);
+            } else if (this.flow === "recover") {
+                await this._tagLeaseRecovery(payload);
+            } else {
+                await this._decryptTag(payload);
+            }
+        } catch (error) {
+            this.onBiometricsFailed(error);
         }
     };
 

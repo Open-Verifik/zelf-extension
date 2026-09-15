@@ -27,8 +27,13 @@
                         "polyfills": "src/polyfills.test.ts",
                         "tsConfig": "tsconfig.spec.json",
                         "karmaConfig": "karma.conf.js",
-                        "assets": ["src/favicon.ico", "src/assets"],
-                        "styles": ["src/styles.css"],
+                        "assets": [
+                            "src/favicon.ico",
+                            "src/assets"
+                        ],
+                        "styles": [
+                            "src/styles.css"
+                        ],
                         "scripts": []
                     }
                 },
@@ -67,6 +72,11 @@
                                 "input": "configurations",
                                 "output": "/",
                                 "glob": "*.*"
+                            },
+                            {
+                                "input": "offscreen",
+                                "output": "/offscreen",
+                                "glob": "*.html"
                             }
                         ],
                         "allowedCommonJsDependencies": [
@@ -139,6 +149,11 @@
                                     "input": "node_modules/webextension-polyfill/dist/",
                                     "output": "/",
                                     "glob": "*.min.*"
+                                },
+                                {
+                                    "input": "offscreen",
+                                    "output": "/offscreen",
+                                    "glob": "*.html"
                                 }
                             ],
                             "budgets": [
@@ -190,6 +205,11 @@
                                     "input": "node_modules/webextension-polyfill/dist/",
                                     "output": "/",
                                     "glob": "*.min.*"
+                                },
+                                {
+                                    "input": "offscreen",
+                                    "output": "/offscreen",
+                                    "glob": "*.html"
                                 }
                             ]
                         }

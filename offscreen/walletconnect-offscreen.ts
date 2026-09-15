@@ -11,7 +11,11 @@ import { Core } from "@walletconnect/core";
 import { WalletKit, IWalletKit } from "@reown/walletkit";
 import { buildApprovedNamespaces, getSdkError } from "@walletconnect/utils";
 
-const WC_PROJECT_ID = "YOUR_WALLETCONNECT_PROJECT_ID"; // Replace with actual project ID from cloud.walletconnect.com
+import { environment } from "@extension-scripts/environments/environment";
+
+// Antes era un texto de relleno ("YOUR_WALLETCONNECT_PROJECT_ID") y WalletConnect no podia
+// conectar. Se toma el id publico del proyecto desde el environment de los scripts.
+const WC_PROJECT_ID = environment.walletConnectProjectId;
 
 const SUPPORTED_CHAINS = ["eip155:1", "eip155:43114", "eip155:137", "eip155:56", "eip155:1404"];
 const SUPPORTED_METHODS = [
@@ -128,8 +132,10 @@ async function restoreSessions(): Promise<void> {
     // WalletKit SDK handles session restoration internally via its storage
     // Just ensure the relayer is connected
     try {
-        if (walletKit?.core?.relayer) {
-            await walletKit.core.relayer.connect();
+        // IRelayer no tiene connect(): el metodo vigente es transportOpen().
+        const relayer = walletKit?.core?.relayer;
+        if (relayer && !relayer.connected) {
+            await relayer.transportOpen();
         }
     } catch (error) {
         console.error("Failed to restore WC sessions:", error);

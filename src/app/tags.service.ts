@@ -1,3 +1,4 @@
+import { requireCompleteTagSearch } from "./utils/tag-search-result";
 import { Injectable } from "@angular/core";
 
 import {
@@ -185,6 +186,8 @@ export interface TagStorageData {
 }
 
 export interface TagSearchResponse {
+    searchIncomplete?: boolean;
+    error?: string;
     ipfs: TagStorageData[];
     arweave: TagStorageData[];
     available: boolean;
@@ -294,7 +297,9 @@ export class TagsService {
         if (request.os) query.os = request.os;
         if (request.captchaToken) query.captchaToken = request.captchaToken;
 
-        return this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/tags/search`, query);
+        const response = await this._httpWrapper.sendRequest("get", `${this.baseUrl}/api/tags/search`, query);
+        requireCompleteTagSearch(response?.data);
+        return response;
     }
 
     async searchTagPost(request: TagSearchRequest): Promise<{ data: TagSearchResponse }> {
@@ -309,7 +314,9 @@ export class TagsService {
             ...(domain !== undefined ? { domain } : {}),
         };
 
-        return this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/tags/search`, body);
+        const response = await this._httpWrapper.sendRequest("post", `${this.baseUrl}/api/tags/search`, body);
+        requireCompleteTagSearch(response?.data);
+        return response;
     }
 
     searchTagsByDomain(domain: string, storage: StorageSystem): Promise<any> {

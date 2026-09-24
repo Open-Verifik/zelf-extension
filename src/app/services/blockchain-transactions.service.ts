@@ -22,6 +22,7 @@ import { BitcoinService } from "./bitcoin.service";
 import { BlockDAGService } from "./blockdag.service";
 import { BscService } from "./bsc.service";
 import { NetworkName } from "./network.service";
+import { BaseService } from "./base.service";
 import { PolygonService } from "./polygon.service";
 import { StellarService } from "./stellar.service";
 import { SuiService } from "./sui.service";
@@ -41,6 +42,7 @@ export class BlockchainTransactionsService {
         private _bscService: BscService,
         private _ethereumService: EthereumService,
         private _polygonService: PolygonService,
+        private _baseService: BaseService,
         private _solanaService: SolanaService,
         private _stellarService: StellarService,
         private _suiService: SuiService,
@@ -81,6 +83,7 @@ export class BlockchainTransactionsService {
         if (responses.bitcoin?.data?.transactions) transactions.push(...responses.bitcoin.data.transactions);
         if (responses.blockdag?.data?.transactions) transactions.push(...responses.blockdag.data.transactions);
         if (responses.polygon?.data?.transactions) transactions.push(...responses.polygon.data.transactions);
+        if (responses.base?.data?.transactions) transactions.push(...responses.base.data.transactions);
         if (responses.solana?.data?.transactions) transactions.push(...responses.solana.data.transactions);
         if (responses.stellar?.data?.transactions) {
             const stellarPrice = parseFloat(responses.stellar.data.account?.price || "0") || 0;
@@ -135,6 +138,15 @@ export class BlockchainTransactionsService {
                     );
                 case "polygon":
                     return await this._polygonService.calculateTransactionFees(
+                        receiverAddress,
+                        amount,
+                        tokenType,
+                        tokenAddress,
+                        tokenDecimals,
+                        params.senderAddress
+                    );
+                case "base":
+                    return await this._baseService.calculateTransactionFees(
                         receiverAddress,
                         amount,
                         tokenType,
@@ -207,6 +219,7 @@ export class BlockchainTransactionsService {
         if (network === "blockdag") return `https://bdagscan.com/tx/${hash}`;
         if (network === "ethereum") return `http://etherscan.io/tx/${hash}`;
         if (network === "polygon") return `https://polygonscan.com/tx/${hash}`;
+        if (network === "base") return `https://basescan.org/tx/${hash}`;
         if (network === "solana") return `https://solscan.io/tx/${hash}`;
         if (network === "stellar") return `https://stellar.expert/explorer/public/tx/${hash}`;
         if (network === "sui") return `https://suiscan.xyz/tx/${hash}`;
@@ -254,6 +267,10 @@ export class BlockchainTransactionsService {
                 isEnabled("polygon") && wallet.publicData?.ethAddress
                     ? from(this._polygonService.getWalletDetails(wallet.publicData?.ethAddress)).pipe(catchError(() => of(null)))
                     : of(null),
+            base:
+                isEnabled("base") && wallet.publicData?.ethAddress
+                    ? from(this._baseService.getWalletDetails(wallet.publicData?.ethAddress)).pipe(catchError(() => of(null)))
+                    : of(null),
             solana:
                 isEnabled("solana") && wallet.publicData?.solanaAddress
                     ? from(this._solanaService.getWalletDetails(wallet.publicData?.solanaAddress)).pipe(catchError(() => of(null)))
@@ -288,6 +305,7 @@ export class BlockchainTransactionsService {
                     bitcoinTestnet: responses.bitcoinTestnet,
                     blockdag: responses.blockdag,
                     polygon: responses.polygon,
+                    base: responses.base,
                     solana: responses.solana,
                     stellar: responses.stellar,
                     sui: responses.sui,
@@ -422,6 +440,10 @@ export class BlockchainTransactionsService {
                 isEnabled("polygon") && wallet.publicData?.ethAddress
                     ? from(this._polygonService.requestTransactionHistory(wallet.publicData?.ethAddress, pagination)).pipe(catchError(() => of(null)))
                     : of(null),
+            base:
+                isEnabled("base") && wallet.publicData?.ethAddress
+                    ? from(this._baseService.requestTransactionHistory(wallet.publicData?.ethAddress, pagination)).pipe(catchError(() => of(null)))
+                    : of(null),
             solana:
                 isEnabled("solana") && wallet.publicData?.solanaAddress
                     ? from(this._solanaService.requestTransactionHistory(wallet.publicData?.solanaAddress, pagination)).pipe(
@@ -482,6 +504,7 @@ export class BlockchainTransactionsService {
             case "avalanche":
             case "binance":
             case "polygon":
+            case "base":
             case "solana":
                 return new TransactionDetailModel(response.data).toTransaction();
             case "stellar":
@@ -503,7 +526,7 @@ export class BlockchainTransactionsService {
      * @param polygonSource — optional rotation hint forwarded to the Polygon backend
      * (`"rpc" | "bogota"`) so each backend call stays a single fast attempt.
      */
-    async requestTransactionDetails(hash: string, network: string, polygonSource?: "rpc" | "bogota"): Promise<any> {
+    async requestTransactionDetails(hash: string, network: string, polygonSource?: "rpc" | "bogota", address?: string): Promise<any> {
         const networkLower = network.toLowerCase();
 
         try {
@@ -540,6 +563,10 @@ export class BlockchainTransactionsService {
                 case "polygon":
                     promise = this._polygonService.requestTransactionDetails(hash, polygonSource);
                     break;
+                case "base":
+                    if (!address) throw new Error("Address required for Base transaction details");
+                    promise = this._baseService.requestTransactionDetails(address, hash);
+                    break;
                 default:
                     throw new Error(`Unsupported network: ${network}`);
             }
@@ -575,6 +602,8 @@ export class BlockchainTransactionsService {
                     return await this._ethereumService.sendTransaction(params);
                 case "polygon":
                     return await this._polygonService.sendTransaction(params);
+                case "base":
+                    return await this._baseService.sendTransaction(params);
                 case "binance":
                     return await this._bscService.sendTransaction(params);
                 case "polkadot":

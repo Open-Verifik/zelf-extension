@@ -60,7 +60,7 @@ export class RpcProviderService {
             case "optimism":
                 return "https://mainnet.optimism.io";
             case "base":
-                return "https://mainnet.base.org";
+                return environment.baseRpc.mainnet;
             case "blockdag":
                 return "https://rpc.bdagscan.com";
             case "solana":

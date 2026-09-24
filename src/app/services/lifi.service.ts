@@ -78,6 +78,7 @@ export class LifiService {
             "1": "ethereum",
             "56": "binance",
             "137": "polygon",
+            "8453": "base",
             "43114": "avalanche",
             "42161": "arbitrum",
         };

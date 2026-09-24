@@ -42,7 +42,7 @@ const CHAIN_ID_TO_NETWORK: Record<number, string> = {
     1: "ethereum",
     10: "ethereum",
     42161: "ethereum",
-    8453: "ethereum",
+    8453: "base",
     43114: "avalanche",
     137: "polygon",
     56: "binance",
@@ -53,6 +53,7 @@ const NETWORK_TO_CHAIN_ID: Record<string, number> = {
     ethereum: 1,
     avalanche: 43114,
     polygon: 137,
+    base: 8453,
     binance: 56,
     blockdag: 1404,
 };

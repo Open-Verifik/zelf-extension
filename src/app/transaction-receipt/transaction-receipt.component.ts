@@ -216,7 +216,13 @@ export class TransactionReceiptComponent extends CopyToClipboardBase implements 
 
         try {
             const polygonSource = this.network === "polygon" ? this._nextPolygonSource() : undefined;
-            const response = await this._blockchainTransactionsService.requestTransactionDetails(this.hash, this.network, polygonSource);
+            const ownerAddress = this.wallet?.publicData?.ethAddress;
+            const response = await this._blockchainTransactionsService.requestTransactionDetails(
+                this.hash,
+                this.network,
+                polygonSource,
+                ownerAddress
+            );
 
             if (!response || response.data == null) return this._retryRequestTransactionDetails();
 

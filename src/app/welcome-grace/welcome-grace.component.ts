@@ -1,3 +1,4 @@
+import { parseTagExpiry } from "@shared/utils/tag-expiry";
 import { DatePipe, NgIf, NgTemplateOutlet } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
@@ -93,7 +94,7 @@ export class WelcomeGraceComponent extends CopyToClipboardBase implements OnInit
 
             const isOwnedByUser = tagNameObject.zelfProof === this.tagNameObject.zelfProof;
 
-            if (!isOwnedByUser && tagNameObject.publicData?.expiresAt && new Date(tagNameObject.publicData.expiresAt) < new Date()) {
+            if (!isOwnedByUser && tagNameObject.publicData?.expiresAt && parseTagExpiry(tagNameObject.publicData.expiresAt) < new Date()) {
                 this._router.navigate(["/welcome/recover"]);
 
                 return;

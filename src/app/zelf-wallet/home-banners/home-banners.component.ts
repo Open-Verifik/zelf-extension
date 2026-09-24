@@ -1,3 +1,4 @@
+import { parseTagExpiry } from "@shared/utils/tag-expiry";
 import { CommonModule, DecimalPipe } from "@angular/common";
 import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
 import { RouterModule } from "@angular/router";
@@ -60,7 +61,7 @@ export class HomeBannersComponent implements OnChanges {
     get daysRemaining(): number {
         if (!this.wallet?.publicData?.expiresAt) return 0;
 
-        const expiresAt = new Date(this.wallet.publicData.expiresAt);
+        const expiresAt = parseTagExpiry(this.wallet.publicData.expiresAt);
         const now = new Date();
         const diffTime = expiresAt.getTime() - now.getTime();
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));

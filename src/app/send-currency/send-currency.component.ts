@@ -129,6 +129,7 @@ export class SendCurrencyComponent implements OnInit, OnDestroy {
         if (token.network === "Sui" && this.CAN_SEND.SUI) return true;
         if (token.network === "Binance" && this.CAN_SEND.BNB) return true;
         if (token.network === "Polygon" && this.CAN_SEND.POL) return true;
+        if (token.network === "Arbitrum" && this.CAN_SEND.ARB && ["ERC-20", "ETH"].includes(token.tokenType) && token.price) return true;
         if (token.network === "Bitcoin" && this.CAN_SEND.BTC) return true;
         if (token.network === "Stellar" && this.CAN_SEND.XLM && token.tokenType === "XLM" && token.price) return true;
         if (token.network === "Polkadot" && this.CAN_SEND.DOT && token.tokenType === "DOT" && token.price) return true;

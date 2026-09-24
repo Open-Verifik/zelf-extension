@@ -26,6 +26,9 @@ export const environment = {
     polygonRpc: {
         mainnet: "https://responsive-wandering-choice.matic.quiknode.pro/d4a8a38223c463bd108ee7e6c38e68b0ac736e27/",
     },
+    arbitrumRpc: {
+        mainnet: "https://arb1.arbitrum.io/rpc",
+    },
     avalancheRpc: {
         mainnet: "https://wild-bitter-meadow.avalanche-mainnet.quiknode.pro/e2565749ca44c2873fe2a0a747f5ac68ae7eb14f/ext/bc/C/rpc/",
     },

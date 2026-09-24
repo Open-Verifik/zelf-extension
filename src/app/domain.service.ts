@@ -67,6 +67,7 @@ export class DomainService {
                             avalanche: { enabled: true },
                             binance: { enabled: true },
                             polygon: { enabled: true },
+                            arbitrum: { enabled: true },
                             sui: { enabled: true },
                         },
                     },

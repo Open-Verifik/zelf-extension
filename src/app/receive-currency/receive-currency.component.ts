@@ -85,8 +85,28 @@ export class ReceiveCurrencyComponent extends CopyToClipboardBase implements OnI
     }
 
     private _isNetworkEnabled(network: Network, enabledNetworkIds: string[]): boolean {
-        const networkId = this._mapSymbolToNetworkId(network.symbol);
+        const networkId = this._mapNetworkToId(network);
         return enabledNetworkIds.includes(networkId);
+    }
+
+    private _mapNetworkToId(network: Network): string {
+        const name = (network.name || "").toLowerCase();
+
+        if (name === "arbitrum") return "arbitrum";
+        if (name === "ethereum") return "ethereum";
+        if (name === "polygon") return "polygon";
+        if (name === "avalanche") return "avalanche";
+        if (name === "binance") return "binance";
+        if (name === "blockdag") return "blockdag";
+        if (name === "bitcoin") return "bitcoin";
+        if (name === "solana") return "solana";
+        if (name === "sui") return "sui";
+        if (name === "ton") return "ton";
+        if (name === "stellar") return "stellar";
+        if (name === "polkadot") return "polkadot";
+        if (name === "kusama") return "kusama";
+
+        return this._mapSymbolToNetworkId(network.symbol);
     }
 
     private _withSubstratePlaceholdersIfNeeded(
@@ -159,6 +179,8 @@ export class ReceiveCurrencyComponent extends CopyToClipboardBase implements OnI
             case "MATIC":
             case "POL":
                 return "polygon";
+            case "ARB":
+                return "arbitrum";
             case "SOL":
                 return "solana";
             case "SUI":

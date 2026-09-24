@@ -276,6 +276,8 @@ export class LifiService {
                 return "ETH";
             case "polygon":
                 return "POL";
+            case "arbitrum":
+                return "ETH";
             case "binance":
                 return "BNB";
             case "avalanche":
@@ -295,6 +297,7 @@ export class LifiService {
             1: "ETH",
             56: "BNB",
             137: "POL",
+            42161: "ETH",
             43114: "AVA",
         };
 

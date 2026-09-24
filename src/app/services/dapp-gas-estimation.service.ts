@@ -53,7 +53,7 @@ export class DappGasEstimationService {
             case "ethereum":
                 return environment.ethereumRpc.mainnet;
             case "arbitrum":
-                return "https://arb1.arbitrum.io/rpc";
+                return environment.arbitrumRpc.mainnet;
             case "optimism":
                 return "https://mainnet.optimism.io";
             case "base":

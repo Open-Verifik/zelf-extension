@@ -23,6 +23,7 @@ import { BlockDAGService } from "./blockdag.service";
 import { BscService } from "./bsc.service";
 import { NetworkName } from "./network.service";
 import { PolygonService } from "./polygon.service";
+import { ArbitrumService } from "./arbitrum.service";
 import { StellarService } from "./stellar.service";
 import { SuiService } from "./sui.service";
 import { TonService } from "./ton.service";
@@ -41,6 +42,7 @@ export class BlockchainTransactionsService {
         private _bscService: BscService,
         private _ethereumService: EthereumService,
         private _polygonService: PolygonService,
+        private _arbitrumService: ArbitrumService,
         private _solanaService: SolanaService,
         private _stellarService: StellarService,
         private _suiService: SuiService,
@@ -81,6 +83,7 @@ export class BlockchainTransactionsService {
         if (responses.bitcoin?.data?.transactions) transactions.push(...responses.bitcoin.data.transactions);
         if (responses.blockdag?.data?.transactions) transactions.push(...responses.blockdag.data.transactions);
         if (responses.polygon?.data?.transactions) transactions.push(...responses.polygon.data.transactions);
+        if (responses.arbitrum?.data?.transactions) transactions.push(...responses.arbitrum.data.transactions);
         if (responses.solana?.data?.transactions) transactions.push(...responses.solana.data.transactions);
         if (responses.stellar?.data?.transactions) {
             const stellarPrice = parseFloat(responses.stellar.data.account?.price || "0") || 0;
@@ -135,6 +138,15 @@ export class BlockchainTransactionsService {
                     );
                 case "polygon":
                     return await this._polygonService.calculateTransactionFees(
+                        receiverAddress,
+                        amount,
+                        tokenType,
+                        tokenAddress,
+                        tokenDecimals,
+                        params.senderAddress
+                    );
+                case "arbitrum":
+                    return await this._arbitrumService.calculateTransactionFees(
                         receiverAddress,
                         amount,
                         tokenType,
@@ -207,6 +219,7 @@ export class BlockchainTransactionsService {
         if (network === "blockdag") return `https://bdagscan.com/tx/${hash}`;
         if (network === "ethereum") return `http://etherscan.io/tx/${hash}`;
         if (network === "polygon") return `https://polygonscan.com/tx/${hash}`;
+        if (network === "arbitrum") return `https://arbiscan.io/tx/${hash}`;
         if (network === "solana") return `https://solscan.io/tx/${hash}`;
         if (network === "stellar") return `https://stellar.expert/explorer/public/tx/${hash}`;
         if (network === "sui") return `https://suiscan.xyz/tx/${hash}`;
@@ -254,6 +267,10 @@ export class BlockchainTransactionsService {
                 isEnabled("polygon") && wallet.publicData?.ethAddress
                     ? from(this._polygonService.getWalletDetails(wallet.publicData?.ethAddress)).pipe(catchError(() => of(null)))
                     : of(null),
+            arbitrum:
+                isEnabled("arbitrum") && wallet.publicData?.ethAddress
+                    ? from(this._arbitrumService.getWalletDetails(wallet.publicData?.ethAddress)).pipe(catchError(() => of(null)))
+                    : of(null),
             solana:
                 isEnabled("solana") && wallet.publicData?.solanaAddress
                     ? from(this._solanaService.getWalletDetails(wallet.publicData?.solanaAddress)).pipe(catchError(() => of(null)))
@@ -288,6 +305,7 @@ export class BlockchainTransactionsService {
                     bitcoinTestnet: responses.bitcoinTestnet,
                     blockdag: responses.blockdag,
                     polygon: responses.polygon,
+                    arbitrum: responses.arbitrum,
                     solana: responses.solana,
                     stellar: responses.stellar,
                     sui: responses.sui,
@@ -316,6 +334,8 @@ export class BlockchainTransactionsService {
                 observable = forkJoin({ binance: from(this._bscService.getWalletDetails(wallet.publicData?.ethAddress)) });
             } else if (token === "POL") {
                 observable = forkJoin({ polygon: from(this._polygonService.getWalletDetails(wallet.publicData?.ethAddress)) });
+            } else if (token === "ARB") {
+                observable = forkJoin({ arbitrum: from(this._arbitrumService.getWalletDetails(wallet.publicData?.ethAddress)) });
             }
         }
 
@@ -366,6 +386,7 @@ export class BlockchainTransactionsService {
                           bitcoinTestnet: responses.bitcoinTestnet,
                           blockdag: responses.blockdag,
                           polygon: responses.polygon,
+                          arbitrum: responses.arbitrum,
                           solana: responses.solana,
                           stellar: responses.stellar,
                           sui: responses.sui,
@@ -421,6 +442,10 @@ export class BlockchainTransactionsService {
             polygon:
                 isEnabled("polygon") && wallet.publicData?.ethAddress
                     ? from(this._polygonService.requestTransactionHistory(wallet.publicData?.ethAddress, pagination)).pipe(catchError(() => of(null)))
+                    : of(null),
+            arbitrum:
+                isEnabled("arbitrum") && wallet.publicData?.ethAddress
+                    ? from(this._arbitrumService.requestTransactionHistory(wallet.publicData?.ethAddress, pagination)).pipe(catchError(() => of(null)))
                     : of(null),
             solana:
                 isEnabled("solana") && wallet.publicData?.solanaAddress
@@ -482,6 +507,7 @@ export class BlockchainTransactionsService {
             case "avalanche":
             case "binance":
             case "polygon":
+            case "arbitrum":
             case "solana":
                 return new TransactionDetailModel(response.data).toTransaction();
             case "stellar":
@@ -503,7 +529,7 @@ export class BlockchainTransactionsService {
      * @param polygonSource — optional rotation hint forwarded to the Polygon backend
      * (`"rpc" | "bogota"`) so each backend call stays a single fast attempt.
      */
-    async requestTransactionDetails(hash: string, network: string, polygonSource?: "rpc" | "bogota"): Promise<any> {
+    async requestTransactionDetails(hash: string, network: string, polygonSource?: "rpc" | "bogota", address?: string): Promise<any> {
         const networkLower = network.toLowerCase();
 
         try {
@@ -540,6 +566,10 @@ export class BlockchainTransactionsService {
                 case "polygon":
                     promise = this._polygonService.requestTransactionDetails(hash, polygonSource);
                     break;
+                case "arbitrum":
+                    if (!address) throw new Error("Address required for Arbitrum transaction details");
+                    promise = this._arbitrumService.requestTransactionDetails(address, hash);
+                    break;
                 default:
                     throw new Error(`Unsupported network: ${network}`);
             }
@@ -575,6 +605,8 @@ export class BlockchainTransactionsService {
                     return await this._ethereumService.sendTransaction(params);
                 case "polygon":
                     return await this._polygonService.sendTransaction(params);
+                case "arbitrum":
+                    return await this._arbitrumService.sendTransaction(params);
                 case "binance":
                     return await this._bscService.sendTransaction(params);
                 case "polkadot":

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 111 111" role="img" aria-label="Arbitrum">
+  <circle cx="55.5" cy="55.5" r="55.5" fill="#213147"/>
+  <path fill="#12AAFF" d="M55.5 18 22 93h18.5l5.5-14h27l5.5 14H89L55.5 18zm-2.5 48 10-26 10 26H53z"/>
+  <path fill="#9DCCED" d="M55.5 18 22 93h18.5l5.5-14h27l5.5 14H89L55.5 18z" opacity="0.45"/>
+</svg>

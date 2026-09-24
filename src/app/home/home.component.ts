@@ -1,3 +1,4 @@
+import { parseTagExpiry } from "@shared/utils/tag-expiry";
 import { NgFor, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from "@angular/common";
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { FlexLayoutModule } from "@angular/flex-layout";
@@ -320,7 +321,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     get subscriptionDaysRemaining(): number {
         const exp = this.shareables.wallet?.publicData?.expiresAt;
         if (!exp) return 0;
-        const expiresAt = new Date(exp);
+        const expiresAt = parseTagExpiry(exp);
         const diffTime = expiresAt.getTime() - Date.now();
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
         return Math.max(0, diffDays);
@@ -343,7 +344,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     get subscriptionIsExpired(): boolean {
         const exp = this.shareables.wallet?.publicData?.expiresAt;
         if (!exp) return false;
-        return new Date(exp).getTime() <= Date.now();
+        return parseTagExpiry(exp).getTime() <= Date.now();
     }
 
     private _syncSubscriptionDhms(): void {
@@ -352,7 +353,7 @@ export class HomeComponent implements OnInit, OnDestroy {
             this.subscriptionDhms = null;
             return;
         }
-        const endMs = new Date(exp).getTime();
+        const endMs = parseTagExpiry(exp).getTime();
         const diff = endMs - Date.now();
         if (diff <= 0) {
             this.subscriptionDhms = null;
